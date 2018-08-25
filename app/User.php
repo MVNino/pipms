@@ -26,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Relationship of User to Copyright table
+    public function copyrights(){
+        return $this->hasMany('App\Copyright', 'int_user_id', 'int_id');
+    }
+
+    public function applicants()
+    {
+        return $this->hasManyThrough(
+            'App\Applicant',
+            'App\Copyright',
+            'int_user_id',
+            'int_applicant_id',
+            'int_id',
+            'int_id'
+        );
+    }
 }
