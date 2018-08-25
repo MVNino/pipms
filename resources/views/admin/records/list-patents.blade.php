@@ -25,7 +25,6 @@
           <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
-                <th scope="col">Patent ID</th>
                 <th scope="col">Patent Project Title</th>
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
@@ -38,8 +37,7 @@
             <tbody>
               @forelse($patents as $patent)
               <tr>
-              <td scope="row">{{ $patent->int_id }}</td>
-              <td scope="row">{{ $patent->str_patent_project_title }}</td>
+              <th scope="row">{{ $patent->str_patent_project_title }}</th>
               <td scope="row">{{ $patent->char_patent_project_type }}</td>
               <td scope="row">{{ $patent->char_patent_status }}</td>
               <td scope="row">{{ $patent->created_at }}</td>

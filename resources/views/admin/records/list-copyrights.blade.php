@@ -25,7 +25,6 @@
           <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
-                <th scope="col">Copyright ID</th>
                 <th scope="col">Project Title</th>
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
@@ -38,8 +37,7 @@
             <tbody>
               @forelse($copyrights as $copyright)
               <tr>
-              <td scope="row">{{ $copyright->int_id }}</td>
-              <td scope="row">{{ $copyright->str_project_title }}</td>
+              <th scope="row">{{ $copyright->str_project_title }}</th>
               <td scope="row">{{ $copyright->char_project_type }}</td>
               <td scope="row">{{ $copyright->char_copyright_status }}</td>
               <td scope="row">{{ $copyright->created_at }}</td>
