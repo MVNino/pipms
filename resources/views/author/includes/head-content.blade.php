@@ -23,5 +23,22 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vali/css/main.css') }}">
     <!-- Main Modified CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+    <style>
+        .app-sidebar {
+            background-color: #f8f8f8;   
+        }
+        .app-sidebar__user {
+            color: #333;
+        }
+        .app-menu__item {
+            color: #333;
+        }
+        .treeview-menu {
+            background: darken(#f8f8f8, 4);
+        }
+        .treeview-item {
+            color: #333;
+        }
+    </style>
 
     
