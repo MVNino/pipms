@@ -23,18 +23,20 @@
         {!! Form::open(['action' => 'Maintenance\ProjectTypeController@addProjectType', 'method' => 'POST']) !!}
           <div class="form-group">
             {{ Form::text('txtProjectType', '', ['class' => 'form-control', 'placeholder' => 'Enter type of project']) }}
-          </div>  
-          <div class="col-md-4 col-sm-4">
-            <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
-            <div class="animated-radio-button form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="radioProjectType" value="C" required><span class="label-text">Copyright</span>
-              </label>
-            </div>
-            <div class="animated-radio-button form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="radioProjectType" value="P" required><span class="label-text">Patent</span>
-              </label>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+              <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
+              <div class="animated-radio-button form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="C" required><span class="label-text">Copyright</span>
+                </label>
+              </div>
+              <div class="animated-radio-button form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="P" required><span class="label-text">Patent</span>
+                </label>
+              </div>
             </div>
           </div><br>
           <div class="modal-footer">

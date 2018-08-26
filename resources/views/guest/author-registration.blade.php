@@ -22,7 +22,7 @@
       </div>
 <div class="container">
 	<div class="row justify-content-center">
-		{!! Form::open() !!}
+{!! Form::open(['action' => 'Transaction\AuthorRegistrationController@requestAuthorAccount', 'method' => 'POST']) !!}
 @csrf
 <div class="row">
     <div class="col-md-12">
@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-4">
 		    		<label><strong>Type of Applicant</strong></label>
-					<select class="custom-select" name="slctApplicantType">
+					<select class="custom-select" name="slctApplicantType" required>
 					  <option>Select type</option>
 					  <option value="Student">Student</option>
 					  <option value="Graduate student">Graduate student</option>
@@ -56,7 +56,7 @@
 				</div>
 				<div class="form-group col-md-4 col-sm-4">
 		            <label><strong>Birthdate</strong></label><br>
-					<input class="form-control" type="date" placeholder="Select Date" name="birthdate">
+					<input class="form-control" type="date" placeholder="Select Date" name="birthdate" required>
 		        </div>
 			</div>
 			<br>
@@ -64,12 +64,12 @@
 			<div class="row">
 			    <div class="col">
 					<div class="form-group">
-						<input type="text" name="txtLastName" class="form-control" placeholder="Enter last name" />
+						<input type="text" name="txtLastName" class="form-control" placeholder="Enter last name" required/>
 					</div>
 			    </div>
 			    <div class="col">
 					<div class="form-group">
-						<input type="text" name="txtFirstName" class="form-control" placeholder="Enter first name"/>
+						<input type="text" name="txtFirstName" class="form-control" placeholder="Enter first name" required/>
 					</div>
 			    </div>
 			    <div class="col">
@@ -78,60 +78,45 @@
 					</div>
 			    </div>
 			</div>
-
-			<div class="form-group">
-				<div class="row">
-					<div class="col">
-						<label><strong>Branch</strong></label>
-						<select class="custom-select" name="slctBranch" id="branch">
-						  <option>Select branch</option>
-						  @forelse($branches as $branch)
-						  <option value="{{$branch->int_id}}">{{$branch->str_branch_name}}</option>
-						  @empty
-						  <option>None</option>
-						  @endforelse
-						</select>
-					</div>
-					<div class="col">
-						<label><strong>College</strong></label>
-						<select class="custom-select" name="slctCollege" id="college">
-						  <option>Select college</option>
-						  @forelse($colleges as $college)
-						  <option value="{{ $college->int_id }}">{{ $college->char_college_code }} - {{ $college->str_college_name }}</option>
-						  @empty
-						  @endforelse
-						</select>
-					</div>
-					<div class="col">
-						<label><strong>Department</strong></label>
-						<select class="custom-select" name="slctDepartment" id="department">
-						  <option>Select department</option>
-						  @forelse($departments as $department)
-						  <option value="{{ $department->int_id }}">{{ $department->char_department_code }} - {{ $department->str_department_name }}</option>
-						  @empty
-						  @endforelse
-						</select>
-					</div>
-				</div>
-			</div>
-
 			<div class="form-group">
 				<label><strong>E-Mail Address</strong></label>
-				<input type="text" name="txtEmail" id="container-form-control" class="form-control" placeholder="Enter email address" />
+				<input type="email" name="txtEmail" id="container-form-control" class="form-control" placeholder="Enter email address" required />
 				<small id="emailHelp" class="form-text text-muted">It'll be best if it is a gmail address.</small>
 			</div>
+			<div class="row">
+			    <div class="col-md-12">
+		    		<h4>Applicant's Receipt</h4>
+					<small id="contactHelp" class="form-text text-muted">Receipt from your copyright request fee. These fields are <span class="text-info">required.</span></small>
+		    		<div class="row">
+			        	<div class="col-md-4">
+			        		<div class="form-group">
+				        	{{ Form::label('lblReceiptCode', 'Receipt Code', ['style' => 'font-weight: bold;']) }}
+				    		{{ Form::text('txtReceiptCode', '', ['class' => 'form-control', 'placeholder' => 'Enter receipt code', 'required']) }}
+							<small id="contactHelp" class="form-text text-muted">Example: ###</small>
+			        		</div>
+			        	</div>
+			        	<div class="col-md-8">
+					        <div class="form-group">
+					        	{{ Form::label('lblReceiptCode', 'Receipt', ['class' => 'control-label', 'style' => 'font-weight: bold;']) }}
+					        	{{ Form::file('fileReceiptImg', ['class' => 'form-control', 'required']) }}
+								<small id="contactHelp" class="form-text text-muted">Upload a photo of your transaction receipt.</small>	
+					        </div>
+			        	</div>
+		    		</div>
+			    </div>
+			</div>
 
-	<div class="row">
-		<div class="col-md-4 col-sm-4">
-			<span></span>
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<span></span>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<span></span>
+			</div>
 		</div>
-		<div class="col-md-4 col-sm-4">
-			<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
-		</div>
-		<div class="col-md-4 col-sm-4">
-			<span></span>
-		</div>
-	</div>
 	{!! Form::close() !!} 
 	</div>
   </div> 

@@ -18,12 +18,12 @@
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1>Pipms</h1>
+        <h1>Login</h1>
       </div>
       <div class="login-box">
         <form class="login-form" method="POST" action="{{ route('login') }}">
           @csrf
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>LOGIN</h3>
+          <h3 class="login-head">ADMINISTRATOR</h3>
           <div class="form-group">
             <label class="control-label">EMAIL</label>
              <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
