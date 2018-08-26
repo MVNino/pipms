@@ -5,10 +5,13 @@
 /* GUEST */
 
 body {
-  padding-top: 3rem;
   padding-bottom: 0;
   color: #5a5a5a;
   overflow-x: hidden;
+}
+
+body#body-guest {
+  padding-top: 3rem;
 }
 
 /* CUSTOMIZE THE CAROUSEL

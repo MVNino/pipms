@@ -64,7 +64,7 @@ class GuestController extends Controller
         $branches = Branch::all();
         $colleges = College::all();
         $departments = Department::all();   
-        return view('guest.registration-author', ['branches' => $branches, 
+        return view('guest.author-registration', ['branches' => $branches, 
             'colleges' => $colleges, 'departments' => $departments]); 
     }
 

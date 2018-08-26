@@ -16,8 +16,6 @@ Route::get('admin-login', 'GuestController@loginAdmin');
 
 Auth::routes();
 Route::get('/dashboard',	'DashboardController@index')->name('dashboard');
-Route::get('/registration/author', 'GuestController@registerAuthor');
-
 
 # ADMINISTRATOR and AUTHOR
 
@@ -111,6 +109,12 @@ Route::group(
 );
 
 # AUTHOR
+Route::namespace('Transaction')->group(function(){
+	Route::post('/registration/author', 'AuthorRegistrationController@requestAuthorAccount');
+});
+Route::get('/registration/author', 'GuestController@registerAuthor');
+Route::get('/author/dashboard', 'AuthorController@viewDashboard');
+
 
 // Resources routes
 // Route::resources([
