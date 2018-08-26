@@ -40,9 +40,32 @@ class GuestController extends Controller
         // if($userNum == 0){
         //     return redirect('/admin/registration');
         // } else{
-        //     return view('guest.about');   
+         return view('guest.about-us');   
         // }
-        return view('guest.about');  
     }
- 
+
+    public function viewApplicationGuide()
+    {
+        // $userNum = User::count();
+        // if($userNum == 0){
+        //     return redirect('/admin/registration');
+        // } else{
+            return view('guest.application-guide');  
+        // }
+    } 
+
+    public function loginAdmin()
+    {
+        return view('guest.login-admin');
+    }
+
+    public function registerAuthor()
+    {
+        $branches = Branch::all();
+        $colleges = College::all();
+        $departments = Department::all();   
+        return view('guest.registration-author', ['branches' => $branches, 
+            'colleges' => $colleges, 'departments' => $departments]); 
+    }
+
 }
