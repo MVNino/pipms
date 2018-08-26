@@ -9,9 +9,18 @@
 # GUEST
 Route::get('/', 			'GuestController@index');
 Route::get('/about-us', 	'GuestController@about');
+Route::get('/application/guide', 'GuestController@viewApplicationGuide');
+
+
+Route::get('admin-login', 'GuestController@loginAdmin');
 
 Auth::routes();
 Route::get('/dashboard',	'DashboardController@index')->name('dashboard');
+Route::get('/registration/author', 'GuestController@registerAuthor');
+
+
+# ADMINISTRATOR and AUTHOR
+
 
 # ADMINISTRATOR
 Route::group(
@@ -93,14 +102,15 @@ Route::group(
 				});
 			}
 		);
+		// Query routes
+		// Route::get('/query', 'QueryController@index');
+
+		// // Report routes
+		// Route::get('/report', 'ReportController@index');
 	}
 );
 
-// Query routes
-// Route::get('/query', 'QueryController@index');
-
-// // Report routes
-// Route::get('/report', 'ReportController@index');
+# AUTHOR
 
 // Resources routes
 // Route::resources([

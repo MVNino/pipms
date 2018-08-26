@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     @include('admin.includes.head-content')
+  <style>
+    body {
+      padding-bottom: 0;
+    }
+  </style>
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
