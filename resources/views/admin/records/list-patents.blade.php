@@ -38,11 +38,11 @@
               @forelse($patents as $patent)
               <tr>
               <th scope="row">{{ $patent->str_patent_project_title }}</th>
-              <td scope="row">{{ $patent->char_patent_project_type }}</td>
+              <td scope="row">{{ $patent->projectType->char_project_type }}</td>
               <td scope="row">{{ $patent->char_patent_status }}</td>
               <td scope="row">{{ $patent->created_at }}</td>
-              <td scope="row">{{ $patent->str_first_name }} {{ $patent->str_middle_name }} {{ $patent->str_last_name }} - {{ $patent->char_applicant_type }}</td>
-              <td scope="row">{{ $patent->char_college_code }} - {{ $patent->char_department_code }} - {{ $patent->str_branch_name }}</td>
+              <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
+              <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
               <td scope="row" class="text-center"><a href="/admin/records/patent/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
               </tr>
               @empty  

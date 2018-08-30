@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col">
             
-              {{Form::label('lblProjectType', 'Classified as', ['style' => 'font-weight: bold'])}}
+              {{Form::label('lblYear', 'Year Level', ['style' => 'font-weight: bold'])}}
             <select data-placeholder="Select project type" class="custom-select" name="slctYearLevelId">
               <option selected>Select its year level</option>
               <option value="1st">First Year</option>
@@ -41,7 +41,7 @@
             </select>
           </div>
           <div class="col">
-            {{Form::label('lblProjectType', 'Classified as', ['style' => 'font-weight: bold'])}}
+            {{Form::label('lblSemester', 'Semester', ['style' => 'font-weight: bold'])}}
             <select data-placeholder="Select project type" class="custom-select" name="slctSemesterId">
               <option selected>Select which semester it is taken</option>
               <option value="1st">First Semester</option>

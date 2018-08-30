@@ -73,10 +73,9 @@
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ $projectType->char_project_type }}</h5>
+          <h5 class="card-title">Type: {{ $projectType->char_project_type }}</h5>
         </div>
         <div class="card-body">
-          <p class="card-text"><strong>Type:</strong> {{ $projectType->char_project_type }}</p>
           @if($projectType->char_classification == 'C')
           <p class="card-text"><strong>IPR Classification:</strong> Copyright</p>
           @else

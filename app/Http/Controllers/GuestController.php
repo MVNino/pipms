@@ -22,13 +22,18 @@ class GuestController extends Controller
     // Index page
     public function index()
     {	
-        // $userNum = User::count();
+        $userNum = User::count();
         if(!auth()->guest()) {
-            return redirect('/admin/dashboard');
+            $isAdmin = auth()->user()->isAdmin;
+            if ($isAdmin === 0) {
+                return redirect('/author/'.auth()->user()->id.'/dashboard');
+            } else {
+                return redirect('/admin/dashboard');   
+            }
         }
-        // if($userNum == 0){
-        //     return redirect('/admin/registration');
-        // }
+        if($userNum == 0){
+            return redirect('/register');
+        }
     	$title = 'PUP-Intellectual Property Management System';
     	return view('guest.index')->with('title', $title);
     }
@@ -59,13 +64,8 @@ class GuestController extends Controller
         return view('guest.login-admin');
     }
 
-    public function registerAuthor()
+    public function loginAuthor()
     {
-        $branches = Branch::all();
-        $colleges = College::all();
-        $departments = Department::all();   
-        return view('guest.author-registration', ['branches' => $branches, 
-            'colleges' => $colleges, 'departments' => $departments]); 
+        return view('guest.login-author');
     }
-
 }

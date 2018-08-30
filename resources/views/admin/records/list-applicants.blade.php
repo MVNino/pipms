@@ -33,10 +33,10 @@
             <tbody>
               @forelse($applicants as $applicant)
               <tr>
-                <th>{{ $applicant->str_first_name }} {{ $applicant->str_middle_name }} {{ $applicant->str_last_name }}</th>
-                <td>{{ $applicant->char_college_code }} - {{ $applicant->char_department_code }} - {{ $applicant->str_branch_name }}</td>
+                <th>{{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }}</th>
+                <td>{{ $applicant->department->college->char_college_code }} - {{ $applicant->department->char_department_code }} - {{ $applicant->department->college->branch->str_branch_name }}</td>
                 <td>{{ $applicant->char_applicant_type }}</td>
-                <td class="text-center"><a href="/admin/records/applicant/{{ $applicant->int_copyright_id }}" role="button" class="btn btn-info"><i class="fa fa-eye"></i>View</a></td>
+                <td class="text-center"><a href="/admin/records/applicant/{{ $applicant->int_id }}" role="button" class="btn btn-info"><i class="fa fa-eye"></i>View</a></td>
               </tr>
               @empty  
                 <div class="alert alert-warning">

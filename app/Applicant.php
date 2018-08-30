@@ -16,12 +16,22 @@ class Applicant extends Model
     // Timestamps
 	public $timestamps = false;
 
+	public function user()
+	{
+		return $this->belongsTo('App\User', 'int_user_id', 'id');
+	}
+
 	public function department()
 	{
 		return $this->belongsTo('App\Department', 'int_department_id', 'int_id');
 	}
 
 	// Relationship of 'applicants' to 'copyrights'
+	// public function copyrights()
+	// {
+	// 	return $this->hasMany('App\Copyright', 'int_applicant_id', 'int_id');
+	// }
+
 	public function copyright()
 	{
 		return $this->hasOne('App\Copyright', 'int_applicant_id', 'int_id');
@@ -32,13 +42,18 @@ class Applicant extends Model
 		return $this->hasOne('App\Receipt', 'int_applicant_id', 'int_id');
 	}
 
+	public function receipts()
+	{
+		return $this->hasMany('App\Receipt', 'int_applicant_id', 'int_id');
+	}
+
 	public function coAuthors()
 	{
 		return $this->hasMany('App\CoAuthor', 'int_applicant_id', 'int_id');
 	}
 
 	// Relationship with intermediate model
-	public function patent()
+	public function patents()
 	{
 		return $this->hasManyThrough(
 			'App\Patent',
@@ -48,5 +63,10 @@ class Applicant extends Model
 			'int_id',
 			'int_id'
 		);
+	}
+
+	public function authorAccountRequest()
+	{
+		return $this->hasOne('App\AuthorAccountRequest', 'int_applicant_id', 'int_id');
 	}
 }

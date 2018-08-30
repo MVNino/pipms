@@ -28,7 +28,7 @@
           <h5 class="card-title text-muted">Work Title: {{ $patent->str_patent_project_title }}</h5>
 
           <p class="text-muted"><strong>Project Type: </strong>{{ $patent->copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: </strong>{{ $patent->project->str_project_name }}</p>
           <p class="text-muted"><strong>Status: </strong>{{ $patent->char_patent_status }}</p>
           <p class="text-muted">Executive Summary: {!! $patent->mdmTxt_patent_description !!}</p>
           
@@ -67,8 +67,8 @@
       </div>
       <div class="card-body">
         <div class="bs-component">
-          <p class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->str_last_name }}, {{ $patent->copyright->applicant->str_first_name }} {{ $patent->copyright->applicant->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
-          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->str_email_address }}</p>
+          <p class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->user->str_last_name }}, {{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
+          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->user->email }}</p>
           <p class="text-muted">Cellphone Number: {{ $patent->copyright->applicant->bigInt_cellphone_number }}</p>
           <p class="text-muted">Telephone Number: {{ $patent->copyright->applicant->mdmInt_telephone_number }}</p>
           <p class="text-muted">Department: <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->str_department_name }} ({{ $patent->copyright->applicant->department->char_department_code }})</a></p>

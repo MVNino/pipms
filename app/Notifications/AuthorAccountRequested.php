@@ -10,15 +10,17 @@ use Illuminate\Notifications\Messages\MailMessage;
 class AuthorAccountRequested extends Notification
 {
     use Queueable;
-
+    public $firstName;
+    public $lastName;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($firstName, $lastName)
     {
-        //
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -52,7 +54,7 @@ class AuthorAccountRequested extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'An applicant requested for an author account.'
+            'data' => $this->firstName.' '.$this->lastName.' requested for an author account'
         ];
     }
 }

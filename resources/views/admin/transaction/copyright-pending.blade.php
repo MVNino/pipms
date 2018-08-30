@@ -9,7 +9,7 @@
 <li class="breadcrumb-item"><a href="/admin/transaction/copyrights/pend-request">Copyright Pending Requests</a></li>
 @endsection
 @section('content')
-<div class ="card">
+<div class ="card" style="padding: 5px;">
     <table class="table table-hover">
       <thead>
         <th>Project/Work Title</th>
@@ -21,7 +21,7 @@
       @forelse($copyrights as $copyright)
       <tr>
         <td><b>{{ $copyright->str_project_title }}</b></td>
-        <td class="mail-subject"><b>{{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_last_name }}</b> - <b>{{ $copyright->applicant->char_applicant_type }}</b> {{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+        <td class="mail-subject"><b>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_last_name }}</b> - <b>{{ $copyright->applicant->char_applicant_type }}</b> {{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
         <td>{{ $copyright->created_at }}</td>
         <td class="text-center"><a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
       </tr>

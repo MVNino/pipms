@@ -14,7 +14,7 @@ class Copyright extends Model
 	public $timestamps = true;
 
 	public function user(){
-		return $this->belongsTo('App\User', 'int_user_id', 'int_id');
+		return $this->belongsTo('App\User', 'int_user_id', 'id');
 	}
 
 	public function patent(){

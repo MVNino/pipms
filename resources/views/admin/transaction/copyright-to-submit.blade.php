@@ -15,7 +15,7 @@
   <div class="tile">
     <div class="tile-title-w-btn">
       <h3 class="title">{{ $copyright->str_project_title }}</h3>
-      <div class="btn-group"><a class="btn btn-primary" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}"><i class="fa fa-lg fa-eye"></i> Details</a>
+      <div class="btn-group"><a class="btn btn-primary" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}"><i class="fa fa-lg fa-eye"></i> View more</a>
       </div>
     </div>
     <div class="tile-body">

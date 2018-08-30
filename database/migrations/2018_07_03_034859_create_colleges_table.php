@@ -24,6 +24,8 @@ class CreateCollegesTable extends Migration
                 ->default('default_college_profile_image.png');
             $table->string('str_college_banner_image')
                 ->default('default_college_banner_image.png');
+            $table->string('str_college_contact_link')
+                ->nullable();
             $table->timestamps();
 
             // Assign foreign key for 'branches' table

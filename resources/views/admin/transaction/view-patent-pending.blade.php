@@ -27,7 +27,7 @@
         <div class="card-body">
           <h5 class="card-title text-muted">Work Title: {{ $patent->str_patent_project_title }}</h5>
           <p class="text-muted"><strong>Project Type: </strong>{{ $patent->copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: {{ $patent->project->str_project_name }}</strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $patent->char_patent_status }}</p>
           <p class="text-muted">Executive Summary: {!! $patent->mdmTxt_patent_description !!}</p>
           <p class="text-muted"><strong>Copyright: </strong><a href="/admin/transaction/copyright/{{ $patent->copyright->int_id }}">{{ $patent->copyright->str_project_title }}</a></p>
@@ -39,17 +39,13 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
               <strong>Date added:</strong> {{ $patent->created_at }}
             </div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-3">
-              <div class="btn-group"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#exampleModalLong">
-                <i class="fa fa-lg fa-envelope-o" data-toggle="modal" data-target="#exampleModalLong"></i></a>
+            <div class="col-md-4">
+              <div class="btn-group">
                 @if($patent->char_patent_status != 'patented')
-                <a class="btn btn-primary" href="#">
-                  <i class="fa fa-lg fa-thumbs-up" data-toggle="modal" data-target="#approveModalLong"></i></a>
+                <button class="btn btn-primary"><i class="fa fa-lg fa-calendar" data-toggle="modal" data-target="#approveModalLong"></i> Set appointment</button>
                 @endif
               </div>
             </div>
@@ -66,8 +62,8 @@
       </div>
       <div class="card-body">
         <div class="bs-component">
-          <p class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->str_last_name }}, {{ $patent->copyright->applicant->str_first_name }} {{ $patent->copyright->applicant->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
-          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->str_email_address }}</p>
+          <p class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->user->str_last_name }}, {{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
+          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->user->email }}</p>
           <p class="text-muted">Cellphone Number: {{ $patent->copyright->applicant->bigInt_cellphone_number }}</p>
           <p class="text-muted">Telephone Number: {{ $patent->copyright->applicant->mdmInt_telephone_number }}</p>
           <p class="text-muted">Department: <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->str_department_name }} ({{ $patent->copyright->applicant->department->char_department_code }})</a></p>
@@ -75,9 +71,11 @@
           <p class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></p>
          <br>
           <label class="text-muted">Work Co-Authors: </label>
-          <p class="text-muted">Co-Author 1</p>
-          <p class="text-muted">Co-Author 2</p>
-          <p class="text-muted">Co-Author 3</p>
+          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
+            <p class="text-muted">{{ $coAuthor->str_first_name }} {{ $coAuthor->str_last_name }}</p>
+          @empty
+            <p class="text-muted">There is no co-author.</p>
+          @endforelse
         </div>
       </div>      
       <div class="card-footer text-muted">
@@ -132,16 +130,26 @@
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => ['TransactionController@setScheduleForPatent', $patent->int_id], 'method' => 'POST']) !!}
-
-        <div class="col-md-4 col-sm-4">
-          <label><strong>Set schedule</strong></label><br>
+        <div class="row">
+          
+        <div class="col-md-8 col-sm-8">
+          <label><strong>Set schedule</strong></label><br>  
           <input type="date" name="dateSchedule">
           <input type="time" name="timeSchedule">
-            </div>
+        </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="col-sm-8">
+            @if($patent->copyright->dtm_schedule != NULL)
+            <label><strong>Schedule for actual submission of copyright requirements: {{ $patent->copyright->dtm_schedule }}</strong></label><br>
+            @endif
+          </div>
+        </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
           {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Approve</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Set different schedule</button>
+          <a role="button" class="btn btn-info" href="/author/same-sched/{{$patent->int_id}}"><i class="fa fa-fw fa-lg fa-copyright"></i> Clone copyright appointment</a>
         </div>
           @csrf
         {!! Form::close() !!}

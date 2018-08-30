@@ -84,7 +84,7 @@ class CollegeController extends Controller
                     $collegeBannerImgNameToStore);
             $college->str_college_banner_image = $collegeBannerImgNameToStore;
         }
-
+        $college->str_college_contact_link = $request->txtCollegeContactLink;
         if ($college->save()) {
             return redirect('/admin/maintenance/colleges')
                 ->with('success', 'College added!');   
@@ -131,6 +131,7 @@ class CollegeController extends Controller
                 ->storeAs('public/images/college/banner', $collegeBannerImgNameToStore);
             $college->str_college_banner_image = $collegeBannerImgNameToStore;
         }
+        $college->str_college_contact_link = $request->txtCollegeContactLink;
         if ($college->save()) {
             return redirect('/admin/maintenance/college/'.$id)->with('success', 
                     'College record updated!');

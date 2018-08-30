@@ -10,16 +10,56 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                         @csrf
+                        <div class="form-group row">
+                            <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
+                            <div class="col-md-6">
+                                <input id="firstname" type="text" class="form-control{{ $errors->has('str_first_name') ? ' is-invalid' : '' }}" name="firstname" value="{{ old('str_first_name') }}" required autofocus>
+
+                                @if ($errors->has('str_first_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('str_first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="middlename" class="col-md-4 col-form-label text-md-right">Middlename</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="middlename" type="text" class="form-control{{ $errors->has('str_middle_name') ? ' is-invalid' : '' }}" name="middlename" value="{{ old('str_middle_name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('str_middle_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('str_middle_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lastname" class="col-md-4 col-form-label text-md-right">Lastname</label>
+
+                            <div class="col-md-6">
+                                <input id="lastname" type="text" class="form-control{{ $errors->has('str_last_name') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('str_last_name') }}" required autofocus>
+
+                                @if ($errors->has('str_last_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('str_last_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control{{ $errors->has('str_user_name') ? ' is-invalid' : '' }}" name="username" value="{{ old('str_user_name') }}" required autofocus>
+
+                                @if ($errors->has('str_user_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('str_user_name') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -24,7 +24,7 @@
     <!-- Main Modified CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <style>
-        .app-sidebar {
+       /* .app-sidebar {
             background-color: #f8f8f8;   
         }
         .app-sidebar__user {
@@ -32,13 +32,46 @@
         }
         .app-menu__item {
             color: #333;
+            &.active,
+            &:hover,
+            &:focus {
+                color: maroon;
+            }
+        }
+        .treeview {
+            &.is-expanded {
+                [data-toggle='treeview'] {
+                    border-left-color: maroon;
+                    background: darken(#f8f8f8, 10);
+                }
+            }
         }
         .treeview-menu {
             background: darken(#f8f8f8, 4);
         }
         .treeview-item {
             color: #333;
+            &.active,
+            &:hover,
+            &:focus{
+                background: darken(#f8f8f8, 10);
+                color: maroon;
+            }
         }
-    </style>
+*/
+        /*mini*/
+/*        .app-menu__label {
+            background: darken(#f8f8f8, 10);
+        }
+        .treeview {
+            &:hover {
+                .app-menu__item {
+                    background: darken(#f8f8f8, 10);
+                    border-left-color: maroon;
+                    color: maroon;
+                }
+            }
+        }
+*/    </style>
 
     

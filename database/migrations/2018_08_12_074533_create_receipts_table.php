@@ -17,6 +17,9 @@ class CreateReceiptsTable extends Migration
             $table->increments('int_id');
             $table->unsignedInteger('int_applicant_id')
                 ->comment('foreign key for applicants');// FK for 'applicants'
+            $table->unsignedInteger('int_copyright_id')
+                ->comment('foreign key for copyrights')
+                ->nullable();
             $table->char('char_receipt_code', 16);
             $table->string('str_receipt_image');
             $table->timestamps();
@@ -26,6 +29,13 @@ class CreateReceiptsTable extends Migration
                     ->references('int_id')
                     ->on('applicants')
                     ->onUpdate('cascade');
+            }
+            if (Schema::hasTable('copyrights')) {
+                $table->foreign('int_copyright_id')
+                    ->references('int_id')
+                    ->on('copyrights')
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
             }
         });
     }

@@ -54,6 +54,10 @@
           {{ Form::file('fileCollegeBannerImg', ['class' => 'form-control form-control-file']) }}
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
+        <div class="form-group">
+          {{Form::label('lblCollegeContactLink', 'College Contact Link', ['style' => 'font-weight: bold'])}} 
+          {{Form::text('txtCollegeContactLink', '', ['class' => 'form-control', 'placeholder' => 'Enter college contact link *optional field*'])}}
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>  

@@ -22,6 +22,7 @@
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => ['Maintenance\BranchController@updateBranch', $branch->int_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
         <div class="form-group">
           {{Form::label('lblBranchName', 'Branch Name', ['style' => 'font-weight: bold'])}} 
           {{Form::text('txtBranchName', $branch->str_branch_name, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'required'])}}
@@ -45,6 +46,10 @@
           <small>Current branch banner image: {{ $branch->str_branch_banner_image }}</small>
           {{ Form::file('fileBranchBannerImg', ['class' => 'form-control form-control-file']) }}
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
+        </div>
+        <div class="form-group">
+          {{Form::label('lblBranchContactLink', 'Branch Contact Link', ['style' => 'font-weight: bold'])}} 
+          {{Form::text('txtBranchContactLink', $branch->str_branch_contact_link, ['class' => 'form-control', 'placeholder' => 'Enter branch contact link *optional field*'])}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
@@ -85,10 +90,15 @@
         </div>
         <div class="card-body">
           <p class="card-text"><strong>Description:</strong> {{ $branch->mdmTxt_branch_description }}</p>
-          @if($branch->updated_at == $branch->created_at)
-            <p><strong>Last updated at: </strong>Same as the date it was added.</p>
+          @if($branch->str_branch_contact_link == '')
+            <p class="card-text"><b>Contact Information @:</b> There is no contact link supplied to this branch.</p>
           @else
-          <p><strong>Last updated at:</strong> {{ $branch->updated_at }}</p>
+            <p class="card-text"><strong>Contact information @:</strong> <a href="https://www.pup.edu.ph/{{ $branch->str_branch_contact_link }}" class="btn btn-link">{{ $branch->str_branch_contact_link }}</a></p>
+          @endif
+          @if($branch->updated_at == $branch->created_at)
+            <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
+          @else
+          <p><strong>Record last updated at:</strong> {{ $branch->updated_at }}</p>
           @endif
         </div>
         <div class="card-footer text-muted"><strong>Date added:</strong> {{ $branch->created_at }}</div>

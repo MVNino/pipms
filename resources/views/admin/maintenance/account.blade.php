@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-1">
       <!-- Button trigger modal -->
-      <a role="button" href="/admin/registration" class="btn btn-primary mb-2 float-right"><i class="fa fa-plus"></i>Add another account</a>
+      <a role="button" href="#" class="btn btn-primary mb-2 float-right" disabled><i class="fa fa-plus"></i>Add another account</a>
     </div>
 </div>
 <div class="row">
@@ -35,7 +35,7 @@
               @forelse($users as $user)
               <tr>
               <td scope="row">{{ $user->id }}</td>
-              <td>{{ $user->name }}</td>
+              <td>{{ $user->str_first_name }} {{ $user->str_middle_name }} {{ $user->str_last_name }}</td>
               <td>{{ $user->email }}</td>
               <td class="text-center"><a href="/admin/maintenance/user/{{ $user->id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
               </tr>

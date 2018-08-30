@@ -28,7 +28,7 @@
           <h5 class="card-title text-muted">Work Title: {{ $patent->str_patent_project_title }}</h5>
 
           <p class="text-muted"><strong>Project Type: </strong>{{ $patent->copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: </strong> {{ $patent->project->str_project_name }}</p>
           <p class="text-muted"><strong>Status: </strong>{{ $patent->char_patent_status }}</p>
           <p class="text-muted">Executive Summary: {!! $patent->mdmTxt_patent_description !!}</p>
           
@@ -41,16 +41,14 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
               <strong>Date added:</strong> {{ $patent->created_at }}
             </div>
-            <div class="col-md-2">
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="btn-group">
                 @if($patent->char_patent_status != 'patented')
                 <a class="btn btn-primary" href="/admin/transaction/patent/change-on-process-to-patented/{{ $patent->int_id }}">
-                  <i class="fa fa-lg fa-thumbs-up"></i></a>
+                  <i class="fa fa-lg fa-thumbs-up"></i> Grant patent</a>
                 @endif
               </div>
             </div>
@@ -67,20 +65,22 @@
       </div>
       <div class="card-body">
         <div class="bs-component">
-          <p class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->str_last_name }}, {{ $patent->copyright->applicant->str_first_name }} {{ $patent->copyright->applicant->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
-          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->str_email_address }}</p>
+          <p class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->user->str_last_name }}, {{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
+          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->user->email }}</p>
           <p class="text-muted">Cellphone Number: {{ $patent->copyright->applicant->bigInt_cellphone_number }}</p>
           <p class="text-muted">Telephone Number: {{ $patent->copyright->applicant->mdmInt_telephone_number }}</p>
           <p class="text-muted">Department: <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->str_department_name }} ({{ $patent->copyright->applicant->department->char_department_code }})</a></p>
           <p class="text-muted">College: <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->str_college_name }} ({{ $patent->copyright->applicant->department->college->char_college_code }})</a></p>
-          <p class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a> - {{ $patent->copyright->applicant->department->college->branch->str_branch_address }}</p>
+          <p class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></p>
          <br>
           <label class="text-muted">Work Co-Authors: </label>
-          <p class="text-muted">Co-Author 1</p>
-          <p class="text-muted">Co-Author 2</p>
-          <p class="text-muted">Co-Author 3</p>
+          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
+            <p class="text-muted">{{ $coAuthor->str_first_name }} {{ $coAuthor->str_last_name }}</p>
+          @empty
+            <p class="text-muted">There is no co-author.</p>
+          @endforelse
         </div>
-      </div>      
+      </div>       
       <div class="card-footer text-muted">
       </div>
     </div>

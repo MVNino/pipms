@@ -15,7 +15,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'str_first_name', 
+        'str_middle_name', 
+        'str_last_name',
+        'str_username', 
+        'email', 
+        'password',
     ];
 
     /**
@@ -29,18 +34,11 @@ class User extends Authenticatable
 
     // Relationship of User to Copyright table
     public function copyrights(){
-        return $this->hasMany('App\Copyright', 'int_user_id', 'int_id');
+        return $this->hasMany('App\Copyright', 'int_user_id', 'id');
     }
 
-    public function applicants()
+    public function applicant()
     {
-        return $this->hasManyThrough(
-            'App\Applicant',
-            'App\Copyright',
-            'int_user_id',
-            'int_applicant_id',
-            'int_id',
-            'int_id'
-        );
+        return $this->hasOne('App\Applicant', 'int_user_id', 'id');
     }
 }
