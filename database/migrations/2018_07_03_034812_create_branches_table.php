@@ -22,6 +22,8 @@ class CreateBranchesTable extends Migration
                 ->default('default_branch_profile_image.png');
             $table->string('str_branch_banner_image')
                 ->default('default_branch_banner_image.png');
+            $table->string('str_branch_contact_link')
+                ->nullable();
             $table->timestamps();
         });
     }

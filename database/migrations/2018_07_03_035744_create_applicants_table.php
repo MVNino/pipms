@@ -16,24 +16,28 @@ class CreateApplicantsTable extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->increments('int_id');
             $table->unsignedInteger('int_department_id')
-                ->comment('foreign key for departments')->nullable();
-            $table->string('str_first_name');
-            $table->string('str_middle_name')
+                ->comment('foreign key for departments')
                 ->nullable();
-            $table->string('str_last_name');
+            $table->unsignedInteger('int_user_id')
+                ->comment('foreign key for users')
+                ->nullable();
             $table->char('char_gender', 1); // M-Male; F-Female
             $table->date('dtm_birthdate');
             $table->char('char_applicant_type', 16);
-            $table->string('str_home_address')->nullable();
-            $table->string('str_email_address')
-                ->unique();
+            $table->string('str_home_address')
+                ->nullable();
             $table->bigInteger('bigInt_cellphone_number')
                 ->nullable();
             $table->mediumInteger('mdmInt_telephone_number')
                 ->nullable();
-            $table->string('str_application_token')
-                ->comment('For application request')
-                ->nullable();
+    
+            // Assign foreign key for 'users' table
+            if (Schema::hasTable('users')) {
+                $table->foreign('int_user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onUpdate('cascade');
+            }
 
             // Assign foreign key for 'departments' table
             if (Schema::hasTable('departments')) {
@@ -42,6 +46,7 @@ class CreateApplicantsTable extends Migration
                     ->on('departments')
                     ->onUpdate('cascade');
             }
+
         });
     }
 

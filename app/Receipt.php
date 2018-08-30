@@ -17,4 +17,9 @@ class Receipt extends Model
 	{
 		return $this->belongsTo('App\Applicant', 'int_applicant_id', 'int_id');
 	}
+
+	public function copyright()
+	{
+		return $this->belongsTo('App\Copyright', 'int_copyright_id', 'int_id');
+	}
 }

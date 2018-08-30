@@ -16,7 +16,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="modalLongTitle">Message Mr. {{ $applicant->str_last_name }}</h5>
+        <h5 class="modal-title" id="modalLongTitle">Message Mr. {{ $applicant->user->str_last_name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ $applicant->str_first_name }} {{ $applicant->str_middle_name }} {{ $applicant->str_last_name }}</h5>
+          <h5 class="card-title">{{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }}</h5>
           <h6 class="card-subtitle text-muted">A <a href="/admin/maintenance/department/{{ $applicant->int_department_id }}">{{ $applicant->department->str_department_name }}</a> {{ $applicant->char_applicant_type }}</h6>
         </div>
         <div class="card-body">
@@ -87,8 +87,6 @@
       <div class="card-body">
         <div class="bs-component">
           <div class="list-group">
-            <p><strong>Copyright: </strong><a class="list-group-item list-group-item-action" href="/admin/records/copyright/{{ $applicant->copyright->int_id }}">{{ $applicant->copyright->str_project_title }} - ({{ $applicant->copyright->char_copyright_status }})</a></p>
-            <p><strong>Patent: </strong><a class="list-group-item list-group-item-action" href="/admin/records/patent/{{ $applicant->copyright->patent->int_id }}">{{ $applicant->copyright->patent->str_patent_project_title }} - ({{ $applicant->copyright->patent->char_patent_status }})</a></p>
           </div>
         </div>
       </div>

@@ -18,11 +18,6 @@ class Department extends Model
 		return $this->belongsTo('App\College', 'int_college_id', 'int_id');
 	}
 
-	public function faculty()
-	{
-		return $this->hasOne('App\Faculty', 'int_department_id', 'int_id');
-	}
-
 	public function projects()
 	{
 		return $this->hasMany('App\Project', 'int_department_id', 'int_id');

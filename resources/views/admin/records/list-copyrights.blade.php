@@ -30,7 +30,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Date requested</th>
                 <th scope="col">Applicant Name - Type</th>
-                <th scope="col">College - Department - Branch</th>
+                <th scope="col">Department - College - Branch</th>
                 <th scope="col" class="text-center">Details</th>
               </tr>
             </thead>
@@ -38,11 +38,11 @@
               @forelse($copyrights as $copyright)
               <tr>
               <th scope="row">{{ $copyright->str_project_title }}</th>
-              <td scope="row">{{ $copyright->char_project_type }}</td>
+              <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
               <td scope="row">{{ $copyright->char_copyright_status }}</td>
               <td scope="row">{{ $copyright->created_at }}</td>
-              <td scope="row">{{ $copyright->str_first_name }} {{ $copyright->str_middle_name }} {{ $copyright->str_last_name }} - {{ $copyright->char_applicant_type }}</td>
-              <td scope="row">{{ $copyright->char_college_code }} - {{ $copyright->char_department_code }} - {{ $copyright->str_branch_name }}</td>
+              <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
+              <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
               <td scope="row" class="text-center"><a href="/admin/records/copyright/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
               </tr>
               @empty  

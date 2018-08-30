@@ -25,8 +25,8 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $usersCount = User::count(); 
+        $usersCount = User::count();
         return view('admin.dashboard', ['title' => $title, 
-            'usersCount' => $usersCount]);
+            'usersCount' => $usersCount]);  
     }
 }

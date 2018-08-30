@@ -26,14 +26,14 @@
         </div>
         <div class="card-body">
           <h5 class="card-title text-muted">Work Title: {{ $copyright->str_project_title }}</h5>
-          <h6 class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->str_last_name }}, {{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_middle_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
+          <h6 class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->user->str_last_name }}, {{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
           <h6 class="text-muted">Department: <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->str_department_name }} ({{ $copyright->applicant->department->char_department_code }})</a></h6>
           <h6 class="text-muted">College: <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->str_college_name }} ({{ $copyright->applicant->department->college->char_college_code }})</a></h6>
           <h6 class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a></p>
         
 
           <p class="text-muted"><strong>Project Type: </strong>{{ $copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: <a href="/admin/maintenance/project/{{ $copyright->project->int_id }}/{{ $copyright->project->int_department_id }}">{{ $copyright->project->str_project_name }}</a></strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $copyright->char_copyright_status }}</p>
           <p class="text-muted">Executive Summary: {!! $copyright->mdmTxt_project_description !!}</p>
           @if($copyright->patent)
@@ -49,12 +49,11 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-9">
               <strong>Date added:</strong> {{ $copyright->created_at }}
             </div>
-            <div class="col-md-5">
-              <div class="btn-group"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#exampleModalLong">
-                <i class="fa fa-lg fa-envelope-o" data-toggle="modal" data-target="#exampleModalLong"></i>Message</a>&nbsp
+            <div class="col-md-3">
+              <div class="btn-group">&nbsp
                 @if($copyright->char_copyright_status != 'copyrighted')
                 <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#toApproveModalLong">
                   <i class="fa fa-lg fa-thumbs-up"></i>Approve</a>
@@ -115,9 +114,9 @@
         {!! Form::open(['action' => 'TransactionController@messageApplicant', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
           {{ Form::text('numCopyrightId', $copyright->int_id, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{ Form::text('txtFirstName', $copyright->applicant->str_first_name, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{Form::label('lblEmail', 'To: '.$copyright->applicant->str_first_name.' '.$copyright->applicant->str_last_name.' @', ['style' => 'font-weight: bold'])}} 
-          {{Form::text('txtEmail', $copyright->applicant->str_email_address, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'readonly'])}}
+          {{ Form::text('txtFirstName', $copyright->applicant->user->str_first_name, ['class' => 'form-control', 'readonly', 'hidden']) }}
+          {{Form::label('lblEmail', 'To: '.$copyright->applicant->user->str_first_name.' '.$copyright->applicant->user->str_last_name.' @', ['style' => 'font-weight: bold'])}} 
+          {{Form::text('txtEmail', $copyright->applicant->user->email, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'readonly'])}}
         </div>
         <div class="form-group">
           {{Form::label('lblMessage', 'Message', ['style' => 'font-weight: bold'])}}
@@ -145,7 +144,7 @@
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => ['TransactionController@setSchedule', $copyright->int_id], 'method' => 'POST']) !!}
-        <div class="col-md-4 col-sm-4">
+        <div class="col-md-12 col-sm-12">
           <label><strong>Set schedule</strong></label><br>
           <input type="date" name="dateSchedule">
           <input type="time" name="timeSchedule">

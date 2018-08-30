@@ -3,7 +3,7 @@
   <aside class="app-sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/storage/images/profile/{{ auth()->user()->str_user_image_code }}" alt="User Image" style="height: 48px; width: 48px;">
       <div>
-        <p class="app-sidebar__user-name">{{ auth()->user()->name }}</p>
+        <p class="app-sidebar__user-name">{{ auth()->user()->str_first_name }} {{ auth()->user()->str_last_name }}</p>
         <p class="app-sidebar__user-designation">Administrator</p>
       </div>
     </div>
@@ -28,17 +28,16 @@
       </li>
       <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">Transaction</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu" style="padding-left: 15px";>
-          
+          <li><a class="treeview-item" href="/admin/transaction/author/account-requests">Account Requests</a></li>
           <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Copyright Application</span></a>     
           <ul class="treeview-menu" style="padding-left: 20px";>
-          <li><a class="treeview-item" href="/admin/transaction/copyrights/initial-request">Initial requests</a></li>
           <li><a class="treeview-item" href="/admin/transaction/copyrights/pend-request">Pending</a></li>
           <li><a class="treeview-item" href="/admin/transaction/copyrights/to-submit">To submit</a></li>
           <li><a class="treeview-item" href="/admin/transaction/copyrights/on-process">On process</a></li>
           </ul>
           </li>    
 
-          <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Patent Application</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Patent Application</span></a>
           <ul class="treeview-menu" style="padding-left: 20px";>
           <li><a class="treeview-item" href="/admin/transaction/patents/pend-request">Pending</a></li>
           <li><a class="treeview-item" href="/admin/transaction/patents/to-submit">To submit</a></li>

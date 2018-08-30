@@ -72,6 +72,7 @@ class BranchController extends Controller
                 ->storeAs('public/images/branch/banner', $branchBannerImgNameToStore);
             $branch->str_branch_banner_image = $branchBannerImgNameToStore;
         }
+        $branch->str_branch_contact_link = $request->txtBranchContactLink;
         if($branch->save()){
             return redirect('/admin/maintenance/branches')
                 ->with('success', 'Branch added!');
@@ -128,6 +129,7 @@ class BranchController extends Controller
                 ->storeAs('public/images/branch/banner', $branchBannerImgNameToStore);
             $branch->str_branch_banner_image = $branchBannerImgNameToStore;
         }
+        $branch->str_branch_contact_link = $request->txtBranchContactLink;
         if($branch->save()){
             return redirect('/admin/maintenance/branch/'.$id)
                 ->with('success', 'Branch updated!');

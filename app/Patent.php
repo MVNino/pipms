@@ -22,4 +22,9 @@ class Patent extends Model
 	{
 		return $this->belongsTo('App\ProjectType', 'int_project_type_id', 'int_id');
 	}
+
+	public function project()
+	{
+		return $this->belongsTo('App\Project', 'int_project_id', 'int_id');
+	}
 }

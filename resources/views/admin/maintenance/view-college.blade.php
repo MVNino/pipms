@@ -59,6 +59,10 @@
           {{ Form::file('fileCollegeBannerImg', ['class' => 'form-control form-control-file']) }}
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
+        <div class="form-group">
+          {{Form::label('lblCollegeContactLink', 'College Contact Link', ['style' => 'font-weight: bold'])}} 
+          {{Form::text('txtCollegeContactLink', $college->str_college_contact_link, ['class' => 'form-control', 'placeholder' => 'Enter college contact link *optional field*'])}}
+        </div>
         <div class="modal-footer">
           {{Form::hidden('_method', 'PUT')}}
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
@@ -97,10 +101,15 @@
         </div>
         <div class="card-body">
           <p class="card-text"><strong>Description:</strong> {{ $college->mdmTxt_college_description }}</p>
-          @if($college->updated_at == $college->created_at)
-            <p><strong>Last updated at: </strong>Same as the date it was added.</p>
+          @if($college->str_college_contact_link == '')
+            <p class="card-text"><b>Contact Information @:</b> There is no contact link supplied to this college.</p>
           @else
-          <p><strong>Last updated at:</strong> {{ $college->updated_at }}</p>
+            <p class="card-text"><strong>Contact Information @:</strong> <a href="https://www.pup.edu.ph/{{ $college->str_college_contact_link }}" class="btn btn-link">{{ $college->str_college_contact_link }}</a></p>
+          @endif
+          @if($college->updated_at == $college->created_at)
+            <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
+          @else
+          <p><strong>Record last updated at:</strong> {{ $college->updated_at }}</p>
           @endif
         </div>
         <div class="card-footer text-muted"><strong>Date added:</strong> {{ $college->created_at }}</div>

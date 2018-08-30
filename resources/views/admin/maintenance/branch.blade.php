@@ -23,6 +23,7 @@
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => 'Maintenance\BranchController@addBranch', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
         <div class="form-group">
           {{Form::label('lblBranchName', 'Branch Name', ['style' => 'font-weight: bold'])}} 
           {{Form::text('txtBranchName', '', ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'required'])}}
@@ -44,6 +45,10 @@
           {{ Form::label('lblBranchBannerImg', 'Branch Banner Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}
           {{ Form::file('fileBranchBannerImg', ['class' => 'form-control form-control-file']) }}
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
+        </div>
+        <div class="form-group">
+          {{Form::label('lblBranchContactLink', 'Branch Contact Link', ['style' => 'font-weight: bold'])}} 
+          {{Form::text('txtBranchContactLink', '', ['class' => 'form-control', 'placeholder' => 'Enter branch contact link *optional field*'])}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
