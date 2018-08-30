@@ -10,7 +10,7 @@
   </div>
 <div class="container">
 <div class="row justify-content-center">
-{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId']) !!}
 @csrf
 <div class="row">
     <div class="col-md-12">
@@ -99,6 +99,7 @@
 				<span></span>
 			</div>
 			<div class="col-md-4 col-sm-4">
+				@captcha()
 				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
 			</div>
 			<div class="col-md-4 col-sm-4">
