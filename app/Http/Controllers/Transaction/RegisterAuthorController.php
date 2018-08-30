@@ -26,6 +26,7 @@ class RegisterAuthorController extends Controller
     public function requestAuthorAccount(Request $request)
     {
     	$this->validate($request, [
+            'g-recaptcha-response' => 'required|captcha',
             'slctApplicantType' => 'required',
             'radioGender' => 'required',
             'birthdate' => 'required',
