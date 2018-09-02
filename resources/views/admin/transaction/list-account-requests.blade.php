@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> Author Account Requests</h1>
+<h1><i class="fa fa-copyright"></i> Account Requests</h1>
   <p>A listing of requests for author account registration</p>
 @endsection
 @section('breadcrumb-label')
@@ -9,9 +9,9 @@
 <li class="breadcrumb-item"><a href="/admin/transaction/author/account-requests">Author Account Requests</a></li>
 @endsection
 @section('content')
-<!-- Add branch modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-light">
         <h5 class="modal-title" id="exampleModalLongTitle">Check Receipt</h5>
@@ -20,15 +20,18 @@
         </button>
       </div>
       <div class="modal-body">
-          @foreach($authAccoRequests as $accountRequest)
-          <a target="_blank" href="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}" style="position: absolute; bottom: -5%; left: 38%;">
-              <img class="align-self-center mr-3" style="width:125px; height:125px;" alt="Branch profile image" src="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}">
-          </a>
-          @endforeach
+        <div style="height: 250px; position: relative;">
+            @foreach($authAccoRequests as $accountRequest)
+              <img class="align-self-center mr-3" alt="Branch profile image" style="position: absolute; left: 50px;" 
+              src="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}">
+            @endforeach
+        </div>
       </div>
     </div>
   </div>
-</div> <!-- /Add branch modal -->
+</div>
+
+
 <div class ="card" style="padding: 3px;"> 
     <table class="table table-hover">
       <thead>
@@ -50,7 +53,7 @@
           @endif - {{ $accountRequest->applicant->char_applicant_type }}</td>
           <td>{{ $accountRequest->applicant->receipt->char_receipt_code }}</td>
         <td>{{ $accountRequest->created_at }}</td>
-        <td class="text-center"><a target="_blank" href="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span></a>
+        <td class="text-center"><a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span></a>
         <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved" role="button" class="btn btn-primary"><span class="fa fa-thumbs-up"></span></a></td>
       </tr>
       @empty
@@ -68,6 +71,7 @@
     <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
   </div>
 </div>
+
 @endsection
 
 @section('pg-specific-js')

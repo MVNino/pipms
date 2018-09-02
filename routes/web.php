@@ -108,9 +108,9 @@ Route::group(
 						'RegisterAuthorController@listAccountRequests');
 					Route::get('author/account-request/{id}/approved', 
 						'RegisterAuthorController@approveAccountRequest');
-
+					Route::get('author/account-request/{id}', 
+						'RegisterAuthorController@viewAccountRequest');
 				});
-				
 				
 				Route::get('copyrights/pend-request', 
 					'TransactionController@listPendingCopyrightRequest');

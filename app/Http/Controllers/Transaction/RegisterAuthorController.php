@@ -26,7 +26,7 @@ class RegisterAuthorController extends Controller
     public function requestAuthorAccount(Request $request)
     {
     	$this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'slctApplicantType' => 'required',
             'radioGender' => 'required',
             'birthdate' => 'required',
@@ -93,6 +93,13 @@ class RegisterAuthorController extends Controller
             ->get();
         return view('admin.transaction.list-account-requests', 
             ['authAccoRequests' => $authAccoRequests]);
+    }
+
+    public function viewAccountRequest($id)
+    {
+        $accountRequest = AuthorAccountRequest::findOrFail($id);
+        return view('admin.transaction.view-account-request', 
+            ['accountRequest' => $accountRequest]);
     }
 
     public function random_code()
