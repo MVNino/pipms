@@ -1,7 +1,7 @@
 @extends('guest.layouts.app')
 
 @section('content')
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -20,7 +20,7 @@
         <img class="second-slide" src="storage/images/carousel2.jpg" alt="Second slide">
         <div class="container">
           <div class="carousel-caption text-right">
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            <p><a class="btn btn-lg btn-secondary" href="#" role="button">Learn more</a></p>
           </div>
         </div>
       </div>
@@ -61,7 +61,13 @@
 Copyright is a legal right created by the law of a country that grants the creator of an original work exclusive rights for its use and distribution. It is a form of intellectual property, applicable to certain forms of creative work. This means that the original creator of the product and anyone he gives authorization to are the only ones with the exclusive right to reproduce the work. Copyright law gives creators the original material, to further develop them for a given time, at which point the copyrighted item becomes the public domain.</p>
       </div>
       <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            
         <img class="featurette-image img-fluid mx-auto" src="storage/images/featurette1.jpg" alt="Generic placeholder image">
+          </div>
+          
+        </div>
       </div>
     </div>
 

@@ -7,6 +7,11 @@
 */
 
 # GUEST
+// Sample
+Route::get('/paper-kit2', function(){
+	return view('paper-kit2');
+});
+
 Route::get('/', 			'GuestController@index');
 Route::get('/about-us', 	'GuestController@about');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide');
@@ -103,9 +108,9 @@ Route::group(
 						'RegisterAuthorController@listAccountRequests');
 					Route::get('author/account-request/{id}/approved', 
 						'RegisterAuthorController@approveAccountRequest');
-
+					Route::get('author/account-request/{id}', 
+						'RegisterAuthorController@viewAccountRequest');
 				});
-				
 				
 				Route::get('copyrights/pend-request', 
 					'TransactionController@listPendingCopyrightRequest');

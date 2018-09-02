@@ -99,7 +99,7 @@
 				<span></span>
 			</div>
 			<div class="col-md-4 col-sm-4">
-				@captcha()
+				<!-- @ca -->ptcha()
 				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
 			</div>
 			<div class="col-md-4 col-sm-4">

@@ -4,7 +4,7 @@
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/storage/images/profile/{{ auth()->user()->str_user_image_code }}" alt="User Image" style="height: 48px; width: 48px;">
       <div>
         <p class="app-sidebar__user-name">{{ auth()->user()->str_first_name }} {{ auth()->user()->str_last_name }}</p>
-        <p class="app-sidebar__user-designation">Administrator</p>
+        <p class="app-sidebar__user-designation" style="color: gold;">Administrator</p>
       </div>
     </div>
     <ul class="app-menu">
