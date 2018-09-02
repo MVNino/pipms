@@ -24,6 +24,9 @@ Route::get('notification/{id}/read', 'NotificationController@readNotif');
 Route::get('notification/read-all', 'NotificationController@readAll')
 	->name('readAllMark');
 
+Route::get('classmax', function(){
+	return view('classimax');
+});
 
 # ADMINISTRATOR
 Route::group(
