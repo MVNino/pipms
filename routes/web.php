@@ -7,6 +7,11 @@
 */
 
 # GUEST
+// Sample
+Route::get('/paper-kit2', function(){
+	return view('paper-kit2');
+});
+
 Route::get('/', 			'GuestController@index');
 Route::get('/about-us', 	'GuestController@about');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide');
