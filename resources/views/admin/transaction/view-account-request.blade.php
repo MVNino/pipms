@@ -13,7 +13,7 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-5">    
+  <div class="col-md-12">    
     <div class="bs-component">
       <div class="card">
         <div class="card-header pb-0">
@@ -24,12 +24,17 @@
           </div>
         </div>
         <div class="card-body">
-        	<label>Author's Name: <b>{{ $accountRequest->str_last_name }}, {{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }}</b></label>
+          <label>Author's Name: <b>{{ $accountRequest->str_last_name }}, {{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }}</b></label>
         </div>
         <div class="card-footer text-muted">Date Requested: <span class="text-dark"><b>{{ $accountRequest->created_at }}</b></span></div>
       </div>
     </div>
   </div>
+</div>
+
+
+
+<div class="row">
   <div class="col-md-7">
     <div class="bs-component">
       <div class="card">
