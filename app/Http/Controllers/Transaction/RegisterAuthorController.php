@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Notifications\AuthorAccountRequested;
 use App\Notifications\AuthorReadyForRegistration;
 use App\Notifications\AnAuthorAccountAdded;
+use App\Notifications\AccountRequestRevision;
 use Illuminate\Support\Facades\Hash;
 use App\Applicant;
 use App\AuthorAccountRequest;
@@ -26,7 +27,7 @@ class RegisterAuthorController extends Controller
     public function requestAuthorAccount(Request $request)
     {
     	$this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'slctApplicantType' => 'required',
             'radioGender' => 'required',
             'birthdate' => 'required',
@@ -137,6 +138,7 @@ class RegisterAuthorController extends Controller
         // transafe name to user
         // delete record sa 'authoraccountrequest' table
         $this->validate($request, [
+            'g-recaptcha-response' => 'required|captcha',
             'txtUsername' => 'required|string|max:155',
             'txtPassword' => 'required|string|min:6',
             'txtRePassword' => 'required|string|min:6',
@@ -174,5 +176,22 @@ class RegisterAuthorController extends Controller
         }
     }
 
+    # NEW
+    public function messageAuthor(Request $request)
+    {     
+        $this->validate($request, [
+            'txtEmail' => 'required',
+            'txtAreaMessage' => 'required'
+        ]);
+        // $copyrightId = $request->numCopyrightId;
+        // $revisionToken = $this->random_code();
+        // $this->putCopyrightRevisionToken($revisionToken, $copyrightId);
+
+        \Notification::route('mail', $request->txtEmail)
+            ->notify(new AccountRequestRevision($request->txtFName, $request->txtAreaMessage));
+
+        $promptMsg = 'Mail sent!';
+        return redirect()->back()->with('success', $promptMsg);
+    }
 
 }

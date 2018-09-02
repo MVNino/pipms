@@ -16,7 +16,6 @@
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
-        	<h3 class="text-muted text-center">Account Request Form</h3>
     		<h4>Applicant Details</h4>
 			<small id="contactHelp" class="form-text text-muted">Tell us something about you.</small>
 			<div class="row">
@@ -99,7 +98,7 @@
 				<span></span>
 			</div>
 			<div class="col-md-4 col-sm-4">
-				<!-- @ca -->ptcha()
+				@captcha()
 				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
 			</div>
 			<div class="col-md-4 col-sm-4">

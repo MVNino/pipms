@@ -1,7 +1,7 @@
 <!-- Navbar-->
-  <header class="app-header">
-  	<a class="app-header__logo" href="/">Pipms</a>
-  	<a href="/" class="app-nav__item nav-link active" style="text-decoration: none; font-weight: bold;">Home</a>
+  <header class="app-header" style="background-color: #343a40;">
+  	<a class="app-header__logo" href="/" style="background-color: #222d32;">Pipms</a>
+  	<a href="/" class="app-nav__item nav-link active" style="text-decoration: none; font-weight: bold; color: gold;">Home</a>
   	<a href="/application/guide" class="app-nav__item" style="text-decoration: none; font-weight: bold;">Application</a>
   	<a href="/about-us" class="app-nav__item" style="text-decoration: none; font-weight: bold;">About us</a>
 

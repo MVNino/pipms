@@ -35,6 +35,9 @@
     <!-- The javascript plugin to display page loading on top-->
     <script src="{{ asset('vali/js/plugins/pace.min.js') }}"></script>
     @yield('pg-specific-js')
-    @stack('article-ckeditor-script')
+  <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+      <script>
+          CKEDITOR.replace( 'article-ckeditor' );
+      </script>
   </body>
 </html>
