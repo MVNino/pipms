@@ -71,4 +71,27 @@ class AuthorController extends Controller
         return view('author.list-my-projects');
      }
 
+     public function myAccounts()
+     {
+        return view('author.my-account');
+     }
+
+
+
+     public function myProjects()
+     {
+        return view('author.my-projects');
+     }
+
+     public function myMessages()
+    {
+        return view('author.my-messages');
+    }
+
+    public function editProfiles()
+    {
+        return view('author.edit-profile');
+    }
+
+ 
 }

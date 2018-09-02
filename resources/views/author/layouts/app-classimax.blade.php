@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,44 +17,7 @@
 		<!-- Row Start -->
 		<div class="row">
 			<div class="col-md-10 offset-md-1 col-lg-4 offset-lg-0">
-				<div class="sidebar">
-					<!-- User Widget -->
-					<div class="widget user-dashboard-profile">
-						<!-- User Image -->
-						<div class="profile-thumb">
-							<img src="{{asset ('classimax/images/user/user-thumb.jpg') }}" alt="" class="rounded-circle">
-						</div>
-						<!-- User Name -->
-						<h5 class="text-center">Samanta Doe</h5>
-						
-						<a href="user-profile.html" class="btn btn-main-sm">Edit Profile</a>
-					</div>
-					<!-- Dashboard Links -->
-					<div class="widget user-dashboard-menu">
-						<ul>
-							<li class="active" ><a href=""><i class="fa fa-user"></i> Dashboard</a></li>
-							<li><a href=""><i class="fa fa-bookmark-o"></i> Messages </a></li>
-							<li><a href=""><i class="fa fa-file-archive-o"></i>My Account </a></li>
-							
-
-							<!-- <li><a href=""><i class="fa fa-bolt"></i> Apply Project</a></li> -->
-							<li><a href=""><i class="fa fa-cog"></i> My Projects</a></li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-archive-o"></i> Apply Project <span><i class="fa fa-angle-down"></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="#">Copyright</a>
-									<a class="dropdown-item" href="#">Patent</a>
-									
-								</div>
-							</li>
-						</ul>
-						
-
-					</div>
-					
-				</div>
+				@include('author.includes.sidebar')
 			</div>
 			<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
 				<div class="widget dashboard-container my-adslist">
@@ -71,7 +33,23 @@
 =            Footer            =
 =============================-->
 @include('author.includes.footer')
-@include('author.includes.js-scripts')
+  <!-- JAVASCRIPTS -->
+
+    <script src="{{ asset('vali/js/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/jquery-ui/dist/jquery-ui.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/tether/js/tether.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/raty/jquery.raty-fa.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/bootstrap/dist/js/popper.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/slick-carousel/slick/slick.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/fancybox/jquery.fancybox.pack.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+  <script src="{{ asset('classimax/js/scripts.js') }}"></script>
+ @yield('pg-specific-js')
 
 </body>
 </html>
