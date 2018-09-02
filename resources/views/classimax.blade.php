@@ -51,48 +51,12 @@
 					<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ml-auto main-nav ">
-							<li class="nav-item active">
-								<a class="nav-link" href="index.html">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="dashboard.html">Dashboard</a>
-							</li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Pages <span><i class="fa fa-angle-down"></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="category.html">Category</a>
-									<a class="dropdown-item" href="single.html">Single Page</a>
-									<a class="dropdown-item" href="store-single.html">Store Single</a>
-									<a class="dropdown-item" href="dashboard.html">Dashboard</a>
-									<a class="dropdown-item" href="user-profile.html">User Profile</a>
-									<a class="dropdown-item" href="submit-coupon.html">Submit Coupon</a>
-									<a class="dropdown-item" href="blog.html">Blog</a>
-									<a class="dropdown-item" href="single-blog.html">Single Post</a>
-								</div>
-							</li>
-							<li class="nav-item dropdown dropdown-slide">
-								<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Listing <span><i class="fa fa-angle-down"></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<div class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" href="#">Action</a>
-									<a class="dropdown-item" href="#">Another action</a>
-									<a class="dropdown-item" href="#">Something else here</a>
-								</div>
-							</li>
-						</ul>
+						
 						<ul class="navbar-nav ml-auto mt-10">
 							<li class="nav-item">
-								<a class="nav-link login-button" href="index.html">Login</a>
+								<a class="nav-link login-button" href="index.html">Logout</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link add-button" href="#"><i class="fa fa-plus-circle"></i> Add Listing</a>
-							</li>
+							
 						</ul>
 					</div>
 				</nav>
@@ -114,24 +78,38 @@
 					<div class="widget user-dashboard-profile">
 						<!-- User Image -->
 						<div class="profile-thumb">
-							<img src="images/user/user-thumb.jpg" alt="" class="rounded-circle">
+							<img src="{{asset ('classimax/images/user/user-thumb.jpg') }}" alt="" class="rounded-circle">
 						</div>
 						<!-- User Name -->
 						<h5 class="text-center">Samanta Doe</h5>
-						<p>Joined February 06, 2017</p>
+						
 						<a href="user-profile.html" class="btn btn-main-sm">Edit Profile</a>
 					</div>
 					<!-- Dashboard Links -->
 					<div class="widget user-dashboard-menu">
 						<ul>
-							<li class="active" ><a href=""><i class="fa fa-user"></i> My Ads</a></li>
-							<li><a href=""><i class="fa fa-bookmark-o"></i> Favourite Ads <span>5</span></a></li>
-							<li><a href=""><i class="fa fa-file-archive-o"></i>Archived Ads <span>12</span></a></li>
-							<li><a href=""><i class="fa fa-bolt"></i> Pending Approval<span>23</span></a></li>
-							<li><a href=""><i class="fa fa-cog"></i> Logout</a></li>
-							<li><a href=""><i class="fa fa-power-off"></i>Delete Account</a></li>
+							<li class="active" ><a href=""><i class="fa fa-user"></i> Dashboard</a></li>
+							<li><a href=""><i class="fa fa-bookmark-o"></i> Messages </a></li>
+							<li><a href=""><i class="fa fa-file-archive-o"></i>My Account </a></li>
+							
+
+							<!-- <li><a href=""><i class="fa fa-bolt"></i> Apply Project</a></li> -->
+							<li><a href=""><i class="fa fa-cog"></i> My Projects</a></li>
+							<li class="nav-item dropdown dropdown-slide">
+								<a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-archive-o"></i> Apply Project <span><i class="fa fa-angle-down"></i></span>
+								</a>
+								<!-- Dropdown list -->
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="#">Copyright</a>
+									<a class="dropdown-item" href="#">Patent</a>
+									
+								</div>
+							</li>
 						</ul>
+						
+
 					</div>
+					
 				</div>
 			</div>
 			<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
@@ -416,19 +394,19 @@
 </footer>
 
   <!-- JAVASCRIPTS -->
-  <script src="{{asset ('classimax/plugins/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/tether/js/tether.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/raty/jquery.raty-fa.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/bootstrap/dist/js/popper.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/slick-carousel/slick/slick.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/fancybox/jquery.fancybox.pack.js')}}"></script>
-  <script src="{{asset ('classimax/plugins/smoothscroll/SmoothScroll.min.js')}}"></script>
+  <script src="{{ asset('classimax/plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/tether/js/tether.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/raty/jquery.raty-fa.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/bootstrap/dist/js/popper.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/slick-carousel/slick/slick.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/fancybox/jquery.fancybox.pack.js') }}"></script>
+  <script src="{{ asset('classimax/plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-  <script src="{{asset ('classimax/js/scripts.js')}}"></script>
+  <script src="{{ asset('classimax/js/scripts.js') }}"></script>
 
 </body>
 
