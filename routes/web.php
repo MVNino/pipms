@@ -11,7 +11,6 @@
 Route::get('/paper-kit2', function(){
 	return view('paper-kit2');
 });
-
 Route::get('/', 			'GuestController@index');
 Route::get('/about-us', 	'GuestController@about');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide');
@@ -217,7 +216,11 @@ Route::group(
 		});
 
 		// for patent request
-		Route::get('my-projects', 'AuthorController@listMyProjects');
+		// Route::get('my-projects', 'AuthorController@listMyProjects');
+		Route::get('my-projects', 'AuthorController@myProjects');
+		Route::get('my-messages', 'AuthorController@myMessages');
+		Route::get('my-account', 'AuthorController@myAccounts');
+		Route::get('edit-profile', 'AuthorController@editProfiles');
 
 	}
 );
