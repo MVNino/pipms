@@ -109,6 +109,7 @@ Route::group(
 						'RegisterAuthorController@approveAccountRequest');
 					Route::get('author/account-request/{id}', 
 						'RegisterAuthorController@viewAccountRequest');
+					Route::post('author/account-requests/message', 'RegisterAuthorController@messageAuthor');
 				});
 				
 				Route::get('copyrights/pend-request', 

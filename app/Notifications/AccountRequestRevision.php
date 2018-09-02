@@ -7,23 +7,21 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AuthorReadyForRegistration extends Notification
+class AccountRequestRevision extends Notification
 {
     use Queueable;
-    public $applicantId;
     public $firstName;
-    public $registrationToken;
+    public $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($id, $firstName, $registrationToken)
+    public function __construct($firstName, $message)
     {
-        $this->applicantId = $id;
         $this->firstName = $firstName;
-        $this->registrationToken = $registrationToken;
+        $this->message = $message;
     }
 
     /**
@@ -46,10 +44,10 @@ class AuthorReadyForRegistration extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Dear '.$this->firstName.', ')
-                    ->line('We would like to inform you that your request for an author account has been approved.')
-                    ->line('The link below will redirect you to your actual account registration form')
-                    ->action('Account Registration Form', url('http://pipms.test/registration/author/'.$this->applicantId.'/form/'.$this->registrationToken));
+                    ->line('Dear, '.$this->firstName)
+                    ->line($this->message)
+                    ->action('Notification Action', url('/'))
+                    ->line('Please respond at your earliest convenience.');
     }
 
     /**

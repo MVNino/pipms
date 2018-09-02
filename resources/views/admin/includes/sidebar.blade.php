@@ -28,7 +28,7 @@
       </li>
       <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">Transaction</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu" style="padding-left: 15px";>
-          <li><a class="treeview-item" href="/admin/transaction/author/account-requests">Account Requests</a></li>
+          <li><a class="treeview-item" href="/admin/transaction/author/account-requests">Account Approbations</a></li>
           <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Copyright Application</span></a>     
           <ul class="treeview-menu" style="padding-left: 20px";>
           <li><a class="treeview-item" href="/admin/transaction/copyrights/pend-request">Pending</a></li>

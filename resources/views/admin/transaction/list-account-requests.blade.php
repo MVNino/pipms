@@ -79,15 +79,7 @@
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');
-    $('a[href="/admin/transaction/copyrights/pend-request"]').addClass('active');
-  });
-</script>
-<script>
-  $(document).ready(function(){
-    $('#li-copyright').addClass('');
     $('a[href="/admin/transaction/author/account-requests"]').addClass('active');
   });
 </script>
-
-
 @endsection
