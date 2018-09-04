@@ -18,7 +18,7 @@
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li id="li-dashboard" class="{{Request::is('paper-dash/dashboard') ? 'active':''}}">
+          <li id="li-dashboard" class="{{Request::is('author/dashboard') ? 'active':''}}">
             <a href="{{ route('author.dashboard') }}">
               <i class="nc-icon nc-chart-bar-32"></i>
               <p>My Dashboard</p>
@@ -30,7 +30,7 @@
               <p>My Mails</p>
             </a>
           </li>
-          <li id="li-profile" class="{{Request::is('paper-dash/user-profile') ? 'active':''}}">
+          <li id="li-profile" class="{{Request::is('author/user-profile') ? 'active':''}}">
             <a href="{{ route('author.profile') }}">
               <i class="nc-icon nc-single-02"></i>
               <p>User Profile</p>
@@ -38,7 +38,7 @@
           </li>
           <li id="li-apply-project">
             <a href="#">
-              <i class="nc-icon nc-tile-56"></i>
+              <i class="nc-icon nc-book-bookmark"></i>
               <p>Apply Project</p>
             </a>
           </li>

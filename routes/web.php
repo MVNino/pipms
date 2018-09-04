@@ -197,14 +197,16 @@ Route::group(
 		'prefix' => 'author'
 	],
 	function() {
-		// dashboard
-		Route::get('{id}/dashboard', 'AuthorController@viewDashboard');
-		// mails/messages
-		Route::get('messages', 'AuthorController@viewMessages');
-		// author account
-		Route::get('my-account', 'AuthorController@viewMyAccount');
 		Route::put('edit-account/{id}', 'AuthorController@updateAuthor');
 		Route::get('same-sched/{id}', 'TransactionController@cloneCopyrightAppointment');
+		Route::get('dashboard', 
+				'AuthorController@pdDashboard')->name('author.dashboard');
+		Route::get('mails', 
+				'AuthorController@viewMails')->name('author.mails');
+		Route::get('user-profile', 
+				'AuthorController@viewProfile')->name('author.profile');
+
+		Route::get('edit-profile', 'AuthorController@editProfiles');
 		Route::namespace('Transaction')->group(function(){
 			Route::get('apply-project', 
 				'PendRequestController@viewCopyrightApplication');
@@ -215,13 +217,6 @@ Route::group(
 			Route::post('apply-patent-project', 
 				'PendRequestController@storePatentRequest');
 		});
-
-		// for patent request
-		// Route::get('my-projects', 'AuthorController@listMyProjects');
-		Route::get('my-projects', 'AuthorController@myProjects')->name('my-projects');
-		Route::get('my-messages', 'AuthorController@myMessages')->name('my-messages');
-		Route::get('my-account', 'AuthorController@myAccount')->name('my-account');
-		Route::get('edit-profile', 'AuthorController@editProfiles');
 	}
 );
 
@@ -234,7 +229,6 @@ Route::namespace('Transaction')->group(function(){
 		'RegisterAuthorController@grantAuthorAccount');
 });
 
-
 // Resources routes
 // Route::resources([
 // 	'account' => 'AccountController',
@@ -242,13 +236,3 @@ Route::namespace('Transaction')->group(function(){
 // 	'copyright' => 'CopyrightController',
 // 	'patent' => 'PatentController'
 // ]);
-
-
-Route::group([
-		'prefix' => 'paper-dash'
-	], 
-	function(){
-		Route::get('dashboard', 'AuthorController@pdDashboard')->name('author.dashboard');
-		Route::get('mails', 'AuthorController@viewMails')->name('author.mails');
-		Route::get('user-profile', 'AuthorController@viewProfile')->name('author.profile');
-	});
