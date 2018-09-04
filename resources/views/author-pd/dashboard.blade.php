@@ -39,8 +39,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Revenue</p>
-              <p class="card-title">$ 1,345
+              <p class="card-category">IPR Requests</p>
+              <p class="card-title">236
                 <p>
             </div>
           </div>
@@ -65,7 +65,7 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Errors</p>
+              <p class="card-category">Uploads</p>
               <p class="card-title">23
                 <p>
             </div>
@@ -153,7 +153,7 @@
   <div class="col-md-8">
     <div class="card card-chart">
       <div class="card-header">
-        <h5 class="card-title">NASDAQ: AAPL</h5>
+        <h5 class="card-title">PIPMS: Processes</h5>
         <p class="card-category">Line Chart with Points</p>
       </div>
       <div class="card-body">
@@ -161,8 +161,8 @@
       </div>
       <div class="card-footer">
         <div class="chart-legend">
-          <i class="fa fa-circle text-info"></i> Tesla Model S
-          <i class="fa fa-circle text-warning"></i> BMW 5 Series
+          <i class="fa fa-circle text-warning"></i> Copyright
+          <i class="fa fa-circle text-info"></i> Patent
         </div>
         <hr/>
         <div class="card-stats">
