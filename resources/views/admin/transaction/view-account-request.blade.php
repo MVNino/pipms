@@ -27,12 +27,12 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-6"><span></span></div>
-            <div class="col-md-3">
+            <div class="col-lg-6 col-md-0 col-sm-0"><span></span></div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <a class="btn btn-info" href="#" data-toggle="modal" data-target="#exampleModalCenter">
                   <i class="fa fa-lg fa-envelope"></i>Message</a>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <a class="btn btn-primary" href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved"><i class="fa fa-lg fa-thumbs-up"></i>Approve</a>
             </div>
           </div>
