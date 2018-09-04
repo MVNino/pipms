@@ -22,27 +22,6 @@ class AuthorController extends Controller
         return view('author-pd.user-profile');
     } 
 
-    public function viewDashboard()
-    {
-    	return view('author.dashboard');
-    }
-
-    public function viewMessages()
-    {
-    	return view('author.messages');
-    }
-
-    public function viewMyAccount()
-    {
-        $branches = Branch::all();
-        // get college data
-        $colleges = College::orderBy('char_college_code')->get();
-        // get department data
-        $departments = Department::orderBy('char_department_code', 'asc')->get();
-    	return view('author.my-account', ['branches' => $branches, 
-    		'colleges' => $colleges, 'departments' => $departments]);
-    }
-
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
@@ -71,36 +50,8 @@ class AuthorController extends Controller
     		$applicant->mdmInt_telephone_number = $request->txtTelephoneNumber;
     		$applicant->str_home_address = $request->txtHomeAddress;
     		if ($applicant->save()) {
-    			return redirect('/author/my-account')->with('success', 'Account updated!');
+    			return redirect('/author/user-profile')->with('success', 'Account updated!');
     		}
     	}
-    	// update fname, mname, lname, email, username, cellphonenum, telephone num, home address, department
      }
-
-     public function listMyProjects()
-     {
-        return view('author.list-my-projects');
-     }
-
-     public function myAccount()
-     {
-        return view('author.my-account');
-     }
-
-
-
-     public function myProjects()
-     {
-        return view('author.my-projects');
-     }
-
-     public function myMessages()
-    {
-        return view('author.my-messages');
-    }
-
-    public function editProfiles()
-    {
-        return view('author.edit-profile');
-    }
 }
