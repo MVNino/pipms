@@ -1,5 +1,5 @@
 @extends('author-pd.layouts.app')
 
 @section('content')
-	THIS IS MY MAILS!
+	THIS IS PROJECT APPLICATION
 @endsection

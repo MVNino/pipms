@@ -205,6 +205,10 @@ Route::group(
 				'AuthorController@viewMails')->name('author.mails');
 		Route::get('user-profile', 
 				'AuthorController@viewProfile')->name('author.profile');
+		Route::get('ipr-application', 
+				'AuthorController@viewIPRApplication')->name('author.ipr-application');
+		Route::get('my-projects', 
+				'AuthorController@viewMyProjects')->name('author.my-projects');
 
 		Route::get('edit-profile', 'AuthorController@editProfiles');
 		Route::namespace('Transaction')->group(function(){

@@ -22,6 +22,21 @@ class AuthorController extends Controller
         return view('author-pd.user-profile');
     } 
 
+    public function viewMails()
+    {
+        return view('author-pd.my-mails');
+    }
+
+    public function viewIPRApplication()
+    {
+        return view('author-pd.ipr-application');
+    }
+
+    public function viewMyProjects()
+    {
+        return view('author-pd.my-projects');
+    }
+
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
