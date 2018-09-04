@@ -218,11 +218,10 @@ Route::group(
 
 		// for patent request
 		// Route::get('my-projects', 'AuthorController@listMyProjects');
-		Route::get('my-projects', 'AuthorController@myProjects');
-		Route::get('my-messages', 'AuthorController@myMessages');
-		Route::get('my-account', 'AuthorController@myAccounts');
+		Route::get('my-projects', 'AuthorController@myProjects')->name('my-projects');
+		Route::get('my-messages', 'AuthorController@myMessages')->name('my-messages');
+		Route::get('my-account', 'AuthorController@myAccount')->name('my-account');
 		Route::get('edit-profile', 'AuthorController@editProfiles');
-
 	}
 );
 
@@ -243,3 +242,13 @@ Route::namespace('Transaction')->group(function(){
 // 	'copyright' => 'CopyrightController',
 // 	'patent' => 'PatentController'
 // ]);
+
+
+Route::group([
+		'prefix' => 'paper-dash'
+	], 
+	function(){
+		Route::get('dashboard', 'AuthorController@pdDashboard')->name('author.dashboard');
+		Route::get('mails', 'AuthorController@viewMails')->name('author.mails');
+		Route::get('user-profile', 'AuthorController@viewProfile')->name('author.profile');
+	});
