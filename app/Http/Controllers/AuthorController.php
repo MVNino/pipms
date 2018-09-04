@@ -11,6 +11,17 @@ use App\User;
 
 class AuthorController extends Controller
 {
+    # PAPER DASHBOARD
+    public function pdDashboard()
+    {
+       return view('author-pd.dashboard'); 
+    }
+
+    public function viewProfile()
+    {
+        return view('author-pd.user-profile');
+    } 
+
     public function viewDashboard()
     {
     	return view('author.dashboard');
@@ -71,7 +82,7 @@ class AuthorController extends Controller
         return view('author.list-my-projects');
      }
 
-     public function myAccounts()
+     public function myAccount()
      {
         return view('author.my-account');
      }
@@ -92,6 +103,4 @@ class AuthorController extends Controller
     {
         return view('author.edit-profile');
     }
-
- 
 }
