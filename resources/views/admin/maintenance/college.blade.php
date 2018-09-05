@@ -45,13 +45,13 @@
         </select>
         </div>
         <div class="form-group">
-          {{ Form::label('lblCollegeProfileImg', 'College Profile Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}
-          {{ Form::file('fileCollegeProfileImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-college-profile-img" class="control-label"><b>College Profile Image</b></label>
+          <input type="file" name="fileCollegeProfileImg" id="input-file-college-profile-img" class="dropify" data-default-file="/storage/images/college/profile/default_college_profile_image.png" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
-          {{ Form::label('lblCollegeBannerImg', 'College Banner Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}
-          {{ Form::file('fileCollegeBannerImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-college-banner-img" class="control-label"><b>College Banner Image</b></label>
+          <input type="file" name="fileCollegeBannerImg" id="input-file-college-banner-img" class="dropify" data-default-file="/storage/images/college/banner/default_college_banner_image.png" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
@@ -112,6 +112,7 @@
       </div>
     </div>
 </div>
+@endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
@@ -125,5 +126,50 @@
     $('a[href="/admin/maintenance/colleges"]').addClass('active');
   });
 </script>
-@endsection
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+});
+</script>
 @endsection

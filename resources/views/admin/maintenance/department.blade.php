@@ -45,13 +45,13 @@
         </select>
         </div>
         <div class="form-group">
-          {{ Form::label('lblDepartmentProfileImg', 'Department Profile Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}
-          {{ Form::file('fileDepartmentProfileImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-department-profile-img" class="control-label"><b>Department Profile Image</b></label>
+          <input type="file" name="fileDepartmentProfileImg" id="input-file-department-profile-img" class="dropify" data-default-file="/storage/images/department/profile/default_department_profile_image.png" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
-          {{ Form::label('lblDepartmentBannerImg', 'Department Banner Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}
-          {{ Form::file('fileDepartmentBannerImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-department-banner-img" class="control-label"><b>Department Banner Image</b></label>
+          <input type="file" name="fileDepartmentBannerImg" id="input-file-department-banner-img" class="dropify" data-default-file="/storage/images/department/banner/default_department_banner_image.png" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="modal-footer">
@@ -85,6 +85,7 @@
                 <th scope="col">Deparment Name</th>
                 <th scope="col">College Code</th>
                 <th scope="col">College Name</th>
+                <th scope="col">Branch</th>
                 <th scope="col" class="text-center">Details</th>
               </tr>
             </thead>
@@ -96,6 +97,7 @@
               <td>{{ $department->str_department_name }}</td>
               <td>{{ $department->college->char_college_code }}</td>
               <td>{{ $department->college->str_college_name }}</td>
+              <td>{{ $department->college->branch->str_branch_name }}</td>
               <td class="text-center"><a href="/admin/maintenance/department/{{ $department->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
               </tr>
               @empty  
@@ -110,6 +112,8 @@
       </div>
     </div>
 </div>
+@endsection
+
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 <!-- Data table plugin-->
@@ -130,5 +134,50 @@
         });
     });
   </script>
-@endsection
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+});
+</script>
 @endsection

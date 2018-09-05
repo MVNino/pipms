@@ -36,15 +36,13 @@
           {{Form::textarea('txtAreaBranchDescription', $branch->mdmTxt_branch_description, ['id' => 'container-form-control article-ckeditor', 'class' => 'form-control', 'placeholder' => "Enter branch description *optional field*", 'rows' => '4'])}}
         </div>
         <div class="form-group">
-          {{ Form::label('lblBranchProfileImg', 'Branch Profile Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}<br>
-          <small>Current branch profile image: {{ $branch->str_branch_profile_image }}</small>
-          {{ Form::file('fileBranchProfileImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-branch-profile-img" class="control-label"><b>Branch Profile Image</b></label>
+          <input type="file" name="fileBranchProfileImg" id="input-file-branch-profile-img" class="dropify" data-default-file="/storage/images/branch/profile/{{ $branch->str_branch_profile_image }}" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
-          {{ Form::label('lblBranchBannerImg', 'Branch Banner Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}<br>
-          <small>Current branch banner image: {{ $branch->str_branch_banner_image }}</small>
-          {{ Form::file('fileBranchBannerImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-branch-banner-img" class="control-label"><b>Branch Profile Image</b></label>
+          <input type="file" name="fileBranchBannerImg" id="input-file-branch-banner-img" class="dropify" data-default-file="/storage/images/branch/banner/{{ $branch->str_branch_banner_image }}" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
@@ -131,6 +129,8 @@
     </div>
   </div>
 </div>
+@endsection
+
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 <!-- Data table plugin-->
@@ -143,5 +143,50 @@
     $('a[href="/admin/maintenance/branches"]').addClass('active');
   });
 </script>
-@endsection
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+});
+</script>
 @endsection
