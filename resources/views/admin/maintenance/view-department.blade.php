@@ -48,15 +48,13 @@
         </select>
         </div>
         <div class="form-group">
-          {{ Form::label('lblDepartmentProfileImg', 'Department Profile Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}<br>
-          <small>Current department profile image: {{ $department->str_department_profile_image }}</small>
-          {{ Form::file('fileDepartmentProfileImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-department-profile-img" class="control-label"><b>Department Profile Image</b></label>
+          <input type="file" name="fileDepartmentProfileImg" id="input-file-department-profile-img" class="dropify" data-default-file="/storage/images/department/profile/{{ $department->str_department_profile_image }}" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="form-group">
-          {{ Form::label('lblDepartmentBannerImg', 'Department Banner Image', ['class' => 'control-label', 'style' => 'font-weight: bold']) }}<br>
-          <small>Current department profile image: {{ $department->str_department_profile_image }}</small>
-          {{ Form::file('fileDepartmentBannerImg', ['class' => 'form-control form-control-file']) }}
+          <label for="input-file-department-banner-img" class="control-label"><b>Department Banner Image</b></label>
+          <input type="file" name="fileDepartmentBannerImg" id="input-file-department-banner-img" class="dropify" data-default-file="/storage/images/department/banner/{{ $department->str_department_banner_image }}" />
           <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
         </div>
         <div class="modal-footer">
@@ -131,6 +129,7 @@
     </div>
   </div>
 </div>
+@endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
@@ -152,5 +151,50 @@
         });
     });
   </script>
-@endsection
+  <!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+});
+</script>
 @endsection

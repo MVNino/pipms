@@ -19,14 +19,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }</script>
+
+    <!-- Elite Dropify CSS-->
+    <link rel="stylesheet" href="{{ asset('elite/css/dropify.min.css') }}">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('vali/css/main.css') }}">
     <!-- Main Modified CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <style type="text/css">
-        body {
-            
-        }
-    </style>
 
     
