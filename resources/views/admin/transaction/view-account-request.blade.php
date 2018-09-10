@@ -4,7 +4,7 @@
 <!-- Popup CSS -->
 <link href="{{ asset('elite/css/magnific-popup.css') }}" rel="stylesheet">
 <!-- Custom CSS -->
-<link href="{{ asset('elite/css/style.min.css') }}" rel="stylesheet">
+{{-- <link href="{{ asset('elite/css/style.min.css') }}" rel="stylesheet"> --}}
 <!-- page css -->
 <link href="{{ asset('elite/css/user-card.css') }}" rel="stylesheet">
 @endsection
@@ -133,6 +133,13 @@
     $('a[href="/admin/transaction/author/account-requests"]').addClass('active');
   });
 </script>
+<!--Wave Effects -->
+<script src="{{ asset('elite/js/waves.js') }}"></script>
+<!--stickey kit -->
+<script src="{{ asset('elite/js/sticky-kit.min.js') }}"></script>
+<script src="{{ asset('elite/js/jquery.sparkline.min.js') }}"></script>
+<!--Custom JavaScript -->
+<script src="{{ asset('elite/js/custom.min.js') }}"></script>
 <!-- Magnific popup JavaScript -->
 <script src="{{ asset('elite/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('elite/js/jquery.magnific-popup-init.js') }}"></script>
