@@ -222,6 +222,9 @@ Route::group(
 
 Route::namespace('Transaction')->group(function(){
 	Route::get('/registration/author', 'RegisterAuthorController@showRegistrationForm');
+	Route::get('/registration/author/new', function(){
+		return view('guest.initial-author-registration-new');
+	});
 	Route::post('/registration/author', 'RegisterAuthorController@requestAuthorAccount');
 	Route::get('/registration/author/{id}/form/{token}', 
 		'RegisterAuthorController@authorAccountRegistration');

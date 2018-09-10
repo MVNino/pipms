@@ -8,10 +8,17 @@
       </div>
     </div>
     <ul class="app-menu">
-      <li><a class="app-menu__item {{Request::is('admin/dashboard') ? 'active':''}}" href="/admin/dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
-      <li><a class="app-menu__item {{Request::is('admin/mails') ? 'active':''}}" href="/admin/mails"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">Mails</span></a></li>
-      <li><a class="app-menu__item {{Request::is('admin/calendar') ? 'active':''}}" href="/admin/calendar"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a></li>
-      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">My Account</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <li>
+        <a class="app-menu__item {{Request::is('admin/dashboard') ? 'active':''}}" href="/admin/dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a>
+      </li>
+      <li>
+        <a class="app-menu__item {{Request::is('admin/mails') ? 'active':''}}" href="/admin/mails"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">Mails</span></a>
+      </li>
+      <li>
+        <a class="app-menu__item {{Request::is('admin/calendar') ? 'active':''}}" href="/admin/calendar"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a>
+      </li>
+      <li class="treeview">
+        <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">My Account</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li><a class="treeview-item" href="/admin/user-profile">My Profile</a></li>
         </ul>

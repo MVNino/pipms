@@ -1,5 +1,14 @@
 @extends('admin.layouts.app')
 
+@section('pg-specific-css')
+<!-- Popup CSS -->
+<link href="{{ asset('elite/css/magnific-popup.css') }}" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="{{ asset('elite/css/style.min.css') }}" rel="stylesheet">
+<!-- page css -->
+<link href="{{ asset('elite/css/user-card.css') }}" rel="stylesheet">
+@endsection
+
 @section('pg-title')
 <h1><i class="fa fa-user-o"></i> Account Request</h1>
   <p>Approbation for an author account</p>
@@ -61,6 +70,19 @@
   </div>
 </div>
 
+<div class="card">
+  <div class="el-card-item">
+      <div class="el-card-avatar el-overlay-1">
+      <a class="image-popup-vertical-fit" href="{{ asset('elite/images/1.jpg') }}"> 
+        <img src="{{ asset('elite/images/1.jpg') }}" alt="user" /> </a>
+      </div>
+      <div class="el-card-content">
+          <h3 class="box-title">Project title</h3> <small>subtitle of project</small>
+          <br/> </div>
+  </div>
+</div>
+
+
 <!-- Message author -->
 <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -111,4 +133,7 @@
     $('a[href="/admin/transaction/author/account-requests"]').addClass('active');
   });
 </script>
+<!-- Magnific popup JavaScript -->
+<script src="{{ asset('elite/js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('elite/js/jquery.magnific-popup-init.js') }}"></script>
 @endsection

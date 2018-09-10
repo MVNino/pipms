@@ -144,13 +144,19 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 pr-1">
+            <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" placeholder="Company" value="Chet">
               </div>
             </div>
-            <div class="col-md-6 pl-1">
+            <div class="col-md-4 pr-1">
+              <div class="form-group">
+                <label>Middle Name</label>
+                <input type="text" class="form-control" placeholder="Company" value="Chet">
+              </div>
+            </div>
+            <div class="col-md-4 pl-1">
               <div class="form-group">
                 <label>Last Name</label>
                 <input type="text" class="form-control" placeholder="Last Name" value="Faker">
