@@ -174,20 +174,29 @@
           <div class="row">
             <div class="col-md-4 pr-1">
               <div class="form-group">
-                <label>City</label>
-                <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                <label>Branch</label>
+                <select data-placeholder="Select branch" class="custom-select" name="slctBranchId">
+                  <option selected>Select branch</option>
+                    <option>PUP Main</option>
+                </select>
               </div>
             </div>
             <div class="col-md-4 px-1">
               <div class="form-group">
-                <label>Country</label>
-                <input type="text" class="form-control" placeholder="Country" value="Australia">
+                <label>College</label>
+                <select data-placeholder="Select college" class="custom-select" name="slctCollegeId">
+                  <option selected>Select college</option>
+                    <option>CCIS</option>
+                </select>
               </div>
             </div>
             <div class="col-md-4 pl-1">
               <div class="form-group">
-                <label>Postal Code</label>
-                <input type="number" class="form-control" placeholder="ZIP Code">
+                <label>Department</label>
+                <select data-placeholder="Select department" class="custom-select" name="slctDepartmentId">
+                  <option selected>Select department</option>
+                    <option>BSIT</option>
+                </select>
               </div>
             </div>
           </div>
