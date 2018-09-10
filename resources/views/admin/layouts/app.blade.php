@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     @include('admin.includes.head-content')
+    @yield('pg-specific-css')
   <style>
     body {
       padding-bottom: 0;

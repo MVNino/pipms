@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -41,9 +40,8 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
-                            <i class="fa fa-twitter"></i>
-                            <p class="d-lg-none">Twitter</p>
+                        <a href="/" class="nav-link">
+                            <i class="nc-icon nc-book-bookmark"></i> Home
                         </a>
                     </li>
                     <li class="nav-item">
@@ -65,10 +63,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="documentation/tutorial-components.html" target="_blank" class="nav-link"><i class="nc-icon nc-book-bookmark"></i> Documentation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/product/paper-kit-2-pro?ref=pk2-free-local" target="_blank" class="btn btn-danger btn-round">Upgrade to Pro</a>
+                        <a href="documentation/tutorial-components.html" target="_blank" class="nav-link">
+                            <i class="nc-icon nc-book-bookmark"></i> Documentation
+                        </a>
                     </li>
                 </ul>
             </div>
