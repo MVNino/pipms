@@ -2,16 +2,56 @@
 
 /* @SYSTEM CSS Modification */
 
-/* GUEST */
-
 body {
   padding-bottom: 0;
-  color: #5a5a5a;
   overflow-x: hidden;
 }
 
-body#body-guest {
-  padding-top: 3rem;
+/* GUEST */
+
+/* @GUEST CSS Modifications */
+
+#body-guest {
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* Navbar-Guest and Navbar-Admin */
+
+#navbar-laravel {
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#navbar-laravel ul {
+  margin-left: 24px;
+}
+
+#navbar-laravel ul a {
+  font-size: 1.10em;
+  color: gray;
+}
+
+#navbar-laravel ul li a:hover {
+  color: maroon;
+}
+
+#navbar-laravel div#navbarSupportedContent ul li a.active {
+  color: maroon;
+  font-weight: bold;
+  border-bottom: 2px solid maroon;
+}
+
+#navbar-laravel a.navbar-brand {
+  color: maroon;
+  font-weight: bold;
+  border: 1px solid maroon;
+  border-radius: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -3280,12 +3320,12 @@ section {
 body {
   margin: 0;
   font-family: "Raleway", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #f5f8fa;
 }
 
 [tabindex="-1"]:focus {
@@ -3607,36 +3647,36 @@ h6,
 
 h1,
 .h1 {
-  font-size: 2rem;
+  font-size: 2.375rem;
 }
 
 h2,
 .h2 {
-  font-size: 1.6rem;
+  font-size: 1.9rem;
 }
 
 h3,
 .h3 {
-  font-size: 1.4rem;
+  font-size: 1.6625rem;
 }
 
 h4,
 .h4 {
-  font-size: 1.2rem;
+  font-size: 1.425rem;
 }
 
 h5,
 .h5 {
-  font-size: 1rem;
+  font-size: 1.1875rem;
 }
 
 h6,
 .h6 {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .lead {
-  font-size: 1rem;
+  font-size: 1.1875rem;
   font-weight: 300;
 }
 
@@ -3711,7 +3751,7 @@ mark,
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
 }
 
 .blockquote-footer {
@@ -3731,7 +3771,7 @@ mark,
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #fff;
+  background-color: #f5f8fa;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   max-width: 100%;
@@ -5153,7 +5193,7 @@ pre code {
 }
 
 .table .table {
-  background-color: #fff;
+  background-color: #f5f8fa;
 }
 
 .table-sm th,
@@ -5326,7 +5366,7 @@ pre code {
 }
 
 .table .thead-dark th {
-  color: #fff;
+  color: #f5f8fa;
   background-color: #212529;
   border-color: #32383e;
 }
@@ -5338,7 +5378,7 @@ pre code {
 }
 
 .table-dark {
-  color: #fff;
+  color: #f5f8fa;
   background-color: #212529;
 }
 
@@ -5431,10 +5471,10 @@ pre code {
 .form-control {
   display: block;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
@@ -5509,20 +5549,20 @@ select.form-control:focus::-ms-value {
   padding-bottom: calc(0.375rem + 1px);
   margin-bottom: 0;
   font-size: inherit;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
 }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
 }
 
@@ -5532,7 +5572,7 @@ select.form-control:focus::-ms-value {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   margin-bottom: 0;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #212529;
   background-color: transparent;
   border: solid transparent;
@@ -5561,9 +5601,9 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
-  height: calc(1.55rem + 2px);
+  height: calc(1.746875rem + 2px);
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
   border-radius: 0.2rem;
 }
@@ -5574,9 +5614,9 @@ select.form-control:focus::-ms-value {
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
-  height: calc(2.5rem + 2px);
+  height: calc(2.78125rem + 2px);
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
   border-radius: 0.3rem;
 }
@@ -5669,8 +5709,8 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
-  line-height: 1.4;
+  font-size: 0.83125rem;
+  line-height: 1.6;
   color: #fff;
   background-color: rgba(40, 167, 69, 0.9);
   border-radius: 0.25rem;
@@ -5750,8 +5790,8 @@ textarea.form-control {
 
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before,
 .custom-control-input.is-valid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 .was-validated .custom-file-input:valid ~ .custom-file-label,
@@ -5793,8 +5833,8 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
-  line-height: 1.4;
+  font-size: 0.83125rem;
+  line-height: 1.6;
   color: #fff;
   background-color: rgba(220, 53, 69, 0.9);
   border-radius: 0.25rem;
@@ -5874,8 +5914,8 @@ textarea.form-control {
 
 .was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before,
 .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .was-validated .custom-file-input:invalid ~ .custom-file-label,
@@ -6011,8 +6051,8 @@ textarea.form-control {
           user-select: none;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.6;
   border-radius: 0.25rem;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -6723,7 +6763,7 @@ fieldset:disabled a.btn {
 .btn-lg,
 .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
   border-radius: 0.3rem;
 }
@@ -6731,7 +6771,7 @@ fieldset:disabled a.btn {
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
   border-radius: 0.2rem;
 }
@@ -6820,7 +6860,7 @@ input[type="button"].btn-block {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: #212529;
   text-align: left;
   list-style: none;
@@ -6985,7 +7025,7 @@ input[type="button"].btn-block {
   display: block;
   padding: 0.5rem 1.5rem;
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   color: #6c757d;
   white-space: nowrap;
 }
@@ -7267,9 +7307,9 @@ input[type="button"].btn-block {
           align-items: center;
   padding: 0.375rem 0.75rem;
   margin-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   text-align: center;
   white-space: nowrap;
@@ -7288,9 +7328,9 @@ input[type="button"].btn-block {
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
-  height: calc(2.5rem + 2px);
+  height: calc(2.78125rem + 2px);
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
   border-radius: 0.3rem;
 }
@@ -7300,9 +7340,9 @@ input[type="button"].btn-block {
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
-  height: calc(1.55rem + 2px);
+  height: calc(1.746875rem + 2px);
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
   border-radius: 0.2rem;
 }
@@ -7330,7 +7370,7 @@ input[type="button"].btn-block {
 .custom-control {
   position: relative;
   display: block;
-  min-height: 1.12rem;
+  min-height: 1.52rem;
   padding-left: 1.5rem;
 }
 
@@ -7353,8 +7393,8 @@ input[type="button"].btn-block {
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-control-input:active ~ .custom-control-label::before {
@@ -7377,7 +7417,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::before {
   position: absolute;
-  top: 0.06rem;
+  top: 0.26rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -7393,7 +7433,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::after {
   position: absolute;
-  top: 0.06rem;
+  top: 0.26rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -7451,9 +7491,9 @@ input[type="button"].btn-block {
 .custom-select {
   display: inline-block;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   vertical-align: middle;
   background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
@@ -7494,14 +7534,14 @@ input[type="button"].btn-block {
 }
 
 .custom-select-sm {
-  height: calc(1.55rem + 2px);
+  height: calc(1.746875rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   font-size: 75%;
 }
 
 .custom-select-lg {
-  height: calc(2.5rem + 2px);
+  height: calc(2.78125rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   font-size: 125%;
@@ -7511,7 +7551,7 @@ input[type="button"].btn-block {
   position: relative;
   display: inline-block;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   margin-bottom: 0;
 }
 
@@ -7519,7 +7559,7 @@ input[type="button"].btn-block {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   margin: 0;
   opacity: 0;
 }
@@ -7548,9 +7588,9 @@ input[type="button"].btn-block {
   right: 0;
   left: 0;
   z-index: 1;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   padding: 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   background-color: #fff;
   border: 1px solid #ced4da;
@@ -7564,9 +7604,9 @@ input[type="button"].btn-block {
   bottom: 0;
   z-index: 3;
   display: block;
-  height: 1.87rem;
+  height: 2.27rem;
   padding: 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   content: "Browse";
   background-color: #e9ecef;
@@ -7588,16 +7628,16 @@ input[type="button"].btn-block {
 }
 
 .custom-range:focus::-webkit-slider-thumb {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range:focus::-ms-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range::-moz-focus-outer {
@@ -7794,8 +7834,8 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #f5f8fa;
+  border-color: #dee2e6 #dee2e6 #f5f8fa;
 }
 
 .nav-tabs .dropdown-menu {
@@ -7871,10 +7911,10 @@ input[type="button"].btn-block {
 
 .navbar-brand {
   display: inline-block;
-  padding-top: 0.36rem;
-  padding-bottom: 0.36rem;
+  padding-top: 0.31rem;
+  padding-bottom: 0.31rem;
   margin-right: 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -7926,7 +7966,7 @@ input[type="button"].btn-block {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -8719,7 +8759,7 @@ input[type="button"].btn-block {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
 }
 
@@ -8735,7 +8775,7 @@ input[type="button"].btn-block {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
 }
 
@@ -8908,7 +8948,7 @@ input[type="button"].btn-block {
 }
 
 .alert-dismissible {
-  padding-right: 3.7rem;
+  padding-right: 3.925rem;
 }
 
 .alert-dismissible .close {
@@ -9057,7 +9097,7 @@ input[type="button"].btn-block {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.6rem;
+  font-size: 0.7125rem;
   background-color: #e9ecef;
   border-radius: 0.25rem;
 }
@@ -9334,7 +9374,7 @@ input[type="button"].btn-block {
 
 .close {
   float: right;
-  font-size: 1.2rem;
+  font-size: 1.425rem;
   font-weight: 700;
   line-height: 1;
   color: #000;
@@ -9484,7 +9524,7 @@ button.close {
 
 .modal-title {
   margin-bottom: 0;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .modal-body {
@@ -9558,7 +9598,7 @@ button.close {
   font-family: "Raleway", sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -9569,7 +9609,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   word-wrap: break-word;
   opacity: 0;
 }
@@ -9683,7 +9723,7 @@ button.close {
   font-family: "Raleway", sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -9694,7 +9734,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;
@@ -9856,7 +9896,7 @@ button.close {
 .popover-header {
   padding: 0.5rem 0.75rem;
   margin-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: inherit;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
@@ -13792,10 +13832,10 @@ body {
   font-family: "Raleway", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #f5f8fa;
 }
 
 [tabindex="-1"]:focus {
@@ -14116,36 +14156,36 @@ h6,
 
 h1,
 .h1 {
-  font-size: 2rem;
+  font-size: 2.375rem;
 }
 
 h2,
 .h2 {
-  font-size: 1.6rem;
+  font-size: 1.9rem;
 }
 
 h3,
 .h3 {
-  font-size: 1.4rem;
+  font-size: 1.6625rem;
 }
 
 h4,
 .h4 {
-  font-size: 1.2rem;
+  font-size: 1.425rem;
 }
 
 h5,
 .h5 {
-  font-size: 1rem;
+  font-size: 1.1875rem;
 }
 
 h6,
 .h6 {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .lead {
-  font-size: 1rem;
+  font-size: 1.1875rem;
   font-weight: 300;
 }
 
@@ -14220,7 +14260,7 @@ mark,
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
 }
 
 .blockquote-footer {
@@ -14240,7 +14280,7 @@ mark,
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #fff;
+  background-color: #f5f8fa;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   max-width: 100%;
@@ -15663,7 +15703,7 @@ pre code {
 }
 
 .table .table {
-  background-color: #fff;
+  background-color: #f5f8fa;
 }
 
 .table-sm th,
@@ -15836,7 +15876,7 @@ pre code {
 }
 
 .table .thead-dark th {
-  color: #fff;
+  color: #f5f8fa;
   background-color: #212529;
   border-color: #32383e;
 }
@@ -15848,7 +15888,7 @@ pre code {
 }
 
 .table-dark {
-  color: #fff;
+  color: #f5f8fa;
   background-color: #212529;
 }
 
@@ -15943,7 +15983,7 @@ pre code {
   width: 100%;
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
@@ -16003,7 +16043,7 @@ pre code {
 }
 
 select.form-control:not([size]):not([multiple]) {
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
 }
 
 select.form-control:focus::-ms-value {
@@ -16022,20 +16062,20 @@ select.form-control:focus::-ms-value {
   padding-bottom: calc(0.375rem + 1px);
   margin-bottom: 0;
   font-size: inherit;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
 }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
 }
 
@@ -16045,7 +16085,7 @@ select.form-control:focus::-ms-value {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   margin-bottom: 0;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #212529;
   background-color: transparent;
   border: solid transparent;
@@ -16075,7 +16115,7 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
   border-radius: 4px;
 }
@@ -16086,7 +16126,7 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]) {
-  height: calc(1.55rem + 2px);
+  height: calc(1.746875rem + 2px);
 }
 
 .form-control-lg,
@@ -16096,7 +16136,7 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > .btn,
 .input-group-lg > .input-group-append > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
   border-radius: 4px;
 }
@@ -16107,7 +16147,7 @@ select.form-control-lg:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {
-  height: calc(2.5rem + 2px);
+  height: calc(2.78125rem + 2px);
 }
 
 .form-group {
@@ -16270,8 +16310,8 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before,
 .custom-control-input.is-valid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 .was-validated .custom-file-input:valid ~ .custom-file-label,
@@ -16394,8 +16434,8 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before,
 .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .was-validated .custom-file-input:invalid ~ .custom-file-label,
@@ -16532,7 +16572,7 @@ select.form-control-lg:not([size]):not([multiple]),
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
   font-size: 0.875rem;
-  line-height: 1.4;
+  line-height: 1.6;
   border-radius: 3px;
   -webkit-transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, -webkit-box-shadow 0.3s cubic-bezier(0.35, 0, 0.25, 1), -webkit-transform 0.2s cubic-bezier(0.35, 0, 0.25, 1);
   transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, -webkit-box-shadow 0.3s cubic-bezier(0.35, 0, 0.25, 1), -webkit-transform 0.2s cubic-bezier(0.35, 0, 0.25, 1);
@@ -17248,7 +17288,7 @@ fieldset:disabled a.btn {
 .btn-lg,
 .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -17256,7 +17296,7 @@ fieldset:disabled a.btn {
 .btn-sm,
 .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -17510,7 +17550,7 @@ input[type="button"].btn-block {
   display: block;
   padding: 0 20px;
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   color: #6c757d;
   white-space: nowrap;
 }
@@ -17790,7 +17830,7 @@ input[type="button"].btn-block {
   margin-bottom: 0;
   font-size: 0.875rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   text-align: center;
   white-space: nowrap;
@@ -17827,7 +17867,7 @@ input[type="button"].btn-block {
 .custom-control {
   position: relative;
   display: block;
-  min-height: 1.4rem;
+  min-height: 1.6rem;
   padding-left: 1.5rem;
 }
 
@@ -17850,8 +17890,8 @@ input[type="button"].btn-block {
 }
 
 .custom-control-input:focus ~ .custom-control-label::before {
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-control-input:active ~ .custom-control-label::before {
@@ -17874,7 +17914,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::before {
   position: absolute;
-  top: 0.2rem;
+  top: 0.3rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -17890,7 +17930,7 @@ input[type="button"].btn-block {
 
 .custom-control-label::after {
   position: absolute;
-  top: 0.2rem;
+  top: 0.3rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -17948,9 +17988,9 @@ input[type="button"].btn-block {
 .custom-select {
   display: inline-block;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   vertical-align: middle;
   background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
@@ -17991,14 +18031,14 @@ input[type="button"].btn-block {
 }
 
 .custom-select-sm {
-  height: calc(1.55rem + 2px);
+  height: calc(1.746875rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   font-size: 75%;
 }
 
 .custom-select-lg {
-  height: calc(2.5rem + 2px);
+  height: calc(2.78125rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
   font-size: 125%;
@@ -18008,7 +18048,7 @@ input[type="button"].btn-block {
   position: relative;
   display: inline-block;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   margin-bottom: 0;
 }
 
@@ -18016,7 +18056,7 @@ input[type="button"].btn-block {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   margin: 0;
   opacity: 0;
 }
@@ -18041,9 +18081,9 @@ input[type="button"].btn-block {
   right: 0;
   left: 0;
   z-index: 1;
-  height: calc(1.87rem + 2px);
+  height: calc(2.27rem + 2px);
   padding: 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   background-color: #fff;
   border: 1px solid #ced4da;
@@ -18057,9 +18097,9 @@ input[type="button"].btn-block {
   bottom: 0;
   z-index: 3;
   display: block;
-  height: 1.87rem;
+  height: 2.27rem;
   padding: 0.375rem 0.75rem;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #495057;
   content: "Browse";
   background-color: #e9ecef;
@@ -18097,8 +18137,8 @@ input[type="button"].btn-block {
 
 .custom-range::-webkit-slider-thumb:focus {
   outline: none;
-  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range::-webkit-slider-thumb:active {
@@ -18127,7 +18167,7 @@ input[type="button"].btn-block {
 
 .custom-range::-moz-range-thumb:focus {
   outline: none;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range::-moz-range-thumb:active {
@@ -18155,7 +18195,7 @@ input[type="button"].btn-block {
 
 .custom-range::-ms-thumb:focus {
   outline: none;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #f5f8fa, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .custom-range::-ms-thumb:active {
@@ -18236,8 +18276,8 @@ input[type="button"].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #f5f8fa;
+  border-color: #dee2e6 #dee2e6 #f5f8fa;
 }
 
 .nav-tabs .dropdown-menu {
@@ -18313,10 +18353,10 @@ input[type="button"].btn-block {
 
 .navbar-brand {
   display: inline-block;
-  padding-top: 0.36rem;
-  padding-bottom: 0.36rem;
+  padding-top: 0.31rem;
+  padding-bottom: 0.31rem;
   margin-right: 1rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -18368,7 +18408,7 @@ input[type="button"].btn-block {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -19161,7 +19201,7 @@ input[type="button"].btn-block {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  font-size: 1.1875rem;
   line-height: 1.5;
 }
 
@@ -19177,7 +19217,7 @@ input[type="button"].btn-block {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   line-height: 1.5;
 }
 
@@ -19350,7 +19390,7 @@ input[type="button"].btn-block {
 }
 
 .alert-dismissible {
-  padding-right: 3.7rem;
+  padding-right: 3.925rem;
 }
 
 .alert-dismissible .close {
@@ -19489,7 +19529,7 @@ input[type="button"].btn-block {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.6rem;
+  font-size: 0.7125rem;
   background-color: #e9ecef;
   border-radius: 0.25rem;
 }
@@ -19766,7 +19806,7 @@ input[type="button"].btn-block {
 
 .close {
   float: right;
-  font-size: 1.2rem;
+  font-size: 1.425rem;
   font-weight: 700;
   line-height: 1;
   color: #000;
@@ -19910,7 +19950,7 @@ button.close {
 
 .modal-title {
   margin-bottom: 0;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .modal-body {
@@ -19980,7 +20020,7 @@ button.close {
   font-family: "Raleway", sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -19991,7 +20031,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   word-wrap: break-word;
   opacity: 0;
 }
@@ -20105,7 +20145,7 @@ button.close {
   font-family: "Raleway", sans-serif;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -20116,7 +20156,7 @@ button.close {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.83125rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: padding-box;

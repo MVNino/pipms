@@ -1,16 +1,45 @@
 /* @SYSTEM CSS Modification */
-
-/* GUEST */
 body {
   padding-bottom: 0;
-  color: #5a5a5a;
   overflow-x: hidden;
 }
 
-body#body-guest {
-  padding-top: 3rem;
+/* GUEST */
+/* @GUEST CSS Modifications */
+#body-guest {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
 }
 
+/* Navbar-Guest and Navbar-Admin */
+#navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+#navbar-laravel ul{
+  margin-left: 24px;
+}
+#navbar-laravel ul a{
+  font-size: 1.10em;
+  color: gray;
+}
+#navbar-laravel ul li a:hover{
+  color: maroon;
+}
+#navbar-laravel div#navbarSupportedContent ul li a.active{
+  color: maroon;
+  font-weight: bold;
+  border-bottom: 2px solid maroon;
+}
+#navbar-laravel a.navbar-brand {
+  color: maroon;
+  font-weight: bold;
+  border: 1px solid maroon;
+  border-radius: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */

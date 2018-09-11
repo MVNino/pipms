@@ -11,9 +11,10 @@
 Route::get('/paper-kit2', function(){
 	return view('paper-kit2');
 });
-Route::get('/', 			'GuestController@index');
-Route::get('/about-us', 	'GuestController@about');
-Route::get('/application/guide', 'GuestController@viewApplicationGuide');
+Route::get('/', 			'GuestController@index')->name('index');
+Route::get('/about-us', 	'GuestController@about')->name('about-us');
+Route::get('/application/guide', 'GuestController@viewApplicationGuide')
+	->name('application.guide');
 
 Route::get('/account-registration', 'RegisterController@viewRegistrationForm');
 Route::post('/account-registration', 'RegisterController@registerUser');
@@ -220,10 +221,11 @@ Route::group(
 	}
 );
 
+// Author - Account Request Transaction
 Route::namespace('Transaction')->group(function(){
 	Route::get('/registration/author', 'RegisterAuthorController@showRegistrationForm');
 	Route::get('/registration/author/new', function(){
-		return view('guest.initial-author-registration-new');
+		return view('guest.author-account-request');
 	});
 	Route::post('/registration/author', 'RegisterAuthorController@requestAuthorAccount');
 	Route::get('/registration/author/{id}/form/{token}', 
@@ -239,3 +241,6 @@ Route::namespace('Transaction')->group(function(){
 // 	'copyright' => 'CopyrightController',
 // 	'patent' => 'PatentController'
 // ]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
