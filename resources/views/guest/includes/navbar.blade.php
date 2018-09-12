@@ -10,9 +10,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @guest
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('/') ? 'active':''}}" href="{{ route('index') }}">Home</a>
                 </li>
+                @endguest
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('application/guide') ? 'active':''}}" href="{{ route('application.guide') }}">IPR Application</a>
                 </li>
@@ -23,9 +25,11 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+                @guest
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('login') ? 'active':''}}" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
+                @endguest
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('registration/author') ? 'active':''}}" href="/registration/author">Account Request</a>
                 </li>

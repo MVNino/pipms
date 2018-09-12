@@ -51,7 +51,7 @@
     </div>
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Team Members</h4>
+        <h4 class="card-title">Co-Authors</h4>
       </div>
       <div class="card-body">
         <ul class="list-unstyled team-members">
@@ -124,22 +124,36 @@
       <div class="card-body">
         <form>
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-4 pr-1">
               <div class="form-group">
-                <label>Company (disabled)</label>
-                <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                <label>Type of Author</label>
+                <input type="text" class="form-control" placeholder="Company" value="Student" readonly="">
               </div>
             </div>
-            <div class="col-md-3 px-1">
+            <div class="col-md-4 px-1">
               <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" value="michael23">
+                <label>Gender</label>
+                <input type="text" class="form-control" placeholder="Gender" value="Male" readonly="">
               </div>
             </div>
             <div class="col-md-4 pl-1">
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" placeholder="Email">
+                <label for="exampleInputEmail1">Birthdate</label>
+                <input type="text" class="form-control" placeholder="Birthdate" value="01/23/1998" readonly="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username">
+              </div>
+            </div>
+            <div class="col-md-6 px-1">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="Email" value="ninomarlonvilla@gmail.com" readonly="">
               </div>
             </div>
           </div>
@@ -172,6 +186,20 @@
             </div>
           </div>
           <div class="row">
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>Cellphone Number</label>
+                <input type="text" class="form-control" placeholder="Cellphone Number">
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>Telephone Number</label>
+                <input type="text" class="form-control" placeholder="Telephone Number">
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Branch</label>
@@ -197,14 +225,6 @@
                   <option selected>Select department</option>
                     <option>BSIT</option>
                 </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
               </div>
             </div>
           </div>
