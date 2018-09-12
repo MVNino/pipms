@@ -10,6 +10,9 @@
   <div class="cover"></div>
 </section>
 <section class="login-content">
+	<div class="logo">
+    	<h1>Account Request</h1>
+	</div>
 <div class="container">
 {!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId']) !!}
 @csrf
@@ -17,11 +20,11 @@
     <div class="tile-body">
 		<div class="row">
 		    <div class="col-md-8">
-	    		<h4>Applicant Details</h4>
+	    		<h4>Author Details</h4>
 				<small id="contactHelp" class="form-text text-muted">Tell us something about you.</small>
 				<div class="row">
 					<div class="col-md-4 col-sm-4">
-			    		<label><strong>Type of Applicant</strong></label>
+			    		<label><strong>Type of Author</strong></label>
 						<select class="custom-select" name="slctApplicantType" required>
 						  <option>Select type</option>
 						  <option value="Student">Student</option>
@@ -47,7 +50,7 @@
 						<input class="form-control" type="date" placeholder="Select Date" name="birthdate" required>
 			        </div>
 				</div>
-				<label><strong>Applicant's Name</strong></label>
+				<label><strong>Name</strong></label>
 				<div class="row">
 				    <div class="col">
 						<div class="form-group">
@@ -73,7 +76,7 @@
 			</div>
 			<div class="col-md-4">
 				<h4>Applicant's Receipt</h4>
-				<small id="contactHelp" class="form-text text-muted">Receipt from your copyright request fee. <br>These fields are <span class="text-info">required.</span></small>
+				<small id="contactHelp" class="form-text text-muted">Receipt from your copyright request fee.</small>
 				<div class="row">
 		        	<div class="col-md-12">
 		        		<div class="form-group">
@@ -87,11 +90,9 @@
 		        	<div class="col-md-12">
 				         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">File Upload1</h4>
-                                <label for="input-file-max-fs">You can add a max file size</label>
-                                <input type="file" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
-
-
+                                <h4 class="card-title">Receipt</h4>
+                                <label for="input-file-max-fs">Maximum file size: 2MB</label>
+                                <input type="file" name="fileReceipt" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
                             </div>
                         </div>
 
@@ -101,10 +102,14 @@
 		</div>
 
 		<div class="row ">
-			<div class="col-md-9"></div>
-			<div class="col-md-3">
+			<div class="col-md-5"></div>
+			<div class="col-md-2">
 				@captcha()
-				<button type="submit" class="btn btn-md btn-primary btn-block">Submit</button>
+				<button type="submit" class="btn btn-md btn-primary btn-block">
+					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
+				</button>
+			</div>
+			<div class="col-md-5">
 			</div>
 		</div>
 	</div>
