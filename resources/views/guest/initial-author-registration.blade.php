@@ -92,7 +92,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Receipt</h4>
                                 <label for="input-file-max-fs">Maximum file size: 2MB</label>
-                                <input type="file" name="fileReceipt" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
+                                <input type="file" name="fileReceiptImg" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
                             </div>
                         </div>
 

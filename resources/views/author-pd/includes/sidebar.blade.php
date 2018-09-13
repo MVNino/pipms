@@ -6,15 +6,15 @@
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="/storage/images/profile/lonlon.jpg">
+            <img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}">
           </div>
         </a>
         <a href="#" class="simple-text logo-normal">
-          Marlon Niño<br>&nbsp&nbsp&nbsp&nbsp&nbsp<small class="text-danger">Author</small>
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+          {{ Auth::user()->str_first_name }} {{ Auth::user()->str_last_name }}<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small class="text-danger">Author</small>
         </a>
+          <!-- <div class="logo-image-big">
+            <img src="/storage/images/profile/{{Auth::user()->str_user_image_code}}">
+          </div> -->
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">

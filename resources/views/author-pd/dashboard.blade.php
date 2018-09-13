@@ -173,3 +173,11 @@
   </div>
 </div>
 @endsection
+
+@section('pg-specific-js') 
+<script>
+  $(document).ready(function(){
+    $('#li-dashboard').addClass('active');
+  });
+</script>
+@endsection

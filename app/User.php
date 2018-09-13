@@ -33,7 +33,8 @@ class User extends Authenticatable
     ];
 
     // Relationship of User to Copyright table
-    public function copyrights(){
+    public function copyrights()
+    {
         return $this->hasMany('App\Copyright', 'int_user_id', 'id');
     }
 
