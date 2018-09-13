@@ -10,17 +10,16 @@
       <div class="card-body">
         <div class="author">
           <a href="#">
-            <img class="avatar border-gray" src="/storage/images/profile/lonlon.jpg" alt="...">
-            <h5 class="title">Marlon Villa Niño</h5>
+            <img class="avatar border-gray" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="author profile image">
+            <h5 class="title">{{ Auth::user()->str_first_name }} {{ Auth::user()->str_middle_name }} {{ Auth::user()->str_last_name }}</h5>
           </a>
           <p class="description text-muted">
-            ninomarlonvilla@gmail.com
+            {{ Auth::user()->email }}
           </p>
         </div>
         <p class="description text-center">
-          "I may be one of the lowest now,
-          <br> But it is not
-          <br> <i>FOREVER</i>"
+          Last sign in:
+          <br> <b>Wednesday</b>
         </p>
       </div>
       <div class="card-footer">
@@ -122,24 +121,29 @@
         <h5 class="card-title">Edit Profile</h5>
       </div>
       <div class="card-body">
-        <form>
+        {!! Form::open(['action' => ['AuthorController@updateAuthor', $user->int_user_id], 'method' => 'POST']) !!}
+          @csrf
           <div class="row">
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Type of Author</label>
-                <input type="text" class="form-control" placeholder="Company" value="Student" readonly="">
+                <input type="text" class="form-control" placeholder="Type of Author" value="{{ $user->char_applicant_type }}" readonly="">
               </div>
             </div>
             <div class="col-md-4 px-1">
               <div class="form-group">
                 <label>Gender</label>
+                @if($user->char_gender == 'M')
                 <input type="text" class="form-control" placeholder="Gender" value="Male" readonly="">
+                @else
+                <input type="text" class="form-control" placeholder="Gender" value="Female" readonly="">
+                @endif
               </div>
             </div>
             <div class="col-md-4 pl-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Birthdate</label>
-                <input type="text" class="form-control" placeholder="Birthdate" value="01/23/1998" readonly="">
+                <input type="text" class="form-control" placeholder="Birthdate" value="{{ $user->dtm_birthdate }}" readonly="">
               </div>
             </div>
           </div>
@@ -147,33 +151,33 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username">
+                <input type="text" name="txtUsername" class="form-control" placeholder="Enter username" value="{{}}">
               </div>
             </div>
             <div class="col-md-6 px-1">
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" placeholder="Email" value="ninomarlonvilla@gmail.com" readonly="">
+                <input type="email" name="txtEmail" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 pr-1">
               <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Company" value="Chet">
+                <label>Last Name</label>
+                <input type="text" name="txtLastName" class="form-control" placeholder="Enter lastname" value="{{ Auth::user()->str_last_name }}">
               </div>
             </div>
             <div class="col-md-4 pr-1">
               <div class="form-group">
-                <label>Middle Name</label>
-                <input type="text" class="form-control" placeholder="Company" value="Chet">
+                <label>First Name</label>
+                <input type="text" name="txtFirstName" class="form-control" placeholder="Enter firstname" value="{{ Auth::user()->str_first_name }}">
               </div>
             </div>
             <div class="col-md-4 pl-1">
               <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                <label>Middle Name</label>
+                <input type="text" name="txtMiddleName" class="form-control" placeholder="Enter middlename" value="{{ Auth::user()->str_middle_name }}">
               </div>
             </div>
           </div>
@@ -181,7 +185,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Address</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
+                <input type="text" name="txtHomeAddress" class="form-control" placeholder="Enter home address">
               </div>
             </div>
           </div>
@@ -189,13 +193,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Cellphone Number</label>
-                <input type="text" class="form-control" placeholder="Cellphone Number">
+                <input type="text" name="txtMobileNumber" class="form-control" placeholder="Enter cellphone number">
               </div>
             </div>
             <div class="col-md-6 pl-1">
               <div class="form-group">
                 <label>Telephone Number</label>
-                <input type="text" class="form-control" placeholder="Telephone Number">
+                <input type="text" name="txtTelephoneNumber" class="form-control" placeholder="Enter telephone number">
               </div>
             </div>
           </div>
@@ -230,6 +234,7 @@
           </div>
           <div class="row">
             <div class="update ml-auto mr-auto">
+              {{ Form::hidden('_method', 'PUT') }}
               <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
             </div>
           </div>

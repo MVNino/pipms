@@ -7,11 +7,12 @@
 <body class="">
   <div class="wrapper"> 
   @include('author-pd.includes.sidebar')
-  <div class="main-panel">
-  @include('author-pd.includes.navbar')
+    <div class="main-panel">
+      @include('author-pd.includes.navbar')
   <!-- <div class="panel-header panel-header-lg">
   <canvas id="bigDashboardChart"></canvas>
 </div> -->
+      @include('author-pd.includes.messages')
       <div class="content">
         @yield('content')
       </div>

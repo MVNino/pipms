@@ -19,7 +19,8 @@ class AuthorController extends Controller
 
     public function viewProfile()
     {
-        return view('author-pd.user-profile');
+        $author = Applicant::findOrFail(auth()->user()->id);
+        return view('author-pd.user-profile', ['author' => $author]);
     } 
 
     public function viewMails()
