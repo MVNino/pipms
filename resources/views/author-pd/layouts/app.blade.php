@@ -12,8 +12,8 @@
   <!-- <div class="panel-header panel-header-lg">
   <canvas id="bigDashboardChart"></canvas>
 </div> -->
-      @include('author-pd.includes.messages')
       <div class="content">
+        @include('author-pd.includes.messages')
         @yield('content')
       </div>
       @include('author-pd.includes.footer')

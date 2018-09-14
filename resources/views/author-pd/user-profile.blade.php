@@ -69,7 +69,7 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
@@ -88,7 +88,7 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
@@ -107,7 +107,7 @@
                 </span>
               </div>
               <div class="col-md-3 col-3 text-right">
-                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
               </div>
             </div>
           </li>
@@ -121,19 +121,19 @@
         <h5 class="card-title">Edit Profile</h5>
       </div>
       <div class="card-body">
-        {!! Form::open(['action' => ['AuthorController@updateAuthor', $user->int_user_id], 'method' => 'POST']) !!}
+        {!! Form::open(['action' => ['AuthorController@updateAuthor', $author->int_user_id], 'method' => 'POST']) !!}
           @csrf
           <div class="row">
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Type of Author</label>
-                <input type="text" class="form-control" placeholder="Type of Author" value="{{ $user->char_applicant_type }}" readonly="">
+                <input type="text" class="form-control" placeholder="Type of Author" value="{{ $author->char_applicant_type }}" readonly="">
               </div>
             </div>
             <div class="col-md-4 px-1">
               <div class="form-group">
                 <label>Gender</label>
-                @if($user->char_gender == 'M')
+                @if($author->char_gender == 'M')
                 <input type="text" class="form-control" placeholder="Gender" value="Male" readonly="">
                 @else
                 <input type="text" class="form-control" placeholder="Gender" value="Female" readonly="">
@@ -142,8 +142,8 @@
             </div>
             <div class="col-md-4 pl-1">
               <div class="form-group">
-                <label for="exampleInputEmail1">Birthdate</label>
-                <input type="text" class="form-control" placeholder="Birthdate" value="{{ $user->dtm_birthdate }}" readonly="">
+                <label>Birthdate</label>
+                <input type="text" class="form-control" placeholder="Birthdate" value="{{ $author->dtm_birthdate }}" readonly="">
               </div>
             </div>
           </div>
@@ -151,13 +151,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="txtUsername" class="form-control" placeholder="Enter username" value="{{}}">
+                <input type="text" name="txtUsername" class="form-control" placeholder="Enter username" value="{{ auth()->user()->str_username }}">
               </div>
             </div>
             <div class="col-md-6 px-1">
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="txtEmail" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}">
+                <input type="email" name="txtEmail" class="form-control" placeholder="Email" value="{{ auth()->user()->email }}" readonly>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Address</label>
-                <input type="text" name="txtHomeAddress" class="form-control" placeholder="Enter home address">
+              <input type="text" name="txtHomeAddress" class="form-control" placeholder="Enter home address" value="{{ $author->str_home_address }}">
               </div>
             </div>
           </div>
@@ -193,13 +193,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Cellphone Number</label>
-                <input type="text" name="txtMobileNumber" class="form-control" placeholder="Enter cellphone number">
+              <input type="text" name="txtMobileNumber" class="form-control" placeholder="Enter cellphone number" value="{{ $author->bigInt_cellphone_number }}">
               </div>
             </div>
             <div class="col-md-6 pl-1">
               <div class="form-group">
                 <label>Telephone Number</label>
-                <input type="text" name="txtTelephoneNumber" class="form-control" placeholder="Enter telephone number">
+                <input type="text" name="txtTelephoneNumber" class="form-control" placeholder="Enter telephone number" value="{{ $author->mdmInt_telephone_number }}">
               </div>
             </div>
           </div>
@@ -226,8 +226,16 @@
               <div class="form-group">
                 <label>Department</label>
                 <select data-placeholder="Select department" class="custom-select" name="slctDepartmentId">
-                  <option selected>Select department</option>
-                    <option>BSIT</option>
+                  @if($author->int_department_id == NULL)
+                    <option selected>Select department</option>
+                  @else
+                <option value="{{ $author->int_department_id }}" selected>{{ $author->department->char_department_code }}</option>
+                  @endif
+                  @foreach($departments as $department)
+                    @if($department->int_id !== $author->int_department_id)
+                      <option value="{{ $department->int_id }}">{{ $department->char_department_code }}</option>
+                    @endif
+                  @endforeach
                 </select>
               </div>
             </div>

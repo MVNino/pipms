@@ -11,15 +11,17 @@
 Route::get('/paper-kit2', function(){
 	return view('paper-kit2');
 });
-Route::get('/', 			'GuestController@index')->name('index');
-Route::get('/about-us', 	'GuestController@about')->name('about-us');
+Route::get('/', 				'GuestController@index')->name('index');
+Route::get('/about-us', 		'GuestController@about')->name('about-us');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide')
-	->name('application.guide');
+		->name('application.guide');
 
 Route::get('/account-registration', 'RegisterController@viewRegistrationForm');
 Route::post('/account-registration', 'RegisterController@registerUser');
-Route::get('admin-login', 'GuestController@loginAdmin');
-Route::get('author-login', 'GuestController@loginAuthor');
+Route::get('admin-login', 		'GuestController@loginAdmin');
+Route::get('author-login', 		'GuestController@loginAuthor');
+
+# Authentication
 Auth::routes();
 Route::get('/dashboard',	'DashboardController@index')->name('dashboard');
 
@@ -206,6 +208,8 @@ Route::group(
 				'AuthorController@viewIPRApplication')->name('author.ipr-application');
 		Route::get('my-projects', 
 				'AuthorController@viewMyProjects')->name('author.my-projects');
+		Route::get('info', 
+				'AuthorController@viewInfo')->name('author.info');
 
 		Route::get('edit-profile', 'AuthorController@editProfiles');
 		Route::namespace('Transaction')->group(function(){
