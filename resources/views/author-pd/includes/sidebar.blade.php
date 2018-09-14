@@ -48,6 +48,12 @@
               <p>My Projects</p>
             </a>
           </li>
+          <li id="li-information" class="{{Request::is('author/info') ? 'active':''}}">
+            <a href="{{ route('author.info') }}">
+              <i class="nc-icon nc-alert-circle-i"></i>
+              <p>Information</p>
+            </a>
+          </li>
           <li class="active-pro">
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nc-icon nc-user-run"></i>

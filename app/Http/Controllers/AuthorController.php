@@ -20,7 +20,9 @@ class AuthorController extends Controller
     public function viewProfile()
     {
         $author = Applicant::findOrFail(auth()->user()->id);
-        return view('author-pd.user-profile', ['author' => $author]);
+        $departments = Department::all();
+        return view('author-pd.user-profile', ['author' => $author, 
+            'departments' => $departments]);
     } 
 
     public function viewMails()
@@ -38,6 +40,10 @@ class AuthorController extends Controller
         return view('author-pd.my-projects');
     }
 
+    public function viewInfo()
+    {
+        return view('author-pd.info');
+    }
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
@@ -49,11 +55,11 @@ class AuthorController extends Controller
             'txtMobileNumber' => 'required',
             'txtTelephoneNumber' => 'required',
             'txtHomeAddress' => 'required',
-            'slctDepartment' => 'required'
+            'slctDepartmentId' => 'required'
     	]);
     	
     	// Update user
-    	$user = User::findOrFail(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
     	$user->str_first_name = $request->txtFirstName;
     	$user->str_middle_name = $request->txtMiddleName;
     	$user->str_last_name = $request->txtLastName;
@@ -61,12 +67,12 @@ class AuthorController extends Controller
     	$user->str_username = $request->txtUsername;
     	if ($user->save()) {
     		$applicant = Applicant::findOrFail($id);
-    		$applicant->int_department_id = $request->slctDepartment;
+    		$applicant->int_department_id = $request->slctDepartmentId;
     		$applicant->bigInt_cellphone_number = $request->txtMobileNumber;
     		$applicant->mdmInt_telephone_number = $request->txtTelephoneNumber;
     		$applicant->str_home_address = $request->txtHomeAddress;
     		if ($applicant->save()) {
-    			return redirect('/author/user-profile')->with('success', 'Account updated!');
+    			return redirect()->back()->with('success', 'Account updated!');
     		}
     	}
      }
