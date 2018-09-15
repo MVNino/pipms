@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Author;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\ApplicantRequests;
 use App\Applicant;
 use App\CoAuthor;
 use App\Copyright;
@@ -30,9 +31,11 @@ class IPRApplicationController extends Controller
 	public function storeCopyrightRequest(Request $request)
 	{
         $this->validate($request, [
+            'g-recaptcha-response' => 'required|captcha',
             'slctProjectType' => 'required',
             'txtProjectTitle' => 'required',
             'txtAreaDescription' => 'nullable',
+            'fileExecutiveSummary' => 'nullable'
         ]);
         // store data to copyrights table
 		$applicantId = auth()->user()->applicant->int_id;
@@ -61,9 +64,21 @@ class IPRApplicationController extends Controller
         $copyright->int_project_type_id = $request->slctProjectType;
         $copyright->int_project_id = $request->slctProject;
         $copyright->mdmTxt_project_description = $projectDescription;
+        // Handle file upload for project's executive summary
+        if($request->hasFile('fileExecutiveSummary')){
+            // Get the file's extension
+            $fileExtension = $request->file('fileExecutiveSummary')
+                ->getClientOriginalExtension();
+            // Create a filename to store(database)
+            $summaryFileNameToStore = $request->txtProjectTitle
+                .'_'.'executiveSummaryFile'.'_'.time().'.'.$fileExtension;
+            // Upload file to system
+            $path = $request->file('fileExecutiveSummary')
+                ->storeAs('public/summary/copyright', $summaryFileNameToStore);
+            $copyright->str_exec_summary_file = $summaryFileNameToStore;
+        }
         if ($copyright->save()) {
             // notify
-
         $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
         $userId = User::min('id');
         $user = User::findOrFail($userId);
