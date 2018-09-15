@@ -14,18 +14,22 @@ Route::get('/about-us', 'GuestController@about')
 Route::get('/application/guide', 'GuestController@viewApplicationGuide')
 		->name('application.guide');
 
-// Guest - Account Request
-Route::get('/account-registration', 'RegisterController@viewRegistrationForm');
-Route::post('/account-registration', 'RegisterController@registerUser');
-
 // Login Authentication
-Route::get('admin-login', 		'GuestController@loginAdmin');
-Route::get('author-login', 		'GuestController@loginAuthor');
+Route::get('admin-login',	'GuestController@loginAdmin');
+Route::get('author-login',	'GuestController@loginAuthor');
 
 Auth::routes();
-Route::get('/dashboard',	'DashboardController@index')->name('dashboard');
+Route::get('/dashboard',	'DashboardController@index')
+		->name('dashboard');
 
-# ADMINISTRATOR and AUTHOR
+# Guest && Author
+// Account Request
+Route::get('/account-registration', 
+		'RegisterController@viewRegistrationForm');
+Route::post('/account-registration', 
+		'RegisterController@registerUser');
+
+# ADMINISTRATOR && AUTHOR
 // Notif
 Route::get('notification/{id}/read', 'NotificationController@readNotif');		
 Route::get('notification/read-all', 'NotificationController@readAll')
@@ -49,11 +53,13 @@ Route::group(
 			return view('admin.user-profile');
 		});
 		
-		// Route::get('notification/{id}/read', 'NotificationController@readNotif');		
-		// Route::get('notification/read-all', 'NotificationController@readAll')
+		// Route::get('notification/{id}/read', 
+				// 'NotificationController@readNotif');		
+		// Route::get('notification/read-all', 
+				// 'NotificationController@readAll')
 		// 	->name('readAllMark');
 
-		// Maintenance routes of Admin
+		// Maintenance Module
 		Route::group(
 			[
 				'prefix' => 'maintenance'
@@ -88,7 +94,7 @@ Route::group(
 					// Projects maintenance
 					Route::get('projects',				'ProjectController@maintainProjects');
 					Route::post('projects', 			'ProjectController@addProject');
-					Route::get('project/{id}/{deptId}', 	'ProjectController@viewProject');
+					Route::get('project/{id}/{deptId}',		'ProjectController@viewProject');
 					Route::put('project/{id}/{deptId}/edit', 'ProjectController@updateProject');
 				});
 			}
@@ -111,6 +117,7 @@ Route::group(
 					Route::post('author/account-requests/message', 'RegisterAuthorController@messageAuthor');
 				});
 				
+				// Copyright
 				Route::get('copyrights/pend-request', 
 					'TransactionController@listPendingCopyrightRequest');
 				Route::get('copyright/pend-request/{id}', 
@@ -182,11 +189,12 @@ Route::group(
 				});
 			}
 		);
-		/* Query routes
+
+		# Query Module
 		// Route::get('/query', 'QueryController@index');
 
-		// // Report routes
-		// Route::get('/report', 'ReportController@index');*/
+		# Report Module
+		// Route::get('/report', 'ReportController@index');
 	}
 );
 
@@ -215,6 +223,8 @@ Route::group(
 			Route::get('ipr-application', 
 					'IPRApplicationController@viewIPRApplication')
 					->name('author.ipr-application');
+			Route::post('ipr-application', 
+				'IPRApplicationController@storeCopyrightRequest');
 			Route::get('my-projects', 
 					'WorkController@viewMyProjects')
 					->name('author.my-projects');
@@ -224,10 +234,6 @@ Route::group(
 		});
 		
 			// WORKING ON
-			Route::get('apply-project', 
-			'PendRequestController@viewCopyrightApplication');
-			Route::post('apply-project', 
-				'PendRequestController@storeCopyrightRequest');
 			Route::get('apply-patent-project', 
 				'PendRequestController@viewPatentApplication');
 			Route::post('apply-patent-project', 
@@ -248,7 +254,7 @@ Route::namespace('Transaction')->group(function(){
 		'RegisterAuthorController@grantAuthorAccount');
 });
 
-// Resources routes
+# Resources routes
 // Route::resources([
 // 	'account' => 'AccountController',
 // 	'message' => 'MessageController',
@@ -256,7 +262,7 @@ Route::namespace('Transaction')->group(function(){
 // 	'patent' => 'PatentController'
 // ]);
 
-// Sample
+# Sample
 Route::get('/paper-kit2', function(){
 	return view('paper-kit2');
 });
