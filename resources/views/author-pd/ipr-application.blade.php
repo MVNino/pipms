@@ -2,7 +2,7 @@
 
 @section('content')
 	
-{!! Form::open(['action' => 'Transaction\PendRequestController@storeCopyrightRequest', 'method' => 'POST']) !!}
+{{-- {!! Form::open(['action' => 'Transaction\PendRequestController@storeCopyrightRequest', 'method' => 'POST']) !!} --}}
 @csrf
 <div class="row">
 	<div class="col-md-12">

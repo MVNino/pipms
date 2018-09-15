@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Author;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Applicant;
 use App\Department;
 use App\College;
 use App\Branch;
 use App\User;
 
-class AuthorController extends Controller
+class ProfileController extends Controller
 {
-    # PAPER DASHBOARD
-    public function pdDashboard()
+    # Author user-profile
+    public function __construct()
     {
-       return view('author-pd.dashboard'); 
+        $this->middleware('auth');
     }
 
     public function viewProfile()
@@ -23,27 +24,8 @@ class AuthorController extends Controller
         $departments = Department::all();
         return view('author-pd.user-profile', ['author' => $author, 
             'departments' => $departments]);
-    } 
-
-    public function viewMails()
-    {
-        return view('author-pd.my-mails');
     }
-
-    public function viewIPRApplication()
-    {
-        return view('author-pd.ipr-application');
-    }
-
-    public function viewMyProjects()
-    {
-        return view('author-pd.my-projects');
-    }
-
-    public function viewInfo()
-    {
-        return view('author-pd.info');
-    }
+    
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
