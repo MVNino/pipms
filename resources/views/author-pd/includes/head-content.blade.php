@@ -15,3 +15,6 @@
   <link href="{{ asset('pd/assets/css/paper-dashboard.css?v=2.0.0') }}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{ asset('pd/assets/demo/demo.css') }}" rel="stylesheet" />
+  
+    <!-- Elite Dropify CSS-->
+    <link rel="stylesheet" href="{{ asset('elite/css/dropify.min.css') }}">

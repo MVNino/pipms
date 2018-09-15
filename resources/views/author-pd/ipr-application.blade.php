@@ -1,7 +1,6 @@
 @extends('author-pd.layouts.app')
 
 @section('content')
-	
 {!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 @csrf
 <div class="card">
@@ -126,11 +125,35 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-									<label><strong>Executive Summary</strong></label>
-									<small id="contactHelp" class="form-text text-muted">Tell us a story about your research or project.</small>
-									<textarea name="txtAreaDescription" id = "article-ckeditor" class="form-control" placeholder="Project/Research Description"></textarea>	
+								<h4><strong>Executive Summary</strong></h4>
+								<div class="nav-tabs-navigation">
+									<div class="nav-tabs-wrapper">
+										<ul id="tabs" class="nav nav-tabs" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" data-toggle="tab" href="#home" role="tab">Typewrite</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab" href="#profile" role="tab">File Upload</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								
+								<div id="my-tab-content" class="tab-content text-center">
+									<div class="tab-pane active" id="home" role="tabpanel">
+										<div class="row">
+											<div class="col-md-12">
+											<small id="contactHelp" class="form-text text-muted">Tell us a story about your research or project.</small>
+											<textarea name="txtAreaDescription" id = "article-ckeditor" class="form-control" placeholder="Project/Research Description"></textarea>	
+											</div>
+										</div>	
+									</div>
+									<div class="tab-pane" id="profile" role="tabpanel">
+										<div class="form-group">
+											<label for="input-file-executive-summary" class="control-label"><b>Executive Summary File Upload</b></label>
+											<input type="file" name="fileBranchProfileImg" id="input-file-executive-summary" class="dropify" data-default-file="/storage/images/branch/profile/default_branch_profile_image.png" />
+											<small class="form-text text-muted" id="fileHelp">Accepted file types: pdf, docx, doc, zip, rar</small>
+										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -145,7 +168,7 @@
 													<li class="list-group-item text-muted">Official receipt of filing fee from PUP</li>
 													<li class="list-group-item text-muted">Note: You must bring these things for your actual copyright application in the office.</li>
 												</ul>
-															<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
+												<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
 											</div>
 										</div>	
 									</div>
@@ -203,6 +226,52 @@ $('#btnCoAuthor').on('click', (e) => {
 				</div>
 		    </div>
 		</div>`);
+});
+</script>
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
 });
 </script>
 @endsection
