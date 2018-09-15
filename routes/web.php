@@ -7,21 +7,21 @@
 */
 
 # GUEST
-// Sample
-Route::get('/paper-kit2', function(){
-	return view('paper-kit2');
-});
-Route::get('/', 				'GuestController@index')->name('index');
-Route::get('/about-us', 		'GuestController@about')->name('about-us');
+Route::get('/', 'GuestController@index')
+		->name('index');
+Route::get('/about-us', 'GuestController@about')
+		->name('about-us');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide')
 		->name('application.guide');
 
+// Guest - Account Request
 Route::get('/account-registration', 'RegisterController@viewRegistrationForm');
 Route::post('/account-registration', 'RegisterController@registerUser');
+
+// Login Authentication
 Route::get('admin-login', 		'GuestController@loginAdmin');
 Route::get('author-login', 		'GuestController@loginAuthor');
 
-# Authentication
 Auth::routes();
 Route::get('/dashboard',	'DashboardController@index')->name('dashboard');
 
@@ -182,11 +182,11 @@ Route::group(
 				});
 			}
 		);
-		// Query routes
+		/* Query routes
 		// Route::get('/query', 'QueryController@index');
 
 		// // Report routes
-		// Route::get('/report', 'ReportController@index');
+		// Route::get('/report', 'ReportController@index');*/
 	}
 );
 
@@ -195,33 +195,43 @@ Route::group(
 	[
 		'prefix' => 'author'
 	],
-	function() {
-		Route::put('edit-account/{id}', 'AuthorController@updateAuthor');
-		Route::get('same-sched/{id}', 'TransactionController@cloneCopyrightAppointment');
-		Route::get('dashboard', 
-				'AuthorController@pdDashboard')->name('author.dashboard');
-		Route::get('mails', 
-				'AuthorController@viewMails')->name('author.mails');
-		Route::get('user-profile', 
-				'AuthorController@viewProfile')->name('author.profile');
-		Route::get('ipr-application', 
-				'AuthorController@viewIPRApplication')->name('author.ipr-application');
-		Route::get('my-projects', 
-				'AuthorController@viewMyProjects')->name('author.my-projects');
-		Route::get('info', 
-				'AuthorController@viewInfo')->name('author.info');
-
-		Route::get('edit-profile', 'AuthorController@editProfiles');
-		Route::namespace('Transaction')->group(function(){
+	function() 
+	{
+		Route::get('same-sched/{id}', 
+				'TransactionController@cloneCopyrightAppointment');
+		# Transaction - Author
+		Route::namespace('Author')->group(function(){
+			Route::get('dashboard', 
+					'DashboardController@pdDashboard')
+					->name('author.dashboard');
+			Route::get('mails', 
+					'MailController@viewMails')
+					->name('author.mails');
+			Route::get('user-profile', 
+					'ProfileController@viewProfile')
+					->name('author.profile');
+			Route::put('edit-account/{id}', 
+					'ProfileController@updateAuthor');
+			Route::get('ipr-application', 
+					'IPRApplicationController@viewIPRApplication')
+					->name('author.ipr-application');
+			Route::get('my-projects', 
+					'WorkController@viewMyProjects')
+					->name('author.my-projects');
+			Route::get('info', 
+					'GuideController@viewInfo')
+					->name('author.info');			
+		});
+		
+			// WORKING ON
 			Route::get('apply-project', 
-				'PendRequestController@viewCopyrightApplication');
+			'PendRequestController@viewCopyrightApplication');
 			Route::post('apply-project', 
 				'PendRequestController@storeCopyrightRequest');
 			Route::get('apply-patent-project', 
 				'PendRequestController@viewPatentApplication');
 			Route::post('apply-patent-project', 
 				'PendRequestController@storePatentRequest');
-		});
 	}
 );
 
@@ -245,6 +255,8 @@ Route::namespace('Transaction')->group(function(){
 // 	'copyright' => 'CopyrightController',
 // 	'patent' => 'PatentController'
 // ]);
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Sample
+Route::get('/paper-kit2', function(){
+	return view('paper-kit2');
+});
