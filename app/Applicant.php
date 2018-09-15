@@ -42,10 +42,10 @@ class Applicant extends Model
 		return $this->hasOne('App\Receipt', 'int_applicant_id', 'int_id');
 	}
 
-	public function receipts()
-	{
-		return $this->hasMany('App\Receipt', 'int_applicant_id', 'int_id');
-	}
+	// public function receipts()
+	// {
+	// 	return $this->hasMany('App\Receipt', 'int_applicant_id', 'int_id');
+	// }
 
 	public function coAuthors()
 	{
