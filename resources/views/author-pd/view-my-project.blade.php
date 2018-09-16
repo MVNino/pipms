@@ -1,7 +1,10 @@
 @extends('author-pd.layouts.app')
 
 @section('pg-specific-css')
-<link href="{{asset('elite/css/horizontal-timeline.css')}}" rel="stylesheet">
+
+<!-- <link href="{{asset('elite/css/horizontal-timeline.css')}}" rel="stylesheet"> -->
+<!-- Custom CSS -->
+<!-- <link href="{{asset('elite/css/style.min.css')}}" rel="stylesheet"> -->
 <link href="{{asset('elite/css/timeline-vertical-horizontal.css')}}" rel="stylesheet">
 @endsection
 
@@ -147,5 +150,6 @@
 @endsection	
 
 @section('pg-specific-js')
-<script src="{{asset('assets/node_modules/horizontal-timeline/js/horizontal-timeline.js')}}"></script>
+<script src="{{ asset('elite/js/custom.min.js') }}"></script>
+<script src="{{ asset('elite/js/horizontal-timeline.js')}}"></script>
 @endsection
