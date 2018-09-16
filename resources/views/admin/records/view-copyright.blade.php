@@ -26,16 +26,21 @@
         </div>
         <div class="card-body">
           <h5 class="card-title text-muted">Work Title: {{ $copyright->str_project_title }}</h5>
-          <h6 class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->str_last_name }}, {{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_first_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
+          <h6 class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->user->str_last_name }}, {{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_first_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
           <h6 class="text-muted">Department: <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->str_department_name }} ({{ $copyright->applicant->department->char_department_code }})</a></h6>
           <h6 class="text-muted">College: <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->str_college_name }} ({{ $copyright->applicant->department->college->char_college_code }})</a></h6>
           <h6 class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a></p>
         
 
           <p class="text-muted"><strong>Project Type: </strong>{{ $copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: {{ $copyright->project->str_project_name }}</strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $copyright->char_copyright_status }}</p>
           <p class="text-muted">Executive Summary: {!! $copyright->mdmTxt_project_description !!}</p>
+          <p class="text-muted">Executive Summary File:  
+          <a href="/storage/summary/copyright/{{ $copyright->str_exec_summary_file }}" target="_blank">
+            <i class="fa fa-file"></i> {{ $copyright->str_exec_summary_file }}
+          </a>
+          </p>
           @if($copyright->patent)
           <p class="text-muted"><strong>Patent: </strong><a href="/admin/records/patent/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a></p>
           @else
@@ -56,11 +61,7 @@
             </div>
             <div class="col-md-3">
               <div class="btn-group"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#exampleModalLong">
-                <i class="fa fa-lg fa-envelope-o" data-toggle="modal" data-target="#exampleModalLong"></i></a>
-                @if($copyright->char_copyright_status != 'copyrighted')
-              <a class="btn btn-primary" href="/admin/transaction/copyright/on-process-to-copyrighted/{{ $copyright->int_id }}">
-                  <i class="fa fa-lg fa-thumbs-up"></i></a>
-                @endif
+                <i class="fa fa-lg fa-envelope-o" data-toggle="modal" data-target="#exampleModalLong"></i> Message</a>
               </div>
             </div>
           </div>
@@ -108,7 +109,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Message {{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_last_name }}</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Message {{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_last_name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -117,7 +118,7 @@
         {!! Form::open(['action' => 'TransactionController@messageApplicant', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-group">
           {{Form::label('lblEmail', 'To: ', ['style' => 'font-weight: bold'])}} 
-          {{Form::text('txtBranchName', $copyright->applicant->str_email_address, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'required'])}}
+          {{Form::text('txtEmail', $copyright->applicant->user->email, ['class' => 'form-control', 'placeholder' => 'Enter email', 'required', 'readonly'])}}
         </div>
         <div class="form-group">
           {{Form::label('lblMessage', 'Message', ['style' => 'font-weight: bold'])}}
