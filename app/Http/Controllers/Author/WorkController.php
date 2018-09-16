@@ -14,7 +14,7 @@ class WorkController extends Controller
     public function viewMyProjects()
     {
         return view('author-pd.my-projects');
-        // $copyright
+       
     }
 
 
