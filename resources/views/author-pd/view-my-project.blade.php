@@ -88,4 +88,5 @@
 @section('pg-specific-js')
 <script src="{{ asset('elite/js/custom.min.js') }}"></script>
 <script src="{{ asset('elite/js/horizontal-timeline.js')}}"></script>
+
 @endsection
