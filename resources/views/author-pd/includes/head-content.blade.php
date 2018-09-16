@@ -18,3 +18,4 @@
   
     <!-- Elite Dropify CSS-->
     <link rel="stylesheet" href="{{ asset('elite/css/dropify.min.css') }}">
+    

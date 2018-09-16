@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   @include('author-pd.includes.head-content')
+  @yield('pg-specific-css')
 </head>
 
 <body class="">

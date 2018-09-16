@@ -11,9 +11,18 @@ class WorkController extends Controller
     {
         $this->middleware('auth');
     }
-    public function viewMyProjects()
-    {    
-        return $myProjects = auth()->user()->applicant->copyrights;
-        return view('author-pd.my-projects');
+    public function myProjects()
+    {
+    
+        $myProjects = auth()->user()->applicant->copyrights;
+        return view('author-pd.my-projects', ['myProjects' => $myProjects]);
+       
     }
+
+    public function viewMyProject($id)
+    {
+    	return view('author-pd.view-my-project');
+    }
+
+
 }

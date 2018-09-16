@@ -224,21 +224,29 @@ Route::group(
 					'IPRApplicationController@viewIPRApplication')
 					->name('author.ipr-application');
 			Route::post('ipr-application', 
-					'IPRApplicationController@storeCopyrightRequest');
+				'IPRApplicationController@storeCopyrightRequest');
+			Route::get('ipr-patent-application',
+					'IPRApplicationController@viewPatentApplication')
+					->name('author.ipr-patent-application');
+			Route::post('ipr-patent-application', 
+				'IPRApplicationController@storePatentRequest');
 			Route::get('my-projects', 
-					'WorkController@viewMyProjects')
+					'WorkController@myProjects')
 					->name('author.my-projects');
+			Route::get('my-project/{id}', 'WorkController@viewMyProject');	
 			Route::get('guide', 
 					'GuideController@viewGuide')
-					->name('author.guide');			
+					->name('author.guide');
+
 		});
 		
-			// WORKING ON
-			Route::get('apply-patent-project', 
-				'PendRequestController@viewPatentApplication');
-			Route::post('apply-patent-project', 
-				'PendRequestController@storePatentRequest');
+			// // WORKING ON
+			// Route::get('apply-patent-project', 
+			// 	'Transaction\PendRequestController@viewPatentApplication');
+			// Route::post('apply-patent-project', 
+			// 	'Transaction\PendRequestController@storePatentRequest');
 	}
+
 );
 
 // Author - Account Request Transaction
