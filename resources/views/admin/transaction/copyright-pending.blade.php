@@ -15,7 +15,7 @@
         <th>Project/Work Title</th>
         <th>Applicant - Type - Department - College - Branch</th>
         <th>Date requested</th>
-        <th>View more details</th>
+        <th class="text-center">View more details</th>
       </thead>
       <tbody>
       @forelse($copyrights as $copyright)
