@@ -43,11 +43,29 @@
                   <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>
+                  @if(auth()->user()->unreadNotifications->count())
+                  <span class="badge badge-danger">{{ auth()->user()->unReadNotifications->count() }}</span>
+                  @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  @if (auth()->user()->notifications->count() > 0)
+                  <a class="dropdown-item" href="{{ route('readAllMark') }}">Mark all as read</a>
+                  @foreach(auth()->user()->unReadNotifications as $notification)
+                    <a class="dropdown-item" href="#">
+                      <small>
+                        {!! $notification->data['data'] !!}
+                        <br>
+                        Last: {{ $notification->created_at }}
+                      </small>
+                    </a>
+                  @endforeach
+                  @foreach(auth()->user()->readNotifications as $notification)
+                    <a class="dropdown-item">{!! $notification->data['data'] !!}</a>
+                    <a class="dropdown-item">Last: {{ $notification->created_at }}</a>
+                  @endforeach 
+                  @else
+                  <a class="dropdown-item" href="#">There is no notification.</a>
+                  @endif
                 </div>
               </li>
               <li class="nav-item">
