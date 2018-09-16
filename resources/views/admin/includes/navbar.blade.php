@@ -8,21 +8,30 @@
         <button class="app-search__button"><i class="fa fa-search"></i></button>
       </li>
       <!--Notification Menu-->
-      <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" style="text-decoration: none;" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i>
+      <li class="dropdown">
+        <a class="app-nav__item" href="#" data-toggle="dropdown" style="text-decoration: none;" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i>
         @if(auth()->user()->unreadNotifications->count())
         <span class="badge badge-light">{{ auth()->user()->unReadNotifications->count() }}</span>
         @endif
-      </a>
+        </a>
         <ul class="app-notification dropdown-menu dropdown-menu-right">
           @if (auth()->user()->notifications->count() > 0)
           <li class="app-notification__title"><a href="{{ route('readAllMark') }}">Mark all as read</a></li>
           @foreach(auth()->user()->unReadNotifications as $notification)
           <div class="app-notification__content">
-            <li style="background-color: #f3f3f3;"><a class="app-notification__item" href="/admin/transaction/author/account-requests"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+            <li style="background-color: #f3f3f3;">
+              <a class="app-notification__item" href="/admin/transaction/author/account-requests"><span class="app-notification__icon">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+              </span>
                 <div>
                   <p class="app-notification__message">{!! $notification->data['data'] !!}</p>
                   <p class="app-notification__meta">Last: {{ $notification->created_at }}</p>
-                </div></a></li>
+                </div>
+              </a>
+            </li>
           </div>
           @endforeach
           @foreach(auth()->user()->readNotifications as $notification)
