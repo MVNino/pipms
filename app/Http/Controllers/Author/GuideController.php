@@ -12,8 +12,8 @@ class GuideController extends Controller
         $this->middleware('auth');
     }
     
-    public function viewInfo()
+    public function viewGuide()
     {
-        return view('author-pd.info');
+        return view('author-pd.guide');
     }
 }
