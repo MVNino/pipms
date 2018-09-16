@@ -226,11 +226,13 @@ Route::group(
 			Route::post('ipr-application', 
 				'IPRApplicationController@storeCopyrightRequest');
 			Route::get('my-projects', 
-					'WorkController@viewMyProjects')
+					'WorkController@myProjects')
 					->name('author.my-projects');
+			Route::get('my-project/{id}', 'WorkController@viewMyProject');	
 			Route::get('guide', 
 					'GuideController@viewGuide')
-					->name('author.guide');			
+					->name('author.guide');
+
 		});
 		
 			// WORKING ON
@@ -239,6 +241,7 @@ Route::group(
 			Route::post('apply-patent-project', 
 				'PendRequestController@storePatentRequest');
 	}
+
 );
 
 // Author - Account Request Transaction
