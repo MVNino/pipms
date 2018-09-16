@@ -49,9 +49,9 @@
             </a>
           </li>
           <li id="li-information" class="{{Request::is('author/info') ? 'active':''}}">
-            <a href="{{ route('author.info') }}">
+            <a href="{{ route('author.guide') }}">
               <i class="nc-icon nc-alert-circle-i"></i>
-              <p>Information</p>
+              <p>My Guide</p>
             </a>
           </li>
           <li class="active-pro">

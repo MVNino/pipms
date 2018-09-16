@@ -228,9 +228,9 @@ Route::group(
 			Route::get('my-projects', 
 					'WorkController@viewMyProjects')
 					->name('author.my-projects');
-			Route::get('info', 
-					'GuideController@viewInfo')
-					->name('author.info');			
+			Route::get('guide', 
+					'GuideController@viewGuide')
+					->name('author.guide');			
 		});
 		
 			// WORKING ON
