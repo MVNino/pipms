@@ -50,47 +50,76 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-md-12">
-							<label><strong>Executive Summary of Applicant's work</strong></label>
-							<small id="contactHelp" class="form-text text-muted">Tell us a story about your project or invention.</small>
-							<textarea name="txtAreaPatentDescription" id = "article-ckeditor" class="form-control" placeholder="Project/Invention Summary"></textarea>
-						</div>
+				<div class="card">
+					<div class="card-header">
+						<h4>Executive Summary</h4>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="tile">
-								<div class="tile-body">
-									<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's patent registration</strong></label>
-									<ul class="list-group list-group-flush">
-									  <li class="list-group-item text-muted"><span class="label-text text-info">Requirement documents for copyright registration, plus;</span></li>
-									  <li class="list-group-item text-muted">Patent search results</li>
-									  <li class="list-group-item text-muted">Disclosure form</li>				
+					<div class="card-body">
+						<div class="form-group">
+							<div class="nav-tabs-navigation">
+								<div class="nav-tabs-wrapper">
+									<ul id="tabs" class="nav nav-tabs" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" data-toggle="tab" href="#home" role="tab">Write</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#profile" role="tab">File Upload</a>
+										</li>
 									</ul>
-						            <small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
 								</div>
 							</div>
-						</div>	
+							
+							<div id="my-tab-content" class="tab-content text-center">
+								<div class="tab-pane active" id="home" role="tabpanel">
+									<div class="row">
+										<div class="col-md-12">
+										<small id="contactHelp" class="form-text text-muted">Tell us a story about your research or project.</small>
+										<textarea name="txtAreaPatentDescription" id = "article-ckeditor" class="form-control" placeholder="Project/Research Description"></textarea>	
+										</div>
+									</div>	
+								</div>
+								<div class="tab-pane" id="profile" role="tabpanel">
+									<div class="form-group">
+										<h6 class="text-muted">Executive Summary File Upload</h6>
+										<input type="file" name="fileExecutiveSummary" id="input-file-exec-summary" class="dropify" 
+											data-default-file="/storage/summary/copyright/exec_summary.png" />
+										<small class="form-text text-muted" id="fileHelp">Accepted file types: pdf, docx, doc, zip, rar</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12"><br><br>
+									<div class="tile">
+										<div class="tile-body">
+											<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's patent registration</strong></label>
+											<ul class="list-group list-group-flush">
+									  			<li class="list-group-item text-muted"><span class="label-text text-info">Requirement documents for copyright registration, plus;</span></li>
+									  			<li class="list-group-item text-muted">Patent search results</li>
+									  			<li class="list-group-item text-muted">Disclosure form</li>				
+											</ul>
+						            		<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-sm-5">
+								<span></span>
+							</div>
+							<div class="col-md-4 col-sm-2">
+								@captcha
+								<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">Submit</button>
+							</div>
+							<div class="col-md-4 col-sm-5">
+								<span></span>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4 col-sm-4">
-						<span></span>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<span></span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+				
 {!! Form::close() !!}
-</div>
+
 @endsection
 @section('pg-specific-js')
 
