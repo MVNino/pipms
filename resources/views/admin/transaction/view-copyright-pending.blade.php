@@ -35,6 +35,11 @@
           <p class="text-muted"><strong>Project Compliance: <a href="/admin/maintenance/project/{{ $copyright->project->int_id }}/{{ $copyright->project->int_department_id }}">{{ $copyright->project->str_project_name }}</a></strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $copyright->char_copyright_status }}</p>
           <p class="text-muted">Executive Summary: {!! $copyright->mdmTxt_project_description !!}</p>
+          <p class="text-muted">Executive Summary File:  
+          <a href="/storage/summary/copyright/{{ $copyright->str_exec_summary_file }}" target="_blank">
+            <i class="fa fa-file"></i> {{ $copyright->str_exec_summary_file }}
+          </a>
+          </p>
           @if($copyright->patent)
           <p class="text-muted"><strong>Patent: </strong><a href="/admin/maintenance/patent/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a></p>
           @else
@@ -133,21 +138,22 @@
 
 <!-- Approve modal -->
 <div class="modal fade" id="toApproveModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Set appointment for actual application</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Set Appointment for Actual Application</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => ['TransactionController@setSchedule', $copyright->int_id], 'method' => 'POST']) !!}
+        <br>
         <div class="col-md-12 col-sm-12">
           <label><strong>Set schedule</strong></label><br>
           <input type="date" name="dateSchedule">
           <input type="time" name="timeSchedule">
-        </div>
+        </div><br><br><br>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
           {{ Form::hidden('_method', 'PUT') }}

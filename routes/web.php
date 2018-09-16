@@ -224,12 +224,16 @@ Route::group(
 					'IPRApplicationController@viewIPRApplication')
 					->name('author.ipr-application');
 			Route::post('ipr-application', 
+<<<<<<< HEAD
 				'IPRApplicationController@storeCopyrightRequest');
 			Route::get('ipr-patent-application',
 					'IPRApplicationController@viewPatentApplication')
 					->name('author.ipr-patent-application');
 			Route::post('ipr-patent-application', 
 				'IPRApplicationController@storePatentRequest');
+=======
+					'IPRApplicationController@storeCopyrightRequest');
+>>>>>>> eba6cb3ad51b99e13ca809d2656a14aca4d59a87
 			Route::get('my-projects', 
 					'WorkController@myProjects')
 					->name('author.my-projects');

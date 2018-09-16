@@ -23,9 +23,9 @@ class ProfileController extends Controller
         $author = Applicant::findOrFail(auth()->user()->applicant->int_id);
         $departments = Department::all();
         return view('author-pd.user-profile', ['author' => $author, 
-            'departments' => $departments]);
+        'departments' => $departments]);
     }
-    
+
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
