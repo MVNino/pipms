@@ -26,7 +26,9 @@
         <td class="text-center"><a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
       </tr>
       @empty
-
+        <div class="alert alert-warning">
+          There is no record yet.
+        </div>
       @endforelse
     </tbody>
   </table>
