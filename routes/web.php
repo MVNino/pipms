@@ -224,7 +224,7 @@ Route::group(
 					'IPRApplicationController@viewIPRApplication')
 					->name('author.ipr-application');
 			Route::post('ipr-application', 
-				'IPRApplicationController@storeCopyrightRequest');
+					'IPRApplicationController@storeCopyrightRequest');
 			Route::get('my-projects', 
 					'WorkController@viewMyProjects')
 					->name('author.my-projects');
