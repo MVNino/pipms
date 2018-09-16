@@ -26,9 +26,15 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @guest
-                <li class="nav-item">
-                    <a class="nav-link {{Request::is('login') ? 'active':''}}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <!-- Login Menu-->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item" href="/author-login">as Author</a>
+                    <a class="dropdown-item" href="/admin-login">as Admin</a>
+                  </div>
                 </li>
+
                 @endguest
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('registration/author') ? 'active':''}}" href="/registration/author">Account Request</a>

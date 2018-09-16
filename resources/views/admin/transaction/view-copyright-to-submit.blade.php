@@ -26,7 +26,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title text-muted">Work Title: {{ $copyright->str_project_title }}</h5>
-          <h6 class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->str_last_name }}, {{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_first_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
+          <h6 class="card-subtitle text-muted">Author: <a href="/admin/maintenance/applicant/{{ $copyright->int_applicant_id }}">{{ $copyright->applicant->user->str_last_name }}, {{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_first_name }}</a> - {{ $copyright->applicant->char_applicant_type }}</h6><br>
           <h6 class="text-muted">Department: <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->str_department_name }} ({{ $copyright->applicant->department->char_department_code }})</a></h6>
           <h6 class="text-muted">College: <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->str_college_name }} ({{ $copyright->applicant->department->college->char_college_code }})</a></h6>
           <h6 class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a></p>
@@ -36,6 +36,11 @@
           <p class="text-muted"><strong>Project Compliance: </strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $copyright->char_copyright_status }}</p>
           <p class="text-muted">Executive Summary: {!! $copyright->mdmTxt_project_description !!}</p>
+          <p class="text-muted">Executive Summary File:  
+          <a href="/storage/summary/copyright/{{ $copyright->str_exec_summary_file }}" target="_blank">
+            <i class="fa fa-file"></i> {{ $copyright->str_exec_summary_file }}
+          </a>
+          </p>
           @if($copyright->patent)
           <p class="text-muted"><strong>Patent: </strong><a href="/admin/maintenance/patent/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a></p>
           @else
