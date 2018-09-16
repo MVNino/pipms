@@ -13,6 +13,8 @@ class WorkController extends Controller
     }
     public function viewMyProjects()
     {
+    
+        return $myProjects = auth()->user()->applicant->copyrights;
         return view('author-pd.my-projects');
     }
 }
