@@ -19,8 +19,8 @@
       </div>
     </div>
     <div class="tile-body">
-      <strong>Applicant: </strong>{{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_middle_name }} 
-      {{ $copyright->applicant->str_last_name }} - {{ $copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> 
+      <strong>Applicant: </strong>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} 
+      {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> 
       (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>)<br>
     </div>
     <div class="tile-footer">

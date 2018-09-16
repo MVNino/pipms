@@ -53,11 +53,12 @@
             </div>
           </div>
           <div class="form-group btn-container">
+            <!-- @captcha -->
             <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>{{ __('Login') }}</button>
           </div>
         </form>
         <form class="forget-form" action="index.html">
-          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password?</h3>
           <div class="form-group">
             <label class="control-label">EMAIL</label>
             <input class="form-control" type="text" placeholder="Email">
