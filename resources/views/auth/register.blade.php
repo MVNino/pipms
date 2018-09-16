@@ -12,14 +12,39 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="firstname" class="col-md-4 col-form-label text-md-right">Firstname</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
+                                <input id="firstname" type="text" class="form-control{{ $errors->has('str_first_name') ? ' is-invalid' : '' }}" name="txtFirstname" value="{{ old('str_first_name') }}" required autofocus>
+                                @if ($errors->has('str_first_name'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('str_first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="middlename" class="col-md-4 col-form-label text-md-right">Middlename</label>
+
+                            <div class="col-md-6">
+                                <input id="middlename" type="text" class="form-control{{ $errors->has('str_middle_name') ? ' is-invalid' : '' }}" name="txtMiddlename" value="{{ old('str_middle_name') }}" required autofocus>
+                                @if ($errors->has('str_middle_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('str_middle_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lastname" class="col-md-4 col-form-label text-md-right">Lastname</label>
+
+                            <div class="col-md-6">
+                                <input id="lastname" type="text" class="form-control{{ $errors->has('str_last_name') ? ' is-invalid' : '' }}" name="txtLastname" value="{{ old('str_last_name') }}" required autofocus>
+                                @if ($errors->has('str_first_name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('str_first_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
