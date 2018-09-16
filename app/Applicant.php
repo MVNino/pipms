@@ -32,9 +32,9 @@ class Applicant extends Model
 	// 	return $this->hasMany('App\Copyright', 'int_applicant_id', 'int_id');
 	// }
 
-	public function copyright()
+	public function copyrights()
 	{
-		return $this->hasOne('App\Copyright', 'int_applicant_id', 'int_id');
+		return $this->hasMany('App\Copyright', 'int_applicant_id', 'int_id');
 	}
 
 	public function receipt()
