@@ -10,14 +10,6 @@
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-11">
-        <span></span>
-    </div>
-    <div class="col-md-1">
-      <a href="/copyright/create" type="button" class="btn btn-primary mb-2 float-right"><i class="fa fa-plus"></i>Add applicant</a>
-    </div>
-</div>
-<div class="row">
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
