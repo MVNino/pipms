@@ -1,4 +1,4 @@
-@extends('author.layouts.app')
+@extends('author-pd.layouts.app')
 
 @section('pg-title')
 <h1><i class="fa fa-certificate"></i> Patent Registration</h1>
@@ -10,7 +10,7 @@
 @section('content')
 
 <div class="container">	
-{!! Form::open(['action' => 'Transaction\PendRequestController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
 	<div class="col-md-12">
 		<div class="tile">

@@ -9,6 +9,7 @@ use App\Applicant;
 use App\CoAuthor;
 use App\Copyright;
 use App\Department;
+use App\Patent;
 use App\Project;
 use App\ProjectType;
 use App\User;
@@ -22,19 +23,20 @@ class IPRApplicationController extends Controller
     
     public function viewIPRApplication()
     {
-        $maxCopyrightId = Copyright::max('int_id');
         $projects = Project::all();
         $projectTypes = ProjectType::all();
-        return view('author.patent-application', ['projects' => $projects, 
-            'projectTypes' => $projectTypes, 'maxCopyrightId' => $maxCopyrightId]);
+        return view('author-pd.ipr-application', ['projects' => $projects,
+            'projectTypes' => $projectTypes]);
     }
 
     public function viewPatentApplication()
     {
+         // For creating/submission of patent related informations & file
+        $maxCopyrightId = Copyright::max('int_id');
         $projects = Project::all();
         $projectTypes = ProjectType::all();
-        return view('author-pd.ipr-patent-application', ['projects' => $projects,
-            'projectTypes' => $projectTypes]);
+        return view('author-pd.ipr-patent-application', ['projects' => $projects, 
+            'projectTypes' => $projectTypes, 'maxCopyrightId' => $maxCopyrightId]);
     }
     
 	public function storeCopyrightRequest(Request $request)
@@ -128,7 +130,7 @@ class IPRApplicationController extends Controller
         $patent->int_project_id = $request->slctProject;
         $patent->mdmTxt_patent_description = $projectDescription;
         if($patent->save()){
-        $department = department::findOrFail(auth()->user()->applicant->int_department_id);
+        $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
         $userId = User::min('id');
         $user = User::findOrFail($userId);
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));

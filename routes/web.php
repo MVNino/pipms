@@ -240,11 +240,11 @@ Route::group(
 
 		});
 		
-			// WORKING ON
-			Route::get('apply-patent-project', 
-				'PendRequestController@viewPatentApplication');
-			Route::post('apply-patent-project', 
-				'PendRequestController@storePatentRequest');
+			// // WORKING ON
+			// Route::get('apply-patent-project', 
+			// 	'Transaction\PendRequestController@viewPatentApplication');
+			// Route::post('apply-patent-project', 
+			// 	'Transaction\PendRequestController@storePatentRequest');
 	}
 
 );
