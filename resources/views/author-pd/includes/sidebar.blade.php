@@ -48,15 +48,15 @@
               <p>My Projects</p>
             </a>
           </li>
-          <li id="li-information" class="{{Request::is('author/info') ? 'active':''}}">
+          <li id="li-information" class="{{Request::is('author/guide') ? 'active':''}}">
             <a href="{{ route('author.guide') }}">
               <i class="nc-icon nc-alert-circle-i"></i>
               <p>My Guide</p>
             </a>
           </li>
           <li class="active-pro">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <i class="nc-icon nc-user-run"></i>
+            <a class="text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <i class="nc-icon nc-user-run text-danger"></i>
               <p>{{ __('Logout') }}</p>
             </a>
              <form id="logout-form" action="{{ route('logout') }}" 

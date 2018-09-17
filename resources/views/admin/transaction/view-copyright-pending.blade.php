@@ -60,7 +60,7 @@
               <div class="btn-group">&nbsp
                 @if($copyright->char_copyright_status != 'copyrighted')
                 <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#toApproveModalLong">
-                  <i class="fa fa-lg fa-thumbs-up"></i>Approve</a>
+                  <i class="fa fa-lg fa-calendar"></i>Set Appointment</a>
                 @endif
               </div>
             </div>
@@ -157,7 +157,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
           {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Approve</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Set Appointment</button>
         </div>
         {!! Form::close() !!}
       </div>

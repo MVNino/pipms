@@ -225,7 +225,7 @@ Route::group(
 					->name('author.ipr-application');
 			Route::post('ipr-application', 
 				'IPRApplicationController@storeCopyrightRequest');
-			Route::get('ipr-patent-application',
+			Route::get('ipr-patent-application/{id}',
 					'IPRApplicationController@viewPatentApplication')
 					->name('author.ipr-patent-application');
 			Route::post('ipr-patent-application', 

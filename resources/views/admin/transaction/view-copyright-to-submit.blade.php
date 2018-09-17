@@ -61,7 +61,7 @@
               <div class="btn-group">
                 @if($copyright->char_copyright_status != 'copyrighted')
                 <a class="btn btn-primary" href="/admin/transaction/copyright/change-to-submit-to-on-process/{{ $copyright->int_id }}">
-                  <i class="fa fa-lg fa-thumbs-up"></i> Proceed to on process</a>
+                  <i class="fa fa-lg fa-thumbs-up"></i> Complied to requirements</a>
                 @endif
               </div>
             </div>

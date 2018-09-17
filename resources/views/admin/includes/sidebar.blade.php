@@ -57,7 +57,7 @@
         <ul class="treeview-menu">
           <li><a class="treeview-item" href="/admin/records/copyrights">Copyrights</a></li>
           <li><a class="treeview-item" href="/admin/records/patents">Patents</a></li>
-          <li><a class="treeview-item" href="/admin/records/applicants">Applicants</a></li>
+          <li><a class="treeview-item" href="/admin/records/applicants">Authors</a></li>
         </ul>
       </li>
 

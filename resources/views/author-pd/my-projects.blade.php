@@ -18,23 +18,19 @@
 	                <small class="card-text">Appointed Schedule: <b>{{$row->dtm_schedule}}</b></small>
 	                <br><br>
 	                @endif
-	                
 	                @if($row->patent)
 	                <small class="card-text">Patent Status: <b>{{ $row->patent->char_patent_status }}</b></small>
+		                <br>
+		                @if($row->patent->char_patent_status == 'To submit')
+		                <small class="card-text">Appointed Schedule: <b>{{$row->patent->dtm_schedule}}</b></small>
+		                @endif
 	                @endif
-	                <br>
-	                @if($row->patent->char_patent_status == 'To submit')
-	                <small class="card-text">Appointed Schedule: <b>{{$row->patent->dtm_schedule}}</b></small>
-	                @endif
-
-	       
-
 	                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 	                <a href="/author/my-project/{{ $row->int_id }}" class="btn btn-primary">View Progress</a>
 	                @if(!$row->patent)
 	                <small>
 	                	<br>
-	                	<a href="/author/ipr-patent-application">Want to apply for Patent?</a>
+	                	<a href="/author/ipr-patent-application/{{ $row->int_id }}">Want to apply for patent?</a>
 	           	 	</small>
 	           	 	@endif
 	            </div>

@@ -47,12 +47,6 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-3">
-              <div class="btn-group">
-                @if($patent->char_patent_status != 'Patented')
-                <a class="btn btn-primary" href="/admin/transaction/patent/change-on-process-to-patented/{{ $patent->int_id }}">
-                  <i class="fa fa-lg fa-thumbs-up"></i></a>
-                @endif
-              </div>
             </div>
           </div>
         </div>

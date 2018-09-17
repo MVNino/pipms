@@ -161,7 +161,7 @@
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');
-    $('a[href="/admin/transaction/patents/to-submit"]').addClass('active');
+    $('a[href="/admin/transaction/patents/on-process"]').addClass('active');
   });
 </script>
 @endsection

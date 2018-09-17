@@ -7,7 +7,7 @@
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/applicants">Applicants</a></li>
+<li class="breadcrumb-item"><a href="/admin/records/applicants">Authors</a></li>
 <li class="breadcrumb-item"><a href="/admin/records/applicant/{{ $applicant->int_id }}">{{ $applicant->str_last_name }}</a></li>
 @endsection
 @section('content')
@@ -47,7 +47,7 @@
         <div class="card-header pb-0">
         <div class="row">
           <div class="col-md-10">
-            <h4>Applicant details</h4>
+            <h4>Author details</h4>
           </div>
           <div class="col-md-2">
           </div>
@@ -94,7 +94,7 @@
       <div class="card-header pb-0">
       <div class="row">
         <div class="col-md-12">
-          <h4>Applicant's project request/s</h4>
+          <h4>Author's project request/s</h4>
         </div> 
       </div>
       </div>

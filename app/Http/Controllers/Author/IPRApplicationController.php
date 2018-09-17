@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\ApplicantRequests;
+use App\Notifications\ApplicantRequestsPatent;
 use App\Applicant;
 use App\CoAuthor;
 use App\Copyright;
@@ -29,14 +30,14 @@ class IPRApplicationController extends Controller
             'projectTypes' => $projectTypes]);
     }
 
-    public function viewPatentApplication()
+    public function viewPatentApplication($id)
     {
          // For creating/submission of patent related informations & file
-        $maxCopyrightId = Copyright::max('int_id');
+        $copyrightId = $id;
         $projects = Project::all();
         $projectTypes = ProjectType::all();
         return view('author-pd.ipr-patent-application', ['projects' => $projects, 
-            'projectTypes' => $projectTypes, 'maxCopyrightId' => $maxCopyrightId]);
+            'projectTypes' => $projectTypes, 'copyrightId' => $copyrightId]);
     }
     
 	public function storeCopyrightRequest(Request $request)
@@ -105,6 +106,7 @@ class IPRApplicationController extends Controller
         // storing input data to database(Patent table)
         // form validation
         $this->validate($request, [
+            // 'g-recaptcha-response' => 'required|captcha',
             'getCopyrightId' => 'required',
             'slctProjectType' => 'required',
             'txtPatentTitle' => 'required',
@@ -124,7 +126,7 @@ class IPRApplicationController extends Controller
         // Store input data to Patents table
         $patent = new Patent;
         // $patent->int_copyright_id = $request->getCopyrightId;
-        $patent->int_copyright_id = 2;
+        $patent->int_copyright_id = $request->getCopyrightId;
         $patent->str_patent_project_title = $request->txtPatentTitle;
         $patent->int_project_type_id = $request->slctProjectType;
         $patent->int_project_id = $request->slctProject;
