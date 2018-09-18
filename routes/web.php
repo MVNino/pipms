@@ -96,6 +96,8 @@ Route::group(
 					Route::post('projects', 			'ProjectController@addProject');
 					Route::get('project/{id}/{deptId}',		'ProjectController@viewProject');
 					Route::put('project/{id}/{deptId}/edit', 'ProjectController@updateProject');
+					// Requirements maintenance
+					Route::get('requirements', 'RequirementController@maintainRequirements');
 				});
 			}
 		);

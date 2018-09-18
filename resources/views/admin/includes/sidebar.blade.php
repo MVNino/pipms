@@ -30,6 +30,7 @@
           <li><a class="treeview-item" href="/admin/maintenance/colleges">Colleges</a></li>
           <li><a class="treeview-item" href="/admin/maintenance/departments">Departments</a></li>
           <li><a class="treeview-item" href="/admin/maintenance/projects">Projects</a></li>
+          <li><a class="treeview-item" href="/admin/maintenance/requirements">Project Requirements</a></li>
           <li><a class="treeview-item" href="/admin/maintenance/accounts">User Accounts</a></li>
         </ul>
       </li>
