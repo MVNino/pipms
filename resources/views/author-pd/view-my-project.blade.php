@@ -80,4 +80,10 @@
 @section('pg-specific-js')
 <script src="{{ asset('elite/js/custom.min.js') }}"></script>
 <script src="{{ asset('elite/js/horizontal-timeline.js')}}"></script>
+<<<<<<< HEAD
+<script>
+$('#li-my-projects').addClass('active');
+</script>
+=======
+>>>>>>> 74d4d556c46e60906cef2ab0d1be9c8d78100a0f
 @endsection

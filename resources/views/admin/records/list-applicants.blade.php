@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-user"></i> Applicants</h1>
+<h1><i class="fa fa-user"></i> Authors</h1>
   <p>Authors of every project requests</p>
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/applicants">Applicants</a></li>
+<li class="breadcrumb-item"><a href="/admin/records/applicants">Authors</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -16,9 +16,9 @@
           <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
-                <th scope="col">Applicant Name</th>
+                <th scope="col">Author Name</th>
                 <th scope="col">College - Department - Branch</th>
-                <th scope="col">Type of Applicant</th>
+                <th scope="col">Type of Author</th>
                 <th scope="col" class="text-center">Details</th>
               </tr>
             </thead>

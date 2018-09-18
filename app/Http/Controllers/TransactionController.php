@@ -436,11 +436,11 @@ class TransactionController extends Controller
         $patent->char_patent_status = 'To submit';
         $patent->save();
         $promptMsg = 'Appointment set! The patent request record changed its status to "To submit". 
-            An email notification has been sent to applicant.';
+            An email notification has been sent to the author.';
         \Notification::route('mail', $patent->copyright->applicant->user->email)
             ->notify(new PatentRequestAppointmentSet($schedule));
         $userId = $patent->copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new PatentAppointmentSetDb);     
+        User::findOrFail($userId)->notify(new PatentAppointmentSetDb($schedule));     
         return redirect('admin/transaction/patents/pend-request')->with('success', $promptMsg);
     }
     public function changePatentStatusToOnProcess($id)

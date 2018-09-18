@@ -8,7 +8,6 @@
 <li class="breadcrumb-item"><a href="/author/apply-patent-project">Patent Application</a></li>
 @endsection
 @section('content')
-
 <div class="container">	
 {!! Form::open(['action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
@@ -17,36 +16,42 @@
 			<div class="tile-body">
 				<div class="form-group" style="display: none;">
 					{{Form::label('lblCopyrightID', 'Copyright ID', ['style' => 'font-weight: bold;'])}}
-					{{Form::number('getCopyrightId', $maxCopyrightId, ['class' => 'form-control', 'placeholder' => 'Copyright ID'])}}
+					{{Form::number('getCopyrightId', $copyrightId, ['class' => 'form-control', 'placeholder' => 'Copyright ID'])}}
 				</div>
-				<div class="form-group">
-					<h3 class="text-muted text-center">Patent Application Form</h3>
-					<div class="row col-md-12">
-					{{Form::label('lblProjectType', 'Class Designation of Copyrightable/Patentable Works',['style' => 'font-weight:bold'])}}
-						<select class="custom-select" name="slctProjectType">
-						  <option>Select class designation</option>
-						  @forelse($projectTypes as $projectType)
-						  	@if($projectType->char_classification == 'P')
-						  <option value="{{ $projectType->int_id }}">{{ $projectType->char_project_type }}</option>
-						  	@endif
-						  @empty
-						  @endforelse
-						</select>
+				<div class="card">
+					<div class="card-header">
+					<h3 class="text-muted text-danger text-center">Patent Application Form</h3>						
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<label><strong>Project Compliance</strong></label>
-							<select class="custom-select" name="slctProject">
-							  <option>Select project</option>
-							@forelse($projects as $project)
-								<option value="{{ $project->int_id }}">{{ $project->str_project_name }}</option>
-							@empty
-							@endforelse
-							</select>
-						</div>
-						<div class="col-md-8">
-						{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
-						{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of work'])}}
+					<div class="card-body">	
+						<div class="form-group">
+							<div class="row col-md-12">
+							{{Form::label('lblProjectType', 'Class Designation of Patentable Works',['style' => 'font-weight:bold'])}}
+								<select class="custom-select" name="slctProjectType">
+								  <option>Select class designation</option>
+								  @forelse($projectTypes as $projectType)
+								  	@if($projectType->char_classification == 'P')
+								  <option value="{{ $projectType->int_id }}">{{ $projectType->char_project_type }}</option>
+								  	@endif
+								  @empty
+								  @endforelse
+								</select>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<label><strong>Project Compliance</strong></label>
+									<select class="custom-select" name="slctProject">
+									  <option>Select project</option>
+									@forelse($projects as $project)
+										<option value="{{ $project->int_id }}">{{ $project->str_project_name }}</option>
+									@empty
+									@endforelse
+									</select>
+								</div>
+								<div class="col-md-8">
+								{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
+								{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of work'])}}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -117,7 +122,10 @@
 						</div>
 					</div>
 				</div>
-				
+			</div>
+		</div>
+	</div>
+</div>
 {!! Form::close() !!}
 
 @endsection
@@ -129,9 +137,52 @@
         CKEDITOR.replace( 'article-ckeditor' );
     </script>
 <script>
-$(document).ready(function(){
-	$('#li-apply').addClass('is-expanded');
-	$('a[href="/author/apply-patent-project"]').addClass('active');
+$('#li-my-projects').addClass('active');
+</script>
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
 });
 </script>
 @endsection
