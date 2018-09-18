@@ -106,7 +106,7 @@ class IPRApplicationController extends Controller
         // storing input data to database(Patent table)
         // form validation
         $this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'getCopyrightId' => 'required',
             'slctProjectType' => 'required',
             'txtPatentTitle' => 'required',

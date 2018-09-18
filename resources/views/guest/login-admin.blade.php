@@ -53,7 +53,6 @@
             </div>
           </div>
           <div class="form-group btn-container">
-            <!-- @captcha -->
             <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>{{ __('Login') }}</button>
           </div>
         </form>
@@ -71,6 +70,7 @@
           </div>
         </form>
       </div>
+      @captcha
     </section>
     <!-- Essential javascripts for application to work-->
     <script src="{{ asset('vali/js/jquery-3.2.1.min.js') }}"></script>

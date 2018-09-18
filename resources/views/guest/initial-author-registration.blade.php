@@ -104,7 +104,7 @@
 		<div class="row ">
 			<div class="col-md-5"></div>
 			<div class="col-md-2">
-				{{-- @captcha() --}}
+				@captcha()
 				<button type="submit" class="btn btn-md btn-primary btn-block">
 					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
 				</button>

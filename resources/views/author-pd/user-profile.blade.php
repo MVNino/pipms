@@ -243,7 +243,7 @@
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
-                {{-- @captcha --}}
+                @captcha
                 <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
               </div>
             </div>
