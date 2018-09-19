@@ -23,29 +23,38 @@
       <div class="modal-body">
         {!! Form::open(['action' => ['Maintenance\ProjectTypeController@updateProjectType', $projectType->int_id], 'method' => 'POST']) !!}
           <div class="form-group">
+            {{Form::label('lblProjectType', 'Type of project', ['style' => 'font-weight: bold'])}} 
             {{ Form::text('txtProjectType', $projectType->char_project_type, ['class' => 'form-control', 'placeholder' => 'Enter type of project']) }}
           </div>  
-          <div class="col-md-12 col-sm-12">
-            <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
-            <div class="animated-radio-button form-check form-check-inline">
-              <label class="form-check-label">
-                @if($projectType->char_classification == 'C')
-                <input class="form-check-input" type="radio" name="radioProjectType" value="C" checked required><span class="label-text">Copyright</span>
-                @else
-                <input class="form-check-input" type="radio" name="radioProjectType" value="C" required><span class="label-text">Copyright</span>
-                @endif
-              </label>
+          <div class="row form-group justify-content-center">
+            <div class="col-md-12 col-sm-12">
+              <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
+              <div class="animated-radio-button form-check form-check-inline">
+                <label class="form-check-label">
+                  @if($projectType->char_classification == 'C')
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="C" checked required><span class="label-text">Copyright</span>
+                  @else
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="C" required><span class="label-text">Copyright</span>
+                  @endif
+                </label>
+              </div>
+              <div class="animated-radio-button form-check form-check-inline">
+                <label class="form-check-label">
+                  @if($projectType->char_classification == 'P')
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="P" checked required><span class="label-text">Patent</span>
+                  @else
+                  <input class="form-check-input" type="radio" name="radioProjectType" value="P" required><span class="label-text">Patent</span>
+                  @endif
+                </label>
+              </div>
             </div>
-            <div class="animated-radio-button form-check form-check-inline">
-              <label class="form-check-label">
-                @if($projectType->char_classification == 'P')
-                <input class="form-check-input" type="radio" name="radioProjectType" value="P" checked required><span class="label-text">Patent</span>
-                @else
-                <input class="form-check-input" type="radio" name="radioProjectType" value="P" required><span class="label-text">Patent</span>
-                @endif
-              </label>
-            </div>
-          </div><br>
+          </div>
+          <div class="form-group">
+            <label for="input-file-project-type-img" class="control-label"><b>Project Type Image</b></label>
+            <input type="file" name="fileProjectTypeImg" id="input-file-project-type-img" class="dropify" data-default-file="/storage/images/project_type/{{ $projectType->str_project_type_image }}" />
+            <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png. This field is optional</small>
+          </div>
+          <br>
           <div class="modal-footer">
             {{ Form::hidden('_method', 'PUT') }}
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
@@ -119,6 +128,7 @@
     </div>
   </div>
 </div>
+@endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
@@ -132,5 +142,50 @@
     $('a[href="/admin/maintenance/project-types"]').addClass('active');
   });
 </script>
-@endsection
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+});
+</script>
 @endsection
