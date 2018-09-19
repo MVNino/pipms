@@ -94,10 +94,16 @@ Route::group(
 					// Projects maintenance
 					Route::get('projects',				'ProjectController@maintainProjects');
 					Route::post('projects', 			'ProjectController@addProject');
-					Route::get('project/{id}/{deptId}',		'ProjectController@viewProject');
-					Route::put('project/{id}/{deptId}/edit', 'ProjectController@updateProject');
+					Route::get('project/{id}/{deptId}',		
+							'ProjectController@viewProject');
+					Route::put('project/{id}/{deptId}/edit', 
+							'ProjectController@updateProject');
 					// Requirements maintenance
-					Route::get('requirements', 'RequirementController@maintainRequirements');
+					Route::get('requirements', 
+							'RequirementController@maintainRequirements')
+							->name('maintenance.requirements');
+					Route::post('requirements', 
+							'RequirementController@addRequirement');
 				});
 			}
 		);
