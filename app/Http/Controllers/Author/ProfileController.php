@@ -29,7 +29,7 @@ class ProfileController extends Controller
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'txtFirstName' => 'required|max:155',
             'txtMiddleName' => 'nullable|max:155',
             'txtLastName' => 'required|max:155',
