@@ -243,13 +243,43 @@
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
-                @captcha
+                <!-- @captcha -->
                 <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                <button type="button" onclick="updateProfile()" class="btn btn-primary btn-round">Update Profile</button>
+                <a class="btn btn-info" id="demoSwal" href="#">UPdate moto</a>
               </div>
             </div>
-          </form>
+          {!! Form::close() !!}
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('pg-specific-js')
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this imaginary file!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel plx!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      swal("Deleted!", "Your imaginary file has been deleted.", "success");
+      $.post('',data,function(response){
+
+      }); 
+
+    } else {
+      swal("Cancelled", "Your imaginary file is safe :)", "error");
+    }
+  });
+});
+</script>
 @endsection
