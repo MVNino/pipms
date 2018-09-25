@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Copyright;
+use App\Patent;
 
 class WorkController extends Controller
 {
@@ -23,8 +24,12 @@ class WorkController extends Controller
     public function viewMyProject($id)
     {
         $myProject = Copyright::findOrFail($id);
-    	return view('author-pd.view-my-project', ['myProject' => $myProject]);
+        $myPatentProjects = Patent::findOrFail($id);
+    	return view('author-pd.view-my-project', ['myProject' => $myProject, 'myPatentProjects' => $myPatentProjects]);
     }
+
+   
+   
 
 
 }

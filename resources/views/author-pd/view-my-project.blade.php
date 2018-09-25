@@ -19,17 +19,17 @@
                                 <div class="events">
                                     <ol>
                                         @if($myProject->char_copyright_status == 'pending')
-                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">{{$myProject->created_at}}</a></li>
                                         @endif
                                         @if($myProject->char_copyright_status == 'To submit')
-                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
-                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">"{{$myProject->dtm_schedule}}"</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">{{$myProject->created_at}}</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">{{$myProject->dtm_schedule}}</a></li>
                                         @endif
-                                        @if($myProject->char_copyright_status == 'On Process')
+                                        @if($myProject->char_copyright_status == 'On process')
                                             <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
-                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">"{{$myProject->dtm_schedule}}"</a></li>
-                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">$myProject->dtm_schedule}}"</a></li>
-                                                @endif
+                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">{{$myProject->dtm_schedule}}</a></li>
+                                            <li><a href="#0" data-date="01/01/2019">Jan 01</a></li>
+                                        @endif
                                         
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
@@ -49,7 +49,18 @@
                             <ol>
                                 @if($myProject->char_copyright_status == 'pending')
                                 <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Copyright<br/>Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Copyright Status:<br/>Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Application is currently on pending status, and is waiting for approval
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li><br/>
+                                @endif
+                                @if($myPatentProjects->char_patent_status == 'pending')
+                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Patent Status:<br/>Pending<br/><small>{{$myPatentProjects->created_at}}</small></h2>
                                     <p class="m-t-40">
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
@@ -57,12 +68,11 @@
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
                                 </li>
-
                                 @endif
 
                                 @if($myProject->char_copyright_status == 'To submit')
                                 <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
                                     <p class="m-t-40">
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
@@ -71,7 +81,7 @@
                                     </p>
                                 </li>
                                 <li data-date="{{$myProject->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> To Submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> To Submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
                                     <p class="m-t-40">
                                         Your Document is to be submitted.
                                     </p>
@@ -82,7 +92,7 @@
                                 @endif
                                 @if($myProject->char_copyright_status == 'On process')
                                 <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
                                     <p class="m-t-40">
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
@@ -91,7 +101,7 @@
                                     </p>
                                 </li>
                                 <li data-date="{{$myProject->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> To Submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> To submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
                                     <p class="m-t-40">
                                         Your Document is to be submitted.
                                     </p>
@@ -99,10 +109,62 @@
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
                                 </li>
-                                <li data-date="{{$myProject->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> On Process<br/><small>{{$myProject->dtm_schedule}}</small></h2>
+                                <li data-date="01/01/2019">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> On process<br/><small>Jan 01</small></h2>
                                     <p class="m-t-40">
-                                        Your document is now on process.                                    </p>
+                                        Your document is now on process.                                    
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                @endif
+
+
+                                @if($myPatentProjects->char_patent_status == 'To submit')
+                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> Pending<br/><small>{{$myPatentProjects->created_at}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Application is currently on pending status, and is waiting for approval
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="{{$myPatentProjects->dtm_schedule}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> To Submit<br/><small>{{$myPatentProjects->dtm_schedule}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Document is to be submitted.
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                @endif
+                                @if($myPatentProjects->char_patent_status == 'On process')
+                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> Pending<br/><small>{{$myPatentProjects->created_at}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Application is currently on pending status, and is waiting for approval
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="{{$myPatentProjects->dtm_schedule}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> To submit<br/><small>{{$myPatentProjects->dtm_schedule}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Document is to be submitted.
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="01/01/2019">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> On process<br/><small>Jan 01</small></h2>
+                                    <p class="m-t-40">
+                                        Your document is now on process.                                    
+                                    </p>
                                     <p>
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
