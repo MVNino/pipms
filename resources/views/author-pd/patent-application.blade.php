@@ -34,7 +34,7 @@
 						</select>
 					</div>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="row col-md-12">
 							<label><strong>Project Compliance</strong></label>
 							<select class="custom-select" name="slctProject">
 							  <option>Select project</option>
@@ -44,9 +44,11 @@
 							@endforelse
 							</select>
 						</div>
-						<div class="col-md-8">
-						{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
-						{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of work'])}}
+					</div>
+					<div class="row">
+						<div class="row col-md-12">
+							{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
+							{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of work'])}}
 						</div>
 					</div>
 				</div>

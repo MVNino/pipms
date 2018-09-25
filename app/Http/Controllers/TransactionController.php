@@ -272,7 +272,7 @@ class TransactionController extends Controller
             'timeSchedule' => 'required'
         ]);
 
-        $schedule = Carbon::createFromFormat('Y-m-d H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
+        $schedule = Carbon::createFromFormat('d-m-Y H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
         $copyright = Copyright::findOrFail($id);
         $copyright->dtm_schedule = $schedule;
         $copyright->char_copyright_status = 'To submit';
@@ -430,7 +430,7 @@ class TransactionController extends Controller
             'timeSchedule' => 'required'
         ]);
 
-        $schedule = Carbon::createFromFormat('Y-m-d H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
+        $schedule = Carbon::createFromFormat('d-m-Y H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
         $patent = Patent::findOrFail($id);
         $patent->dtm_schedule = $schedule;
         $patent->char_patent_status = 'To submit';
