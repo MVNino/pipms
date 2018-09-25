@@ -17,12 +17,19 @@
                         <div class="timeline">
                             <div class="events-wrapper">
                                 <div class="events">
-
                                     <ol>
-                                        <li><a href="#0" data-date="01/06/2017" class="selected">16 Jan</a></li>
-                                        <li><a href="#0" data-date="17/09/2018">28 Sep</a></li>
-                                        <li><a href="#0" data-date="20/12/2018">20 Dec</a></li>
-                                       
+                                        @if($myProject->char_copyright_status == 'pending')
+                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
+                                        @endif
+                                        @if($myProject->char_copyright_status == 'To submit')
+                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">"{{$myProject->dtm_schedule}}"</a></li>
+                                        @endif
+                                        @if($myProject->char_copyright_status == 'On Process')
+                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">"{{$myProject->created_at}}"</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">"{{$myProject->dtm_schedule}}"</a></li>
+                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">$myProject->dtm_schedule}}"</a></li>
+                                                @endif
                                         
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
@@ -38,9 +45,11 @@
                         </div>
                         <!-- .timeline -->
                         <div class="events-content">
+                            
                             <ol>
-                                <li class="selected" data-date="01/06/2017">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Pending<br/><small>June 1st, 2017</small></h2>
+                                @if($myProject->char_copyright_status == 'pending')
+                                <li class="selected" data-date="{{$myProject->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Copyright<br/>Pending<br/><small>{{$myProject->created_at}}</small></h2>
                                     <p class="m-t-40">
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
@@ -48,8 +57,21 @@
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
                                 </li>
-                                <li data-date="17/09/2018">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> To Submit<br/><small>September 17th, 2018</small></h2>
+
+                                @endif
+
+                                @if($myProject->char_copyright_status == 'To submit')
+                                <li class="selected" data-date="{{$myProject->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Application is currently on pending status, and is waiting for approval
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="{{$myProject->dtm_schedule}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> To Submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
                                     <p class="m-t-40">
                                         Your Document is to be submitted.
                                     </p>
@@ -57,17 +79,37 @@
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
                                 </li>
-                                <li data-date="20/12/2018">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> On Process<br/><small>December 20th, 2018</small></h2>
+                                @endif
+                                @if($myProject->char_copyright_status == 'On process')
+                                <li class="selected" data-date="{{$myProject->created_at}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> Pending<br/><small>{{$myProject->created_at}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Application is currently on pending status, and is waiting for approval
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="{{$myProject->dtm_schedule}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> To Submit<br/><small>{{$myProject->dtm_schedule}}</small></h2>
+                                    <p class="m-t-40">
+                                        Your Document is to be submitted.
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
+                                    </p>
+                                </li>
+                                <li data-date="{{$myProject->dtm_schedule}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright<br/> On Process<br/><small>{{$myProject->dtm_schedule}}</small></h2>
                                     <p class="m-t-40">
                                         Your document is now on process.                                    </p>
                                     <p>
                                         <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
                                     </p>
                                 </li>
-                                    
-                                
+                                @endif
                             </ol>
+                        
                         </div>
                         <!-- .events-content -->
                     </section>

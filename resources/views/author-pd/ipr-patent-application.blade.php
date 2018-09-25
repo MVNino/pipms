@@ -36,28 +36,26 @@
 								  @endforelse
 								</select>
 							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<label><strong>Project Compliance</strong></label>
-									<select class="custom-select" name="slctProject">
-									  <option>Select project</option>
-									@forelse($projects as $project)
-										<option value="{{ $project->int_id }}">{{ $project->str_project_name }}</option>
-									@empty
-									@endforelse
-									</select>
-								</div>
-								<div class="col-md-8">
+							<div class="row col-md-12">
+								<label><strong>Project Compliance</strong></label>
+								<select class="custom-select" name="slctProject">
+								  <option>Select project</option>
+								@forelse($projects as $project)
+									<option value="{{ $project->int_id }}">{{ $project->str_project_name }}</option>
+								@empty
+								@endforelse
+								</select>
+							</div>
+							<div class="row col-md-12">
 								{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
-								{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of work'])}}
-								</div>
+								{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of your work'])}}
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>			
 				<div class="card">
 					<div class="card-header">
-						<h4>Executive Summary</h4>
+						<h4>Abstract of the Disclosure</h4>
 					</div>
 					<div class="card-body">
 						<div class="form-group">
@@ -85,8 +83,8 @@
 								</div>
 								<div class="tab-pane" id="profile" role="tabpanel">
 									<div class="form-group">
-										<h6 class="text-muted">Executive Summary File Upload</h6>
-										<input type="file" name="fileExecutiveSummary" id="input-file-exec-summary" class="dropify" 
+										<h6 class="text-muted">Abstract File Upload</h6>
+										<input type="file" name="txtAreaPatentDescription" id="input-file-exec-summary" class="dropify" 
 											data-default-file="/storage/summary/copyright/exec_summary.png" />
 										<small class="form-text text-muted" id="fileHelp">Accepted file types: pdf, docx, doc, zip, rar</small>
 									</div>
