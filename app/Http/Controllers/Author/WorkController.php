@@ -25,13 +25,8 @@ class WorkController extends Controller
 
     public function viewMyProject($id)
     {
-        $myProject = Copyright::findOrFail($id);
-        $myPatentProjects = Patent::findOrFail($id);
-    	return view('author-pd.view-my-project', ['myProject' => $myProject, 'myPatentProjects' => $myPatentProjects]);
+        $viewProject = Copyright::findOrFail($id);
+    	return view('author-pd.view-my-project', ['viewProject' => $viewProject]);
     }
-
-   
-   
-
 
 }

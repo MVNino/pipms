@@ -1,4 +1,4 @@
-    @extends('author-pd.layouts.app')
+@extends('author-pd.layouts.app')
 
 @section('pg-specific-css')
 
@@ -18,18 +18,24 @@
                             <div class="events-wrapper">
                                 <div class="events">
                                     <ol>
-                                        @if($myProject->char_copyright_status == 'pending')
-                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('M d')}}"</a></li>
+                                        @if($viewProject->char_copyright_status == 'pending')
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}"</a></li>
 
-                                        @elseif($myProject->char_copyright_status == 'To submit')
-                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('M d')}}"</a></li>
-                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->dtm_schedule)->format('M d')}}"</a></li>
+                                       
+                                        @elseif($viewProject->char_copyright_status == 'To submit')
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}"</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
 
-                                        @elseif($myProject->char_copyright_status == 'On process')
-                                            <li><a href="#0" data-date="{{$myProject->created_at}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('M d')}}"a></li>
-                                            <li><a href="#0" data-date="{{$myProject->dtm_schedule}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->dtm_schedule)->format('M d')}}"</a></li>
+                                        @elseif($viewProject->char_copyright_status == 'On process')
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
                                             <li><a href="#0" data-date="01/01/2019">Jan 01</a></li>
                                         @endif
+
+                                    
+
+
+                                        
                                         
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
@@ -47,129 +53,56 @@
                         <div class="events-content">
                             
                             <ol>
-                                @if($myProject->char_copyright_status == 'pending')
-                                <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Copyright Status:<br/>Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
+                                @if($viewProject->char_copyright_status == 'pending')
+                                <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
+                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}"> Copyright Status:<br/>Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
                                     <p class="m-t-40">
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li><br/>
+                                    
+                                </li>    
+                                   
+                                @elseif($viewProject->char_copyright_status == 'To submit')
+                                    <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
+                                        <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Application is currently on pending status, and is waiting for approval
+                                        </p>
+                                        
+                                    </li>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">
+                                        <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> To Submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Document is to be submitted.
+                                        </p>
+                                        
+                                    </li>
+                                   
+                                @elseif($viewProject->char_copyright_status == 'On process')
+                                    <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
+                                        <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Application is currently on pending status, and is waiting for approval
+                                        </p>
+                                       
+                                    </li>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">
+                                        <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> To submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Document is to be submitted.
+                                        </p>
+                                        
+                                    </li>
+                                    <li data-date="01/01/2019">
+                                        <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> On process<br/><small>Jan 01</small></h2>
+                                        <p class="m-t-40">
+                                            Your document is now on process.                                    
+                                        </p>
+                                        
+                                    </li>
+                                   
                                 @endif
-                                @if($myPatentProjects->char_patent_status == 'pending')
-                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user"> Patent Status:<br/>Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myPatentProjects->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Application is currently on pending status, and is waiting for approval
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                @endif
-
-                                @if($myProject->char_copyright_status == 'To submit')
-                                <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Application is currently on pending status, and is waiting for approval
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="{{$myProject->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> To Submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Document is to be submitted.
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                @endif
-                                @if($myProject->char_copyright_status == 'On process')
-                                <li class="selected" data-date="{{$myProject->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Application is currently on pending status, and is waiting for approval
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="{{$myProject->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> To submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Document is to be submitted.
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="01/01/2019">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Copyright Status:<br/> On process<br/><small>Jan 01</small></h2>
-                                    <p class="m-t-40">
-                                        Your document is now on process.                                    
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                @endif
-
-
-                                @if($myPatentProjects->char_patent_status == 'To submit')
-                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myPatentProjects->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Application is currently on pending status, and is waiting for approval
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="{{$myPatentProjects->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> To Submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myPatentProjects->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Document is to be submitted.
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                @endif
-                                @if($myPatentProjects->char_patent_status == 'On process')
-                                <li class="selected" data-date="{{$myPatentProjects->created_at}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myPatentProjects->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Application is currently on pending status, and is waiting for approval
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="{{$myPatentProjects->dtm_schedule}}">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> To submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myPatentProjects->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
-                                    <p class="m-t-40">
-                                        Your Document is to be submitted.
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                <li data-date="01/01/2019">
-                                    <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src="{{asset('elite/images/1.jpg')}}" alt="user">Patent Status:<br/> On process<br/><small>Jan 01</small></h2>
-                                    <p class="m-t-40">
-                                        Your document is now on process.                                    
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-rounded btn-outline-info m-t-20">Read more</button>
-                                    </p>
-                                </li>
-                                @endif
+                               
                             </ol>
                         
                         </div>
@@ -186,6 +119,9 @@
 <script src="{{ asset('elite/js/horizontal-timeline.js')}}"></script>
 
 <script src="{{ asset('elite/js/timeline.js')}}"></script>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
 
 <script>
 $('#li-my-projects').addClass('active');
