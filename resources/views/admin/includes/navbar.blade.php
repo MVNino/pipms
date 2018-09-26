@@ -20,12 +20,13 @@
           @foreach(auth()->user()->unReadNotifications as $notification)
           <div class="app-notification__content">
             <li style="background-color: #f3f3f3;">
-              <a class="app-notification__item" href="/admin/transaction/author/account-requests"><span class="app-notification__icon">
-                <span class="fa-stack fa-lg">
-                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+              <a class="app-notification__item" href="/admin/transaction/author/account-requests">
+                <span class="app-notification__icon">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
                 </span>
-              </span>
                 <div>
                   <p class="app-notification__message">{!! $notification->data['data'] !!}</p>
                   <p class="app-notification__meta">Last: {{ $notification->created_at }}</p>
@@ -36,7 +37,8 @@
           @endforeach
           @foreach(auth()->user()->readNotifications as $notification)
           <div class="app-notification__content">
-            <li><a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+            <li style="background-color: pink; color: #f3f3f3;">
+              <a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
                 <div>
                   <p class="app-notification__message">{!! $notification->data['data'] !!}</p>
                   <p class="app-notification__meta">Last: {{ $notification->created_at }}</p>

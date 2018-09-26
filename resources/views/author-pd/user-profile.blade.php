@@ -121,7 +121,7 @@
           <h5 class="card-title">Edit Profile</h5>
         </div>
         <div class="card-body">
-          {!! Form::open(['action' => ['Author\ProfileController@updateAuthor', $author->int_id], 'method' => 'POST']) !!}
+          {!! Form::open(['action' => ['Author\ProfileController@updateAuthor', $author->int_id], 'method' => 'POST', 'onsubmit' => "return confirm('Edit your profile?')"]) !!}
             @csrf
             <div class="row">
               <div class="col-md-4 pr-1">

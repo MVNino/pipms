@@ -1,5 +1,10 @@
 @extends('author-pd.layouts.app')
 
+@section('pg-specific-css')
+<!-- Main Modified CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
 <div class="col-md-3"><a class="mb-2 btn btn-danger btn-block" href="">Compose Mail</a>
