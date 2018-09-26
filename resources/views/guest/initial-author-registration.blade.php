@@ -14,7 +14,7 @@
     	<h1>Account Request</h1>
 	</div>
 <div class="container">
-{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId']) !!}
+{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId', 'onsubmit' => "return confirm('Submit your author account request form?')"]) !!}
 @csrf
 <div class="tile">
     <div class="tile-body">
@@ -91,8 +91,9 @@
 				         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Receipt</h4>
-                                <label for="input-file-max-fs">Maximum file size: 2MB</label>
+                                <label for="input-file-max-fs">Allowed file type: jpg, jpeg, png</label>
                                 <input type="file" name="fileReceiptImg" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
+								<small id="emailHelp" class="form-text text-muted">You are required to attach the photo of the official receipt.</small>
                             </div>
                         </div>
 

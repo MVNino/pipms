@@ -13,6 +13,7 @@ use App\Department;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
+use App\Requirement;
 use App\User;
 
 class IPRApplicationController extends Controller
@@ -26,8 +27,11 @@ class IPRApplicationController extends Controller
     {
         $projects = Project::all();
         $projectTypes = ProjectType::all();
-        return view('author-pd.ipr-application', ['projects' => $projects,
-            'projectTypes' => $projectTypes]);
+        $requirements = Requirement::where('char_ipr', 'C')
+                ->get();
+        return view('author-pd.ipr-application', 
+            ['projects' => $projects, 'projectTypes' => $projectTypes, 
+                'requirements' => $requirements]);
     }
 
     public function viewPatentApplication($id)

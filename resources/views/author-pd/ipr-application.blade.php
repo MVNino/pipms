@@ -175,11 +175,9 @@
 						<div class="tile-body">
 							<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's copyright registration</strong></label>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item text-muted">Triplicate copies of the notarized Application Form</li>
-								<li class="list-group-item text-muted">Triplicate copies of the Affidavit of Copyright Co-ownership</li>
-								<li class="list-group-item text-muted">Duplicate copies of the document/s (hardbound or softcopy) as deposit to the National Library of the Philippines</li>
-								<li class="list-group-item text-muted">Official receipt of filing fee from PUP</li>
-								<li class="list-group-item text-muted">Note: You must bring these things for your actual copyright application in the office.</li>
+							  @foreach($requirements as $requirement)
+							  <li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
+							  @endforeach
 							</ul>
 							<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
 						</div>
