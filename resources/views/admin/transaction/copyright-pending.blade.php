@@ -4,10 +4,12 @@
 <h1><i class="fa fa-copyright"></i> Pending Requests for Copyright</h1>
   <p>A listing of projects which requests for copyright registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyrights/pend-request">Copyright Pending Requests</a></li>
 @endsection
+
 @section('content')
 <div class ="card" style="padding: 5px;">
     <table class="table table-hover">
@@ -55,6 +57,4 @@
     $('a[href="/admin/transaction/copyrights/pend-request"]').addClass('active');
   });
 </script>
-
-
 @endsection

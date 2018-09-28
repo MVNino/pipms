@@ -7,23 +7,21 @@
 <br><br><br><br><br>
 <style type="text/css">
       body {
-          background-image: url(storage/images/web1.jpg);
+          background-image: url(assets/images/web1.jpg);
       }
     </style>
 <div class="container">
-	<div class="row col-md-12">
+  <div class="row col-md-12">
     <div class="tile">
       <div class="tile-body">
     <h1>ABOUT PAGE</h1>
     <div class="row">
         <div class="col-md-8 col-sm-8">
-          PUP Intellectual Property Management System is a website build in connection with the application of copyright and patent at the university. The Intellectual Property Management Office (IPMO) is the one responsible for the activities.         
+          <br>PUP Intellectual Property Management System is a website build in connection with the application of copyright and patent at the university. The Intellectual Property Management Office (IPMO) is the one responsible for the activities.    <br/>     
         </div>
-        <div class="col-md-4 col-sm-4">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
+        <div class="row-col-md-7">
+         <img src="/storage/images/logo.png"
+         width="100" height="100">
         </div>
       </div>
       <br/>
@@ -36,29 +34,23 @@
       <br/>
       <div class="row">
         <div class="col-md-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          
         </div>
         <div class="col-md-6">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
+          
         </div>
       </div>
     </div>
     </div> 
   </div> 
 </div>
+@endsection
 
-  <!-- Adding class .active to about blade -->
-	<script>
-    $(document).ready(function(){
-      $('#about').addClass("active");
-    });
-	</script>
+@section('pg-specific-js')
+<!-- Adding class .active to about blade -->
+<script>
+  $(document).ready(function(){
+    $('#about').addClass("active");
+  });
+</script>
 @endsection
