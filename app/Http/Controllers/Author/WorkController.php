@@ -28,5 +28,4 @@ class WorkController extends Controller
         $viewProject = Copyright::findOrFail($id);
     	return view('author-pd.view-my-project', ['viewProject' => $viewProject]);
     }
-
 }

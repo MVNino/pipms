@@ -272,7 +272,12 @@ class TransactionController extends Controller
             'timeSchedule' => 'required'
         ]);
 
-        $schedule = Carbon::createFromFormat('d-m-Y H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
+        $schedule = 
+        $date = $request->dateSchedule;
+        $time = $request->timeSchedule;
+        $schedule = Carbon::createFromFormat('d-m-Y H:i', 
+            $request->dateSchedule.' '.$request->timeSchedule)
+            ->toDateTimeString();
         $copyright = Copyright::findOrFail($id);
         $copyright->dtm_schedule = $schedule;
         $copyright->char_copyright_status = 'To submit';
@@ -283,7 +288,8 @@ class TransactionController extends Controller
             ->notify(new AppointmentSet($schedule));
         $userId = $copyright->applicant->user->id;
         User::findOrFail($userId)->notify(new AppointmentSetDb($schedule));
-        return redirect('admin/transaction/copyrights/pend-request')->with('success', $promptMsg);
+        return redirect('admin/transaction/copyrights/pend-request')
+            ->with('success', $promptMsg);
     }
 
     public function changeStatusToOnProcess($id)
@@ -298,7 +304,8 @@ class TransactionController extends Controller
         $userId = $copyright->applicant->user->id;
         User::findOrFail($userId)->notify(new RequestOnProcessDb);
         $promptMsg = "Request in now on process to its copyright registration";
-        return redirect('/admin/transaction/copyrights/to-submit')->with('success', $promptMsg);
+        return redirect('/admin/transaction/copyrights/to-submit')
+            ->with('success', $promptMsg);
     }
 
     public function changeStatusToCopyrighted($id)

@@ -170,7 +170,6 @@ Route::group(
 				Route::get('patent/change-on-process-to-patented/{id}', 
 					'TransactionController@changePatentStatusToPatented');
 
-
 				Route::get('copyrights/initial-request', 
 					'TransactionController@listInitialRequests');
 
