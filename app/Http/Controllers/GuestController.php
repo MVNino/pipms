@@ -13,7 +13,6 @@ use App\User;
 
 class GuestController extends Controller
 {
-
     public function _construct()
     {
     	//
