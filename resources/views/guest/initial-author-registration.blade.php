@@ -121,7 +121,6 @@
 @endsection
 
 @section('pg-specific-js')
-
 <!-- Plugins for this page -->
 <!-- ============================================================== -->
 <!-- jQuery file upload -->

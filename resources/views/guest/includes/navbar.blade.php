@@ -1,3 +1,4 @@
+{{-- @include('guest.includes.login-portal-modal') --}}
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel" id="navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}" style="font-weight: bold;color: maroon; ">
@@ -26,7 +27,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 @guest
-                <!-- Login Menu-->
+                 {{-- Login Menu --}}
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown10">
