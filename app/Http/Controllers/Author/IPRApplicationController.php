@@ -29,6 +29,8 @@ class IPRApplicationController extends Controller
         $projectTypes = ProjectType::all();
         $requirements = Requirement::where('char_ipr', 'C')
                 ->get();
+        $pRequirements = Requirement::where('char_ipr', 'P')
+                ->get();
         return view('author-pd.ipr-application', 
             ['projects' => $projects, 'projectTypes' => $projectTypes, 
                 'requirements' => $requirements]);
@@ -40,8 +42,9 @@ class IPRApplicationController extends Controller
         $copyrightId = $id;
         $projects = Project::all();
         $projectTypes = ProjectType::all();
+        $requirements = Requirement::all();
         return view('author-pd.ipr-patent-application', ['projects' => $projects, 
-            'projectTypes' => $projectTypes, 'copyrightId' => $copyrightId]);
+            'projectTypes' => $projectTypes, 'copyrightId' => $copyrightId, 'requirements' => $requirements ]);
     }
     
 	public function storeCopyrightRequest(Request $request)
@@ -135,12 +138,15 @@ class IPRApplicationController extends Controller
         $patent->int_project_type_id = $request->slctProjectType;
         $patent->int_project_id = $request->slctProject;
         $patent->mdmTxt_patent_description = $projectDescription;
+
         if($patent->save()){
         $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
         $userId = User::min('id');
         $user = User::findOrFail($userId);
+        
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-            return redirect()->back()->with('success', 'Request for patent registration submitted!');
+
+        return redirect()->back()->with('success', 'Request for patent registration submitted!');
         }
     }
 

@@ -9,6 +9,7 @@ use App\Department;
 use App\College;
 use App\Branch;
 use App\User;
+use App\CoAuthor;
 
 class ProfileController extends Controller
 {
@@ -21,9 +22,10 @@ class ProfileController extends Controller
     public function viewProfile()
     {
         $author = Applicant::findOrFail(auth()->user()->applicant->int_id);
+        $coAuthors = CoAuthor::all();
         $departments = Department::all();
         return view('author-pd.user-profile', ['author' => $author, 
-        'departments' => $departments]);
+        'departments' => $departments, 'coAuthors' => $coAuthors]);
     }
 
     public function updateAuthor(Request $request, $id)

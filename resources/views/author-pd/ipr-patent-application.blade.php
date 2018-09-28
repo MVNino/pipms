@@ -96,9 +96,9 @@
 										<div class="tile-body">
 											<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's patent registration</strong></label>
 											<ul class="list-group list-group-flush">
-									  			<li class="list-group-item text-muted"><span class="label-text text-info">Requirement documents for copyright registration, plus;</span></li>
-									  			<li class="list-group-item text-muted">Patent search results</li>
-									  			<li class="list-group-item text-muted">Disclosure form</li>				
+									  			@foreach($requirements as $requirement)
+							  						<li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
+							  					@endforeach			
 											</ul>
 						            		<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
 										</div>
