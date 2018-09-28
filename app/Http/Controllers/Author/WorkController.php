@@ -27,7 +27,8 @@ class WorkController extends Controller
     {
         $myProject = Copyright::findOrFail($id);
         $myPatentProjects = Patent::findOrFail($id);
-    	return view('author-pd.view-my-project', ['myProject' => $myProject, 'myPatentProjects' => $myPatentProjects]);
+    	return view('author-pd.view-my-project', 
+            ['myProject' => $myProject, 'myPatentProjects' => $myPatentProjects]);
     }
 
    
