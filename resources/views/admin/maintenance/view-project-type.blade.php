@@ -82,16 +82,26 @@
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">Type: {{ $projectType->char_project_type }}</h5>
-        </div>
-        <div class="card-body">
-          @if($projectType->char_classification == 'C')
-          <p class="card-text"><strong>IPR Classification:</strong> Copyright</p>
-          @else
-          <p class="card-text"><strong>IPR Classification:</strong> Patent</p>
-          @endif
+          <div class="row">
+            <div class="col-md-4">
+              <h5 class="card-title">Type: {{ $projectType->char_project_type }}</h5>
+              @if($projectType->char_classification == 'C')
+              <p class="card-text"><strong>IPR Classification:</strong> Copyright</p>
+              @else
+              <p class="card-text"><strong>IPR Classification:</strong> Patent</p>
+              @endif
+            </div>
+            <div class="col-md-8">
+              <div style="position: relative;">
+              <a target="_blank" href="/storage/images/project_type/{{ $projectType->str_project_type_image }}">
+              <img style="height: 200px; width: 100%; display: block;" src="/storage/images/project_type/{{ $projectType->str_project_type_image }}" alt="Project type image">
+              </a>
+              </div>
+            </div>
           </div>
-        <div class="card-footer text-muted"></div>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
       </div>
     </div>
   </div>

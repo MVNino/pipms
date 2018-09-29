@@ -9,7 +9,6 @@
 <li class="breadcrumb-item"><a href="/admin/transaction/author/account-requests">Author Account Requests</a></li>
 @endsection
 @section('content')
-
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -31,8 +30,8 @@
   </div>
 </div>
 
-
-<div class ="card" style="padding: 3px;"> 
+<div class ="tile">
+  <div class="tile-body">  
     <table class="table table-hover">
       <thead>
         <th>Author Name</th>
@@ -44,34 +43,48 @@
       <tbody>
         <div class="container">
           @forelse($authAccoRequests as $accountRequest)
-      <tr>
-        <td><b>{{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }} {{ $accountRequest->str_last_name }}</b></td>
-        <td class="mail-subject">@if($accountRequest->applicant->char_gender == 'M')
-            Male
-          @else
-            Female
-          @endif - {{ $accountRequest->applicant->char_applicant_type }}</td>
-          <td>{{ $accountRequest->applicant->receipt->char_receipt_code }}</td>
-        <td>{{ $accountRequest->created_at }}</td>
-        <td class="text-center"><a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span></a>
-        <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved" role="button" class="btn btn-primary"><span class="fa fa-thumbs-up"></span></a></td>
-      </tr>
-      @empty
-        <div class="alert alert-warning">
-          There is no record yet.
-        </div>
-      @endforelse    
+          <tr>
+            <td>
+              <b>{{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }} 
+                {{ $accountRequest->str_last_name }}
+              </b>
+            </td>
+            <td>@if($accountRequest->applicant->char_gender == 'M')
+                Male
+              @else
+                Female
+              @endif 
+              - {{ $accountRequest->applicant->char_applicant_type }}
+            </td>
+            <td>{{ $accountRequest->applicant->receipt->char_receipt_code }}</td>
+            <td>{{ $accountRequest->created_at }}</td>
+            <td class="text-center">
+              <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}" role="button" class="btn btn-info">
+                <span class="fa fa-eye"></span>
+              </a>
+              <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved" role="button" class="btn btn-primary">
+                <span class="fa fa-thumbs-up"></span>
+              </a>
+            </td>
+          </tr>
+          @empty
+            <div class="alert alert-warning">
+              There is no record yet.
+            </div>
+          @endforelse    
         </div>
     </tbody>
   </table>
-</div>
-<div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
-  <div class="btn-group">
-    <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
-    <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
+  </div>
+  <div class="tile-footer">
+    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
   </div>
 </div>
-
 @endsection
 
 @section('pg-specific-js')

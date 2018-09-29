@@ -149,7 +149,7 @@
         <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}
           <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Set different schedule</button>
-          <a role="button" class="btn btn-info" href="/author/same-sched/{{$patent->int_id}}"><i class="fa fa-fw fa-lg fa-copyright"></i> Clone copyright appointment</a>
+          <a role="button" class="btn btn-info" href="/admin/transaction/same-sched/{{$patent->int_id}}"><i class="fa fa-fw fa-lg fa-copyright"></i> Clone copyright appointment</a>
         </div>
           @csrf
         {!! Form::close() !!}

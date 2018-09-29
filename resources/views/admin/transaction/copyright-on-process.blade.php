@@ -4,10 +4,12 @@
 <h1><i class="fa fa-copyright"></i> On Process Copyright Requests</h1>
   <p>A listing of projects which are on its processs for copyright registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyrights/on-process">On Process Copyright Requests</a></li>
 @endsection
+
 @section('content')
 <div class="row">
 @forelse($copyrights as $copyright)

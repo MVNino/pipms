@@ -9,25 +9,47 @@
 <li class="breadcrumb-item"><a href="/admin/transaction/patents/pend-request">Patents Pending Requests</a></li>
 @endsection
 @section('content')
-  <div class="tile tile-body mb-2 bg-secondary" style="color: #f3f3f3;">
-    <div class="row">
-      <div class="col-md-3">Project/Work Title</div>
-      <div class="col-md-5">Applicant - Type - Department - College - Branch</div>
-      <div class="col-md-2">Date requested</div>
-      <div class="col-md-2">View more details</div>
-    </div>
+<div class="tile">
+  <div class="tile-body">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Project/Work Title</th>
+          <th>Applicant - Type</th>
+          <th>Department-College-Branch</th>
+          <th>Date requested</th>
+          <th class="text-center">View more details</th>
+        </tr>
+      </thead>
+      <tbody>
+      @forelse($patents as $patent)
+      <tr>
+        <td><b>{{ $patent->str_patent_project_title }}</b></td>
+        <td><b>{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_last_name }}</b> - <b>{{ $patent->copyright->applicant->char_applicant_type }}</b> </td>
+        <td>{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+        <td>{{ $patent->created_at }}</td>
+        <td class="text-center"><a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
+      </tr>
+      @empty
+        <div class="alert alert-warning">
+          There is no record yet.
+        </div>
+      @endforelse
+      </tbody>
+      <tfoot>
+
+      </tfoot>
+    </table>
   </div>
-  @forelse($patents as $patent)
-  <div class="tile tile-body mb-2">
-    <div class="row">
-      <div class="col-md-3">{{ $patent->str_patent_project_title }}</div>
-      <div class="col-md-5">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></div>
-      <div class="col-md-2">{{ $patent->created_at }}</div>
-      <div class="col-md-2"><a class="btn btn-primary" href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}"><i class="fa fa-eye"></i> View</a></div>
-    </div>
+  <div class="tile-footer">
+    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>    
   </div>
-  @empty
-  @endforelse
+</div>
 @endsection
 
 @section('pg-specific-js')
