@@ -4,18 +4,38 @@ namespace App\Http\Controllers\Transaction;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Notifications\ApplicantRequests;
-use App\Notifications\ApplicantRequestsPatent;
-use App\CoAuthor;
+use App\Notifications\SetAppointmentCloned;
 use App\Copyright;
-use App\Department;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
-use App\Applicant;
-use App\User;
+
 class PendRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    # COPYRIGHT
+    public function listPendingCopyrightRequest()
+    {
+        $copyrights = Copyright::with('applicant.department.college.branch')
+            ->where('char_copyright_status', 'LIKE', '%pending%')
+            ->get();
+        return view('admin.transaction.copyright-pending', 
+            ['copyrights' => $copyrights]);
+    }
+
+    public function viewPendingCopyrightRequest($id)
+    {
+        $copyrightCollection = Copyright::with('applicant.department.college.branch')
+            ->where('int_id', $id)
+            ->get();
+        return view('admin.transaction.view-copyright-pending', 
+            ['copyrightCollection' => $copyrightCollection]);
+    }
+
 	public function viewCopyrightApplication()
 	{
         $projects = Project::all();
@@ -24,14 +44,24 @@ class PendRequestController extends Controller
 			['projects' => $projects, 'projectTypes' => $projectTypes]);
 	}
 
-    public function listPendingCopyrightRequest()
+    # PATENT
+    public function listPendingPatentRequest()
     {
-        $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'LIKE', '%pending%')
+        $patents = Patent::with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', 'LIKE', '%pending%')
             ->get();
-        return view('admin.transaction.copyright-pending', ['copyrights' => $copyrights]);
+        return view('admin.transaction.patent-pending', ['patents' => $patents]);
     }
 
+    public function viewPendingPatentRequest($id)
+    {  
+        $patentCollection = Patent::with('copyright.applicant.department.college.branch')
+            ->where('int_id', $id)
+            ->get();
+        return view('admin.transaction.view-patent-pending', 
+            ['patentCollection' => $patentCollection]);
+    }
+    
     public function viewPatentApplication()
     {
         // For creating/submission of patent related informations & file
@@ -42,43 +72,17 @@ class PendRequestController extends Controller
             'projectTypes' => $projectTypes, 'maxCopyrightId' => $maxCopyrightId]);
     }
 
-    public function storePatentRequest(Request $request)
+    public function cloneCopyrightAppointment($id)
     {
-        // storing input data to database(Patent table)
-        // form validation
-        $this->validate($request, [
-            'getCopyrightId' => 'required',
-            'slctProjectType' => 'required',
-            'txtPatentTitle' => 'required',
-            'txtAreaPatentDescription' => 'required'
-        ]);
-
-        /*
-        * set default value for project/invention
-        * description if it was left blank
-        */
-        if($request->txtAreaPatentDescription == ''){
-            $projectDescription = 'There is no description supplied.';
-        } else {
-            $projectDescription = $request->txtAreaPatentDescription;
-        }
-
-        // Store input data to Patents table
-        $patent = new Patent;
-        // $patent->int_copyright_id = $request->getCopyrightId;
-        $patent->int_copyright_id = 2;
-        $patent->str_patent_project_title = $request->txtPatentTitle;
-        $patent->int_project_type_id = $request->slctProjectType;
-        $patent->int_project_id = $request->slctProject;
-        $patent->mdmTxt_patent_description = $projectDescription;
-        if($patent->save()){
-        $department = department::findOrFail(auth()->user()->applicant->int_department_id);
-        $userId = User::min('id');
-        $user = User::findOrFail($userId);
-        \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-            return redirect()->back()
-            ->with('success', 'Request for patent registration submitted!');
+        $patent = Patent::findOrFail($id);
+        $patent->dtm_schedule = $patent->copyright->dtm_schedule;
+        $patent->char_patent_status = 'To submit';
+        if ($patent->save()) {
+            $userId = $patent->copyright->applicant->user->id;
+            User::findOrFail($userId)->notify(new SetAppointmentCloned);       
+            return redirect()->back()->with('success', "Project's patent appointment was 
+                also set to its relative copyright appointment. Status had 
+                changed to 'To submit'");
         }
     }
-
 }

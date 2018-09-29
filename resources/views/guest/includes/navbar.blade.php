@@ -31,8 +31,8 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown10">
-                    <a class="dropdown-item" href="/author-login">as Author</a>
-                    <a class="dropdown-item" href="/admin-login">as Admin</a>
+                    <a class="dropdown-item" href="{{ route('login.author') }}">as Author</a>
+                    <a class="dropdown-item" href="{{ route('login.admin') }}">as Admin</a>
                   </div>
                 </li>
 
