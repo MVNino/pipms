@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Copyright;
-use App\Patent
+use App\Patent;
 
 class ToSubmitController extends Controller
 {
