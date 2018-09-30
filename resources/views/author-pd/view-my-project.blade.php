@@ -19,17 +19,17 @@
                                 <div class="events">
                                     <ol>
                                         @if($viewProject->char_copyright_status == 'pending')
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}"</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
 
                                        
                                         @elseif($viewProject->char_copyright_status == 'To submit')
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}"</a></li>
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">To submit</a></li>
 
-                                        @elseif($viewProject->char_copyright_status == 'on process')
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}</a></li>
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
-                                            <li><a href="#0" data-date="01/01/2019">Jan 01</a></li>
+                                        @elseif($viewProject->char_copyright_status == 'On process')
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">To submit</a></li>
+                                            <li><a href="#0" data-date="01/01/2019">On process</a></li>
                                         @endif                                                                    
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
@@ -54,7 +54,7 @@
                                         Your Application is currently on pending status, and is waiting for approval
                                     </p>
                                     
-                                </li>    
+                                </li> 
                                    
                                 @elseif($viewProject->char_copyright_status == 'To submit')
                                     <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
@@ -64,6 +64,7 @@
                                         </p>
                                         
                                     </li>
+
                                     <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">
                                         <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> To Submit<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
                                         <p class="m-t-40">
@@ -71,8 +72,9 @@
                                         </p>
                                         
                                     </li>
+
                                    
-                                @elseif($viewProject->char_copyright_status == 'On process')
+                                 @elseif($viewProject->char_copyright_status == 'On process')
                                     <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
                                         <h2><img class="img-circle pull-left m-r-20 m-b-10" width="60" alt="user" src=img src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="user">Copyright Status:<br/> Pending<br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
                                         <p class="m-t-40">

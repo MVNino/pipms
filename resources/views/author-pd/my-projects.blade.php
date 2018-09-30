@@ -1,4 +1,4 @@
-@extends('author-pd.layouts.app')
+	@extends('author-pd.layouts.app')
 
 @section('content')
 
