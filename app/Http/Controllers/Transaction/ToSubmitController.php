@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Copyright;
 use App\Patent;
+use Carbon\Carbon;
 
 class ToSubmitController extends Controller
 {
@@ -16,7 +17,7 @@ class ToSubmitController extends Controller
 
     # COPYRIGHT
     public function listToSubmitCopyrightRequest()
-    {
+    { 
         $copyrights = Copyright::with('applicant.department.college.branch')
             ->where('char_copyright_status', 'To submit')
             ->get();

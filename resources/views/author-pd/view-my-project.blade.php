@@ -26,17 +26,11 @@
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}"</a></li>
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
 
-                                        @elseif($viewProject->char_copyright_status == 'On process')
+                                        @elseif($viewProject->char_copyright_status == 'on process')
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d M')}}</a></li>
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d M')}}</a></li>
                                             <li><a href="#0" data-date="01/01/2019">Jan 01</a></li>
-                                        @endif
-
-                                    
-
-
-                                        
-                                        
+                                        @endif                                                                    
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
                                 </div>

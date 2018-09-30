@@ -29,23 +29,35 @@
                 </span>
                 <div>
                   <p class="app-notification__message">{!! $notification->data['data'] !!}</p>
-                  <p class="app-notification__meta">Last: {{ $notification->created_at }}</p>
+                  <p class="app-notification__meta">
+                    @if($notification->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+                      @if($notification->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+                        @if($notification->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+                        An hour ago.
+                        @else
+                        {{ $notification->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago.
+                        @endif
+                      @else
+                        @if($notification->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+                        A minute ago.
+                        @else
+                        {{ $notification->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
+                        @endif
+                      @endif                    
+                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+                      Yesterday at {{ $notification->created_at->format('h:i:A')}}
+                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+                      2 days ago at {{ $notification->created_at->format('h:i:A')}}
+                    @else
+                      Last: {{ $notification->created_at->format('M d')}}
+                    @endif
+                  </p>
                 </div>
               </a>
             </li>
           </div>
           @endforeach
-          @foreach(auth()->user()->readNotifications as $notification)
-          <div class="app-notification__content">
-            <li style="background-color: pink; color: #f3f3f3;">
-              <a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-primary"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
-                <div>
-                  <p class="app-notification__message">{!! $notification->data['data'] !!}</p>
-                  <p class="app-notification__meta">Last: {{ $notification->created_at }}</p>
-                </div></a></li>
-          </div>
-          @endforeach
-          <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
+          <li class="app-notification__footer"><a href="{{ route('admin.notifications') }}">See all notifications.</a></li>
           @else
           <li class="app-notification__footer"><a href="#">There is no notification.</a></li>
           @endif
