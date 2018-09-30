@@ -54,6 +54,9 @@ Route::group(
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
+		Route::get('notifications', function(){
+			return view('admin.notifications');
+		})->name('admin.notifications');
 		
 		// Route::get('notification/{id}/read', 
 				// 'NotificationController@readNotif');		
@@ -247,7 +250,7 @@ Route::group(
 			Route::get('my-projects', 
 					'WorkController@myProjects')
 					->name('author.my-projects');
-			Route::get('my-project/{id}', 'WorkController@viewMyProject');	
+			Route::get('my-project/{id}/{title}', 'WorkController@viewMyProject');	
 			Route::get('guide', 
 					'GuideController@viewGuide')
 					->name('author.guide');

@@ -11,7 +11,6 @@
 	            <img class="card-img-top img-responsive" src="{{asset('elite/images/img1.jpg')}}" alt="Card image cap">
 	            <div class="card-body">
 	                <h4 class="card-title">	{{$myProject->str_project_title}}</h4>
-
 	                <small class="card-text">Copyright Status: <b>{{$myProject->char_copyright_status}}</b></small>
 	                <br><br>
 	                @if($myProject->char_copyright_status == 'To submit')
@@ -25,8 +24,11 @@
 		                <small class="card-text">Appointed Schedule: <b>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->patent->dtm_schedule)->format('F d Y, l')}}</b></small>
 		                @endif
 	                @endif
-	                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-	                <a href="/author/my-project/{{ $myProject->int_id }}" class="btn btn-primary">View Progress</a>
+	                <div align="center">
+		                <a href="/author/my-project/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}" class="btn btn-primary">
+		                	View Progress
+		                </a>
+	                </div>
 	                @if(!$myProject->patent)
 	                <small>
 	                	<br>

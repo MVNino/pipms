@@ -50,7 +50,7 @@ class IPRApplicationController extends Controller
 	public function storeCopyrightRequest(Request $request)
 	{
         $this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'slctProjectType' => 'required',
             'txtProjectTitle' => 'required',
             'txtAreaDescription' => 'nullable',
