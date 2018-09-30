@@ -63,10 +63,8 @@ Copyright is a legal right created by the law of a country that grants the creat
       <div class="col-md-5">
         <div class="card">
           <div class="card-body">
-            
         <img class="featurette-image img-fluid mx-auto" src="storage/images/featurette1.jpg" alt="Generic placeholder image">
-          </div>
-          
+          </div>         
         </div>
       </div>
     </div>
@@ -79,7 +77,11 @@ Copyright is a legal right created by the law of a country that grants the creat
         <p class="lead">Patenting is an exclusive right granted for a product, process or an improvement of a product or process which is new, inventive, and useful. This exclusive right gives the inventor the right to exclude others from making, using, or selling the product of his invention during the life of the patent. </p>
       </div>
       <div class="col-md-5 order-md-1">
+        <div class="card">
+          <div class="card-body">
         <img class="featurette-image img-fluid mx-auto" src="storage/images/featurette2.jpg" alt="Generic placeholder image">
+          </div>         
+        </div>
       </div>
     </div>
 
@@ -98,7 +100,11 @@ Copyright is a legal right created by the law of a country that grants the creat
         lyssamortel@gmail.com</p>
       </div>
       <div class="col-md-5">
-        <img class="featurette-image img-fluid mx-auto" src="storage/images/featurette3.jpg" alt="Generic placeholder image" style="margin-top: 100px;">
+        <div class="card">
+          <div class="card-body">
+        <img class="featurette-image img-fluid mx-auto" src="storage/images/featurette3.jpg" alt="Generic placeholder image">
+          </div>         
+        </div>
       </div>
     </div>
 
