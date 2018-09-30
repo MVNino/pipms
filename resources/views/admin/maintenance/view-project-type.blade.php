@@ -21,7 +21,8 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => ['Maintenance\ProjectTypeController@updateProjectType', $projectType->int_id], 'method' => 'POST']) !!}
+        {!! Form::open(['action' => ['Maintenance\ProjectTypeController@updateProjectType', $projectType->int_id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+          @csrf
           <div class="form-group">
             {{Form::label('lblProjectType', 'Type of project', ['style' => 'font-weight: bold'])}} 
             {{ Form::text('txtProjectType', $projectType->char_project_type, ['class' => 'form-control', 'placeholder' => 'Enter type of project']) }}
@@ -60,7 +61,6 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
             <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>  
           </div>
-          @csrf
         {!! Form::close() !!}
       </div>
     </div>

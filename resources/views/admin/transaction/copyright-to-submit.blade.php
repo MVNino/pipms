@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> Requirements Submission for Copyright Registration</h1>
+<h1><i class="fa fa-copyright"></i> Submission of Requirements for Copyright Registration</h1>
   <p>A listing of projects that needs to submit requirements for copyright registration</p>
 @endsection
 @section('breadcrumb-label')
@@ -10,29 +10,203 @@
 @endsection
 @section('content')
 <div class="row">
-@forelse($copyrights as $copyright)
-<div class="col-md-6">
-  <div class="tile">
-    <div class="tile-title-w-btn">
-      <h3 class="title">{{ $copyright->str_project_title }}</h3>
-      <div class="btn-group"><a class="btn btn-primary" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}"><i class="fa fa-lg fa-eye"></i> View more</a>
+  <div class="col-md-6">
+    <div class="tile">
+      <div class="row">
+        <div class="col-md-9">
+          <h4 class="tile-title text-muted">
+            Today, {{ Carbon\Carbon::now()->format('F d') }}
+          </h4>
+        </div>
+        <div class="col-md-3">
+          <a href="{{ route('admin.copyright-today') }}" class="btn btn-primary">
+            <i class="fa fa-eye"></i> Details
+          </a>
+        </div>
+      </div>
+      <div class="tile-body">
+        @forelse($copyrights as $copyright)
+          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $copyright->str_project_title }} - 
+                {{ $copyright->applicant->user->str_first_name }} 
+                {{ $copyright->applicant->user->str_last_name }}</b> <br> 
+                {{ $copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+                  {{ $copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $copyright->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>  
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
       </div>
     </div>
-    <div class="tile-body">
-      <strong>Applicant: </strong>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} 
-      {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> 
-      (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>)<br>
-    </div>
-    <div class="tile-footer">
-      <strong>Scheduled appointment: </strong>{{ $copyright->dtm_schedule }}
+  </div>
+
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">
+        Tomorrow, {{ Carbon\Carbon::now()->addDay()->format('F d') }}
+      </h4>
+      <div class="tile-body">
+        @forelse($copyrights as $copyright)
+          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $copyright->str_project_title }} - 
+                {{ $copyright->applicant->user->str_first_name }} 
+                {{ $copyright->applicant->user->str_last_name }}</b><br> 
+                {{ $copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+                  {{ $copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $copyright->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>  
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
     </div>
   </div>
 </div>
-@empty
-<div class="alert alert-warning">
-  There is no record yet.
+<div class="row">
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">
+        {{ Carbon\Carbon::now()->addDays(2)->format('l, F d') }}
+      </h4>
+      <div class="tile-body">
+        @forelse($copyrights as $copyright)
+          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 2)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $copyright->str_project_title }} - 
+                {{ $copyright->applicant->user->str_first_name }} 
+                {{ $copyright->applicant->user->str_last_name }}</b><br> 
+                {{ $copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+                  {{ $copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $copyright->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">{{ Carbon\Carbon::now()->addDays(3)->format('l, F d') }}</h4>
+      <div class="tile-body">
+        @forelse($copyrights as $copyright)
+          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 3)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $copyright->str_project_title }} - 
+                {{ $copyright->applicant->user->str_first_name }} 
+                {{ $copyright->applicant->user->str_last_name }}</b><br> 
+                {{ $copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+                  {{ $copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $copyright->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
+    </div>
+  </div>
 </div>
-@endforelse
+<div class="clearfix"></div>
+<div class ="tile">
+  <h3 class="tile-title text-muted">Future appointments</h3>
+  <div class="tile-body">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Scheduled Date</th>
+          <th>Project/Work Title</th>
+          <th>Applicant - Type</th>
+          <th>Department-College-Branch</th>
+        </tr>
+      </thead>
+      <tbody>
+      @forelse($copyrights as $copyright)
+      <tr>
+        <td>date</td>
+        <td><b>project</b></td>
+        <td><b>app name and type</b></td>
+        <td>dept</td>
+      </tr>
+      @empty
+        <div class="alert alert-warning">
+          There is no record yet.
+        </div>
+      @endforelse
+      </tbody>
+    </table>
+  </div>
+  <div class="tile-footer">
+    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 

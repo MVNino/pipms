@@ -13,6 +13,11 @@ class Copyright extends Model
     // Timestamps
 	public $timestamps = true;
 
+	protected $dates = [
+		'created_at',
+		'updated_at',
+		'dtm_schedule'
+	];
 	public function user(){
 		return $this->belongsTo('App\User', 'int_user_id', 'id');
 	}
