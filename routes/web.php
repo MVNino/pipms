@@ -44,6 +44,17 @@ Route::group(
 	],
 	function()
 	{
+		Route::namespace('Admin')->group(function () {
+			Route::get('notification/{id}/read', 
+					'NotificationController@readNotif');		
+			Route::get('notification/read-all', 
+					'NotificationController@readAll')
+				->name('readAllMark');
+			Route::get('notifications', 
+				'NotificationController@viewNotifications')
+				->name('admin.notifications');
+		});
+
 		Route::get('dashboard', 'DashboardController@index');
 		Route::get('calendar', function(){
 			return view('admin.calendar');
@@ -54,16 +65,7 @@ Route::group(
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
-		Route::get('notifications', function(){
-			return view('admin.notifications');
-		})->name('admin.notifications');
 		
-		// Route::get('notification/{id}/read', 
-				// 'NotificationController@readNotif');		
-		// Route::get('notification/read-all', 
-				// 'NotificationController@readAll')
-		// 	->name('readAllMark');
-
 		// Maintenance Module
 		Route::group(
 			[
