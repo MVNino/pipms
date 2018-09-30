@@ -32,6 +32,7 @@
       </div>
     </div>
 </div>
+@endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
@@ -76,5 +77,12 @@
   	});  
   });
 </script>
-@endsection
+
+<!-- Page specific javascripts-->
+<script>
+  $(document).ready(function(){
+    $('#li-schedule').addClass('is-expanded');
+    $('a[href="{{ route('admin.calendar') }}"]').addClass('active');
+  });
+</script>
 @endsection

@@ -104,39 +104,7 @@
   </div>
 </div>
 
-<!-- Message modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Message applicant</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! Form::open(['action' => 'TransactionController@messageApplicant', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        <div class="form-group">
-          {{ Form::text('numCopyrightId', $copyright->int_id, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{ Form::text('txtFirstName', $copyright->applicant->user->str_first_name, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{Form::label('lblEmail', 'To: '.$copyright->applicant->user->str_first_name.' '.$copyright->applicant->user->str_last_name.' @', ['style' => 'font-weight: bold'])}} 
-          {{Form::text('txtEmail', $copyright->applicant->user->email, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'readonly'])}}
-        </div>
-        <div class="form-group">
-          {{Form::label('lblMessage', 'Message', ['style' => 'font-weight: bold'])}}
-          {{Form::textarea('txtAreaMessage', '', ['id' => 'container-form-control article-ckeditor', 'class' => 'form-control', 'placeholder' => "Enter message", 'rows' => '4'])}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Send</button>
-        </div>
-        {!! Form::close() !!}
-      </div>
-    </div>
-  </div>
-</div> <!-- /Message modal -->
-
-<!-- Approve modal -->
+<!-- Approve & Set Schedule modal -->
 <div class="modal fade" id="toApproveModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -163,7 +131,8 @@
       </div>
     </div>
   </div>
-</div> <!-- /Approve modal -->
+</div> 
+<!-- /Approve modal -->
 @empty
   @include('admin.includes.page-error')
 @endforelse

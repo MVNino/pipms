@@ -31,7 +31,7 @@
             <a class="treeview-item" href="{{ route('admin.calendar') }}">Calendar</a>
         </li>
         <li>
-            <a class="treeview-item" href="{{ route('admin.today') }}">Today</a>
+            <a id="admin-today" class="treeview-item" href="{{ route('admin.today') }}">Today</a>
         </li>
         <li>
             <a class="treeview-item" href="#">Appointment Conflicts</a>

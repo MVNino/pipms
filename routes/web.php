@@ -54,6 +54,10 @@ Route::group(
 			Route::get('notifications', 
 				'NotificationController@viewNotifications')
 				->name('admin.notifications');
+			// Schedule
+			Route::get('schedule/today', 
+				'ScheduleController@listTodaySchedule')
+				->name('admin.today');
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
@@ -66,9 +70,6 @@ Route::group(
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
-		Route::get('copyrights/today', function(){
-			return view('admin.today');
-		})->name('admin.today');
 		
 		// Maintenance Module
 		Route::group(
