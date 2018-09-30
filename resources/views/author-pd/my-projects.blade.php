@@ -12,7 +12,7 @@
 	            <div class="card-body">
 	                <h4 class="card-title">	{{$myProject->str_project_title}}</h4>
 	                <small class="card-text">Copyright Status: <b>{{$myProject->char_copyright_status}}</b></small>
-	                <br><br>
+	                <br/>
 	                @if($myProject->char_copyright_status == 'To submit')
 	                <small class="card-text">Appointed Schedule: <b>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->dtm_schedule)->format('F d Y, l')}}</b></small>
 	                <br><br>
