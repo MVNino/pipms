@@ -19,14 +19,14 @@
           </h4>
         </div>
         <div class="col-md-3">
-          <a href="{{ route('admin.copyright-today') }}" class="btn btn-primary">
+          <a href="{{ route('admin.today') }}" class="btn btn-primary">
             <i class="fa fa-eye"></i> Details
           </a>
         </div>
       </div>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
-          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+          @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->day)
           <div class="container">
             <div class="row">
               <div class="col-md-10">
@@ -64,7 +64,7 @@
       </h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
-          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+          @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->addDay()->day)
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
@@ -103,7 +103,7 @@
       </h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
-          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 2)
+          @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->addDays(2)->day)
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
@@ -139,7 +139,7 @@
       <h4 class="tile-title text-muted">{{ Carbon\Carbon::now()->addDays(3)->format('l, F d') }}</h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
-          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 3)
+          @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->addDays(3)->day)
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
@@ -184,18 +184,24 @@
         </tr>
       </thead>
       <tbody>
-      @forelse($copyrights as $copyright)
       <tr>
-        <td>date</td>
+        <td>October 5</td>
+        <td><b>Zaidos</b></td>
+        <td><b>Mark Ciel - Student</b></td>
+        <td>BSHRDM - CBA - PUP Taguig</td>
+      </tr>
+      <tr>
+        <td>October 8</td>
+        <td><b>Signos</b></td>
+        <td><b>Dongding Tesdan - Graduate Student</b></td>
+        <td>BSOA - CBA - PUP San Juan</td>
+      </tr>
+      <tr>
+        <td>October 9</td>
         <td><b>project</b></td>
         <td><b>app name and type</b></td>
         <td>dept</td>
       </tr>
-      @empty
-        <div class="alert alert-warning">
-          There is no record yet.
-        </div>
-      @endforelse
       </tbody>
     </table>
   </div>

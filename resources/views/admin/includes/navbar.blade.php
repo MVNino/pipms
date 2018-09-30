@@ -49,7 +49,7 @@
                     @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 2)
                       2 days ago at {{ $notification->created_at->format('h:i:A')}}
                     @else
-                      Last: {{ $notification->created_at->format('M d')}}
+                      {{ $notification->created_at->format('M d')}}
                     @endif
                   </p>
                 </div>

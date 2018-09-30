@@ -33,14 +33,16 @@
         
 
           <p class="text-muted"><strong>Project Type: </strong>{{ $copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: </strong></p>
+          <p class="text-muted"><strong>Project Compliance: {{ $copyright->project->str_project_name }}</strong></p>
           <p class="text-muted"><strong>Status: </strong>{{ $copyright->char_copyright_status }}</p>
           <p class="text-muted">Executive Summary: {!! $copyright->mdmTxt_project_description !!}</p>
+          @if($copyright->str_exec_summary_file != NULL)
           <p class="text-muted">Executive Summary File:  
           <a href="/storage/summary/copyright/{{ $copyright->str_exec_summary_file }}" target="_blank">
             <i class="fa fa-file"></i> {{ $copyright->str_exec_summary_file }}
           </a>
           </p>
+          @endif
           @if($copyright->patent)
           <p class="text-muted"><strong>Patent: </strong><a href="/admin/maintenance/patent/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a></p>
           @else
@@ -105,35 +107,6 @@
   </div>
 </div>
 
-<!-- Edit message modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Message {{ $copyright->applicant->str_first_name }} {{ $copyright->applicant->str_last_name }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! Form::open(['action' => 'TransactionController@messageApplicant', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        <div class="form-group">
-          {{Form::label('lblEmail', 'To: ', ['style' => 'font-weight: bold'])}} 
-          {{Form::text('txtBranchName', $copyright->applicant->str_email_address, ['class' => 'form-control', 'placeholder' => 'Enter branch name', 'required'])}}
-        </div>
-        <div class="form-group">
-          {{Form::label('lblMessage', 'Message', ['style' => 'font-weight: bold'])}}
-          {{Form::textarea('txtAreaBranchDescription', '', ['id' => 'container-form-control article-ckeditor', 'class' => 'form-control', 'placeholder' => "Enter message", 'rows' => '4'])}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Send</button>
-        </div>
-        {!! Form::close() !!}
-      </div>
-    </div>
-  </div>
-</div> <!-- /Edit branch modal -->
 @empty
   @include('admin.includes.page-error')
 @endforelse

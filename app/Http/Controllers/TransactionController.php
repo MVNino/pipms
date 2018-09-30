@@ -74,10 +74,11 @@ class TransactionController extends Controller
             'timeSchedule' => 'required'
         ]);
 
-        $schedule = 
-        $date = $request->dateSchedule;
-        $time = $request->timeSchedule;
-        $schedule = Carbon::createFromFormat('d-m-Y H:i', 
+        // return $request->timeSchedule;
+        // return Carbon::createFromFormat()
+        // return $date = $request->dateSchedule.' '.$request->timeSchedule;
+        // $time = $request->timeSchedule;
+        $schedule = Carbon::createFromFormat('Y-m-d H:i', 
             $request->dateSchedule.' '.$request->timeSchedule)
             ->toDateTimeString();
         $copyright = Copyright::findOrFail($id);
