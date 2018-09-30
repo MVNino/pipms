@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class NotificationController extends Controller
 {
@@ -19,5 +20,10 @@ class NotificationController extends Controller
     {
     	auth()->user()->unreadNotifications->markAsRead();
     	return redirect()->back();
+    }
+
+    public function viewNotifications()
+    {
+    	return view('admin.notification');
     }
 }
