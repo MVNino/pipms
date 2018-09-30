@@ -45,6 +45,7 @@ Route::group(
 	function()
 	{
 		Route::namespace('Admin')->group(function () {
+			// Notifications
 			Route::get('notification/{id}/read', 
 					'NotificationController@readNotif');		
 			Route::get('notification/read-all', 
@@ -58,13 +59,16 @@ Route::group(
 		Route::get('dashboard', 'DashboardController@index');
 		Route::get('calendar', function(){
 			return view('admin.calendar');
-		});
+		})->name('admin.calendar');
 		Route::get('mails', function() {
 			return view('admin.mail');
 		});
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
+		Route::get('copyrights/today', function(){
+			return view('admin.today');
+		})->name('admin.today');
 		
 		// Maintenance Module
 		Route::group(

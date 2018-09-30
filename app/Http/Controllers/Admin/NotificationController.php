@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notification;
 
 class NotificationController extends Controller
 {
@@ -24,6 +25,8 @@ class NotificationController extends Controller
 
     public function viewNotifications()
     {
-    	return view('admin.notification');
+        $notifications = Notification::orderBy('created_at', 'desc')->get();
+    	return view('admin.notification', 
+            ['notifications' => $notifications]);
     }
 }

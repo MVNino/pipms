@@ -20,6 +20,8 @@ class ToSubmitController extends Controller
     { 
         $copyrights = Copyright::with('applicant.department.college.branch')
             ->where('char_copyright_status', 'To submit')
+            ->where('dtm_schedule', '!=', null)
+            ->orderBy('dtm_schedule')
             ->get();
         return view('admin.transaction.copyright-to-submit', 
         	['copyrights' => $copyrights]);
