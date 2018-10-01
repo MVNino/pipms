@@ -7,7 +7,11 @@
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Schedule</li>
-<li class="breadcrumb-item"><a class="active" href="{{ route('schedule.conflicts') }}">Appointment Issues</a></li>
+<li class="breadcrumb-item">
+  <a class="active" href="{{ route('report.schedule-issues') }}">
+    Appointment Issues
+  </a>
+</li>
 @endsection
 @section('content')
 	<div class="tile">
@@ -21,8 +25,8 @@
 <!-- Page specific javascripts-->
 <script>
   $(document).ready(function(){
-    $('#li-schedule').addClass('is-expanded');
-    $('a[href="{{ route('schedule.conflicts') }}"]').addClass('active');
+    $('#li-report').addClass('is-expanded');
+    $('a[href="{{ route('report.schedule-issues') }}"]').addClass('active');
   });
 </script>
 @endsection

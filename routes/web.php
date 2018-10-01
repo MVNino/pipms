@@ -55,9 +55,6 @@ Route::group(
 			Route::get('schedule/today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
-			Route::get('schedule/conflicts', 
-				'ScheduleController@listScheduleConflicts')
-				->name('schedule.conflicts');
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
@@ -218,6 +215,9 @@ Route::group(
 		// Route::get('/query', 'QueryController@index');
 
 		# Report Module
+		Route::get('schedule/conflicts', 
+			'Admin\ScheduleController@listScheduleConflicts')
+			->name('report.schedule-issues');
 		// Route::get('/report', 'ReportController@index');
 	}
 );
