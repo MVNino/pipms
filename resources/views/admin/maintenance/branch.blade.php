@@ -58,7 +58,8 @@
       </div>
     </div>
   </div>
-</div> <!-- /Add branch modal -->
+</div> 
+<!-- /Add branch modal -->
 
 <div class="row">
     <div class="col-md-11">

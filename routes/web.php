@@ -245,11 +245,15 @@ Route::group(
 			Route::get('mails', 
 					'MailController@viewMails')
 					->name('author.mails');
+			// Profile
 			Route::get('user-profile', 
 					'ProfileController@viewProfile')
 					->name('author.profile');
-			Route::put('edit-account/{id}', 
+			Route::put('{id}/edit-account', 
 					'ProfileController@updateAuthor');
+			Route::put('{id}/update-profile-pic', 
+				'ProfileController@updateProfilePic');
+			// IPR Application
 			Route::get('ipr-application', 
 					'IPRApplicationController@viewIPRApplication')
 					->name('author.ipr-application');

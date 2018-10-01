@@ -28,10 +28,37 @@ class ProfileController extends Controller
         'departments' => $departments, 'coAuthors' => $coAuthors]);
     }
 
+    public function updateProfilePic(Request $request, $id)
+    {
+        $this->validate($request, [
+            // 'g-recaptcha-response' => 'required|captcha',
+            'fileUserProfileImg' => 'image|required|max:1000'
+        ]);
+
+        $author = User::findOrFail($id);
+        // Handle file upload for user profile image
+        if($request->hasFile('fileUserProfileImg')){
+            // Get the file's extension
+            $fileExtension = $request->file('fileUserProfileImg')
+                ->getClientOriginalExtension();
+            // Create a filename to store(database)
+            $userProfImgNameToStore = $author->str_first_name
+                .'_'.'AuthorProfileImg'.'_'.time().'.'.$fileExtension;
+            // Upload file to system
+            $path = $request->file('fileUserProfileImg')
+                ->storeAs('public/images/profile', $userProfImgNameToStore);
+            $author->str_user_image_code = $userProfImgNameToStore;
+        }
+        if($author->save()) {
+            return redirect()->back()->with('success', 
+                'The profile image has been updated!');
+        }
+    }
+
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'txtFirstName' => 'required|max:155',
             'txtMiddleName' => 'nullable|max:155',
             'txtLastName' => 'required|max:155',
