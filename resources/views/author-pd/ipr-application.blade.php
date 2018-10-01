@@ -1,7 +1,7 @@
 @extends('author-pd.layouts.app')
 
 @section('content')
-{!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit request form?')"]) !!}
 @csrf
 <div class="card">
 	<div class="card-header">
