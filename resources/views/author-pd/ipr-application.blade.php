@@ -3,6 +3,7 @@
 @section('content')
 {!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit request form?')"]) !!}
 @csrf
+{{-- GIVE OPTION IF REUSE CoAuthors! Fix js issue --}}
 <div class="card">
 	<div class="card-header">
 		<h4 class="text-center text-muted text-danger"><strong>Application for Copyright Registration</strong></h4>
@@ -84,6 +85,7 @@
 	</div>
 </div>
 
+{{-- FIX receipt issue when in first application --}}
 @includeWhen(Auth::user()->applicant->receipt->count() > 1, 'author-pd.includes.receipt-form')
 
 <div class="card">

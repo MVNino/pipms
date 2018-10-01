@@ -27,15 +27,12 @@
           <i class="treeview-indicator fa fa-angle-right"></i>
         </a>
         <ul class="treeview-menu">
-        <li>
-            <a class="treeview-item" href="{{ route('schedule.calendar') }}">Calendar</a>
-        </li>
-        <li>
-            <a id="admin-today" class="treeview-item" href="{{ route('admin.today') }}">Today</a>
-        </li>
-        <li>
-            <a class="treeview-item" href="{{ route('schedule.conflicts') }}">Appointment Issues</a>
-        </li>
+          <li>
+              <a class="treeview-item" href="{{ route('schedule.calendar') }}">Calendar</a>
+          </li>
+          <li>
+              <a id="admin-today" class="treeview-item" href="{{ route('admin.today') }}">Today</a>
+          </li>
         </ul>
       </li>
       <li class="treeview">
@@ -81,14 +78,19 @@
           <li><a class="treeview-item" href="/admin/records/applicants">Authors</a></li>
         </ul>
       </li>
-      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-history"></i><span class="app-menu__label">Query</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <li class="treeview" id="li-query"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-history"></i><span class="app-menu__label">Query</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li><a class="treeview-item" href="#"><i class="icon fa fa-user-o"></i> Query Monitor</a></li>
         </ul>
       </li>
-      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <li class="treeview" id="li-report"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
-          <li><a class="treeview-item" href="#"><i class="icon fa fa-user-o"></i> Monthly Reports</a></li>
+          <li>
+            <a class="treeview-item" href="#">Monthly Reports</a>
+          </li>
+          <li>
+              <a class="treeview-item" href="{{ route('report.schedule-issues') }}">Schedule Issues</a>
+          </li>
         </ul>
       </li>
       <li>
