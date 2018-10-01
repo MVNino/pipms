@@ -1,6 +1,37 @@
 @extends('author-pd.layouts.app')
 
 @section('content')
+<!-- Update Profile Picture -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">Update Profile Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['action' => ['Author\ProfileController@updateProfilePic', Auth::user()->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        @csrf
+        <div class="form-group">
+          <label for="input-file-user-profile-img" class="control-label"><b>User Profile Image</b></label>
+          <input type="file" name="fileUserProfileImg" id="input-file-user-profile-img" class="dropify" data-default-file="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" />
+          <small class="form-text text-muted" id="fileHelp">Accepted file types: jpg, jpeg, png.</small>
+        </div>
+        <div class="modal-footer">
+          {{ Form::hidden('_method', 'PUT') }}
+          {{-- @captcha() --}}
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Update</button>  
+        </div>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- /Update Profile Picture -->
+
 <div class="row">
     <div class="col-md-4">
       <div class="card card-user">
@@ -9,7 +40,7 @@
         </div>
         <div class="card-body">
           <div class="author">
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#exampleModalLong">
               <img class="avatar border-gray" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="author profile image">
               <h5 class="title">{{ Auth::user()->str_first_name }} {{ Auth::user()->str_middle_name }} {{ Auth::user()->str_last_name }}</h5>
             </a>
@@ -26,22 +57,16 @@
           <hr>
           <div class="button-container">
             <div class="row">
-              <div class="col-lg-3 col-md-6 col-6 ml-auto">
+              <div class="col-lg-6 col-md-6 col-6 ml-auto">
                 <h5>12
                   <br>
-                  <small>Files</small>
+                  <small>Files Uploaded</small>
                 </h5>
               </div>
-              <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                <h5>2GB
+              <div class="col-lg-6 col-md-6 col-6 ml-auto mr-auto">
+                <h5>2
                   <br>
-                  <small>Used</small>
-                </h5>
-              </div>
-              <div class="col-lg-3 mr-auto">
-                <h5>24,6$
-                  <br>
-                  <small>Spent</small>
+                  <small>IPR Applications</small>
                 </h5>
               </div>
             </div>
@@ -241,6 +266,53 @@ $('#demoSwal').click(function(){
       swal("Cancelled", "Your imaginary file is safe :)", "error");
     }
   });
+});
+</script>
+
+<!-- Plugins for this page -->
+<!-- ============================================================== -->
+<!-- jQuery file upload -->
+<script src="{{ asset('elite/js/dropify.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove: 'Supprimer',
+            error: 'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element) {
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element) {
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element) {
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e) {
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
 });
 </script>
 @endsection
