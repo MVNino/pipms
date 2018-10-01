@@ -204,10 +204,10 @@
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
-                <!-- @captcha -->
+                @captcha
                 <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
-                <button type="button" onclick="updateProfile()" class="btn btn-primary btn-round">Update Profile</button>
-                <a class="btn btn-info" id="demoSwal" href="#">UPdate moto</a>
+                {{-- <button type="button" onclick="updateProfile()" class="btn btn-primary btn-round">Update Profile</button>
+                <a class="btn btn-info" id="demoSwal" href="#">UPdate moto</a> --}}
               </div>
             </div>
           {!! Form::close() !!}

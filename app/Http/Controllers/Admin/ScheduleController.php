@@ -9,6 +9,13 @@ use App\Copyright;
 
 class ScheduleController extends Controller
 {
+	protected $viewPath = 'admin.schedule.';
+
+	public function viewCalendar()
+	{
+		return view($this->viewPath.'calendar');
+	}
+
 	public function listTodaySchedule()
 	{
 		// extract today's IPR requests
@@ -17,6 +24,11 @@ class ScheduleController extends Controller
 			->where('dtm_schedule', 'LIKE', '%'.$current.'%')
 			->orderBy('dtm_schedule')
 			->get();
-		return view('admin.today', ['copyrights' => $copyrights]);
+		return view('admin.schedule.today', ['copyrights' => $copyrights]);
+	}
+
+	public function listScheduleConflicts()
+	{
+		return view($this->viewPath.'conflicts');	
 	}
 }

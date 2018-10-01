@@ -4,10 +4,12 @@
 <h1><i class="fa fa-copyright"></i> Submission of Requirements for Copyright Registration</h1>
   <p>A listing of projects that needs to submit requirements for copyright registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyrights/to-submit">Copyright To Submit</a></li>
 @endsection
+
 @section('content')
 <div class="row">
   <div class="col-md-6">
@@ -198,9 +200,9 @@
       </tr>
       <tr>
         <td>October 9</td>
-        <td><b>project</b></td>
-        <td><b>app name and type</b></td>
-        <td>dept</td>
+        <td><b>MakeUber</b></td>
+        <td><b>Elyssa Mortel</b></td>
+        <td>BSIT - CCIS - PUP Main</td>
       </tr>
       </tbody>
     </table>

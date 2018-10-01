@@ -82,7 +82,7 @@
 <script>
   $(document).ready(function(){
     $('#li-schedule').addClass('is-expanded');
-    $('a[href="{{ route('admin.calendar') }}"]').addClass('active');
+    $('a[href="{{ route('schedule.calendar') }}"]').addClass('active');
   });
 </script>
 @endsection

@@ -28,13 +28,13 @@
         </a>
         <ul class="treeview-menu">
         <li>
-            <a class="treeview-item" href="{{ route('admin.calendar') }}">Calendar</a>
+            <a class="treeview-item" href="{{ route('schedule.calendar') }}">Calendar</a>
         </li>
         <li>
             <a id="admin-today" class="treeview-item" href="{{ route('admin.today') }}">Today</a>
         </li>
         <li>
-            <a class="treeview-item" href="#">Appointment Conflicts</a>
+            <a class="treeview-item" href="{{ route('schedule.conflicts') }}">Appointment Issues</a>
         </li>
         </ul>
       </li>

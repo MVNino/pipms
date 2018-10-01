@@ -55,15 +55,18 @@ Route::group(
 				'NotificationController@viewNotifications')
 				->name('admin.notifications');
 			// Schedule
+			Route::get('schedule/calendar', 
+				'ScheduleController@viewCalendar')
+				->name('schedule.calendar');
 			Route::get('schedule/today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
+			Route::get('schedule/conflicts', 
+				'ScheduleController@listScheduleConflicts')
+				->name('schedule.conflicts');
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
-		Route::get('calendar', function(){
-			return view('admin.calendar');
-		})->name('admin.calendar');
 		Route::get('mails', function() {
 			return view('admin.mail');
 		});

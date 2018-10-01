@@ -9,7 +9,8 @@
 @endsection
 @section('content')
 <div class="container">	
-{!! Form::open(['action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit request form?')"]) !!}
+@csrf
 <div class="row">
 	<div class="col-md-12">
 		<div class="tile">
@@ -125,10 +126,9 @@
 	</div>
 </div>
 {!! Form::close() !!}
-
 @endsection
-@section('pg-specific-js')
 
+@section('pg-specific-js')
 <!-- Laravel ckeditor-->
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
