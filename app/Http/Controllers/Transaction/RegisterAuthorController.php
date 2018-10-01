@@ -168,7 +168,7 @@ class RegisterAuthorController extends Controller
                     \Notification::send($user, 
                         new AnAuthorAccountAdded($request->txtFirstName, 
                             $request->txtLastName));
-                    return redirect('/author-login')->with('success', 'Author Account Registered!');
+                    return redirect('/login-author')->with('success', 'Author Account Registered!');
                 }
             }   
         } else {

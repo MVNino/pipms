@@ -9,6 +9,7 @@ use App\Copyright;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
+use App\User;
 
 class PendRequestController extends Controller
 {

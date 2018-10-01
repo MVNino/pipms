@@ -85,39 +85,6 @@
   </div>
 </div>
 
-<!-- Message modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Message applicant</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! Form::open(['action' => 'TransactionController@messageApplicant', 'method' => 'POST']) !!}
-        <div class="form-group">
-          {{ Form::text('numPatentId', $patent->int_id, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{ Form::text('txtFirstName', $patent->copyright->applicant->str_first_name, ['class' => 'form-control', 'readonly', 'hidden']) }}
-          {{Form::label('lblEmail', 'To: '.$patent->copyright->applicant->str_first_name.' '.$patent->copyright->applicant->str_last_name.' @', ['style' => 'font-weight: bold'])}} 
-          {{Form::text('txtEmail', $patent->copyright->applicant->str_email_address, ['class' => 'form-control', 'readonly'])}}
-        </div>
-        <div class="form-group">
-          {{ Form::label('lblMessage', 'Message', ['style' => 'font-weight: bold']) }}
-          {{ Form::textarea('txtAreaMessage', '', ['id' => 'container-form-control article-ckeditor', 'class' => 'form-control', 'placeholder' => "Enter message", 'rows' => '4']) }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Send</button>
-        </div>
-        {!! Form::close() !!}
-      </div>
-    </div>
-  </div>
-</div> <!-- /Message modal -->
-
-
 <!-- Approve modal -->
 <div class="modal fade" id="approveModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">

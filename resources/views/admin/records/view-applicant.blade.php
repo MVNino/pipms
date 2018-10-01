@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 <!-- Message modal-->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" aria-hidden="true">
+{{-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-</div><!-- /Message -->
+</div> --}}<!-- /Message -->
 <div class="row">
   <div class="col-md-7">    
     <div class="bs-component">
@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }}</h5>
+          <h5 class="card-title">{{-- {{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }} --}}</h5>
           <h6 class="card-subtitle text-muted">A <a href="/admin/maintenance/department/{{ $applicant->int_department_id }}">{{ $applicant->department->str_department_name }}</a> {{ $applicant->char_applicant_type }}</h6>
         </div>
         <div class="card-body">

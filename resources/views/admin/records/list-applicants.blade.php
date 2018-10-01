@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-              @forelse($applicants as $applicant)
+              {{-- @forelse($applicants as $applicant)
               <tr>
                 <th>{{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }}</th>
                 <td>{{ $applicant->department->college->char_college_code }} - {{ $applicant->department->char_department_code }} - {{ $applicant->department->college->branch->str_branch_name }}</td>
@@ -34,7 +34,7 @@
                 <div class="alert alert-warning">
                   There is no record yet.
                 </div>
-              @endforelse
+              @endforelse --}}
             </tbody>
           </table>
         </div>

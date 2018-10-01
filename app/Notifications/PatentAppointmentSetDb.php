@@ -19,7 +19,8 @@ class PatentAppointmentSetDb extends Notification
      */
     public function __construct($schedule)
     {
-        $this->schedule = $schedule;
+        $this->schedule = Carbon::createFromFormat('Y-m-d H:i:s',$schedule)
+            ->format('M d, g:i A');
     }
 
     /**

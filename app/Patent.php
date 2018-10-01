@@ -13,6 +13,12 @@ class Patent extends Model
     // Timestamps
 	public $timestamps = true;
 
+	protected $dates = [
+		'created_at',
+		'updated_at',
+		'dtm_schedule'
+	];
+	
 	// Relationship of 'patents' to 'copyrights'
 	public function copyright(){
 		return $this->belongsTo('App\Copyright', 'int_copyright_id', 'int_id');

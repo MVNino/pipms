@@ -31,12 +31,6 @@ Route::get('/account-registration',
 Route::post('/account-registration', 
 		'RegisterController@registerUser');
 
-# Administrator and Author
-// Notification
-Route::get('notification/{id}/read', 'NotificationController@readNotif');		
-Route::get('notification/read-all', 'NotificationController@readAll')
-	->name('readAllMark');
-
 # ADMINISTRATOR
 Route::group(
 	[
@@ -48,7 +42,7 @@ Route::group(
 			// Notifications
 			Route::get('notification/{id}/read', 
 					'NotificationController@readNotif');		
-			Route::get('notification/read-all', 
+			Route::get('notifications/read-all', 
 					'NotificationController@readAll')
 				->name('readAllMark');
 			Route::get('notifications', 
@@ -239,6 +233,15 @@ Route::group(
 			Route::get('dashboard', 
 					'DashboardController@pdDashboard')
 					->name('author.dashboard');
+			// Notifications
+			Route::get('notification/{id}/read', 
+					'NotificationController@readNotif');		
+			Route::get('notifications/read-all', 
+					'NotificationController@readAll')
+				->name('author.readAllMark');
+			Route::get('notifications', 
+				'NotificationController@viewNotifications')
+				->name('author.notifications');
 			Route::get('mails', 
 					'MailController@viewMails')
 					->name('author.mails');
