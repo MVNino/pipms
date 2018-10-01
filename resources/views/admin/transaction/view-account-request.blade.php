@@ -61,7 +61,7 @@
         </div>
         <div class="card-body"> 
           <a target="_blank" href="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}">
-          <img  class="mb-10" style="display: block; margin-left: 30px;" src="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}" alt="Receipt image">
+          <img  class="mb-10" style="display: block; margin-left: 30px;" src="/storage/images/receipts/{{ $accountRequest->applicant->receipt->str_receipt_image }}" alt="Receipt image" height="900" width="600">
           </a>
         </div>
         <div class="card-footer text-muted"><h5>Receipt Code: <span class="text-dark"><strong>{{ $accountRequest->applicant->receipt->char_receipt_code }}</strong></span></h5></div>
@@ -92,7 +92,7 @@
           </div>
           <div class="form-group">
             <label class="col-form-label"><b>Message:</b></label>
-            {{Form::textarea('txtAreaMessage', '', ['id' => 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Body Text'])}}
+            {{Form::textarea('txtAreaMessage', '', ['class' => 'form-control', 'placeholder' => 'Body Text', 'rows' => 9])}}
           </div>
       </div>
       <div class="modal-footer">

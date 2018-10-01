@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 use App\Notifications\AppointmentSet;
-use App\Notifications\RequestOnProcess;
+// use App\Notifications\RequestOnProcess;
 use App\Notifications\RequestOnProcessDb;
 use App\Notifications\WorkCopyrighted;
 use App\Notifications\WorkCopyrightedDb;
@@ -102,8 +102,8 @@ class TransactionController extends Controller
         $copyright->char_copyright_status = 'On process';
         $copyright->save();
         // send email
-        \Notification::route('mail', $copyright->applicant->user->email)
-            ->notify(new RequestOnProcess);
+        // \Notification::route('mail', $copyright->applicant->user->email)
+        //     ->notify(new RequestOnProcess);
         $userId = $copyright->applicant->user->id;
         User::findOrFail($userId)->notify(new RequestOnProcessDb);
         $promptMsg = "Request in now on process to its copyright registration";

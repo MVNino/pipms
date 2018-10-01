@@ -114,6 +114,7 @@
         
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                        <p class="form-text text-muted">Note: Password must be consists of at least six characters (and the more characters, the stronger the password) that are a combination of letters, numbers and symbols (@, #, $, %, etc.).</p>
                                     </div>
                                 </div>
         

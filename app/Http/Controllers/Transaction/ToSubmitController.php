@@ -41,6 +41,8 @@ class ToSubmitController extends Controller
     {
         $patents = Patent::with('copyright.applicant.department.college.branch')
             ->where('char_patent_status', 'To submit')
+            ->where('dtm_schedule', '!=', null)
+            ->orderBy('dtm_schedule')
             ->get();
         return view('admin.transaction.patent-to-submit', ['patents' => $patents]);
     }

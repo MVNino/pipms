@@ -4,34 +4,220 @@
 <h1><i class="fa fa-certificate"></i> To submit patents</h1>
   <p>A listing of projects for patent registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/patents/to-submit">Patents to submit</a></li>
 @endsection
+
 @section('content')
 <div class="row">
-@forelse($patents as $patent)
-<div class="col-md-6">
-  <div class="tile">
-    <div class="tile-title-w-btn">
-      <h3 class="title">{{ $patent->str_patent_project_title }}</h3>
-      <div class="btn-group"><a class="btn btn-primary" href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}"><i class="fa fa-lg fa-eye"></i> View more</a></div>
+  <div class="col-md-6">
+    <div class="tile">
+      <div class="row">
+        <div class="col-md-9">
+          <h4 class="tile-title text-muted">
+            Today, {{ Carbon\Carbon::now()->format('F d') }}
+          </h4>
+        </div>
+        <div class="col-md-3">
+          <a href="{{ route('admin.today') }}" class="btn btn-primary">
+            <i class="fa fa-eye"></i> Details
+          </a>
+        </div>
+      </div>
+      <div class="tile-body">
+        @forelse($patents as $patent)
+          @if($patent->dtm_schedule->day == Carbon\Carbon::now()->day)
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $patent->str_patent_project_title }} - 
+                {{ $patent->copyright->applicant->user->str_first_name }} 
+                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
+                {{ $patent->copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $patent->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>  
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
     </div>
-    <div class="tile-body">
-      <strong>Applicant: </strong>{{ $patent->copyright->applicant->str_first_name }} {{ $patent->copyright->applicant->str_middle_name }} {{ $patent->copyright->applicant->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a>)<br>
-      {!! $patent->mdmTxt_patent_description !!}
-    </div>
-    <div class="tile-footer">
-      <strong>Scheduled appointment: </strong>{{ $patent->dtm_schedule }}
+  </div>
+
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">
+        Tomorrow, {{ Carbon\Carbon::now()->addDay()->format('F d') }}
+      </h4>
+      <div class="tile-body">
+        @forelse($patents as $patent)
+          @if($patent->dtm_schedule->day == Carbon\Carbon::now()->addDay()->day)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $patent->str_patent_project_title }} - 
+                {{ $patent->copyright->applicant->user->str_first_name }} 
+                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
+                {{ $patent->copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $patent->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>  
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
     </div>
   </div>
 </div>
-@empty
-<div class="alert alert-warning">
-  There is no record yet.
+<div class="row">
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">
+        {{ Carbon\Carbon::now()->addDays(2)->format('l, F d') }}
+      </h4>
+      <div class="tile-body">
+        @forelse($patents as $patent)
+          @if($patent->dtm_schedule->day == Carbon\Carbon::now()->addDays(2)->day)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $patent->str_patent_project_title }} - 
+                {{ $patent->copyright->applicant->user->str_first_name }} 
+                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
+                {{ $patent->copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $patent->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title text-muted">{{ Carbon\Carbon::now()->addDays(3)->format('l, F d') }}</h4>
+      <div class="tile-body">
+        @forelse($patents as $patent)
+          @if($patent->dtm_schedule->day == Carbon\Carbon::now()->addDays(3)->day)
+          <div class="container">      
+            <div class="row">
+              <div class="col-md-10">
+                <b>{{ $patent->str_patent_project_title }} - 
+                {{ $patent->copyright->applicant->user->str_first_name }} 
+                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
+                {{ $patent->copyright->applicant->char_applicant_type }} 
+                of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+                  (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+                    </a>
+              </div>
+              <div class="col-md-2">
+                Time: {{ $patent->dtm_schedule->format('g:i A') }}
+              </div>
+            </div><hr>
+          </div>
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled appointment for today.
+          </div>
+        @endforelse
+      </div>
+    </div>
+  </div>
 </div>
-@endforelse
+<div class="clearfix"></div>
+<div class ="tile">
+  <h3 class="tile-title text-muted">Future appointments</h3>
+  <div class="tile-body">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Scheduled Date</th>
+          <th>Project/Work Title</th>
+          <th>Applicant - Type</th>
+          <th>Department-College-Branch</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>October 5</td>
+        <td><b>Zaidos for Patent</b></td>
+        <td><b>Mark Ciel - Student</b></td>
+        <td>BSHRDM - CBA - PUP Taguig</td>
+      </tr>
+      <tr>
+        <td>October 8</td>
+        <td><b>Signos</b></td>
+        <td><b>Dongding Tesdan - Graduate Student</b></td>
+        <td>BSOA - CBA - PUP San Juan</td>
+      </tr>
+      <tr>
+        <td>October 9</td>
+        <td><b>MakeUber Patent</b></td>
+        <td><b>Elyssa Mortel</b></td>
+        <td>BSIT - CCIS - PUP Main</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tile-footer">
+    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
+@endsection
+
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 <script>
@@ -40,5 +226,4 @@
     $('a[href="/admin/transaction/patents/to-submit"]').addClass('active');
   });
 </script>
-@endsection
 @endsection

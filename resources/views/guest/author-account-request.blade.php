@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId']) !!}
+{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId', 'onsubmit' => "return confirm('Submit your author account request form?')"]) !!}
 @csrf
 <div class="row">
     <div class="col-md-8">

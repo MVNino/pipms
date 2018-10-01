@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Carbon\Carbon;
 
 class AppointmentSetDb extends Notification
 {
@@ -20,6 +21,8 @@ class AppointmentSetDb extends Notification
     public function __construct($schedule)
     {
         $this->schedule = $schedule;
+        $this->schedule = Carbon::createFromFormat('Y-m-d H:i:s',$this->schedule)
+            ->format('M d, g:i A');
     }
 
     /**
@@ -59,7 +62,7 @@ class AppointmentSetDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Appointment for your actual submission of requirements for copyright registration: <b>'.$this->schedule.'</b>'
+            'data' => '<b>Appointment</b> for your actual submission of requirements for copyright registration: <b>'.$this->schedule.'</b>'
         ];
     }
 }

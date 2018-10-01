@@ -10,7 +10,7 @@
 <div class="row justify-content-center">
 
     <div class="col-md-8">
-{!! Form::open(['action' => ['Transaction\RegisterAuthorController@grantAuthorAccount', $applicant->int_id], 'method' => 'POST']) !!}
+{!! Form::open(['action' => ['Transaction\RegisterAuthorController@grantAuthorAccount', $applicant->int_id], 'method' => 'POST', 'onsubmit' => "return confirm('Submit your author account registration form?')"]) !!}
 	@csrf
       <div class="tile">
         <div class="tile-body">
@@ -61,6 +61,7 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<input type="password" name="txtRePassword" class="form-control" placeholder="Re-enter password" required />
+	                    <p class="form-text text-muted">Note: Password must be consists of at least six characters (and the more characters, the stronger the password) that are a combination of letters, numbers and symbols (@, #, $, %, etc.).</p>
 					</div>
 				</div>
 			</div>

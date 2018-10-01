@@ -20,8 +20,11 @@
           @yield('pg-title')
         </div>
         <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><a href="/">
-            <i class="fa fa-home fa-lg"></i></a></li>
+          <li class="breadcrumb-item">
+            <a href="/">
+              <i class="fa fa-home fa-lg"></i>
+            </a>
+          </li>
           @yield('breadcrumb-label')
         </ul>
       </div>

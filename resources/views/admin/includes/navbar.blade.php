@@ -19,8 +19,8 @@
           <li class="app-notification__title"><a href="{{ route('readAllMark') }}">Mark all as read</a></li>
           @foreach(auth()->user()->unReadNotifications as $notification)
           <div class="app-notification__content">
-            <li style="background-color: #f3f3f3;">
-              <a class="app-notification__item" href="/admin/transaction/author/account-requests">
+            <li>
+              <a class="app-notification__item" href="/admin/notification/{{ $notification->id }}/read">
                 <span class="app-notification__icon">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
@@ -57,9 +57,17 @@
             </li>
           </div>
           @endforeach
-          <li class="app-notification__footer"><a href="{{ route('admin.notifications') }}">See all notifications.</a></li>
+          <li class="app-notification__footer">
+            <a href="{{ route('admin.notifications') }}">
+              See all notifications.
+            </a>
+          </li>
           @else
-          <li class="app-notification__footer"><a href="#">There is no notification.</a></li>
+          <li class="app-notification__footer">
+            <a href="#">
+              There is no notification.
+            </a>
+          </li>
           @endif
         </ul>
       </li>
