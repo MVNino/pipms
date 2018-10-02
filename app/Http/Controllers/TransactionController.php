@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
-use App\Notifications\AppointmentSet;
 // use App\Notifications\RequestOnProcess;
 use App\Notifications\RequestOnProcessDb;
 use App\Notifications\WorkCopyrighted;
@@ -16,7 +15,6 @@ use App\Notifications\PatentRequestOnProcess;
 use App\Notifications\PatentOnProcessDb;
 use App\Notifications\WorkPatented;
 use App\Notifications\WorkPatentedDb;
-use App\Notifications\AppointmentSetDb;
 use App\Applicant;
 use App\Copyright;
 use App\Patent;
@@ -65,34 +63,6 @@ class TransactionController extends Controller
             $copyright->save();
             return redirect('/admin/transaction/copyrights/on-process')->with('success', $promptMsg);
         }
-    }
-
-    public function setSchedule(Request $request, $id)
-    {
-        $this->validate($request, [
-            'dateSchedule' => 'required',
-            'timeSchedule' => 'required'
-        ]);
-
-        // return $request->timeSchedule;
-        // return Carbon::createFromFormat()
-        // return $date = $request->dateSchedule.' '.$request->timeSchedule;
-        // $time = $request->timeSchedule;
-        $schedule = Carbon::createFromFormat('Y-m-d H:i', 
-            $request->dateSchedule.' '.$request->timeSchedule)
-            ->toDateTimeString();
-        $copyright = Copyright::findOrFail($id);
-        $copyright->dtm_schedule = $schedule;
-        $copyright->char_copyright_status = 'To submit';
-        $copyright->save();
-        $promptMsg = 'Appointment set! The record changed its status to "To submit". 
-            An email notification has been sent to applicant.';
-        \Notification::route('mail', $copyright->applicant->user->email)
-            ->notify(new AppointmentSet($schedule));
-        $userId = $copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new AppointmentSetDb($schedule));
-        return redirect('admin/transaction/copyrights/pend-request')
-            ->with('success', $promptMsg);
     }
 
     public function changeStatusToOnProcess($id)
