@@ -56,7 +56,7 @@
             </a>
           </label><br>
           <label>
-            <strong>Type of work: </strong>
+            <strong>Type of Work: </strong>
             <a href="/admin/maintenance/project-type/{{ $copyright->int_project_type_id }}">
               {{ $copyright->projectType->char_project_type }}
             </a>

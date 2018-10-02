@@ -2,7 +2,7 @@
 
 @section('pg-title')
 @forelse($patentCollection as $patent)
-<h1><i class="fa fa-certificate"></i> {{ $patent->str_patent_project_title }}</h1>
+<h1>{{ $patent->str_patent_project_title }}</h1>
   <p>A listing of projects for patent registration</p>
 @endsection
 @section('breadcrumb-label')
@@ -16,38 +16,103 @@
     <div class="bs-component">
       <div class="card">
         <div class="card-header pb-0">
-        <div class="row">
-          <div class="col-md-10">
-            <h4>Patent details</h4>
-          </div>
-          <div class="col-md-2">
-          </div>
+          <div class="row">
+            <div class="col-md-9">
+              <h4>Patent Details</h4>
+            </div>
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#approveModalLong">
+                <i class="fa fa-fw fa-lg fa-calendar"></i> Set Appointment
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title text-muted">Work Title: {{ $patent->str_patent_project_title }}</h5>
-          <p class="text-muted"><strong>Project Type: </strong>{{ $patent->copyright->projectType->char_project_type }}</p>
-          <p class="text-muted"><strong>Project Compliance: {{ $patent->project->str_project_name }}</strong></p>
-          <p class="text-muted"><strong>Status: </strong>{{ $patent->char_patent_status }}</p>
-          <p class="text-muted">Executive Summary: {!! $patent->mdmTxt_patent_description !!}</p>
-          <p class="text-muted"><strong>Copyright: </strong><a href="/admin/transaction/copyright/{{ $patent->copyright->int_id }}">{{ $patent->copyright->str_project_title }}</a></p>
-          @if($patent->updated_at == $patent->created_at)
-            <p class="text-muted"><strong>Last updated at: </strong>Same as the date it was added.</p>
-          @else
-          <p class="text-muted"><strong>Last updated at:</strong> {{ $patent->updated_at }}</p>
-          @endif
+          <h5 class="card-title">Work Title: {{ $patent->str_patent_project_title }}</h5>
+          <label><strong>Type of Work: </strong>{{ $patent->copyright->projectType->char_project_type }}</label><br>
+          <label><strong>In compliance with: </strong>{{ $patent->project->str_project_name }}</label><br>
+          <label><strong>Abstract of the Disclosure: </strong>{!! $patent->mdmTxt_patent_description !!}</label><br>
+          <label><strong>Abstract of the Disclosure File: </strong>
+            @if($patent->str_patent_summary_file != NULL)
+              <a href="/storage/summary/patent/{{ $patent->str_patent_summary_file }}" target="_blank">
+                <i class="fa fa-file"></i> {{ $patent->str_patent_summary_file }}
+              </a>
+            @else
+              <span class="text-info">There is no summary file attached</span>
+            @endif
+          </label><br>
+          <label><strong>Copyright Record: </strong>
+            <a href="/admin/transaction/copyright/{{ $patent->copyright->int_id }}">
+              {{ $patent->copyright->str_project_title }}
+            </a>
+          </label><br>
+          <label>
+            <strong>Co-Authors: </strong>
+          </label>
+          <div class="row">
+          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
+            <div class="col-md-4">
+              <p>
+                {{ $coAuthor->str_first_name }} {{ $coAuthor->str_middle_name }} {{ $coAuthor->str_last_name }}
+              </p>
+            </div>
+          @empty
+            <h6 class="text-muted">There is no other authors</h6>
+          @endforelse
+          </div>
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-8">
-              <strong>Date added:</strong> {{ $patent->created_at }}
+            <div class="col-md-6">
+              <strong>Date added: </strong> 
+              @if($patent->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+                @if($patent->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+                  @if($patent->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+                  An hour ago.
+                  @else
+                  {{ $patent->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago.
+                  @endif
+                @else
+                  @if($patent->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+                  A minute ago.
+                  @else
+                  {{ $patent->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
+                  @endif
+                @endif                    
+              @elseif($patent->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+                Yesterday, {{ $patent->created_at->format('h:i:A') }}
+              @elseif($patent->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+                2 days ago at {{ $patent->created_at->format('h:i:A') }}
+              @else
+                {{ $patent->created_at->format('M d Y')}}
+              @endif
             </div>
-            <div class="col-md-4">
-              <div class="btn-group">
-                @if($patent->char_patent_status != 'patented')
-                <button class="btn btn-primary"><i class="fa fa-lg fa-calendar" data-toggle="modal" data-target="#approveModalLong"></i> Set appointment</button>
+            <div class="col-md-6">
+              @if($patent->updated_at == $patent->created_at)
+              @else
+                <strong>Last updated at: </strong>
+                @if($patent->updated_at->diffInDays(Carbon\Carbon::now()) == 0)
+                  @if($patent->updated_at->diffInHours(Carbon\Carbon::now()) > 0)
+                    @if($patent->updated_at->diffInHours(Carbon\Carbon::now()) == 1)
+                    An hour ago.
+                    @else
+                    {{ $patent->updated_at->diffInHours(Carbon\Carbon::now()) }} hours ago.
+                    @endif
+                  @else
+                    @if($patent->updated_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+                    A minute ago.
+                    @else
+                    {{ $patent->updated_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
+                    @endif
+                  @endif                    
+                @elseif($patent->updated_at->diffInDays(Carbon\Carbon::now()) == 1)
+                  Yesterday, {{ $patent->updated_at->format('h:i:A') }}
+                @elseif($patent->updated_at->diffInDays(Carbon\Carbon::now()) == 2)
+                  2 days ago at {{ $patent->updated_at->format('h:i:A') }}
+                @else
+                  {{ $patent->updated_at->format('M d')}}
                 @endif
-              </div>
+              @endif
             </div>
           </div>
         </div>
@@ -58,24 +123,46 @@
     <div class="bs-component">
     <div class="card">
       <div class="card-header pb-0">
-          <h4>Applicant details</h4>
+          <h4>Applicant Details</h4>
       </div>
       <div class="card-body">
-        <div class="bs-component">
-          <p class="card-subtitle text-muted">Author: <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">{{ $patent->copyright->applicant->user->str_last_name }}, {{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }}</a> - {{ $patent->copyright->applicant->char_gender }} - {{ $patent->copyright->applicant->char_applicant_type }}</p>
-          <p class="text-muted">Email Address: {{ $patent->copyright->applicant->user->email }}</p>
-          <p class="text-muted">Cellphone Number: {{ $patent->copyright->applicant->bigInt_cellphone_number }}</p>
-          <p class="text-muted">Telephone Number: {{ $patent->copyright->applicant->mdmInt_telephone_number }}</p>
-          <p class="text-muted">Department: <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->str_department_name }} ({{ $patent->copyright->applicant->department->char_department_code }})</a></p>
-          <p class="text-muted">College: <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->str_college_name }} ({{ $patent->copyright->applicant->department->college->char_college_code }})</a></p>
-          <p class="text-muted">Branch: <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></p>
-         <br>
-          <label class="text-muted">Work Co-Authors: </label>
-          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
-            <p class="text-muted">{{ $coAuthor->str_first_name }} {{ $coAuthor->str_last_name }}</p>
-          @empty
-            <p class="text-muted">There is no co-author.</p>
-          @endforelse
+        <div class="card card-body">
+          <label>
+            <strong>Author: </strong>
+            <a href="/admin/records/applicant/{{ $patent->copyright->int_applicant_id }}">
+              {{ $patent->copyright->applicant->user->str_last_name }}, 
+              {{ $patent->copyright->applicant->user->str_first_name }} 
+              {{ $patent->copyright->applicant->user->str_middle_name }}</a> -
+              @if($patent->copyright->applicant->char_gender == 'F')
+                Female - 
+              @else
+                Male - 
+              @endif
+              {{ $patent->copyright->applicant->char_applicant_type }}
+          </label>
+          <label><strong>Email Address: </strong>{{ $patent->copyright->applicant->user->email }}</label>
+          <label><strong>Cellphone Number: </strong>{{ $patent->copyright->applicant->bigInt_cellphone_number }}</label>
+          <label><strong>Telephone Number: </strong>{{ $patent->copyright->applicant->mdmInt_telephone_number }}</label>
+          <label>
+            <strong>Department: </strong>
+            <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+              {{ $patent->copyright->applicant->department->str_department_name }} 
+              ({{ $patent->copyright->applicant->department->char_department_code }})
+            </a>
+          </label>
+          <label>
+            <strong>College: </strong>
+            <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+              {{ $patent->copyright->applicant->department->college->str_college_name }} 
+              ({{ $patent->copyright->applicant->department->college->char_college_code }})
+            </a>
+          </label>
+          <label>
+            <strong>Branch: </strong>
+            <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+              {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}
+            </a>
+          </label><br>
         </div>
       </div>      
       <div class="card-footer text-muted">
@@ -96,26 +183,29 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => ['TransactionController@setScheduleForPatent', $patent->int_id], 'method' => 'POST']) !!}
-        <div class="row">
-          
-        <div class="col-md-8 col-sm-8">
-          <label><strong>Set schedule</strong></label><br>  
-          <input type="date" name="dateSchedule">
-          <input type="time" name="timeSchedule">
-        </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="row">
-          <div class="col-sm-8">
-            @if($patent->copyright->dtm_schedule != NULL)
-            <label><strong>Schedule for actual submission of copyright requirements: {{ $patent->copyright->dtm_schedule }}</strong></label><br>
-            @endif
+        {!! Form::open(['action' => ['Transaction\PendRequestController@setScheduleForPatent', $patent->int_id], 'method' => 'POST', 'autocomplete' => 'off']) !!}
+          @csrf
+          <div class="form-group">
+            <label class="form-label" for="demoDate">Date</label>
+            <input class="form-control" name="dateSchedule" id="demoDate" type="text" placeholder="Select Date">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="timeSched">Time</label>
+            <input type="time" id="timeSched" name="timeSchedule" class="form-control">
           </div>
         </div>
+        <div class="container">
+          @if($patent->copyright->dtm_schedule != NULL)
+          <label class="form-label">
+            Schedule for actual submission of copyright requirements: <br>
+            <strong>{{ $patent->copyright->dtm_schedule }}</strong>
+          </label>
+          @endif
+        </div>
+        <br>
         <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Set different schedule</button>
+          <button type="submit" class="btn btn-primary">Set different schedule</button>
           <a role="button" class="btn btn-info" href="/admin/transaction/same-sched/{{$patent->int_id}}"><i class="fa fa-fw fa-lg fa-copyright"></i> Clone copyright appointment</a>
         </div>
           @csrf
@@ -123,7 +213,8 @@
       </div>
     </div>
   </div>
-</div> <!-- /Approve modal -->
+</div> 
+<!-- /Approve modal -->
 @empty
   @include('admin.includes.page-error')
 @endforelse
@@ -132,6 +223,14 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+<script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
+<script>
+$('#demoDate').datepicker({
+  format: "yyyy-mm-dd",
+  autoclose: true,
+  todayHighlight: true
+});
+</script>
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');

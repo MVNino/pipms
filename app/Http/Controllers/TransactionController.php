@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
-use App\Notifications\PatentRequestAppointmentSet;
-use App\Notifications\PatentAppointmentSetDb;
 use App\Notifications\PatentRequestOnProcess;
 use App\Notifications\PatentOnProcessDb;
 use App\Notifications\WorkPatented;
@@ -61,26 +59,6 @@ class TransactionController extends Controller
         }
     }
    
-    public function setScheduleForPatent(Request $request, $id)
-    {
-        $this->validate($request, [
-            'dateSchedule' => 'required',
-            'timeSchedule' => 'required'
-        ]);
-
-        $schedule = Carbon::createFromFormat('d-m-Y H:i', $request->dateSchedule.' '.$request->timeSchedule)->toDateTimeString();
-        $patent = Patent::findOrFail($id);
-        $patent->dtm_schedule = $schedule;
-        $patent->char_patent_status = 'To submit';
-        $patent->save();
-        $promptMsg = 'Appointment set! The patent request record changed its status to "To submit". 
-            An email notification has been sent to the author.';
-        \Notification::route('mail', $patent->copyright->applicant->user->email)
-            ->notify(new PatentRequestAppointmentSet($schedule));
-        $userId = $patent->copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new PatentAppointmentSetDb($schedule));     
-        return redirect('admin/transaction/patents/pend-request')->with('success', $promptMsg);
-    }
     public function changePatentStatusToOnProcess($id)
     {
         // change status from 'to submit' to 'on process'

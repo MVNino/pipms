@@ -19,7 +19,7 @@
 					@forelse($copyrights as $copyright)
 					<div class="container">
 			            <div class="row">
-			              <div class="col-md-5">
+			              <div class="col-md-4">
 			                <b>{{ $copyright->applicant->user->str_first_name }} 
 			                {{ $copyright->applicant->user->str_last_name }}</b> <br> 
 			                {{ $copyright->applicant->char_applicant_type }} 
@@ -31,7 +31,7 @@
 			                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
 			                    </a>
 			              </div>
-			              <div class="col-md-4">
+			              <div class="col-md-5">
 			              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
 			              	@if($copyright->patent)
 			              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
