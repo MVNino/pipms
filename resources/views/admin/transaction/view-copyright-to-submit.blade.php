@@ -3,12 +3,12 @@
 @section('pg-title')
 @forelse($copyrightCollection as $copyright)
 <h1>{{ $copyright->str_project_title }}</h1>
-  <p>A work which requests for copyright registration</p>
+  <p>The author must submit requirements for copyright registration</p>
 @endsection
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
-<li class="breadcrumb-item"><a href="/admin/transaction/copyrights/to-submit">Copyright To Submit Requirements</a></li>
+<li class="breadcrumb-item"><a href="/admin/transaction/copyrights/to-submit">To Submit Requirements</a></li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a></li>
 @endsection
 
@@ -20,7 +20,7 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-md-9">
-              <h4>Copyright details</h4>
+              <h4>Copyright Details</h4>
             </div>
             <div class="col-md-3">
               {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
@@ -127,31 +127,19 @@
               @elseif($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 2)
                 2 days ago at {{ $copyright->created_at->format('h:i:A') }}
               @else
-                {{ $copyright->created_at->format('M d')}}
+                {{ $copyright->created_at->format('M d, Y')}}
               @endif
             </div>
             <div class="col-md-6">
               <strong>Schedule: </strong>
-              @if($copyright->dtm_to_submit->diffInDays(Carbon\Carbon::now()) == 0)
-                @if($copyright->dtm_to_submit->diffInHours(Carbon\Carbon::now()) > 0)
-                  @if($copyright->dtm_to_submit->diffInHours(Carbon\Carbon::now()) == 1)
-                  An hour ago.
-                  @else
-                  {{ $copyright->dtm_to_submit->diffInHours(Carbon\Carbon::now()) }} hours ago.
-                  @endif
-                @else
-                  @if($copyright->dtm_to_submit->diffInMinutes(Carbon\Carbon::now()) <= 1)
-                  A minute ago.
-                  @else
-                  {{ $copyright->dtm_to_submit->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
-                  @endif
-                @endif                    
-              @elseif($copyright->dtm_to_submit->diffInDays(Carbon\Carbon::now()) == 1)
-                Yesterday, {{ $copyright->dtm_to_submit->format('h:i:A') }}
-              @elseif($copyright->dtm_to_submit->diffInDays(Carbon\Carbon::now()) == 2)
-                2 days ago at {{ $copyright->dtm_to_submit->format('h:i:A') }}
+              @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+                {{-- If today --}}
+                Today at {{ $copyright->dtm_schedule->format('g:i A') }}
+              @elseif($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+                {{-- If tomorrow --}}
+                Tomorrow at {{ $copyright->dtm_schedule->format('g:i A') }}
               @else
-                {{ $copyright->dtm_to_submit->format('M d')}}
+                {{ $copyright->dtm_schedule->format('l, M d') }} at {{ $copyright->dtm_schedule->format('g:i A') }}
               @endif
             </div>
           </div>

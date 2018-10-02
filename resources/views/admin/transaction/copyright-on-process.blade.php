@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> On Process Copyright Requests</h1>
+<h1>On Process Copyright Requests</h1>
   <p>A listing of projects which are on its processs for copyright registration</p>
 @endsection
 
