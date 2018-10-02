@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Notifications\SetAppointmentCloned;
 use App\Notifications\AppointmentSet;
 use App\Notifications\AppointmentSetDb;
+use App\Notifications\PatentRequestAppointmentSet;
+use App\Notifications\PatentAppointmentSetDb;
 use App\Copyright;
 use App\Patent;
 use App\Project;
@@ -85,6 +87,30 @@ class PendRequestController extends Controller
             ['patentCollection' => $patentCollection]);
     }
  
+    public function setScheduleForPatent(Request $request, $id)
+    {
+        $this->validate($request, [
+            'dateSchedule' => 'required',
+            'timeSchedule' => 'required'
+        ]);
+
+        $schedule = Carbon::createFromFormat('d-m-Y H:i', 
+            $request->dateSchedule.' '.$request->timeSchedule)
+            ->toDateTimeString();
+        $patent = Patent::findOrFail($id);
+        $patent->dtm_schedule = $schedule;
+        $patent->char_patent_status = 'to submit';
+        $patent->dtm_to_submit = now();
+        $patent->save();
+        $promptMsg = 'Appointment set! The patent request record changed its status to "To submit". 
+            An email notification has been sent to the author.';
+        \Notification::route('mail', $patent->copyright->applicant->user->email)
+            ->notify(new PatentRequestAppointmentSet($schedule));
+        $userId = $patent->copyright->applicant->user->id;
+        User::findOrFail($userId)->notify(new PatentAppointmentSetDb($schedule));     
+        return redirect('admin/transaction/patents/pend-request')->with('success', $promptMsg);
+    }
+
     public function cloneCopyrightAppointment($id)
     {
         $patent = Patent::findOrFail($id);

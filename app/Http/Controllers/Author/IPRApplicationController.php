@@ -129,10 +129,8 @@ class IPRApplicationController extends Controller
         } else {
             $projectDescription = $request->txtAreaPatentDescription;
         }
-
         // Store input data to Patents table
         $patent = new Patent;
-        // $patent->int_copyright_id = $request->getCopyrightId;
         $patent->int_copyright_id = $request->getCopyrightId;
         $patent->str_patent_project_title = $request->txtPatentTitle;
         $patent->int_project_type_id = $request->slctProjectType;
@@ -145,7 +143,6 @@ class IPRApplicationController extends Controller
         $user = User::findOrFail($userId);
         
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-
         return redirect()->back()->with('success', 'Request for patent registration submitted!');
         }
     }

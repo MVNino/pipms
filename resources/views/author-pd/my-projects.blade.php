@@ -32,7 +32,7 @@
 	                @if(!$myProject->patent)
 	                <small>
 	                	<br>
-	                	<a href="/author/ipr-patent-application/{{ $myProject->int_id }}">Want to apply for patent?</a>
+	                	<a href="/author/ipr-patent-application/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}">Want to apply for patent?</a>
 	           	 	</small>
 	           	 	@endif
 	            </div>
