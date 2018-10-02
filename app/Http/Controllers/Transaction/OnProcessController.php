@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Transaction;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\WorkCopyrighted;
+use App\Notifications\WorkCopyrightedDb;
 use App\Copyright;
 use App\Patent;
 
@@ -20,7 +22,8 @@ class OnProcessController extends Controller
         $copyrights = Copyright::with('applicant.department.college.branch')
             ->where('char_copyright_status', 'On process')
             ->get();
-        return view('admin.transaction.copyright-on-process', ['copyrights' => $copyrights]);  
+        return view('admin.transaction.copyright-on-process', 
+            ['copyrights' => $copyrights]);  
     }
 
     public function viewOnProcessCopyrightRequest($id)
@@ -30,6 +33,20 @@ class OnProcessController extends Controller
             ->get();
         return view('admin.transaction.view-copyright-on-process', 
             ['copyrightCollection' => $copyrightCollection]); 
+    }
+
+    public function changeStatusToCopyrighted(Request $request, $id)
+    {
+        // change status from 'on process' to 'copyrighted'
+        $copyright = Copyright::findOrFail($id);
+        $copyright->char_copyright_status = 'copyrighted';
+        $copyright->dtm_copyrighted = now();
+        $copyright->save();
+        // Send email notification
+        \Notification::route('mail', $copyright->applicant->str_email_address)
+            ->notify(new WorkCopyrighted);
+        User::findOrFail($copyright->applicant->user->id)->notify(new WorkCopyrightedDb);
+        return redirect('/admin/transaction/copyrights/on-process');
     }
 
     # PATENT
