@@ -21,6 +21,7 @@ class ScheduleController extends Controller
 		// extract today's IPR requests
 		$current = Carbon::now()->format('Y-m-d');
 		$copyrights = Copyright::with('applicant.department.college.branch')
+			->where('char_copyright_status', 'to submit')
 			->where('dtm_schedule', 'LIKE', '%'.$current.'%')
 			->orderBy('dtm_schedule')
 			->get();

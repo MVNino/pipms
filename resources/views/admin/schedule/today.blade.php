@@ -16,7 +16,7 @@
 					<h3>TODAY, {{ Carbon\Carbon::now()->format('F d') }}</h3>
 				</div>
 				<div class="card-body">
-					@foreach($copyrights as $copyright)
+					@forelse($copyrights as $copyright)
 					<div class="container">
 			            <div class="row">
 			              <div class="col-md-5">
@@ -55,10 +55,14 @@
 			              </div>
 			            </div><hr>  
 			          </div>
-					@endforeach
+					@empty
+	              	<div class="alert alert-info">
+    					There is no scheduled appointment for today.
+    				</div>
+					@endforelse
 				</div>
 				<div class="card-footer">
-					<small style="color:maroon;">Have a nice day! Goodluck!</small>
+					<small style="color:maroon;">Have a nice day!</small>
 				</div>
 			</div>
 		</div>

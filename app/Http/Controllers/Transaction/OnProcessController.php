@@ -8,6 +8,7 @@ use App\Notifications\WorkCopyrighted;
 use App\Notifications\WorkCopyrightedDb;
 use App\Copyright;
 use App\Patent;
+use App\User;
 
 class OnProcessController extends Controller
 {
@@ -43,10 +44,12 @@ class OnProcessController extends Controller
         $copyright->dtm_copyrighted = now();
         $copyright->save();
         // Send email notification
-        \Notification::route('mail', $copyright->applicant->str_email_address)
+        \Notification::route('mail', $copyright->applicant->user->email)
             ->notify(new WorkCopyrighted);
         User::findOrFail($copyright->applicant->user->id)->notify(new WorkCopyrightedDb);
-        return redirect('/admin/transaction/copyrights/on-process');
+        $promptMsg = "The work has been copyrighted!";
+        return redirect('/admin/transaction/copyrights/on-process')
+            ->with('success', $promptMsg);
     }
 
     # PATENT

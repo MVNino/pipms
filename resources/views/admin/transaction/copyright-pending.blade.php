@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> Pending Requests for Copyright</h1>
+<h1>Pending Requests for Copyright</h1>
   <p>A listing of projects which requests for copyright registration</p>
 @endsection
 

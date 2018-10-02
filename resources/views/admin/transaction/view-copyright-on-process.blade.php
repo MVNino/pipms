@@ -20,7 +20,7 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-md-9">
-              <h4>Copyright details</h4>
+              <h4>Copyright Details</h4>
             </div>
             <div class="col-md-3">
               {!! Form::open(['action' => ['Transaction\OnProcessController@changeStatusToCopyrighted', $copyright->int_id], 

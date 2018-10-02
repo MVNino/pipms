@@ -20,7 +20,7 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-md-9">
-              <h4>Copyright details</h4>
+              <h4>Copyright Details</h4>
             </div>
             <div class="col-md-3">
               <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#toApproveModalLong">
@@ -124,7 +124,7 @@
               @elseif($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 2)
                 2 days ago at {{ $copyright->created_at->format('h:i:A') }}
               @else
-                {{ $copyright->created_at->format('M d')}}
+                {{ $copyright->created_at->format('M d Y')}}
               @endif
             </div>
             <div class="col-md-6">
