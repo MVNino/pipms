@@ -1,6 +1,7 @@
 @extends('author-pd.layouts.app')
 
 @section('content')
+<div class="container">
 {!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit request form?')"]) !!}
 @csrf
 {{-- GIVE OPTION IF REUSE CoAuthors! Fix js issue --}}
@@ -98,18 +99,17 @@
 				<div class="tile mb-3">
 					<div class="tile-body">
 						<div class="form-group">
-							<div class="row col-md-12">				
-								<label><strong>Class Designation of Copyrightable Works</strong></label>
-								<select class="custom-select" name="slctProjectType">
-									<option>Select type</option>
-								@forelse($projectTypes as $projectType)
-									@if($projectType->char_classification == 'C')
-									<option value="{{ $projectType->int_id }}">{{ $projectType->char_project_type }}</option>
-									@endif
-								@empty
-								@endforelse
-								</select>
-							</div>
+							<label><strong>Class Designation of Copyrightable Works</strong></label>
+							<select class="custom-select" name="slctProjectType">
+								<option>Select type</option>
+							@forelse($projectTypes as $projectType)
+								@if($projectType->char_classification == 'C')
+								<option value="{{ $projectType->int_id }}">{{ $projectType->char_project_type }}</option>
+								@endif
+							@empty
+							@endforelse
+							</select>
+							<div class="clearfix">
 							<div class="row">
 								<div class="col-md-4">
 									<label><strong>Project Compliance</strong></label>
@@ -204,6 +204,7 @@
 	</div>
 </div>
 {!! Form::close() !!}
+</div>
 @endsection
 
 @section('pg-specific-js')

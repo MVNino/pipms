@@ -4,11 +4,12 @@
 <h1><i class="fa fa-certificate"></i> Patent Registration</h1>
 	<p>Apply project for patent registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item"><a href="/author/apply-patent-project">Patent Application</a></li>
 @endsection
-@section('content')
 
+@section('content')
 <div class="container">	
 {!! Form::open(['action' => 'Transaction\PendRequestController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 <div class="row">
@@ -94,6 +95,7 @@
 {!! Form::close() !!}
 </div>
 @endsection
+
 @section('pg-specific-js')
 
 <!-- Laravel ckeditor-->

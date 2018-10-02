@@ -155,7 +155,9 @@ Route::group(
 					Route::get('patent/pend-request/{id}', 
 						'PendRequestController@viewPendingPatentRequest');
 					Route::get('same-sched/{id}', 
-							'PendRequestController@cloneCopyrightAppointment');
+						'PendRequestController@cloneCopyrightAppointment');
+					Route::put('copyright/set-schedule/{id}', 
+						'PendRequestController@setSchedule');
 					// To submit
 					Route::get('patents/to-submit', 
 						'ToSubmitController@listToSubmitPatentRequest');
@@ -170,9 +172,6 @@ Route::group(
 				
 
 				Route::get('copyright/{id}/up', 'TransactionController@upStatus');
-			
-				Route::put('copyright/set-schedule/{id}', 
-					'TransactionController@setSchedule');
 				Route::get('copyright/change-to-submit-to-on-process/{id}', 
 					'TransactionController@changeStatusToOnProcess');
 				Route::get('copyright/change-on-process-to-copyrighted/{id}', 

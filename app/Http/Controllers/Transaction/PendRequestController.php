@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\SetAppointmentCloned;
+use App\Notifications\AppointmentSet;
+use App\Notifications\AppointmentSetDb;
 use App\Copyright;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
 use App\User;
+use Carbon\Carbon;
 
 class PendRequestController extends Controller
 {
@@ -31,19 +34,37 @@ class PendRequestController extends Controller
     public function viewPendingCopyrightRequest($id)
     {
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
+            ->where('char_copyright_status', 'LIKE', '%pending%')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-pending', 
             ['copyrightCollection' => $copyrightCollection]);
     }
 
-	public function viewCopyrightApplication()
-	{
-        $projects = Project::all();
-        $projectTypes = ProjectType::all();  
-		return view('author.copyright-application', 
-			['projects' => $projects, 'projectTypes' => $projectTypes]);
-	}
+
+    public function setSchedule(Request $request, $id)
+    {
+        $this->validate($request, [
+            'dateSchedule' => 'required',
+            'timeSchedule' => 'required'
+        ]);
+        $schedule = Carbon::createFromFormat('Y-m-d H:i', 
+            $request->dateSchedule.' '.$request->timeSchedule)
+            ->toDateTimeString();
+        $copyright = Copyright::findOrFail($id);
+        $copyright->dtm_schedule = $schedule;
+        $copyright->dtm_to_submit = $schedule;
+        $copyright->char_copyright_status = 'to submit';
+        $copyright->save();
+        $promptMsg = 'Appointment set! The record changed its status to "to submit". 
+            An email notification has been sent to applicant.';
+        \Notification::route('mail', $copyright->applicant->user->email)
+            ->notify(new AppointmentSet($schedule));
+        $userId = $copyright->applicant->user->id;
+        User::findOrFail($userId)->notify(new AppointmentSetDb($schedule));
+        return redirect('admin/transaction/copyrights/pend-request')
+            ->with('success', $promptMsg);
+    }
 
     # PATENT
     public function listPendingPatentRequest()
@@ -57,27 +78,19 @@ class PendRequestController extends Controller
     public function viewPendingPatentRequest($id)
     {  
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', 'LIKE', '%pending%')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-pending', 
             ['patentCollection' => $patentCollection]);
     }
-    
-    public function viewPatentApplication()
-    {
-        // For creating/submission of patent related informations & file
-        $maxCopyrightId = Copyright::max('int_id');
-        $projects = Project::all();
-        $projectTypes = ProjectType::all();
-        return view('author.patent-application', ['projects' => $projects, 
-            'projectTypes' => $projectTypes, 'maxCopyrightId' => $maxCopyrightId]);
-    }
-
+ 
     public function cloneCopyrightAppointment($id)
     {
         $patent = Patent::findOrFail($id);
         $patent->dtm_schedule = $patent->copyright->dtm_schedule;
-        $patent->char_patent_status = 'To submit';
+        $patent->dtm_to_submit = $patent->copyright->dtm_schedule;
+        $patent->char_patent_status = 'to submit';
         if ($patent->save()) {
             $userId = $patent->copyright->applicant->user->id;
             User::findOrFail($userId)->notify(new SetAppointmentCloned);       
