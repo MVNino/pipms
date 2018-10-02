@@ -32,8 +32,9 @@
           <div class="container">
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $copyright->str_project_title }} - 
-                {{ $copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a> - {{ $copyright->applicant->user->str_first_name }} 
                 {{ $copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">

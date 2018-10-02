@@ -13,7 +13,7 @@
 		<div class="col-md-8">		
 			<div class="card">
 				<div class="card-header" style="color: maroon;">
-					<h3>TODAY</h3>
+					<h3>TODAY, {{ Carbon\Carbon::now()->format('F d') }}</h3>
 				</div>
 				<div class="card-body">
 					@foreach($copyrights as $copyright)

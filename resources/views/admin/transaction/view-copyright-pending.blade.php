@@ -5,11 +5,13 @@
 <h1>{{ $copyright->str_project_title }}</h1>
   <p>A work which requests for copyright registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyrights/pend-request">Copyright Pending Requests</a></li>
 <li class="breadcrumb-item"><a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a></li>
 @endsection
+
 @section('content')
 <div class="row">
   <div class="col-md-7">    
@@ -22,7 +24,7 @@
             </div>
             <div class="col-md-3">
               <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#toApproveModalLong">
-                Set Appointment
+                <i class="fa fa-fw fa-lg fa-calendar"></i> Set Appointment
               </button>
             </div>
           </div>
@@ -102,12 +104,54 @@
         <div class="card-footer text-muted">
           <div class="row">
             <div class="col-md-6">
-              <strong>Date added:</strong> {{ $copyright->created_at }}
+              <strong>Date added:</strong> 
+              @if($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+                @if($copyright->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+                  @if($copyright->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+                  An hour ago.
+                  @else
+                  {{ $copyright->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago.
+                  @endif
+                @else
+                  @if($copyright->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+                  A minute ago.
+                  @else
+                  {{ $copyright->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
+                  @endif
+                @endif                    
+              @elseif($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+                Yesterday, {{ $copyright->created_at->format('h:i:A') }}
+              @elseif($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+                2 days ago at {{ $copyright->created_at->format('h:i:A') }}
+              @else
+                {{ $copyright->created_at->format('M d')}}
+              @endif
             </div>
             <div class="col-md-6">
               @if($copyright->updated_at == $copyright->created_at)
               @else
-                <strong>Last updated at:</strong> {{ $copyright->updated_at }}
+                <strong>Last updated at: </strong>
+                @if($copyright->updated_at->diffInDays(Carbon\Carbon::now()) == 0)
+                  @if($copyright->updated_at->diffInHours(Carbon\Carbon::now()) > 0)
+                    @if($copyright->updated_at->diffInHours(Carbon\Carbon::now()) == 1)
+                    An hour ago.
+                    @else
+                    {{ $copyright->updated_at->diffInHours(Carbon\Carbon::now()) }} hours ago.
+                    @endif
+                  @else
+                    @if($copyright->updated_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+                    A minute ago.
+                    @else
+                    {{ $copyright->updated_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago.
+                    @endif
+                  @endif                    
+                @elseif($copyright->updated_at->diffInDays(Carbon\Carbon::now()) == 1)
+                  Yesterday, {{ $copyright->updated_at->format('h:i:A') }}
+                @elseif($copyright->updated_at->diffInDays(Carbon\Carbon::now()) == 2)
+                  2 days ago at {{ $copyright->updated_at->format('h:i:A') }}
+                @else
+                  {{ $copyright->updated_at->format('M d')}}
+                @endif
               @endif
             </div>
           </div>
@@ -201,7 +245,7 @@
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>
 $('#demoDate').datepicker({
-  format: "dd/mm/yyyy",
+  format: "yyyy-mm-dd",
   autoclose: true,
   todayHighlight: true
 });

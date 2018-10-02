@@ -142,11 +142,15 @@ Route::group(
 						'ToSubmitController@listToSubmitCopyrightRequest');
 					Route::get('copyright/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitCopyrightRequest');
+					Route::put('copyright/to-submit-to-on-process/{id}', 
+						'ToSubmitController@changeStatusToOnProcess');
 					// On process
 					Route::get('copyrights/on-process', 
 						'OnProcessController@listOnProcessCopyrightRequest');
 					Route::get('copyright/on-process/{id}', 
 						'OnProcessController@viewOnProcessCopyrightRequest');
+					Route::put('copyright/on-process-to-copyrighted/{id}', 
+						'OnProcessController@changeStatusToCopyrighted');
 					
 					# Patent
 					// Pending requests
@@ -172,10 +176,7 @@ Route::group(
 				
 
 				Route::get('copyright/{id}/up', 'TransactionController@upStatus');
-				Route::get('copyright/change-to-submit-to-on-process/{id}', 
-					'TransactionController@changeStatusToOnProcess');
-				Route::get('copyright/change-on-process-to-copyrighted/{id}', 
-					'TransactionController@changeStatusToCopyrighted');
+				
 
 				Route::put('patent/set-schedule/{id}', 
 					'TransactionController@setScheduleForPatent');

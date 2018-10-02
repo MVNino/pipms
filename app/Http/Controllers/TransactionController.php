@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
-// use App\Notifications\RequestOnProcess;
-use App\Notifications\RequestOnProcessDb;
-use App\Notifications\WorkCopyrighted;
-use App\Notifications\WorkCopyrightedDb;
 use App\Notifications\PatentRequestAppointmentSet;
 use App\Notifications\PatentAppointmentSetDb;
 use App\Notifications\PatentRequestOnProcess;
@@ -64,36 +60,6 @@ class TransactionController extends Controller
             return redirect('/admin/transaction/copyrights/on-process')->with('success', $promptMsg);
         }
     }
-
-    public function changeStatusToOnProcess($id)
-    {
-        // change status from 'to submit' to 'on process'
-        $copyright = Copyright::findOrFail($id);
-        $copyright->char_copyright_status = 'On process';
-        $copyright->save();
-        // send email
-        // \Notification::route('mail', $copyright->applicant->user->email)
-        //     ->notify(new RequestOnProcess);
-        $userId = $copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new RequestOnProcessDb);
-        $promptMsg = "Request in now on process to its copyright registration";
-        return redirect('/admin/transaction/copyrights/to-submit')
-            ->with('success', $promptMsg);
-    }
-
-    public function changeStatusToCopyrighted($id)
-    {
-        // change status from 'on process' to 'copyrighted'
-        $copyright = Copyright::findOrFail($id);
-        $copyright->char_copyright_status = 'Copyrighted';
-        $copyright->save();
-
-        // Send email notification
-        \Notification::route('mail', $copyright->applicant->str_email_address)
-            ->notify(new WorkCopyrighted);
-        User::findOrFail($copyright->applicant->user->id)->notify(new WorkCopyrightedDb);
-        return redirect('/admin/transaction/copyrights/on-process');
-    }
    
     public function setScheduleForPatent(Request $request, $id)
     {
@@ -144,13 +110,4 @@ class TransactionController extends Controller
         User::findOrFail($userId)->notify(new WorkPatentedDb); 
         return redirect('/admin/transaction/patents/on-process');
     }
-
-    // C-R-M
-    public function listInitialRequests()
-    {
-        $applicants = Applicant::where('str_application_token', NULL)->get();
-        return view('admin.transaction.copyright-initial-request', 
-            ['applicants' => $applicants]);
-    }
-
 }
