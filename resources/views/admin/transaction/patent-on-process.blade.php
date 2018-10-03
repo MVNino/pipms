@@ -22,7 +22,12 @@
       {!! $patent->mdmTxt_patent_description !!}
     </div>
     <div class="tile-footer">
-      <strong>Date requested: </strong>{{ $patent->updated_at }}
+      <strong>Date complied: </strong>
+        @if($patent->dtm_on_process->diffInYears(Carbon\Carbon::now()) == 0)
+          {{ $patent->dtm_on_process->format('M d - g:i A')}}
+        @else
+          {{ $patent->dtm_on_process->format('M d Y - g:i A')}}
+        @endif
     </div>
   </div>
 </div>

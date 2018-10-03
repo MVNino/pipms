@@ -32,7 +32,7 @@ class PatentAppointmentSetDb extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -43,13 +43,7 @@ class PatentAppointmentSetDb extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line("Your request for your work's patent registration has been approved!")           
-                    ->line('Please see us in our office and kindly bring the requirements.')
-                    ->line('Your visiting schedule: '.$this->schedule)
-                    ->line('Want to re-check our list of requirements?')
-                    ->action('Patent registration guide', url('http://127.0.0.1:8000/patent/guide'))
-                    ->line('Thank you for using our application!');
+        //
     }
 
     /**

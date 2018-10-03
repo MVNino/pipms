@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
-use App\Notifications\PatentRequestOnProcess;
-use App\Notifications\PatentOnProcessDb;
-use App\Notifications\WorkPatented;
-use App\Notifications\WorkPatentedDb;
 use App\Applicant;
 use App\Copyright;
 use App\Patent;
@@ -57,35 +53,5 @@ class TransactionController extends Controller
             $copyright->save();
             return redirect('/admin/transaction/copyrights/on-process')->with('success', $promptMsg);
         }
-    }
-   
-    public function changePatentStatusToOnProcess($id)
-    {
-        // change status from 'to submit' to 'on process'
-        $patent = Patent::findOrFail($id);
-        $patent->char_patent_status = 'On process';
-        $patent->save();
-        // send email
-        \Notification::route('mail', $patent->copyright->applicant->user->email)
-            ->notify(new PatentRequestOnProcess);
-        $userId = $patent->copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new PatentOnProcessDb);  
-        $promptMsg = "Request in now on process to its copyright registration";
-        return redirect('/admin/transaction/patents/to-submit')->with('success', $promptMsg);
-    }
-
-    public function changePatentStatusToPatented($id)
-    {
-        // change status from 'on process' to 'copyrighted'
-        $patent = Patent::findOrFail($id);
-        $patent->char_patent_status = 'Patented';
-        $patent->save();
-
-        // Send email notification
-        \Notification::route('mail', $patent->copyright->applicant->user->email)
-            ->notify(new WorkPatented);
-        $userId = $patent->copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new WorkPatentedDb); 
-        return redirect('/admin/transaction/patents/on-process');
     }
 }
