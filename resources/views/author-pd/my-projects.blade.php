@@ -32,8 +32,13 @@
 		                @elseif($myProject->patent->char_patent_status == 'Patented')
 		                <small class="card-text">Date: <b>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->patent->dtm_patented)->format('F d Y')}}</b></small>
 		                @endif
+<<<<<<< HEAD
                     @endif
                 </div>
+=======
+	                
+                @endif
+>>>>>>> 13e91e980d1f5aeab2b8b522fabee3bf18d7aeed
                 <div align="center">
 	                <a href="/author/my-project/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}" class="btn btn-primary">
 	                   <i class="fa fa-fw fa-lg fa-history"></i> Timeline
