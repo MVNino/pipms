@@ -32,7 +32,7 @@
 		                @elseif($myProject->patent->char_patent_status == 'Patented')
 		                <small class="card-text">Date: <b>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->patent->dtm_patented)->format('F d Y')}}</b></small>
 		                @endif
-	                @endif
+	                
                 @endif
                 <div align="center">
 	                <a href="/author/my-project/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}" class="btn btn-primary">
