@@ -29,7 +29,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">Work Title: {{ $patent->str_patent_project_title }}</h5>
-          <label><strong>Type of Work: </strong>{{ $patent->copyright->projectType->char_project_type }}</label><br>
+          <label><strong>Type of Work: </strong>{{ $patent->projectType->char_project_type }}</label><br>
           <label><strong>In compliance with: </strong>{{ $patent->project->str_project_name }}</label><br>
           <label><strong>Abstract of the Disclosure: </strong>{!! $patent->mdmTxt_patent_description !!}</label><br>
           <label><strong>Abstract of the Disclosure File: </strong>
@@ -44,7 +44,9 @@
           <label><strong>Copyright Record: </strong>
             <a href="/admin/transaction/copyright/{{ $patent->copyright->int_id }}">
               {{ $patent->copyright->str_project_title }}
-            </a>
+            </a><span class="text-muted">
+              ({{ $patent->copyright->char_copyright_status }})
+            </span>
           </label><br>
           <label>
             <strong>Co-Authors: </strong>
@@ -183,7 +185,8 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => ['Transaction\PendRequestController@setScheduleForPatent', $patent->int_id], 'method' => 'POST', 'autocomplete' => 'off']) !!}
+        {!! Form::open(['action' => ['Transaction\PendRequestController@setScheduleForPatent', $patent->int_id], 
+        'method' => 'POST', 'autocomplete' => 'off', 'onsubmit' => "return confirm('Set appointment?')"]) !!}
           @csrf
           <div class="form-group">
             <label class="form-label" for="demoDate">Date</label>
@@ -195,21 +198,37 @@
           </div>
         </div>
         <div class="container">
-          @if($patent->copyright->dtm_schedule != NULL)
-          <label class="form-label">
-            Schedule for actual submission of copyright requirements: <br>
-            <strong>{{ $patent->copyright->dtm_schedule }}</strong>
+
+        @if($patent->copyright->dtm_schedule != NULL)
+          <label>
+            Schedule for actual submission of copyright requirements:<br>
+            <strong>  
+              @if($patent->copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+                {{-- If today --}}
+                Today at {{ $patent->copyright->dtm_schedule->format('g:i A') }}
+              @elseif($patent->copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+                {{-- If tomorrow --}}
+                Tomorrow at {{ $patent->copyright->dtm_schedule->format('g:i A') }}
+              @else
+                {{ $patent->copyright->dtm_schedule->format('l, M d') }} at {{ $patent->copyright->dtm_schedule->format('g:i A') }}
+              @endif
+            </strong>
           </label>
-          @endif
+        @endif
         </div>
         <br>
         <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary">Set different schedule</button>
-          <a role="button" class="btn btn-info" href="/admin/transaction/same-sched/{{$patent->int_id}}"><i class="fa fa-fw fa-lg fa-copyright"></i> Clone copyright appointment</a>
-        </div>
-          @csrf
+          <button type="submit" class="btn btn-primary">Set Own Schedule</button>
         {!! Form::close() !!}
+
+        {!! Form::open(['action' => ['Transaction\PendRequestController@cloneCopyrightAppointment', 
+        $patent->int_id], 'method' => 'POST', 'onsubmit' => "return confirm('Clone its schedule for copyright?')"]) !!}
+        @csrf
+          {{ Form::hidden('_method', 'PUT') }}
+          <button type="submit" class="btn btn-info">Clone Copyright Appointment</button>
+        {!! Form::close() !!}
+        </div>
       </div>
     </div>
   </div>

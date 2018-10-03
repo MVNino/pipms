@@ -19,7 +19,7 @@
           <th>Project/Work Title</th>
           <th>Applicant - Type</th>
           <th>Department-College-Branch</th>
-          <th>Date requested</th>
+          <th>Date Requested</th>
           <th class="text-center">View more details</th>
         </tr>
       </thead>
@@ -29,7 +29,13 @@
         <td><b>{{ $copyright->str_project_title }}</b></td>
         <td><b>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_last_name }}</b> - <b>{{ $copyright->applicant->char_applicant_type }}</b> </td>
         <td>{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
-        <td>{{ $copyright->created_at }}</td>
+        <td>
+          @if($copyright->created_at->diffInYears(Carbon\Carbon::now()) == 0)
+            {{ $copyright->created_at->format('M d - g:i A')}}
+          @else
+            {{ $copyright->created_at->format('M d Y - g:i A')}}
+          @endif
+        </td>
         <td class="text-center"><a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
       </tr>
       @empty

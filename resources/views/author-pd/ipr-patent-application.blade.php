@@ -85,8 +85,8 @@
 								<div class="tab-pane" id="profile" role="tabpanel">
 									<div class="form-group">
 										<h6 class="text-muted">Abstract File Upload</h6>
-										<input type="file" name="txtAreaPatentDescription" id="input-file-exec-summary" class="dropify" 
-											data-default-file="/storage/summary/copyright/exec_summary.png" />
+										<input type="file" name="filePatentSummary" id="input-file-exec-summary" class="dropify" 
+											data-default-file="/storage/summary/patent/patent_summary.png" />
 										<small class="form-text text-muted" id="fileHelp">Accepted file types: pdf, docx, doc, zip, rar</small>
 									</div>
 								</div>

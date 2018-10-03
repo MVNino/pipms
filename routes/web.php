@@ -134,21 +134,24 @@ Route::group(
 					# Copyright
 					// Pending requests
 					Route::get('copyrights/pend-request', 
-						'PendRequestController@listPendingCopyrightRequest');
+						'PendRequestController@listPendingCopyrightRequest')
+						->name('transaction.copyright-pending');
 					Route::get('copyright/pend-request/{id}', 
 						'PendRequestController@viewPendingCopyrightRequest');
 					Route::put('copyright/set-schedule/{id}', 
 						'PendRequestController@setSchedule');
 					// To submit
 					Route::get('copyrights/to-submit', 
-						'ToSubmitController@listToSubmitCopyrightRequest');
+						'ToSubmitController@listToSubmitCopyrightRequest')
+						->name('transaction.copyright-to-submit');
 					Route::get('copyright/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitCopyrightRequest');
 					Route::put('copyright/to-submit-to-on-process/{id}', 
 						'ToSubmitController@changeStatusToOnProcess');
 					// On process
 					Route::get('copyrights/on-process', 
-						'OnProcessController@listOnProcessCopyrightRequest');
+						'OnProcessController@listOnProcessCopyrightRequest')
+						->name('transaction.copyright-on-process');
 					Route::get('copyright/on-process/{id}', 
 						'OnProcessController@viewOnProcessCopyrightRequest');
 					Route::put('copyright/on-process-to-copyrighted/{id}', 
@@ -157,21 +160,24 @@ Route::group(
 					# Patent
 					// Pending requests
 					Route::get('patents/pend-request', 
-						'PendRequestController@listPendingPatentRequest');
+						'PendRequestController@listPendingPatentRequest')
+						->name('transaction.patent-pending');
 					Route::get('patent/pend-request/{id}', 
 						'PendRequestController@viewPendingPatentRequest');
-					Route::get('same-sched/{id}', 
+					Route::put('same-sched/{id}', 
 						'PendRequestController@cloneCopyrightAppointment');
 					Route::put('patent/set-schedule/{id}', 
 						'PendRequestController@setScheduleForPatent');
 					// To submit
 					Route::get('patents/to-submit', 
-						'ToSubmitController@listToSubmitPatentRequest');
+						'ToSubmitController@listToSubmitPatentRequest')
+						->name('transaction.patent-to-submit');
 					Route::get('patent/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitPatentRequest');
 					// On process
 					Route::get('patents/on-process', 
-						'OnProcessController@listOnProcessPatentRequest');
+						'OnProcessController@listOnProcessPatentRequest')
+						->name('transaction.patent-on-process');
 					Route::get('patent/on-process/{id}', 
 						'OnProcessController@viewOnProcessPatentRequest');
 				});

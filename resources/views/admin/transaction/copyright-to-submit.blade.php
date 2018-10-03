@@ -31,7 +31,7 @@
           @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->day)
           <div class="container">
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-8">
                 <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
                   {{ $copyright->str_project_title }}
                   </a> - {{ $copyright->applicant->user->str_first_name }} 
@@ -45,7 +45,7 @@
                       {{ $copyright->applicant->department->college->branch->str_branch_name }})
                     </a>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-4">
                 Time: {{ $copyright->dtm_schedule->format('g:i A') }}
               </div>
             </div><hr>  
