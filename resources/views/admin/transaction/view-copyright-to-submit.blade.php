@@ -87,9 +87,26 @@
           @if($copyright->patent)
           <label>
             <strong>Patent: </strong>
-            <a href="/admin/maintenance/patent/{{ $copyright->patent->int_id }}">
-              {{ $copyright->patent->str_patent_project_title }}
-            </a>
+            @if($copyright->patent->char_patent_status == 'pending')
+              <a href="/admin/transaction/patent/pend-request/{{ $copyright->patent->int_id }}">
+                {{ $copyright->patent->str_patent_project_title }}
+              </a>
+            @elseif($copyright->patent->char_patent_status == 'to submit')
+              <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">
+                {{ $copyright->patent->str_patent_project_title }}
+              </a>
+            @elseif($copyright->patent->char_patent_status == 'on-process')
+              <a href="/admin/transaction/patent/on-process/{{ $copyright->patent->int_id }}">
+                {{ $copyright->patent->str_patent_project_title }}
+              </a>
+            @else
+              <a href="/admin/transaction/patent/patented/{{ $copyright->patent->int_id }}">
+                {{ $copyright->patent->str_patent_project_title }}
+              </a>
+            @endif
+            <span class="text-muted">
+              ({{ $copyright->patent->char_patent_status }})
+            </span>
           </label>
           @else
           <label>

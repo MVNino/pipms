@@ -47,9 +47,24 @@
             @endif
           </label><br>
           <label><strong>Copyright Record: </strong>
-            <a href="/admin/transaction/copyright/{{ $patent->copyright->int_id }}">
-              {{ $patent->copyright->str_project_title }}
-            </a><span class="text-muted">
+            @if($patent->copyright->char_copyright_status == 'pending')
+              <a href="/admin/transaction/copyright/pend-request/{{ $patent->copyright->int_id }}">
+                {{ $patent->copyright->str_project_title }}
+              </a>
+            @elseif($patent->copyright->char_copyright_status == 'to submit')
+              <a href="/admin/transaction/copyright/to-submit/{{ $patent->copyright->int_id }}">
+                {{ $patent->copyright->str_project_title }}
+              </a>
+            @elseif($patent->copyright->char_copyright_status == 'on-process')
+              <a href="/admin/transaction/copyright/on-process/{{ $patent->copyright->int_id }}">
+                {{ $patent->copyright->str_project_title }}
+              </a>
+            @else
+              <a href="/admin/transaction/copyright/copyrighted/{{ $patent->copyright->int_id }}">
+                {{ $patent->copyright->str_project_title }}
+              </a>
+            @endif
+            <span class="text-muted">
               ({{ $patent->copyright->char_copyright_status }})
             </span>
           </label><br>

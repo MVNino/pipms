@@ -1,12 +1,9 @@
 @extends('author-pd.layouts.app')
 
 @section('pg-specific-css')
-
-
 <!-- Custom CSS -->
 <link href="{{asset('elite/css/style.min.css')}}" rel="stylesheet">
 <link href="{{asset('elite/css/timeline-vertical-horizontal.css')}}" rel="stylesheet">
-
 @endsection
 
 @section('content')
@@ -28,7 +25,6 @@
                                     </div>
                                 </div>
                             </li>
-
                         @elseif($viewProject->char_copyright_status == 'To submit')    
                             <li>
                                 <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
