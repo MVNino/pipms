@@ -135,7 +135,7 @@
             @empty
               <a class="list-group-item list-group-item-action disabled" href="#">There is no other project under the same department.</a>
             @endforelse
-          </div>
+        </div>
         </div>
         </div>
         <div class="card-footer text-muted"><p class="text text-info">List of other projects under <strong><a href="/admin/maintenance/department/{{ $project->int_department_id }}">same</a></strong> department</p></div>
