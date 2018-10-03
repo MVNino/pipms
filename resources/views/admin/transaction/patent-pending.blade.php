@@ -4,10 +4,12 @@
 <h1>Pending patent requests</h1>
   <p>A listing of projects for patent registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/patents/pend-request">Patents Pending Requests</a></li>
 @endsection
+
 @section('content')
 <div class="tile">
   <div class="tile-body">
@@ -29,9 +31,13 @@
         <td>{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
         <td>
           @if($patent->created_at->diffInYears(Carbon\Carbon::now()) == 0)
-            {{ $patent->created_at->format('M d - g:i A')}}
+            @if($patent->created_at->diffInDays(Carbon\Carbon::now()) <= 3)
+              {{ $patent->created_at->format('M d - g:i A')}}
+            @else
+              {{ $patent->created_at->format('F d')}}
+            @endif
           @else
-            {{ $patent->created_at->format('M d Y - g:i A')}}
+            {{ $patent->created_at->format('M d, Y')}}
           @endif
         </td>
         <td class="text-center"><a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
