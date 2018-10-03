@@ -16,7 +16,10 @@ class Patent extends Model
 	protected $dates = [
 		'created_at',
 		'updated_at',
-		'dtm_schedule'
+		'dtm_schedule',
+		'dtm_to_submit',
+		'dtm_on_process',
+		'dtm_patented'
 	];
 	
 	// Relationship of 'patents' to 'copyrights'

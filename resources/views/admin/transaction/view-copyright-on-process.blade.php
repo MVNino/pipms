@@ -27,7 +27,7 @@
                 'method' => 'POST', 'onsubmit' => "return confirm('Copyright this work?')"]) !!}
                 @csrf
                 {{ Form::hidden('_method', 'PUT') }}
-                <button type="submit" class="btn btn-primary mb-1 float-right">Grant copyright</button>
+                <button type="submit" class="btn btn-primary mb-1 float-right">Grant Copyright</button>
               {!! Form::close() !!}
             </div>
           </div>

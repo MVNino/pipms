@@ -32,8 +32,9 @@
           <div class="container">
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $patent->str_patent_project_title }} - 
-                {{ $patent->copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                  {{ $patent->str_patent_project_title }}
+                  </a> - {{ $patent->copyright->applicant->user->str_first_name }} 
                 {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $patent->copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
@@ -70,8 +71,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $patent->str_patent_project_title }} - 
-                {{ $patent->copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                  {{ $patent->str_patent_project_title }}
+                  </a> - {{ $patent->copyright->applicant->user->str_first_name }} 
                 {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $patent->copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
@@ -109,8 +111,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $patent->str_patent_project_title }} - 
-                {{ $patent->copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                  {{ $patent->str_patent_project_title }}
+                  </a> - {{ $patent->copyright->applicant->user->str_first_name }} 
                 {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $patent->copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
@@ -145,8 +148,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $patent->str_patent_project_title }} - 
-                {{ $patent->copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                  {{ $patent->str_patent_project_title }}
+                  </a> - {{ $patent->copyright->applicant->user->str_first_name }} 
                 {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $patent->copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">

@@ -54,9 +54,6 @@ class PatentRequestOnProcess extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'data' => "You've complied with the requirements. 
-            Your request now was on its process for patent registration"
-        ];
+        //
     }
 }

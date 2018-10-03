@@ -40,10 +40,7 @@ class PatentOnProcessDb extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line("You've complied with the requirements. 
-            Your request now was on its process for patent registration.")
-                    ->line('Wait for further update from us.');
+        //
     }
 
     /**
@@ -56,7 +53,7 @@ class PatentOnProcessDb extends Notification
     {
         return [
             'data' => "You've complied with the requirements. 
-            Your request now was on its process for patent registration"
+            Your request now was on its process for patent registration."
         ];
     }
 }

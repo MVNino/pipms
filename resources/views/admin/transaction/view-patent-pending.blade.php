@@ -5,11 +5,13 @@
 <h1>{{ $patent->str_patent_project_title }}</h1>
   <p>A listing of projects for patent registration</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
 <li class="breadcrumb-item"><a href="/admin/transaction/patents/pend-request">Pending patent requests</a></li>
 <li class="breadcrumb-item"><a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a></li>
 @endsection
+
 @section('content')
 <div class="row">
   <div class="col-md-6">    
@@ -186,7 +188,7 @@
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => ['Transaction\PendRequestController@setScheduleForPatent', $patent->int_id], 
-        'method' => 'POST', 'autocomplete' => 'off', 'onsubmit' => "return confirm('Set appointment?')"]) !!}
+        'method' => 'POST', 'autocomplete' => 'off']) !!}
           @csrf
           <div class="form-group">
             <label class="form-label" for="demoDate">Date</label>
@@ -237,7 +239,6 @@
 @empty
   @include('admin.includes.page-error')
 @endforelse
-
 @endsection
 
 @section('pg-specific-js')
