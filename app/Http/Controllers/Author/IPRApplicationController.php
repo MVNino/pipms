@@ -117,7 +117,8 @@ class IPRApplicationController extends Controller
             'getCopyrightId' => 'required',
             'slctProjectType' => 'required',
             'txtPatentTitle' => 'required',
-            'txtAreaPatentDescription' => 'required'
+            'txtAreaPatentDescription' => 'nullable',
+            'filePatentSummary' => 'nullable'
         ]);
 
         /*
@@ -129,15 +130,26 @@ class IPRApplicationController extends Controller
         } else {
             $projectDescription = $request->txtAreaPatentDescription;
         }
-
         // Store input data to Patents table
         $patent = new Patent;
-        // $patent->int_copyright_id = $request->getCopyrightId;
         $patent->int_copyright_id = $request->getCopyrightId;
         $patent->str_patent_project_title = $request->txtPatentTitle;
         $patent->int_project_type_id = $request->slctProjectType;
         $patent->int_project_id = $request->slctProject;
         $patent->mdmTxt_patent_description = $projectDescription;
+        // Handle file upload for patent executive summary
+        if($request->hasFile('filePatentSummary')){
+            // Get the file's extension
+            $fileExtension = $request->file('filePatentSummary')
+                ->getClientOriginalExtension();
+            // Create a filename to store(database)
+            $summaryFileNameToStore = $request->txtPatentTitle
+                .'_'.'patentExecSummary'.'_'.time().'.'.$fileExtension;
+            // Upload file to system
+            $path = $request->file('filePatentSummary')
+                ->storeAs('public/summary/patent', $summaryFileNameToStore);
+            $patent->str_patent_summary_file = $summaryFileNameToStore;
+        }
 
         if($patent->save()){
         $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
@@ -145,7 +157,6 @@ class IPRApplicationController extends Controller
         $user = User::findOrFail($userId);
         
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-
         return redirect()->back()->with('success', 'Request for patent registration submitted!');
         }
     }

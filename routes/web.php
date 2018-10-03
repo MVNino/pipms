@@ -88,7 +88,7 @@ Route::group(
 					Route::get('departments', 			'DepartmentController@maintainDepartments');
 					Route::get('department/{id}', 		'DepartmentController@viewDepartment');
 					Route::post('departments', 			'DepartmentController@addDepartment');
-					Route::put('department/{id}/edit', 'DepartmentController@updateDepartment');	
+					Route::put('department/{id}/edit',	'DepartmentController@updateDepartment');	
 					// Accounts maintenance
 					Route::get('accounts', 				'AccountController@maintainAccounts');
 					// Project types maintenance
@@ -134,52 +134,57 @@ Route::group(
 					# Copyright
 					// Pending requests
 					Route::get('copyrights/pend-request', 
-						'PendRequestController@listPendingCopyrightRequest');
+						'PendRequestController@listPendingCopyrightRequest')
+						->name('transaction.copyright-pending');
 					Route::get('copyright/pend-request/{id}', 
 						'PendRequestController@viewPendingCopyrightRequest');
+					Route::put('copyright/set-schedule/{id}', 
+						'PendRequestController@setSchedule');
 					// To submit
 					Route::get('copyrights/to-submit', 
-						'ToSubmitController@listToSubmitCopyrightRequest');
+						'ToSubmitController@listToSubmitCopyrightRequest')
+						->name('transaction.copyright-to-submit');
 					Route::get('copyright/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitCopyrightRequest');
+					Route::put('copyright/to-submit-to-on-process/{id}', 
+						'ToSubmitController@changeStatusToOnProcess');
 					// On process
 					Route::get('copyrights/on-process', 
-						'OnProcessController@listOnProcessCopyrightRequest');
+						'OnProcessController@listOnProcessCopyrightRequest')
+						->name('transaction.copyright-on-process');
 					Route::get('copyright/on-process/{id}', 
 						'OnProcessController@viewOnProcessCopyrightRequest');
+					Route::put('copyright/on-process-to-copyrighted/{id}', 
+						'OnProcessController@changeStatusToCopyrighted');
 					
 					# Patent
 					// Pending requests
 					Route::get('patents/pend-request', 
-						'PendRequestController@listPendingPatentRequest');
+						'PendRequestController@listPendingPatentRequest')
+						->name('transaction.patent-pending');
 					Route::get('patent/pend-request/{id}', 
 						'PendRequestController@viewPendingPatentRequest');
-					Route::get('same-sched/{id}', 
-							'PendRequestController@cloneCopyrightAppointment');
+					Route::put('same-sched/{id}', 
+						'PendRequestController@cloneCopyrightAppointment');
+					Route::put('patent/set-schedule/{id}', 
+						'PendRequestController@setScheduleForPatent');
 					// To submit
 					Route::get('patents/to-submit', 
-						'ToSubmitController@listToSubmitPatentRequest');
+						'ToSubmitController@listToSubmitPatentRequest')
+						->name('transaction.patent-to-submit');
 					Route::get('patent/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitPatentRequest');
 					// On process
 					Route::get('patents/on-process', 
-						'OnProcessController@listOnProcessPatentRequest');
+						'OnProcessController@listOnProcessPatentRequest')
+						->name('transaction.patent-on-process');
 					Route::get('patent/on-process/{id}', 
 						'OnProcessController@viewOnProcessPatentRequest');
 				});
 				
 
 				Route::get('copyright/{id}/up', 'TransactionController@upStatus');
-			
-				Route::put('copyright/set-schedule/{id}', 
-					'TransactionController@setSchedule');
-				Route::get('copyright/change-to-submit-to-on-process/{id}', 
-					'TransactionController@changeStatusToOnProcess');
-				Route::get('copyright/change-on-process-to-copyrighted/{id}', 
-					'TransactionController@changeStatusToCopyrighted');
-
-				Route::put('patent/set-schedule/{id}', 
-					'TransactionController@setScheduleForPatent');
+				
 				Route::get('patent/change-to-submit-to-on-process/{id}', 
 					'TransactionController@changePatentStatusToOnProcess');
 				Route::get('patent/change-on-process-to-patented/{id}', 
@@ -231,46 +236,47 @@ Route::group(
 	{
 		Route::namespace('Author')->group(function(){
 			Route::get('dashboard', 
-					'DashboardController@pdDashboard')
-					->name('author.dashboard');
+				'DashboardController@pdDashboard')
+				->name('author.dashboard');
 			// Notifications
 			Route::get('notification/{id}/read', 
-					'NotificationController@readNotif');		
+				'NotificationController@readNotif');		
 			Route::get('notifications/read-all', 
-					'NotificationController@readAll')
+				'NotificationController@readAll')
 				->name('author.readAllMark');
 			Route::get('notifications', 
 				'NotificationController@viewNotifications')
 				->name('author.notifications');
 			Route::get('mails', 
-					'MailController@viewMails')
-					->name('author.mails');
+				'MailController@viewMails')
+				->name('author.mails');
 			// Profile
 			Route::get('user-profile', 
-					'ProfileController@viewProfile')
-					->name('author.profile');
+				'ProfileController@viewProfile')
+				->name('author.profile');
 			Route::put('{id}/edit-account', 
-					'ProfileController@updateAuthor');
+				'ProfileController@updateAuthor');
 			Route::put('{id}/update-profile-pic', 
 				'ProfileController@updateProfilePic');
 			// IPR Application
 			Route::get('ipr-application', 
-					'IPRApplicationController@viewIPRApplication')
-					->name('author.ipr-application');
+				'IPRApplicationController@viewIPRApplication')
+				->name('author.ipr-application');
 			Route::post('ipr-application', 
 				'IPRApplicationController@storeCopyrightRequest');
-			Route::get('ipr-patent-application/{id}',
-					'IPRApplicationController@viewPatentApplication')
-					->name('author.ipr-patent-application');
+			Route::get('ipr-patent-application/{id}/{title}',
+				'IPRApplicationController@viewPatentApplication')
+				->name('author.ipr-patent-application');
 			Route::post('ipr-patent-application', 
 				'IPRApplicationController@storePatentRequest');
 			Route::get('my-projects', 
-					'WorkController@myProjects')
-					->name('author.my-projects');
-			Route::get('my-project/{id}/{title}', 'WorkController@viewMyProject');	
+				'WorkController@myProjects')
+				->name('author.my-projects');
+			Route::get('my-project/{id}/{title}', 
+				'WorkController@viewMyProject');	
 			Route::get('guide', 
-					'GuideController@viewGuide')
-					->name('author.guide');
+				'GuideController@viewGuide')
+				->name('author.guide');
 
 		});
 		

@@ -6,22 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Carbon\Carbon;
 
-class PatentAppointmentSetDb extends Notification
+class RequestOnProcess extends Notification
 {
     use Queueable;
-    public $schedule;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($schedule)
+    public function __construct()
     {
-        $this->schedule = Carbon::createFromFormat('Y-m-d H:i:s',$schedule)
-            ->format('M d, g:i A');
+        //
     }
 
     /**
@@ -44,11 +41,8 @@ class PatentAppointmentSetDb extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line("Your request for your work's patent registration has been approved!")           
-                    ->line('Please see us in our office and kindly bring the requirements.')
-                    ->line('Your visiting schedule: '.$this->schedule)
-                    ->line('Want to re-check our list of requirements?')
-                    ->action('Patent registration guide', url('http://127.0.0.1:8000/patent/guide'))
+                    ->line('Your request for copyright registration is now on process.')
+                    ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
 
@@ -61,7 +55,7 @@ class PatentAppointmentSetDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'We set your schedule for actual submission of patent requirements to: <b>'.$this->schedule.'</b>'
+            //
         ];
     }
 }

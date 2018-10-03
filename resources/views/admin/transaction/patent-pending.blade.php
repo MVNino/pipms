@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-certificate"></i> Pending patent requests</h1>
+<h1>Pending patent requests</h1>
   <p>A listing of projects for patent registration</p>
 @endsection
 @section('breadcrumb-label')
@@ -17,7 +17,7 @@
           <th>Project/Work Title</th>
           <th>Applicant - Type</th>
           <th>Department-College-Branch</th>
-          <th>Date requested</th>
+          <th>Date Requested</th>
           <th class="text-center">View more details</th>
         </tr>
       </thead>
@@ -27,7 +27,13 @@
         <td><b>{{ $patent->str_patent_project_title }}</b></td>
         <td><b>{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_last_name }}</b> - <b>{{ $patent->copyright->applicant->char_applicant_type }}</b> </td>
         <td>{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
-        <td>{{ $patent->created_at }}</td>
+        <td>
+          @if($patent->created_at->diffInYears(Carbon\Carbon::now()) == 0)
+            {{ $patent->created_at->format('M d - g:i A')}}
+          @else
+            {{ $patent->created_at->format('M d Y - g:i A')}}
+          @endif
+        </td>
         <td class="text-center"><a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
       </tr>
       @empty

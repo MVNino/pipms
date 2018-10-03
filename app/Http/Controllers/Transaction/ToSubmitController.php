@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Transaction;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\RequestOnProcess;
+use App\Notifications\RequestOnProcessDb;
 use App\Copyright;
 use App\Patent;
+use App\User;
 use Carbon\Carbon;
 
 class ToSubmitController extends Controller
@@ -34,6 +37,23 @@ class ToSubmitController extends Controller
             ->get();
         return view('admin.transaction.view-copyright-to-submit', 
             ['copyrightCollection' => $copyrightCollection]);
+    }
+
+    public function changeStatusToOnProcess(Request $request, $id)
+    {
+        // change status from 'to submit' to 'on process'
+        $copyright = Copyright::findOrFail($id);
+        $copyright->char_copyright_status = 'on process';
+        $copyright->dtm_on_process = now();
+        $copyright->save();
+        // send email
+        \Notification::route('mail', $copyright->applicant->user->email)
+            ->notify(new RequestOnProcess);
+        $userId = $copyright->applicant->user->id;
+        User::findOrFail($userId)->notify(new RequestOnProcessDb);
+        $promptMsg = "Request in now on process to its copyright registration";
+        return redirect('/admin/transaction/copyrights/to-submit')
+            ->with('success', $promptMsg);
     }
 
     # PATENT

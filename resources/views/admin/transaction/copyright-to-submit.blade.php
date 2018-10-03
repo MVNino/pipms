@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> Submission of Requirements for Copyright Registration</h1>
+<h1>Submission of Requirements for Copyright Registration</h1>
   <p>A listing of projects that needs to submit requirements for copyright registration</p>
 @endsection
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>
-<li class="breadcrumb-item"><a href="/admin/transaction/copyrights/to-submit">Copyright To Submit</a></li>
+<li class="breadcrumb-item"><a href="/admin/transaction/copyrights/to-submit">To Submit Requirements</a></li>
 @endsection
 
 @section('content')
@@ -31,9 +31,10 @@
           @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->day)
           <div class="container">
             <div class="row">
-              <div class="col-md-10">
-                <b>{{ $copyright->str_project_title }} - 
-                {{ $copyright->applicant->user->str_first_name }} 
+              <div class="col-md-8">
+                <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a> - {{ $copyright->applicant->user->str_first_name }} 
                 {{ $copyright->applicant->user->str_last_name }}</b> <br> 
                 {{ $copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
@@ -44,7 +45,7 @@
                       {{ $copyright->applicant->department->college->branch->str_branch_name }})
                     </a>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-4">
                 Time: {{ $copyright->dtm_schedule->format('g:i A') }}
               </div>
             </div><hr>  
@@ -70,8 +71,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $copyright->str_project_title }} - 
-                {{ $copyright->applicant->user->str_first_name }} 
+                <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a> - {{ $copyright->applicant->user->str_first_name }} 
                 {{ $copyright->applicant->user->str_last_name }}</b><br> 
                 {{ $copyright->applicant->char_applicant_type }} 
                 of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
@@ -109,7 +111,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $copyright->str_project_title }} - 
+                <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a> - 
                 {{ $copyright->applicant->user->str_first_name }} 
                 {{ $copyright->applicant->user->str_last_name }}</b><br> 
                 {{ $copyright->applicant->char_applicant_type }} 
@@ -145,7 +149,9 @@
           <div class="container">      
             <div class="row">
               <div class="col-md-10">
-                <b>{{ $copyright->str_project_title }} - 
+                <b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a> - 
                 {{ $copyright->applicant->user->str_first_name }} 
                 {{ $copyright->applicant->user->str_last_name }}</b><br> 
                 {{ $copyright->applicant->char_applicant_type }} 

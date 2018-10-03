@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> On Process Copyright Requests</h1>
+<h1>On Process Copyright Requests</h1>
   <p>A listing of projects which are on its processs for copyright registration</p>
 @endsection
 
@@ -26,7 +26,12 @@
       (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>)<br>
     </div>
     <div class="tile-footer">
-      <strong>Date requested: </strong>{{ $copyright->updated_at }}
+      <strong>Date complied: </strong>
+        @if($copyright->dtm_on_process->diffInYears(Carbon\Carbon::now()) == 0)
+          {{ $copyright->dtm_on_process->format('M d - g:i A')}}
+        @else
+          {{ $copyright->dtm_on_process->format('M d Y - g:i A')}}
+        @endif
     </div>
   </div>
 </div>

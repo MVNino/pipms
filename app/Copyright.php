@@ -16,7 +16,10 @@ class Copyright extends Model
 	protected $dates = [
 		'created_at',
 		'updated_at',
-		'dtm_schedule'
+		'dtm_schedule',
+		'dtm_to_submit',
+		'dtm_on_process',
+		'dtm_copyrighted'
 	];
 	public function user(){
 		return $this->belongsTo('App\User', 'int_user_id', 'id');

@@ -78,7 +78,9 @@
             <h4>Department Details</h4>
           </div>
           <div class="col-md-2">
-            <p><button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p>
+            <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong">
+              <i class="fa fa-edit"></i>Edit
+            </button>
           </div>
           </div>
         </div>
@@ -99,7 +101,9 @@
           <p class="card-text"><strong>Description:</strong> {{ $department->mdmTxt_department_description }}</p>
           <p><strong>Last updated:</strong> {{ $department->updated_at }}</p>
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> {{ $department->created_at }}</div>
+        <div class="card-footer text-muted">
+          <strong>Date added:</strong> {{ $department->created_at }}
+        </div>
       </div>
     </div>
   </div>

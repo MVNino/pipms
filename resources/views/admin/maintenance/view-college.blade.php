@@ -81,7 +81,7 @@
             <h4>College details</h4>
           </div>
           <div class="col-md-2">
-            <p><button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p>
+            <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p>
           </div>
           </div>
         </div>
