@@ -23,12 +23,9 @@
               <h4>Copyright Details</h4>
             </div>
             <div class="col-md-3">
-              {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
-                'method' => 'POST', 'onsubmit' => "return confirm('Complied to requirements?')"]) !!}
-                @csrf
-                {{ Form::hidden('_method', 'PUT') }}
-                <button type="submit" class="btn btn-primary mb-1 float-right">Complied to requirements</button>
-              {!! Form::close() !!}
+              <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
+                Complied To Requirements
+              </button>
             </div>
           </div>
         </div>
@@ -139,7 +136,8 @@
                 {{-- If tomorrow --}}
                 Tomorrow at {{ $copyright->dtm_schedule->format('g:i A') }}
               @else
-                {{ $copyright->dtm_schedule->format('l, M d') }} at {{ $copyright->dtm_schedule->format('g:i A') }}
+                {{ $copyright->dtm_schedule->format('l, M d') }} at 
+                {{ $copyright->dtm_schedule->format('g:i A') }}
               @endif
             </div>
           </div>
@@ -188,6 +186,43 @@
 @empty
   @include('admin.includes.page-error')
 @endforelse
+
+<!-- Compliance modal -->
+<div class="modal fade" id="complianceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">Complied to Requirements</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
+        'method' => 'POST', 'autocomplete' => 'off']) !!}
+          @csrf
+          <p class="text-muted">The applicant must have the following requirements 
+            for their work's copyright registration: </p>
+          <div class="bs-component">
+            <div class="list-group">
+              @foreach($requirements as $requirement)
+              <p class="list-group-item list-group-item-action">
+                <i class="fa fa-fw fa-lg fa-check-circle text-info"></i> {{ $requirement->str_requirement }}
+              </p>
+              @endforeach
+            </div>
+          </div> 
+      </div>
+      <div class="modal-footer">
+          {{ Form::hidden('_method', 'PUT') }}
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Complied</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- /Compliance modal -->
 @endsection
 
 @section('pg-specific-js')

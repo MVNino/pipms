@@ -1,7 +1,6 @@
-	@extends('author-pd.layouts.app')
+@extends('author-pd.layouts.app')
 
 @section('content')
-
 	<div class="row">
        <!-- column -->
 	   @foreach($myProjects as $myProject)
@@ -34,21 +33,22 @@
 		                <small class="card-text">Date: <b>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$myProject->patent->dtm_patented)->format('F d Y')}}</b></small>
 		                @endif
 	                @endif
-	                <div align="center">
-		                <a href="/author/my-project/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}" class="btn btn-primary">
-		                	View Progress
-		                </a>
-	                </div>
-	                @if(!$myProject->patent)
-	                <small>
-	                	<br>
-	                	<a href="/author/ipr-patent-application/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}">Want to apply for patent?</a>
-	           	 	</small>
-	           	 	@endif
-	            </div>
-	        </div>
-	        <!-- Card -->
-	    </div>
-	    @endforeach
-     </div>
+                @endif
+                <div align="center">
+	                <a href="/author/my-project/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}" class="btn btn-primary">
+	                   <i class="fa fa-fw fa-lg fa-history"></i> Timeline
+	                </a>
+                </div>
+                @if(!$myProject->patent)
+                <small>
+                	<br>
+                	<a href="/author/ipr-patent-application/{{ $myProject->int_id }}/{{ $myProject->str_project_title }}">Want to apply for patent?</a>
+           	 	</small>
+           	 	@endif
+            </div>
+        </div>
+        <!-- Card -->
+    </div>
+    @endforeach
+ </div>
 @endsection

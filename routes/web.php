@@ -174,21 +174,21 @@ Route::group(
 						->name('transaction.patent-to-submit');
 					Route::get('patent/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitPatentRequest');
+					Route::put('patent/change-to-submit-to-on-process/{id}', 
+						'ToSubmitController@changePatentStatusToOnProcess');
 					// On process
 					Route::get('patents/on-process', 
 						'OnProcessController@listOnProcessPatentRequest')
 						->name('transaction.patent-on-process');
 					Route::get('patent/on-process/{id}', 
 						'OnProcessController@viewOnProcessPatentRequest');
+					Route::put('patent/change-on-process-to-patented/{id}', 
+						'OnProcessController@changeStatusToPatented');
 				});
 				
 
 				Route::get('copyright/{id}/up', 'TransactionController@upStatus');
 				
-				Route::get('patent/change-to-submit-to-on-process/{id}', 
-					'TransactionController@changePatentStatusToOnProcess');
-				Route::get('patent/change-on-process-to-patented/{id}', 
-					'TransactionController@changePatentStatusToPatented');
 
 				Route::get('copyrights/initial-request', 
 					'TransactionController@listInitialRequests');

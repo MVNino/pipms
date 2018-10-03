@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\RequestOnProcess;
 use App\Notifications\RequestOnProcessDb;
+use App\Notifications\PatentRequestOnProcess;
+use App\Notifications\PatentOnProcessDb;
 use App\Copyright;
 use App\Patent;
+use App\Requirement;
 use App\User;
 use Carbon\Carbon;
 
@@ -32,11 +35,13 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitCopyrightRequest($id)
     {
+        $requirements = Requirement::where('char_ipr', 'C')->get();
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-to-submit', 
-            ['copyrightCollection' => $copyrightCollection]);
+            ['copyrightCollection' => $copyrightCollection, 
+            'requirements' => $requirements]);
     }
 
     public function changeStatusToOnProcess(Request $request, $id)
@@ -52,7 +57,7 @@ class ToSubmitController extends Controller
         $userId = $copyright->applicant->user->id;
         User::findOrFail($userId)->notify(new RequestOnProcessDb);
         $promptMsg = "Request in now on process to its copyright registration";
-        return redirect('/admin/transaction/copyrights/to-submit')
+        return redirect(route('transaction.copyright-to-submit'))
             ->with('success', $promptMsg);
     }
 
@@ -69,10 +74,31 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitPatentRequest($id)
     {  
+        $requirements = Requirement::where('char_ipr', 'P')->get();
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-to-submit', 
-            ['patentCollection' => $patentCollection]);
+            ['patentCollection' => $patentCollection, 
+            'requirements' => $requirements]);
     }
+
+    public function changePatentStatusToOnProcess($id)
+    {
+        // change status from 'to submit' to 'on process'
+        $patent = Patent::findOrFail($id);
+        $patent->char_patent_status = 'on process';
+        $patent->dtm_on_process = now();
+        if($patent->save()) {
+            // send email
+            \Notification::route('mail', $patent->copyright->applicant->user->email)
+                ->notify(new PatentRequestOnProcess);
+            $userId = $patent->copyright->applicant->user->id;
+            User::findOrFail($userId)->notify(new PatentOnProcessDb);  
+            $promptMsg = "Request in now on process to its copyright registration";
+            return redirect(route('transaction.patent-to-submit'))
+                ->with('success', $promptMsg);
+        }
+    }
+
 }
