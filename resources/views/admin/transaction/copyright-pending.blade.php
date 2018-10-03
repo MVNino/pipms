@@ -31,9 +31,13 @@
         <td>{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
         <td>
           @if($copyright->created_at->diffInYears(Carbon\Carbon::now()) == 0)
-            {{ $copyright->created_at->format('M d - g:i A')}}
+            @if($copyright->created_at->diffInDays(Carbon\Carbon::now()) <= 3)
+              {{ $copyright->created_at->format('M d - g:i A')}}
+            @else
+              {{ $copyright->created_at->format('F d')}}
+            @endif
           @else
-            {{ $copyright->created_at->format('M d Y - g:i A')}}
+            {{ $copyright->created_at->format('M d, Y')}}
           @endif
         </td>
         <td class="text-center"><a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>

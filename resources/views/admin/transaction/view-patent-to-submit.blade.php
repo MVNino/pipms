@@ -180,8 +180,17 @@
         {!! Form::open(['action' => ['Transaction\ToSubmitController@changePatentStatusToOnProcess', $patent->int_id], 
         'method' => 'POST', 'autocomplete' => 'off']) !!}
           @csrf
-          Applicant mush have these!
-          REQUIREMENTS REMINDER! 
+          <p class="text-muted">The applicant must have the following requirements 
+            for their work's patent registration: </p>
+          <div class="bs-component">
+            <div class="list-group">
+              @foreach($requirements as $requirement)
+              <p class="list-group-item list-group-item-action">
+                <i class="fa fa-fw fa-lg fa-check-circle text-info"></i> {{ $requirement->str_requirement }}
+              </p>
+              @endforeach
+            </div>
+          </div> 
       </div>
       <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}

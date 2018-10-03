@@ -175,7 +175,7 @@
 				<div class="col-md-12"><br><br>
 					<div class="tile">
 						<div class="tile-body">
-							<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's copyright registration</strong></label>
+							<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your work's copyright registration</strong></label>
 							<ul class="list-group list-group-flush">
 							  @foreach($requirements as $requirement)
 							  @if($requirement->char_ipr == 'P')

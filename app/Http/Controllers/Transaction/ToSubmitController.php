@@ -10,6 +10,7 @@ use App\Notifications\PatentRequestOnProcess;
 use App\Notifications\PatentOnProcessDb;
 use App\Copyright;
 use App\Patent;
+use App\Requirement;
 use App\User;
 use Carbon\Carbon;
 
@@ -34,11 +35,13 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitCopyrightRequest($id)
     {
+        $requirements = Requirement::where('char_ipr', 'C')->get();
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-to-submit', 
-            ['copyrightCollection' => $copyrightCollection]);
+            ['copyrightCollection' => $copyrightCollection, 
+            'requirements' => $requirements]);
     }
 
     public function changeStatusToOnProcess(Request $request, $id)
@@ -71,11 +74,13 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitPatentRequest($id)
     {  
+        $requirements = Requirement::where('char_ipr', 'P')->get();
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-to-submit', 
-            ['patentCollection' => $patentCollection]);
+            ['patentCollection' => $patentCollection, 
+            'requirements' => $requirements]);
     }
 
     public function changePatentStatusToOnProcess($id)
