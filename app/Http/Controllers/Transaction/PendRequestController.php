@@ -94,24 +94,25 @@ class PendRequestController extends Controller
             'timeSchedule' => 'required'
         ]);
 
-        $schedule = Carbon::createFromFormat('d-m-Y H:i', 
+        $schedule = Carbon::createFromFormat('Y-m-d H:i', 
             $request->dateSchedule.' '.$request->timeSchedule)
             ->toDateTimeString();
         $patent = Patent::findOrFail($id);
         $patent->dtm_schedule = $schedule;
+        $patent->dtm_to_submit = $schedule;
         $patent->char_patent_status = 'to submit';
-        $patent->dtm_to_submit = now();
-        $patent->save();
-        $promptMsg = 'Appointment set! The patent request record changed its status to "To submit". 
-            An email notification has been sent to the author.';
-        \Notification::route('mail', $patent->copyright->applicant->user->email)
-            ->notify(new PatentRequestAppointmentSet($schedule));
-        $userId = $patent->copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new PatentAppointmentSetDb($schedule));     
-        return redirect('admin/transaction/patents/pend-request')->with('success', $promptMsg);
+        if($patent->save()) {
+            $promptMsg = 'Appointment set! The patent request record changed its status to "to submit". 
+                An email notification has been sent to the author.';
+            \Notification::route('mail', $patent->copyright->applicant->user->email)
+                ->notify(new PatentRequestAppointmentSet($schedule));
+            $userId = $patent->copyright->applicant->user->id;
+            User::findOrFail($userId)->notify(new PatentAppointmentSetDb($schedule));     
+            return redirect(route('transaction.patent-pending'))->with('success', $promptMsg);
+        }
     }
 
-    public function cloneCopyrightAppointment($id)
+    public function cloneCopyrightAppointment(Request $request, $id)
     {
         $patent = Patent::findOrFail($id);
         $patent->dtm_schedule = $patent->copyright->dtm_schedule;
@@ -119,10 +120,12 @@ class PendRequestController extends Controller
         $patent->char_patent_status = 'to submit';
         if ($patent->save()) {
             $userId = $patent->copyright->applicant->user->id;
-            User::findOrFail($userId)->notify(new SetAppointmentCloned);       
-            return redirect()->back()->with('success', "Project's patent appointment was 
+            User::findOrFail($userId)->notify(new SetAppointmentCloned);
+            $promptMsg = "Project's patent appointment was 
                 also set to its relative copyright appointment. Status had 
-                changed to 'To submit'");
+                changed to 'to submit'";       
+            return redirect(route('transaction.patent-pending'))
+                ->with('success', $promptMsg);
         }
     }
 }
