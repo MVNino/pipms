@@ -24,12 +24,17 @@
                                        
                                         @elseif($viewProject->char_copyright_status == 'To submit')
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">To submit</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">To submit</a></li>
 
                                         @elseif($viewProject->char_copyright_status == 'On process')
                                             <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
-                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">To submit</a></li>
-                                            <li><a href="#0" data-date="01/01/2019">On process</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">To submit</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('d/m/o')}}">On process</a></li>
+                                        @elseif($viewProject->char_copyright_status == 'Copyrighted')
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}" class="selected">Pending</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">To submit</a></li>
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('d/m/o')}}">On process</a></li> 
+                                            <li><a href="#0" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_copyrighted)->format('d/m/o')}}">Copyrighted</a></li>   
                                         @endif                                                                    
                                     </ol>
                                     <span class="filling-line" aria-hidden="true"></span>
@@ -65,7 +70,7 @@
                                         
                                     </li>
 
-                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">
                                         <h2>Copyright Status:<b> To Submit</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
                                         <p class="m-t-40">
                                             Your Document is to be submitted.
@@ -82,20 +87,51 @@
                                         </p>
                                        
                                     </li>
-                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('d/m/o')}}">
-                                        <h2>Copyright Status:<b> To submit</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_schedule)->format('l jS \of F Y g:i A')}}</small></h2>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> To submit</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l jS \of F Y g:i A')}}</small></h2>
                                         <p class="m-t-40">
                                             Your Document is to be submitted.
                                         </p>
                                         
                                     </li>
-                                    <li data-date="01/01/2019">
-                                        <h2>Copyright Status:<b> On process</b><br/><small>Jan 01</small></h2>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> On process</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('l jS \of F Y g:i A')}}</small></h2>
                                         <p class="m-t-40">
                                             Your document is now on process.                                    
                                         </p>
                                         
                                     </li>
+
+
+                                 @elseif($viewProject->char_copyright_status == 'Copyrighted')
+                                    <li class="selected" data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> Pending</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Application is currently on pending status, and is waiting for approval
+                                        </p>
+                                       
+                                    </li>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> To submit</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your Document is to be submitted.
+                                        </p>
+                                        
+                                    </li>
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> On process</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your document is now on process.                                    
+                                        </p>
+                                        
+                                    </li>  
+                                    <li data-date="{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_copyrighted)->format('d/m/o')}}">
+                                        <h2>Copyright Status:<b> Copyrighted</b><br/><small>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_copyrighted)->format('l jS \of F Y g:i A')}}</small></h2>
+                                        <p class="m-t-40">
+                                            Your document is already copyrighted.                                    
+                                        </p>
+                                        
+                                    </li>  
                                    
                                 @endif
                                
