@@ -49,9 +49,7 @@ class OnProcessController extends Controller
         \Notification::route('mail', $copyright->applicant->user->email)
             ->notify(new WorkCopyrighted);
         User::findOrFail($copyright->applicant->user->id)->notify(new WorkCopyrightedDb);
-        $promptMsg = "The work has been copyrighted!";
-        return redirect(route('transaction.copyright-on-process'))
-            ->with('success', $promptMsg);
+        return redirect(route('transaction.copyright-on-process'));
     }
 
     # PATENT
@@ -74,7 +72,7 @@ class OnProcessController extends Controller
 
     public function changeStatusToPatented(Request $request, $id)
     {
-        // change status from 'on process' to 'copyrighted'
+        // change status from 'on process' to 'patent'
         $patent = Patent::findOrFail($id);
         $patent->char_patent_status = 'patented';
         $patent->dtm_patented = now();
@@ -84,9 +82,7 @@ class OnProcessController extends Controller
                 ->notify(new WorkPatented);
             $userId = $patent->copyright->applicant->user->id;
             User::findOrFail($userId)->notify(new WorkPatentedDb); 
-            $promptMsg = 'The work has been patented!';
-            return redirect(route('transaction.patent-on-process'))
-                ->with('success', $promptMsg);
+            return redirect(route('transaction.patent-on-process'));
         }
     }
 }

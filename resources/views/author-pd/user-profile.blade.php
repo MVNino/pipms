@@ -21,7 +21,7 @@
         </div>
         <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}
-          {{-- @captcha() --}}
+          @captcha()
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Update</button>  
         </div>
@@ -107,7 +107,7 @@
           <h5 class="card-title">Edit Profile</h5>
         </div>
         <div class="card-body">
-          {!! Form::open(['action' => ['Author\ProfileController@updateAuthor', $author->int_id], 'method' => 'POST', 'onsubmit' => "return confirm('Edit your profile?')"]) !!}
+          {!! Form::open(['id' => 'formUpdateAuthor', 'action' => ['Author\ProfileController@updateAuthor', $author->int_id], 'method' => 'POST']) !!}
             @csrf
             <div class="row">
               <div class="col-md-4 pr-1">
@@ -229,10 +229,8 @@
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
-                @captcha
-                <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
-                {{-- <button type="button" onclick="updateProfile()" class="btn btn-primary btn-round">Update Profile</button>
-                <a class="btn btn-info" id="demoSwal" href="#">UPdate moto</a> --}}
+                {{-- @captcha --}}
+                <button type="button" id="demoSwal" class="btn btn-primary btn-round">Update Profile</button>
               </div>
             </div>
           {!! Form::close() !!}
@@ -243,32 +241,29 @@
 @endsection
 
 @section('pg-specific-js')
+{{-- Sweet Alert --}}
 <script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
 $('#demoSwal').click(function(){
   swal({
     title: "Are you sure?",
-    text: "You will not be able to recover this imaginary file!",
-    type: "warning",
+    text: "Your profile details will permanently change.",
+    type: "info",
     showCancelButton: true,
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel plx!",
+    confirmButtonText: "Yes, update my account!",
+    cancelButtonText: "Cancel",
     closeOnConfirm: false,
     closeOnCancel: false
   }, function(isConfirm) {
     if (isConfirm) {
-      swal("Deleted!", "Your imaginary file has been deleted.", "success");
-      $.post('',data,function(response){
-
-      }); 
-
+      $('#formUpdateAuthor').submit();
+      swal("Updated", "Your account has been updated!", "success");
     } else {
-      swal("Cancelled", "Your imaginary file is safe :)", "error");
+      swal("Cancelled", "The action has been cancelled!", "error");
     }
   });
 });
 </script>
-
 <!-- Plugins for this page -->
 <!-- ============================================================== -->
 <!-- jQuery file upload -->
