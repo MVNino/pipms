@@ -71,25 +71,32 @@
           </li>
         </ul>
       </li>
-      <li class="treeview" id="li-records"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">Records</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-        <ul class="treeview-menu">
-          <li><a class="treeview-item" href="/admin/records/copyrights">Copyrights</a></li>
-          <li><a class="treeview-item" href="/admin/records/patents">Patents</a></li>
-          <li><a class="treeview-item" href="/admin/records/applicants">Authors</a></li>
-        </ul>
-      </li>
       <li class="treeview" id="li-query"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-history"></i><span class="app-menu__label">Query</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li><a class="treeview-item" href="#"><i class="icon fa fa-user-o"></i> Query Monitor</a></li>
         </ul>
       </li>
-      <li class="treeview" id="li-report"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <li class="treeview" id="li-reports"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li>
-            <a class="treeview-item" href="#">Monthly Reports</a>
+            <a class="treeview-item" href="/admin/reports/copyrighted">
+              Copyrighted
+            </a>
           </li>
           <li>
-              <a class="treeview-item" href="{{ route('report.schedule-issues') }}">Schedule Issues</a>
+            <a class="treeview-item" href="/admin/reports/patented">
+              Patented
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/authors">
+              Authors
+            </a>
+          </li>
+          <li>
+              <a class="treeview-item" href="/admin/reports/schedule-issues">
+                Schedule Issues
+              </a>
           </li>
         </ul>
       </li>

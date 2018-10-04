@@ -3,7 +3,7 @@
 @section('content')
 	<div class="row">
        <!-- column -->
-	   @foreach($myProjects as $myProject)
+	   @forelse($myProjects as $myProject)
 	    <div class="col-lg-3 col-md-6">
 	        <!-- Card -->
 	        <div class="card">
@@ -47,7 +47,11 @@
             </div>
         </div>
         <!-- Card -->
-        @endforeach
+        @empty
+	        <div class="alert alert-warning">
+	          There is no record yet.
+	        </div>
+        @endforelse
     </div>
  </div>
 @endsection

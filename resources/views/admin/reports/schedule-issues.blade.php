@@ -6,10 +6,9 @@
   	of requirements for IPR registration</p>
 @endsection
 @section('breadcrumb-label')
-<li class="breadcrumb-item">Schedule</li>
 <li class="breadcrumb-item">
-  <a class="active" href="{{ route('report.schedule-issues') }}">
-    Appointment Issues
+  <a class="active" href="{{ route('reports.schedule-issues') }}">
+    Schedule Issues
   </a>
 </li>
 @endsection
@@ -25,8 +24,8 @@
 <!-- Page specific javascripts-->
 <script>
   $(document).ready(function(){
-    $('#li-report').addClass('is-expanded');
-    $('a[href="{{ route('report.schedule-issues') }}"]').addClass('active');
+    $('#li-reports').addClass('is-expanded');
+    $('a[href="/admin/reports/schedule-issues"]').addClass('active');
   });
 </script>
 @endsection

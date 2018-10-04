@@ -177,10 +177,6 @@
   </div>
 </div>
 
-@empty
-  @include('admin.includes.page-error')
-@endforelse
-
 <!-- Compliance modal -->
 <div class="modal fade" id="complianceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -217,6 +213,9 @@
   </div>
 </div> 
 <!-- /Compliance modal -->
+@empty
+  @include('admin.includes.page-error')
+@endforelse
 @endsection
 
 @section('pg-specific-js')

@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-copyright"></i> Copyrights</h1>
+<h1><i class="fa fa-copyright"></i> Copyrighted</h1>
   <p>Form of intellectual property protection</p>
 @endsection
 @section('breadcrumb-label')
-<li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/copyrights">Copyrights</a></li>
+<li class="breadcrumb-item">Reports</li>
+<li class="breadcrumb-item"><a href="{{ route('reports.copyrighted') }}">Copyrighted</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -34,7 +34,7 @@
               <td scope="row">{{ $copyright->created_at }}</td>
               <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
               <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
-              <td scope="row" class="text-center"><a href="/admin/records/copyright/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+              <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
               </tr>
               @empty  
                 <div class="alert alert-warning">
@@ -58,8 +58,8 @@
 <script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
-    $('#li-records').addClass('is-expanded');
-    $('a[href="/admin/records/copyrights"]').addClass('active');
+    $('#li-reports').addClass('is-expanded');
+    $('a[href="/admin/reports/copyrighted"]').addClass('active');
   });
 </script>
 @endsection

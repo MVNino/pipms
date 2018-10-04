@@ -25,15 +25,23 @@ class IPRApplicationController extends Controller
     
     public function viewIPRApplication()
     {
-        $projects = Project::all();
-        $projectTypes = ProjectType::all();
-        $requirements = Requirement::where('char_ipr', 'C')
-                ->get();
-        $pRequirements = Requirement::where('char_ipr', 'P')
-                ->get();
-        return view('author-pd.ipr-application', 
-            ['projects' => $projects, 'projectTypes' => $projectTypes, 
+        if(auth()->user()->applicant->int_department_id) {
+            $projects = Project::all();
+            $projectTypes = ProjectType::all();
+            $requirements = Requirement::where('char_ipr', 'C')
+                    ->get();
+            $pRequirements = Requirement::where('char_ipr', 'P')
+                    ->get();
+            return view('author-pd.ipr-application', 
+                ['projects' => $projects, 
+                'projectTypes' => $projectTypes, 
                 'requirements' => $requirements]);
+        } else {
+            // Error
+            $msgPrompt = 'Oops! Please update your profile account details 
+                first before proceeding to the application.';
+            return redirect()->back()->with('error', $msgPrompt);
+        }
     }
 
     public function viewPatentApplication($id)

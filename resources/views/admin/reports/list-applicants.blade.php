@@ -5,8 +5,8 @@
   <p>Authors of every project requests</p>
 @endsection
 @section('breadcrumb-label')
-<li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/applicants">Authors</a></li>
+<li class="breadcrumb-item">Reports</li>
+<li class="breadcrumb-item"><a href="{{ route('reports.authors') }}">Authors</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -49,8 +49,8 @@
 <script>$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
-    $('#li-records').addClass('is-expanded');
-    $('a[href="/admin/records/applicants"]').addClass('active');
+    $('#li-reports').addClass('is-expanded');
+    $('a[href="/admin/reports/authors"]').addClass('active');
   });
 </script>
 @endsection

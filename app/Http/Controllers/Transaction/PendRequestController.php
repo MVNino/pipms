@@ -27,7 +27,7 @@ class PendRequestController extends Controller
     public function listPendingCopyrightRequest()
     {
         $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'LIKE', '%pending%')
+            ->where('char_copyright_status', 'pending')
             ->get();
         return view('admin.transaction.copyright-pending', 
             ['copyrights' => $copyrights]);
@@ -36,7 +36,7 @@ class PendRequestController extends Controller
     public function viewPendingCopyrightRequest($id)
     {
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            // ->where('char_copyright_status', 'LIKE', '%pending%')
+            ->where('char_copyright_status', 'LIKE', '%pending%')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-pending', 
@@ -80,7 +80,7 @@ class PendRequestController extends Controller
     public function viewPendingPatentRequest($id)
     {  
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            // ->where('char_patent_status', 'LIKE', '%pending%')
+            ->where('char_patent_status', 'pending')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-pending', 

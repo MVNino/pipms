@@ -15,7 +15,7 @@
 @endif
 
 @if(session('error'))
-	<div class="alert alert-dismissible alert-danger">
+	<div class="alert alert-dismissible alert-danger alert-rounded">
         <button class="close" type="button" data-dismiss="alert">×</button>
 		{{session('error')}}
 	</div>
