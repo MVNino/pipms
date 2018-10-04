@@ -109,6 +109,8 @@ Route::group(
 							->name('maintenance.requirements');
 					Route::post('requirements', 
 							'RequirementController@addRequirement');
+					Route::get('requirement/{id}', 
+							'RequirementController@viewRequirement');
 				});
 			}
 		);

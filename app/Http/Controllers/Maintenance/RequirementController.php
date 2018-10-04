@@ -15,6 +15,11 @@ class RequirementController extends Controller
 				['requirements' => $requirements]);
 	}
 
+	public function viewRequirement($id)
+	{
+		return view('admin.maintenance.view-requirement');
+	}
+
 	public function addRequirement(Request $request)
 	{
 		$this->validate($request, [
