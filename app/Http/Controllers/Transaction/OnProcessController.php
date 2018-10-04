@@ -32,7 +32,7 @@ class OnProcessController extends Controller
     public function viewOnProcessCopyrightRequest($id)
     {
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            // ->where('char_copyright_status', 'LIKE', '%on-process%')
+            ->where('char_copyright_status', 'on process')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-on-process', 
@@ -65,7 +65,7 @@ class OnProcessController extends Controller
     public function viewOnProcessPatentRequest($id)
     {  
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            // ->where('char_patent_status', 'LIKE', '%on-process%')
+            ->where('char_patent_status','on process')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-on-process', 

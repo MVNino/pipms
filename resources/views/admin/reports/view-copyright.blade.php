@@ -6,9 +6,9 @@
   <p>Form of intellectual property protection</p>
 @endsection
 @section('breadcrumb-label')
-<li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/copyrights">Copyrights</a></li>
-<li class="breadcrumb-item"><a href="/admin/records/copyright/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a></li>
+<li class="breadcrumb-item">Reports</li>
+<li class="breadcrumb-item"><a href="{{ route('reports.copyrighted') }}">Copyrighted</a></li>
+<li class="breadcrumb-item"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -146,8 +146,8 @@
 <script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
-    $('#li-records').addClass('is-expanded');
-    $('a[href="/admin/records/copyrights"]').addClass('active');
+    $('#li-reports').addClass('is-expanded');
+    $('a[href="/admin/reports/copyrighted"]').addClass('active');
   });
 </script>
 @endsection

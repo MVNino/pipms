@@ -6,9 +6,9 @@
   <p>An exclusive right granted for an invention</p>
 @endsection
 @section('breadcrumb-label')
-<li class="breadcrumb-item">Records</li>
-<li class="breadcrumb-item"><a href="/admin/records/patents">Patents</a></li>
-<li class="breadcrumb-item"><a href="/admin/records/patent/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a></li>
+<li class="breadcrumb-item">Reports</li>
+<li class="breadcrumb-item"><a href="{{ route('reports.patented') }}">Patented</a></li>
+<li class="breadcrumb-item"><a href="/admin/reports/patented/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -116,37 +116,6 @@
     </div>
   </div>
 </div>  --}}<!-- /Message modal -->
-
-
-<!-- Approve modal -->
-<div class="modal fade" id="approveModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Set appointment for actual application</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! Form::open(['action' => ['TransactionController@setScheduleForPatent', $patent->int_id], 'method' => 'POST']) !!}
-
-        <div class="col-md-4 col-sm-4">
-          <label><strong>Set schedule</strong></label><br>
-          <input type="date" name="dateSchedule">
-          <input type="time" name="timeSchedule">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
-          {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-thumbs-up"></i> Approve</button>
-        </div>
-          @csrf
-        {!! Form::close() !!}
-      </div>
-    </div>
-  </div>
-</div> <!-- /Approve modal -->
 @empty
   @include('admin.includes.page-error')
 @endforelse
@@ -160,8 +129,8 @@
 <script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
-    $('#li-records').addClass('is-expanded');
-    $('a[href="/admin/records/patents"]').addClass('active');
+    $('#li-reports').addClass('is-expanded');
+    $('a[href="/admin/reports/patented"]').addClass('active');
   });
 </script>
 @endsection

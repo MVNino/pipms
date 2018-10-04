@@ -198,32 +198,37 @@ Route::group(
 			}
 		);
 
-		// Records module
+		# Query Module
+
+		# Reports Module
 		Route::group(
 			[
-				'prefix' => 'records'
+				'prefix' => 'reports'
 			],
 			function()
 			{
-				Route::namespace('Records')->group(function(){
-					Route::get('copyrights', 			'CopyrightController@listCopyrights');
-					Route::get('copyright/{id}', 		'CopyrightController@viewCopyright');
-					Route::get('patents', 				'PatentController@listPatents');	
-					Route::get('patent/{id}', 			'PatentController@viewPatent');	
-					Route::get('applicants', 			'ApplicantController@listApplicants');	
-					Route::get('applicant/{id}', 		'ApplicantController@viewApplicant');	
+				Route::namespace('Report')->group(function(){
+					Route::get('copyrighted',	
+						'CopyrightedController@listCopyrights')
+						->name('reports.copyrighted');
+					Route::get('copyrighted/{id}', 		
+						'CopyrightedController@viewCopyright');
+					Route::get('patented', 		
+						'PatentedController@listPatents')
+						->name('reports.patented');	
+					Route::get('patented/{id}', 			
+						'PatentedController@viewPatent');	
+					Route::get('authors', 		
+						'AuthorController@listApplicants')
+						->name('reports.authors');	
+					Route::get('author/{id}', 		
+						'AuthorController@viewApplicant');	
+					Route::get('schedule-issues', 
+						'ScheduleIssueController@listScheduleIssues')
+						->name('reports.schedule-issues');	
 				});
 			}
 		);
-
-		# Query Module
-		// Route::get('/query', 'QueryController@index');
-
-		# Report Module
-		Route::get('schedule/conflicts', 
-			'Admin\ScheduleController@listScheduleConflicts')
-			->name('report.schedule-issues');
-		// Route::get('/report', 'ReportController@index');
 	}
 );
 

@@ -25,7 +25,7 @@ class ToSubmitController extends Controller
     public function listToSubmitCopyrightRequest()
     { 
         $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'To submit')
+            ->where('char_copyright_status', 'to submit')
             ->where('dtm_schedule', '!=', null)
             ->orderBy('dtm_schedule')
             ->get();
@@ -35,11 +35,12 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitCopyrightRequest($id)
     {
-        $requirements = Requirement::where('char_ipr', 'C')->get();
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            // ->where('char_copyright_status', 'LIKE', '%to-submit%')
+            ->where('char_copyright_status', 'to submit')
+            ->where('dtm_schedule', '!=', NULL)
             ->where('int_id', $id)
             ->get();
+        $requirements = Requirement::where('char_ipr', 'C')->get();
         return view('admin.transaction.view-copyright-to-submit', 
             ['copyrightCollection' => $copyrightCollection, 
             'requirements' => $requirements]);
@@ -66,7 +67,7 @@ class ToSubmitController extends Controller
     public function listToSubmitPatentRequest()
     {
         $patents = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'To submit')
+            ->where('char_patent_status', 'to submit')
             ->where('dtm_schedule', '!=', null)
             ->orderBy('dtm_schedule')
             ->get();
@@ -77,7 +78,8 @@ class ToSubmitController extends Controller
     {  
         $requirements = Requirement::where('char_ipr', 'P')->get();
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            // ->where('char_patent_status', 'LIKE', '%to-submit%')
+            ->where('char_patent_status', 'to submit')
+            ->where('dtm_schedule', '!=', NULL)
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-to-submit', 

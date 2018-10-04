@@ -27,9 +27,4 @@ class ScheduleController extends Controller
 			->get();
 		return view('admin.schedule.today', ['copyrights' => $copyrights]);
 	}
-
-	public function listScheduleConflicts()
-	{
-		return view($this->viewPath.'conflicts');	
-	}
 }

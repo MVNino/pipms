@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Records;
+namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Copyright;
 use App\Patent;
 
-class CopyrightController extends Controller
+class CopyrightedController extends Controller
 {
     # Controller for Copyright records
     public function __construct()
@@ -17,7 +17,8 @@ class CopyrightController extends Controller
     public function listCopyrights()
     {
         $copyrights = Copyright::all();
-        return view('admin.records.list-copyrights', ['copyrights' => $copyrights]);
+        return view('admin.reports.list-copyrights', 
+        	['copyrights' => $copyrights]);
     }
 
     public function viewCopyright($id)
@@ -25,9 +26,7 @@ class CopyrightController extends Controller
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
-        return view('admin.records.view-copyright', 
+        return view('admin.reports.view-copyright', 
             ['copyrightCollection' => $copyrightCollection]);
     }
-
-
 }
