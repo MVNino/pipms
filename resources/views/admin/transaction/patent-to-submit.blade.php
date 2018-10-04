@@ -190,24 +190,37 @@
         </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>October 5</td>
-        <td><b>Zaidos for Patent</b></td>
-        <td><b>Mark Ciel - Student</b></td>
-        <td>BSHRDM - CBA - PUP Taguig</td>
-      </tr>
-      <tr>
-        <td>October 8</td>
-        <td><b>Signos</b></td>
-        <td><b>Dongding Tesdan - Graduate Student</b></td>
-        <td>BSOA - CBA - PUP San Juan</td>
-      </tr>
-      <tr>
-        <td>October 9</td>
-        <td><b>MakeUber Patent</b></td>
-        <td><b>Elyssa Mortel</b></td>
-        <td>BSIT - CCIS - PUP Main</td>
-      </tr>
+        @forelse($patents as $patent)
+          @if($patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) >= 4)
+          <tr>
+            <td>{{ $patent->dtm_schedule->format('F d') }}</td>
+            <td><b><a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                  {{ $patent->str_patent_project_title }}
+                  </a>
+                </b>
+            </td>
+            <td>
+              <b>{{ $patent->copyright->applicant->user->str_first_name }} 
+              {{ $patent->copyright->applicant->user->str_last_name }} - 
+              {{ $patent->copyright->applicant->char_applicant_type }}
+              </b>
+            </td>
+            <td>
+              <a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+              {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+              (<a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+                {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+                <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+                  {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+                </a>
+            </td>
+          </tr> 
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled future appointment/s.
+          </div>
+        @endforelse
       </tbody>
     </table>
   </div>

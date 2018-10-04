@@ -78,7 +78,7 @@
         <div class="card-header pb-0">
         <div class="row">
           <div class="col-md-10">
-            <h4>College details</h4>
+            <h4>College Details</h4>
           </div>
           <div class="col-md-2">
             <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p>

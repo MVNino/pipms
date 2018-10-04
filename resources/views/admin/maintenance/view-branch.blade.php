@@ -67,7 +67,7 @@
         <div class="card-header pb-0">
         <div class="row">
           <div class="col-md-10">
-            <h4>Branch details</h4>
+            <h4>Branch Details</h4>
           </div>
           <div class="col-md-2">
             <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-edit"></i>Edit</button></p>

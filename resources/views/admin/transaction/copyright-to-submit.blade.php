@@ -192,24 +192,37 @@
         </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>October 5</td>
-        <td><b>Zaidos</b></td>
-        <td><b>Mark Ciel - Student</b></td>
-        <td>BSHRDM - CBA - PUP Taguig</td>
-      </tr>
-      <tr>
-        <td>October 8</td>
-        <td><b>Signos</b></td>
-        <td><b>Dongding Tesdan - Graduate Student</b></td>
-        <td>BSOA - CBA - PUP San Juan</td>
-      </tr>
-      <tr>
-        <td>October 9</td>
-        <td><b>MakeUber</b></td>
-        <td><b>Elyssa Mortel</b></td>
-        <td>BSIT - CCIS - PUP Main</td>
-      </tr>
+        @forelse($copyrights as $copyright)
+          @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) >= 4)
+          <tr>
+            <td>{{ $copyright->dtm_schedule->format('F d') }}</td>
+            <td><b><a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                  {{ $copyright->str_project_title }}
+                  </a>
+                </b>
+            </td>
+            <td>
+              <b>{{ $copyright->applicant->user->str_first_name }} 
+              {{ $copyright->applicant->user->str_last_name }} - 
+              {{ $copyright->applicant->char_applicant_type }}
+              </b>
+            </td>
+            <td>
+              <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+              {{ $copyright->applicant->department->char_department_code }}</a> 
+              (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+                {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+                <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+                  {{ $copyright->applicant->department->college->branch->str_branch_name }})
+                </a>
+            </td>
+          </tr> 
+          @endif
+        @empty
+          <div class="alert alert-info">
+            There is no scheduled future appointment/s.
+          </div>
+        @endforelse
       </tbody>
     </table>
   </div>
