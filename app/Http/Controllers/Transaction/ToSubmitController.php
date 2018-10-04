@@ -37,6 +37,7 @@ class ToSubmitController extends Controller
     {
         $requirements = Requirement::where('char_ipr', 'C')->get();
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
+            // ->where('char_copyright_status', 'LIKE', '%to-submit%')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-copyright-to-submit', 
@@ -76,6 +77,7 @@ class ToSubmitController extends Controller
     {  
         $requirements = Requirement::where('char_ipr', 'P')->get();
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
+            // ->where('char_patent_status', 'LIKE', '%to-submit%')
             ->where('int_id', $id)
             ->get();
         return view('admin.transaction.view-patent-to-submit', 

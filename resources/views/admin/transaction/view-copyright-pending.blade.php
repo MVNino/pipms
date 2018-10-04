@@ -236,7 +236,7 @@
           <input type="time" id="timeSched" name="timeSchedule" class="form-control">
         </div>
       </div>
-      <br><br><br>        
+      <br>        
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           <i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel
