@@ -23,11 +23,11 @@
               <h4>Patent Details</h4>
             </div>
             <div class="col-md-3">
-              {!! Form::open(['action' => ['Transaction\OnProcessController@changeStatusToPatented', $patent->int_id], 
-                'method' => 'POST', 'onsubmit' => "return confirm('Grant patent for this work?')"]) !!}
+              {!! Form::open(['id' => 'formGrantPatent', 'action' => ['Transaction\OnProcessController@changeStatusToPatented', $patent->int_id], 
+                'method' => 'POST']) !!}
                 @csrf
                 {{ Form::hidden('_method', 'PUT') }}
-                <button type="submit" class="btn btn-primary mb-1 float-right">Grant Patent</button>
+                <button type="button" id="demoSwal" class="btn btn-primary mb-1 float-right">Grant Patent</button>
               {!! Form::close() !!}
             </div>
           </div>
@@ -179,48 +179,34 @@
     </div>
   </div>
 </div>
-
 @empty
   @include('admin.includes.page-error')
 @endforelse
-
-<!-- Compliance modal -->
-<div class="modal fade" id="complianceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Complied to Requirements</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {!! Form::open(['action' => ['Transaction\ToSubmitController@changePatentStatusToOnProcess', $patent->int_id], 
-        'method' => 'POST', 'autocomplete' => 'off']) !!}
-          @csrf
-          Applicant mush have these!
-          REQUIREMENTS REMINDER! 
-      </div>
-      <div class="modal-footer">
-          {{ Form::hidden('_method', 'PUT') }}
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Complied</button>
-        {!! Form::close() !!}
-      </div>
-    </div>
-  </div>
-</div> 
-<!-- /Compliance modal -->
 @endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
-<script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
-$('#demoDate').datepicker({
-  format: "yyyy-mm-dd",
-  autoclose: true,
-  todayHighlight: true
+$('#demoSwal').click(function(){
+  swal({
+    title: "Grant patent for this work?",
+    text: "Grant patent protection for this work.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, grant it!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formGrantPatent').submit();
+      swal("Patented", "This work has been patented!", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
 });
 </script>
 <script>

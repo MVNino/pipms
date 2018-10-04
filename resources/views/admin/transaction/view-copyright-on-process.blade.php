@@ -23,11 +23,11 @@
               <h4>Copyright Details</h4>
             </div>
             <div class="col-md-3">
-              {!! Form::open(['action' => ['Transaction\OnProcessController@changeStatusToCopyrighted', $copyright->int_id], 
-                'method' => 'POST', 'onsubmit' => "return confirm('Copyright this work?')"]) !!}
+              {!! Form::open(['id' => 'formGrantCopyright', 'action' => ['Transaction\OnProcessController@changeStatusToCopyrighted', $copyright->int_id], 
+                'method' => 'POST']) !!}
                 @csrf
                 {{ Form::hidden('_method', 'PUT') }}
-                <button type="submit" class="btn btn-primary mb-1 float-right">Grant Copyright</button>
+                <button type="button" id="demoSwal" class="btn btn-primary mb-1 float-right">Grant Copyright</button>
               {!! Form::close() !!}
             </div>
           </div>
@@ -221,12 +221,27 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
-<script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
-$('#demoDate').datepicker({
-  format: "yyyy-mm-dd",
-  autoclose: true,
-  todayHighlight: true
+$('#demoSwal').click(function(){
+  swal({
+    title: "Copyright this work?",
+    text: "Grant copyright protection for this work.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, copyright it!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formGrantCopyright').submit();
+      swal("Copyrighted", "This work has been copyrighted!", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
 });
 </script>
 <script>

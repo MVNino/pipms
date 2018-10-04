@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-{!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit request form?')"]) !!}
+{!! Form::open(['id' => 'formCopyright', 'action' => 'Author\IPRApplicationController@storeCopyrightRequest', 
+	'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 @csrf
 {{-- GIVE OPTION IF REUSE CoAuthors! Fix js issue --}}
 <div class="card">
@@ -195,7 +196,9 @@
 			</div>
 			<div class="col-md-4 col-sm-2">
 				@captcha
-				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">Submit</button>
+				<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">
+				Submit
+				</button>
 			</div>
 			<div class="col-md-4 col-sm-5">
 				<span></span>
@@ -285,6 +288,31 @@ $(document).ready(function() {
             drDestroy.init();
         }
     })
+});
+</script>
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Submit application form?",
+    text: "An application form for copyright registration.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, submit my form!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formCopyright').submit();
+      swal("Submitted", 
+      	"Your application form for copyright registration has been submitted!", 
+      	"success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
 });
 </script>
 @endsection

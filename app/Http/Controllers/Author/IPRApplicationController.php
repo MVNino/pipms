@@ -104,7 +104,7 @@ class IPRApplicationController extends Controller
         // $user->notify(ApplicantRequests($txtFirstName, $txtLastName, $department));
 
         \Notification::send($user, new ApplicantRequests(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-            return redirect()->back()->with('success', 'Submitted!');
+            return redirect()->back();
         }
 	}
 
@@ -157,7 +157,7 @@ class IPRApplicationController extends Controller
         $user = User::findOrFail($userId);
         
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-        return redirect()->back()->with('success', 'Request for patent registration submitted!');
+        return redirect()->back();
         }
     }
 

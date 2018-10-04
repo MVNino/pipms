@@ -84,7 +84,7 @@ class ProfileController extends Controller
     		$applicant->mdmInt_telephone_number = $request->txtTelephoneNumber;
     		$applicant->str_home_address = $request->txtHomeAddress;
     		if ($applicant->save()) {
-    			return redirect()->back()->with('success', 'Account updated!');
+    			return redirect()->back();
     		}
     	}
      }
