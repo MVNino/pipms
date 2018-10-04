@@ -63,28 +63,4 @@
 		swal("Restricted!", "No. Not yet!", "warning");
 	});
 </script>
-
-<script>
-$('#demoSwal').click(function(){
-  swal({
-    title: "Submit application form?",
-    text: "An application form for copyright registration.",
-    type: "info",
-    showCancelButton: true,
-    confirmButtonText: "Yes, submit my form!",
-    cancelButtonText: "Cancel",
-    closeOnConfirm: false,
-    closeOnCancel: false
-  }, function(isConfirm) {
-    if (isConfirm) {
-      $('#formCopyright').submit();
-      swal("Submitted", 
-      	"Your application form for copyright registration has been submitted!", 
-      	"success");
-    } else {
-      swal("Cancelled", "The action has been cancelled!", "error");
-    }
-  });
-});
-</script>
 @endsection
