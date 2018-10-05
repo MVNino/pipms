@@ -10,13 +10,118 @@
 <li class="breadcrumb-item"><a href="/admin/maintenance/requirement/{id}">View Requirement</a></li>
 @endsection
 @section('content')
-  <h3>DEV HERE! query ka sa controller nito, tapos ang content dapat ay 
-    ung related sa requirement(requirement itself, 
-    tapos i show ung other requirements na ka 
-    classification niya(example: copyright) sa right side section.. 
-    tapos dapat pwedeng iedit ung requirement record na to(modal)</h3>
-    <p>basta copy paste ka nalang sa content ng ibang maintenance dito..
-      paggagayahan mo ng hitsura & structure kumbaga</p>
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-light">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Requirement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                {!! Form::open(['action' => ['Maintenance\RequirementController@updateRequirement', $requirement->int_id], 'method' => 'POST']) !!}
+                @csrf
+                <div class="form-group">
+                  {{Form::label('lblRequirement', 'Requirement', ['style' => 'font-weight: bold'])}}
+                  {{Form::textarea('txtAreaRequirement', $requirement->str_requirement, ['class' => 'form-control', 'placeholder' => "Enter requirement", 'rows' => '4'])}}
+                </div>
+                <div class="row form-group justify-content-center">
+                  <div class="col-md-12 col-sm-12">
+                    <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
+
+                    <div class="animated-radio-button form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input form-control" type="radio" name="radioIPR" value="C" required><span class="label-text">Copyright</span>
+                      </label>
+                    </div>
+                    <div class="animated-radio-button form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input form-control" type="radio" name="radioIPR" value="P" required><span class="label-text">Patent</span>
+                      </label>
+                    </div>
+                  </div>
+                </div><br>
+                {{ Form::hidden('_method', 'PUT') }}
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>  
+                </div>
+                {!! Form::close() !!}
+              </div>
+            </div>
+          </div>
+        </div> <!-- /Edit branch modal -->
+
+        <div class="row">
+          <div class="col-md-7">    
+            <div class="bs-component">
+              <div class="card">
+                <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h4>Requirement Details</h4>
+                  </div>
+                  <div class="col-md-2">
+                    <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-edit"></i>Edit</button></p>
+                  </div> 
+                </div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ $requirement->str_requirement }}</h5>
+                </div>
+                <div class="card-body">
+                @if($requirement->char_ipr == 'P')
+                <p class="card-text"><strong>Intellectual Property Rights:</strong> Patent</p>
+                @else
+                <p class="card-text"><strong>Intellectual Property Rights:</strong> Copyright</p>
+                @endif
+                  @if($requirement->updated_at == $requirement->created_at)
+                    <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
+                  @else
+                  <p><strong>Record last updated at:</strong> {{ $requirement->updated_at }}</p>
+                  @endif
+                </div>
+                <div class="card-footer text-muted"><strong>Date added:</strong> {{ $requirement->created_at }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="bs-component">
+              <div class="card">
+                <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Other Requirement/s</h4>
+                  </div> 
+                </div>
+                </div>
+                <div class="card-body">
+                    <div class="bs-component">
+                    <div class="list-group">
+                    @if($requirement->char_ipr == 'P')
+                      @forelse($requirements as $requirement)
+                      <a class="list-group-item list-group-item-action" href="/admin/maintenance/requirement/{{ $requirement->int_id }}"><strong>{{ $requirement->str_requirement }}</a>
+                      @empty
+                      <a class="list-group-item list-group-item-action disabled" href="#">There is no requirement related to this yet.</a>
+                      @endforelse
+                    @else
+                      @forelse($reqs as $req)
+                      <a class="list-group-item list-group-item-action" href="/admin/maintenance/requirement/{{ $requirement->int_id }}"><strong>{{ $req->str_requirement }}</a>
+                      @empty
+                      <a class="list-group-item list-group-item-action disabled" href="#">There is no requirement related to this yet.</a>
+                      @endforelse
+                    @endif
+                    </div>
+                    </div>
+                  </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+
+
 @endsection
 
 @section('pg-specific-js')
