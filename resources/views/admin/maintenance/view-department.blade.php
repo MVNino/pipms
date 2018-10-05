@@ -99,10 +99,27 @@
           <label><strong>College: </strong><a href="/admin/maintenance/college/{{ $department->int_college_id }}">{{ $department->college->str_college_name }}</a></label><br/>
           <label><strong>Branch: </strong><a href="/admin/maintenance/branch/{{ $department->college->branch->int_id }}">{{ $department->college->branch->str_branch_name }}</a></label><br/>
           <p class="card-text"><strong>Description:</strong> {{ $department->mdmTxt_department_description }}</p>
-          <p><strong>Last updated:</strong> {{ $department->updated_at }}</p>
+
+          @if($department->updated_at == $department->created_at)
+            <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
+          @else
+          <p>
+            <strong>Record last updated at:</strong> 
+            @if($department->updated_at->diffInDays(Carbon\Carbon::now()) < 2)
+              {{ $department->updated_at->format('M d - g:i A') }}
+            @else
+              {{ $department->updated_at->format('M d Y - g:i A') }}
+            @endif          
+          </p>
+          @endif
         </div>
         <div class="card-footer text-muted">
-          <strong>Date added:</strong> {{ $department->created_at }}
+          <strong>Date added:</strong> 
+          @if($department->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+            {{ $department->created_at->format('M d - g:i A') }}
+          @else
+            {{ $department->created_at->format('M d Y - g:i A') }}
+          @endif
         </div>
       </div>
     </div>

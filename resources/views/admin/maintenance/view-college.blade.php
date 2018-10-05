@@ -107,10 +107,23 @@
           @if($college->updated_at == $college->created_at)
             <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
           @else
-          <p><strong>Record last updated at:</strong> {{ $college->updated_at }}</p>
+          <p>
+            <strong>Record last updated at:</strong> 
+            @if($college->updated_at->diffInDays(Carbon\Carbon::now()) < 2)
+              {{ $college->updated_at->format('M d - g:i A') }}
+            @else
+              {{ $college->updated_at->format('M d Y - g:i A') }}
+            @endif          
+          </p>
           @endif
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> {{ $college->created_at }}</div>
+        <div class="card-footer text-muted"><strong>Date added:</strong> 
+            @if($college->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+              {{ $college->created_at->format('M d - g:i A') }}
+            @else
+              {{ $college->created_at->format('M d Y - g:i A') }}
+            @endif
+        </div>
       </div>
     </div>
   </div>

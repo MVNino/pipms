@@ -18,10 +18,13 @@ class RequirementController extends Controller
 
 	public function viewRequirement($id)
 	{
-		$requirements = Requirement::all()->where('char_ipr', 'P');
-		$reqs = Requirement::all()->where('char_ipr', 'C');
 		$requirement = Requirement::findOrFail($id);
-		return view('admin.maintenance.view-requirement', ['requirement' => $requirement, 'requirements' => $requirements, 'reqs' => $reqs ]);
+        $requirements = Requirement::where('char_ipr', 
+        	$requirement->char_ipr)
+        	->get();
+		return view('admin.maintenance.view-requirement', 
+			['requirement' => $requirement, 
+			'requirements' => $requirements]);
 
 	}
 

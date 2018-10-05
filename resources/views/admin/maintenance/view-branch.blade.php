@@ -96,10 +96,22 @@
           @if($branch->updated_at == $branch->created_at)
             <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
           @else
-          <p><strong>Record last updated at:</strong> {{ $branch->updated_at }}</p>
+          <p><strong>Record last updated at:</strong> 
+            @if($branch->updated_at->diffInDays(Carbon\Carbon::now()) < 2)
+              {{ $branch->updated_at->format('M d - g:i A') }}
+            @else
+              {{ $branch->updated_at->format('M d Y - g:i A') }}
+            @endif
+          </p>
           @endif
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> {{ $branch->created_at }}</div>
+        <div class="card-footer text-muted"><strong>Date added:</strong> 
+          @if($branch->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+            {{ $branch->created_at->format('M d - g:i A') }}
+          @else
+            {{ $branch->created_at->format('M d Y - g:i A') }}
+          @endif
+        </div>
       </div>
     </div>
   </div>
