@@ -56,7 +56,7 @@ class WorkCopyrightedDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Congratulations! Your work have been copyrighted and published by the National Library.'
+            'data' => 'Congratulations! Your work have been <b>copyrighted and published</b> by the National Library.'
         ];
     }
 }

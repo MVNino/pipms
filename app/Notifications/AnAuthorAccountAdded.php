@@ -57,7 +57,8 @@ class AnAuthorAccountAdded extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => $this->firstName.' '.$this->lastName.' registered as an author account owner.'
+            'data' => '<b>'.$this->firstName.' '.$this->lastName.
+                '</b> is now a registered author account owner.'
         ];
     }
 }
