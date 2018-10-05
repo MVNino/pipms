@@ -10,7 +10,7 @@
 <div class="row justify-content-center">
 
     <div class="col-md-8">
-{!! Form::open(['action' => ['Transaction\RegisterAuthorController@grantAuthorAccount', $applicant->int_id], 'method' => 'POST', 'onsubmit' => "return confirm('Submit your author account registration form?')"]) !!}
+{!! Form::open(['id' => 'formAuthReg', 'action' => ['Transaction\RegisterAuthorController@grantAuthorAccount', $applicant->int_id], 'method' => 'POST']) !!}
 	@csrf
       <div class="tile">
         <div class="tile-body">
@@ -73,7 +73,7 @@
 				<div class="col-md-4 col-sm-4">
 					{{ Form::hidden('_method', 'PUT') }}
 					@captcha()
-					<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
+					<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em"><i class="fa fa-envelope" style="font-size: 20px;"></i>Submit</button>
 				</div>
 				<div class="col-md-4 col-sm-4">
 					<span></span>
@@ -85,3 +85,29 @@
 </div>
 </div>
 </div>
+	
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Submit your author account registration form?",
+    text: "A registration form for an author account.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, submit my form!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formAuthReg').submit();
+      swal("Submitted", 
+      	"Your registration form for an author account has been submitted!", 
+      	"success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
