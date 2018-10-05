@@ -55,7 +55,7 @@ class RequestOnProcessDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Your request for copyright registration is now on process.'
+            'data' => 'Your request for copyright registration is now <b>on process</b>.'
         ];
     }
 }

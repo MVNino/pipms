@@ -56,7 +56,7 @@ class WorkPatentedDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Congatulations! Your work have been registered for patent.'
+            'data' => 'Congatulations! Your work have been <b>registered for patent</b>.'
         ];
     }
 }

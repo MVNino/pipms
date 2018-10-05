@@ -1,10 +1,8 @@
 @extends('author-pd.layouts.app')
 
+
 @section('content')
 <div class="card">
-	<div class="card-header">
-		<h3>Notification Page</h3>
-	</div>
 	<div class="card-body">
 		<ul class="nav nav-tabs">
 		    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all">All</a></li>
@@ -13,42 +11,154 @@
 		</ul>
 		<div class="tab-content" id="myTabContent">
 		    <div class="tab-pane fade active show" id="all">
-		    	<ul>
-		    		<li>
-		    			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		    		</li>
-		    		<li>
-		    			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		    		</li>
-		    		<li>
-		    			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		    		</li>
-		    		<li>
-		    			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		    		</li>
-		    		<li>
-		    			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		    		</li>
-		    		<li>
-		    			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		    		</li>
-		    	</ul>
+		        <div class="bs-component">
+		          <div class="list-group">
+		            @forelse(auth()->user()->notifications as $notification)
+			            @if($notification->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+	                      @if($notification->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+	                        @if($notification->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>An hour ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @else
+	                        @if($notification->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>A minute ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago
+				            	</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @endif                    
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+	                	<label class="list-group-item list-group-item-action">
+			            	<strong>Yesterday, {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+			            </label>
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>2 days ago at {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+				        </label>
+	                    @else
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>{{ $notification->created_at->format('M d')}}</strong> - {!! $notification->data['data'] !!}
+				        </label>  
+	                    @endif
+	 
+		            @empty
+		            <a class="list-group-item list-group-item-action disabled" href="#">
+		            	There is no notification yet.
+		            </a>
+		            @endforelse
+		          </div>
+		        </div>
 		    </div>
 		    <div class="tab-pane fade" id="unread">
-		      <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+		        <div class="bs-component">
+		          <div class="list-group">
+		            @forelse(auth()->user()->unReadNotifications as $notification)
+			            @if($notification->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+	                      @if($notification->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+	                        @if($notification->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>An hour ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @else
+	                        @if($notification->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>A minute ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago
+				            	</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @endif                    
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+	                	<label class="list-group-item list-group-item-action">
+			            	<strong>Yesterday, {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+			            </label>
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>2 days ago at {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+				        </label>
+	                    @else
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>{{ $notification->created_at->format('M d')}}</strong> - {!! $notification->data['data'] !!}
+				        </label>  
+	                    @endif
+	 
+		            @empty
+		            <label class="list-group-item list-group-item-action disabled" href="#">
+		            	There is no notification yet.
+		            </label>
+			          		
+		            @endforelse
+		          </div>
+		        </div>
 		    </div>
 		    <div class="tab-pane fade" id="read">
-		    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		    	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		    	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		    	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		        <div class="bs-component">
+		          <div class="list-group">
+		            @forelse(auth()->user()->readNotifications as $notification)
+			            @if($notification->created_at->diffInDays(Carbon\Carbon::now()) == 0)
+	                      @if($notification->created_at->diffInHours(Carbon\Carbon::now()) > 0)
+	                        @if($notification->created_at->diffInHours(Carbon\Carbon::now()) == 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>An hour ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInHours(Carbon\Carbon::now()) }} hours ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @else
+	                        @if($notification->created_at->diffInMinutes(Carbon\Carbon::now()) <= 1)
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>A minute ago</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @else
+	                        <label class="list-group-item list-group-item-action">
+				            	<strong>{{ $notification->created_at->diffInMinutes(Carbon\Carbon::now()) }} minutes ago
+				            	</strong> - {!! $notification->data['data'] !!}
+				            </label>
+	                        @endif
+	                      @endif                    
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 1)
+	                	<label class="list-group-item list-group-item-action">
+			            	<strong>Yesterday, {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+			            </label>
+	                    @elseif($notification->created_at->diffInDays(Carbon\Carbon::now()) == 2)
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>2 days ago at {{ $notification->created_at->format('h:i:A') }}</strong> - {!! $notification->data['data'] !!}
+				        </label>
+	                    @else
+	                    <label class="list-group-item list-group-item-action">
+			            	<strong>{{ $notification->created_at->format('M d')}}</strong> - {!! $notification->data['data'] !!}
+				        </label>  
+	                    @endif
+	 
+		            @empty
+		            <label class="list-group-item list-group-item-action disabled" href="#">
+		            	There is no notification yet.
+		            </label>	
+		            @endforelse
+		          </div>
+		        </div>
 		    </div>
 		</div>
-	</div>
-	<div class="card-footer">
-
 	</div>
 </div>
 @endsection
