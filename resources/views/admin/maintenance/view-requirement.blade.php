@@ -29,17 +29,28 @@
                 <div class="row form-group justify-content-center">
                   <div class="col-md-12 col-sm-12">
                     <label><strong>Intellectual Property Rights Classification:</strong></label><br/>
+                    <div class="animated-radio-button form-check form-check-inline">
+                      <label class="form-check-label">
+                        @if($requirement->char_ipr == 'C')
+                        <input class="form-check-input" type="radio" name="radioProjectType" value="C" checked required><span class="label-text">Copyright</span>
+                        @else
+                        <input class="form-check-input" type="radio" name="radioProjectType" value="C" required><span class="label-text">Copyright</span>
+                        @endif
+                      </label>
+                    </div>
+                    <div class="animated-radio-button form-check form-check-inline">
+                      <label class="form-check-label">
+                        @if($requirement->char_ipr == 'P')
+                        <input class="form-check-input" type="radio" name="radioProjectType" value="P" checked required>
+                          <span class="label-text">Patent</span>
+                        @else
+                        <input class="form-check-input" type="radio" name="radioProjectType" value="P" required>
+                          <span class="label-text">Patent</span>
+                        @endif
+                      </label>
+                    </div>
 
-                    <div class="animated-radio-button form-check form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input form-control" type="radio" name="radioIPR" value="C" required><span class="label-text">Copyright</span>
-                      </label>
-                    </div>
-                    <div class="animated-radio-button form-check form-check-inline">
-                      <label class="form-check-label">
-                        <input class="form-check-input form-control" type="radio" name="radioIPR" value="P" required><span class="label-text">Patent</span>
-                      </label>
-                    </div>
+
                   </div>
                 </div><br>
                 {{ Form::hidden('_method', 'PUT') }}
@@ -79,10 +90,22 @@
                   @if($requirement->updated_at == $requirement->created_at)
                     <p><strong>Record last updated at: </strong>Same as the date it was added.</p>
                   @else
-                  <p><strong>Record last updated at:</strong> {{ $requirement->updated_at }}</p>
+                  <p><strong>Record last updated at:</strong> 
+                    @if($requirement->updated_at->diffInDays(Carbon\Carbon::now()) < 2)
+                      {{ $requirement->updated_at->format('M d - g:i A') }}
+                    @else
+                      {{ $requirement->updated_at->format('M d Y - g:i A') }}
+                    @endif
+                  </p>
                   @endif
                 </div>
-                <div class="card-footer text-muted"><strong>Date added:</strong> {{ $requirement->created_at }}</div>
+                <div class="card-footer text-muted"><strong>Date added:</strong> 
+                  @if($requirement->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+                    {{ $requirement->created_at->format('M d - g:i A') }}
+                  @else
+                    {{ $requirement->created_at->format('M d, Y') }}
+                  @endif
+                </div>
               </div>
             </div>
           </div>
@@ -92,30 +115,23 @@
                 <div class="card-header pb-0">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4>Other Requirement/s</h4>
+                    <h4>Related Requirements</h4>
                   </div> 
                 </div>
                 </div>
                 <div class="card-body">
-                    <div class="bs-component">
+                  <div class="bs-component">
                     <div class="list-group">
-                    @if($requirement->char_ipr == 'P')
-                      @forelse($requirements as $requirement)
-                      <a class="list-group-item list-group-item-action" href="/admin/maintenance/requirement/{{ $requirement->int_id }}"><strong>{{ $requirement->str_requirement }}</a>
-                      @empty
-                      <a class="list-group-item list-group-item-action disabled" href="#">There is no requirement related to this yet.</a>
-                      @endforelse
-                    @else
-                      @forelse($reqs as $req)
-                      <a class="list-group-item list-group-item-action" href="/admin/maintenance/requirement/{{ $requirement->int_id }}"><strong>{{ $req->str_requirement }}</a>
-                      @empty
-                      <a class="list-group-item list-group-item-action disabled" href="#">There is no requirement related to this yet.</a>
-                      @endforelse
-                    @endif
-                    </div>
+                    @foreach($requirements as $req)
+                      @if($req->str_requirement != $requirement->str_requirement)
+                        <a class="list-group-item list-group-item-action" href="/admin/maintenance/requirement/{{ $req->int_id }}">
+                          <strong>{{ $req->str_requirement }}</strong>
+                        </a>
+                      @endif
+                    @endforeach
                     </div>
                   </div>
-            
+                </div>
               </div>
             </div>
           </div>

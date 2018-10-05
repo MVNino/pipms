@@ -1,7 +1,10 @@
 <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/storage/images/profile/{{ auth()->user()->str_user_image_code }}" alt="User Image" style="height: 48px; width: 48px;">
+    <div class="app-sidebar__user">
+      <a href="/admin/user-profile">
+      <img class="app-sidebar__user-avatar" src="/storage/images/profile/{{ auth()->user()->str_user_image_code }}" alt="User Image" style="height: 48px; width: 48px;">
+      </a>
       <div>
         <p class="app-sidebar__user-name">{{ auth()->user()->str_first_name }} {{ auth()->user()->str_last_name }}</p>
         <p class="app-sidebar__user-designation" style="color: gold;">Administrator</p>

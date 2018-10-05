@@ -110,10 +110,22 @@
           @if($project->updated_at == $project->created_at)
           <p><strong>Last updated: </strong>Same as the date it was created</p>
           @else
-          <p><strong>Last updated:</strong> {{ $project->updated_at }}</p>
+          <p><strong>Last updated:</strong>  
+            @if($project->updated_at->diffInDays(Carbon\Carbon::now()) < 2)
+              {{ $project->updated_at->format('M d - g:i A') }}
+            @else
+              {{ $project->updated_at->format('M d Y - g:i A') }}
+            @endif
+          </p>
           @endif
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> {{ $project->created_at }}</div>
+        <div class="card-footer text-muted"><strong>Date added:</strong>  
+          @if($project->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+            {{ $project->created_at->format('M d - g:i A') }}
+          @else
+            {{ $project->created_at->format('M d Y - g:i A') }}
+          @endif
+        </div>
       </div>
     </div>
   </div>
