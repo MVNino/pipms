@@ -8,27 +8,21 @@
 @section('content')
 <div class="row">
 <div class="col-md-3"><a class="mb-2 btn btn-danger btn-block" href="">Compose Mail</a>
-	<div class="card">
-		<div class="card-body">
-		  <div class="tile p-0">
-		    <h4 class="tile-title folder-head">Folders</h4>
-		    <div class="tile-body">
-		      <ul class="nav nav-pills flex-column mail-nav">
-		        <li class="nav-item active"><a class="nav-link text-danger" href="#"><i class="fa fa-inbox fa-fw"></i> Inbox<span class="badge badge-pill badge-danger float-right">12</span></a></li>
-		        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-		        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-file-text-o fa-fw"></i> Drafts</a></li>
-		        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-filter fa-fw"></i> Junk <span class="badge badge-pill badge-danger float-right">8</span></a></li>
-		        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
-		      </ul>
-		    </div>
-		  </div>	
-		</div>
-	</div>
+  <div class="card p-0">
+    <h4 class="card-title folder-head">Folders</h4>
+    <div class="card-body">
+      <ul class="nav nav-pills flex-column mail-nav">
+        <li class="nav-item active"><a class="nav-link text-danger" href="#"><i class="fa fa-inbox fa-fw"></i> Inbox<span class="badge badge-pill badge-danger float-right">12</span></a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-file-text-o fa-fw"></i> Drafts</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-filter fa-fw"></i> Junk <span class="badge badge-pill badge-danger float-right">8</span></a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="#"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
+      </ul>
+    </div>
+  </div>		
 </div>
 <div class="col-md-9">
-	<div class="card">
-		<div class="card-body">
-  <div class="tile">
+  <div class="card">
     <div class="mailbox-controls">
       <div class="animated-checkbox">
         <label>
@@ -167,9 +161,6 @@
       </div>
     </div>
   </div>
-
-		</div>
-	</div>
 </div>
 </div>
 @endsection

@@ -182,7 +182,7 @@
       <div class="card-header pb-0">
       <div class="row">
         <div class="col-md-12">
-          <h4>Uploaded files</h4>
+          <h4>Uploaded Files</h4>
         </div> 
       </div>
       </div>

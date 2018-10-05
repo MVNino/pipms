@@ -31,10 +31,11 @@
                         <div id="my-tab-content" class="tab-content text-center">
                             <div class="tab-pane active" id="copyright" role="tabpanel">
                                 <h3 class="text-muted"><strong>Copyright Timeline</strong></h3>
+                                <h4 class="text-muted"><strong>({{ $viewProject->str_project_title }})</strong></h4>
                                 <ul class="timeline">
                                     @if($viewProject->char_copyright_status == 'pending')
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-bolt"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
@@ -110,21 +111,34 @@
                                             </div>
                                         </li>
 
-                                    @elseif($viewProject->char_copyright_status == 'copyrighted')    
+                                    @elseif($viewProject->char_copyright_status == 'copyrighted')  
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                    <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
@@ -136,7 +150,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>On process</b></h4>
@@ -148,7 +162,7 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge info"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge info"><i class="fa fa-copyright"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Copyrighted</b></h4>
@@ -165,6 +179,7 @@
                             @if($viewProject->patent)
                             <div class="tab-pane" id="patent" role="tabpanel">
                                 <h3 class="text-muted"><strong>Patent Timeline</strong></h3>
+                                <h4 class="text-muted"><strong>({{ $viewProject->patent->str_patent_project_title }})</strong></h4>
                                 <ul class="timeline">
                                     @if($viewProject->patent->char_patent_status == 'pending')
                                         <li>
@@ -244,7 +259,20 @@
                                             </div>
                                         </li>
 
-                                    @elseif($viewProject->patent->char_patent_status == 'patented')    
+                                    @elseif($viewProject->patent->char_patent_status == 'patented')
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge primary">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>      
                                         <li>
                                             <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
                                             <div class="timeline-panel">
@@ -307,17 +335,10 @@
 
 @section('pg-specific-js')
 <script src="{{ asset('elite/js/custom.min.js') }}"></script>
-
-
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <script src="../assets/node_modules/popper/popper.min.js"></script>
-
-
-
 <script>
 $('#li-my-projects').addClass('active');
 </script>
-=======
-
 @endsection

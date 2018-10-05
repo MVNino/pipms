@@ -61,15 +61,15 @@
           <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Copyright Application</span></a>     
           <ul class="treeview-menu" style="padding-left: 20px";>
           <li><a class="treeview-item" href="/admin/transaction/copyrights/pend-request">Pending</a></li>
-          <li><a class="treeview-item" href="/admin/transaction/copyrights/to-submit">To submit</a></li>
-          <li><a class="treeview-item" href="/admin/transaction/copyrights/on-process">On process</a></li>
+          <li><a class="treeview-item" href="/admin/transaction/copyrights/to-submit">To Submit</a></li>
+          <li><a class="treeview-item" href="/admin/transaction/copyrights/on-process">On Process</a></li>
           </ul>
           </li>    
           <li class="treeview" id="li-transaction"><a class="app-menu__item" href="#" data-toggle="treeview"><span class="app-menu__label">Patent Application</span></a>
           <ul class="treeview-menu" style="padding-left: 20px";>
           <li><a class="treeview-item" href="/admin/transaction/patents/pend-request">Pending</a></li>
-          <li><a class="treeview-item" href="/admin/transaction/patents/to-submit">To submit</a></li>
-          <li><a class="treeview-item" href="/admin/transaction/patents/on-process">On process</a></li>
+          <li><a class="treeview-item" href="/admin/transaction/patents/to-submit">To Submit</a></li>
+          <li><a class="treeview-item" href="/admin/transaction/patents/on-process">On Process</a></li>
           </ul>
           </li>
         </ul>

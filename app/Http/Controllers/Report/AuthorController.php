@@ -12,7 +12,7 @@ class AuthorController extends Controller
 	public function listApplicants()
 	{
         $applicants = Applicant::all();        
-        return view('admin.reports.list-applicants', 
+        return view('admin.reports.list-authors', 
             ['applicants' => $applicants]);
 	}
 
@@ -21,7 +21,7 @@ class AuthorController extends Controller
         $applicantCollection = Applicant::with(['department.college.branch'], ['copyright.patent'])
             ->where('applicants.int_id', $id)
             ->get();           
-        return view('admin.reports.view-applicant', 
+        return view('admin.reports.view-author', 
             ['applicantCollection' => $applicantCollection]);
 	}
 }
