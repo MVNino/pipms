@@ -54,13 +54,3 @@
 	</div>
 </div>
 @endsection
-
-@section('pg-specific-js')
-{{-- Sweet Alert --}}
-<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
-<script>
-	$(document).ready(function(){
-		swal("Restricted!", "No. Not yet!", "warning");
-	});
-</script>
-@endsection

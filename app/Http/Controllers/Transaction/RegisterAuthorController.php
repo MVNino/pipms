@@ -80,8 +80,7 @@ class RegisterAuthorController extends Controller
 	                \Notification::send($user, 
 	                	new AuthorAccountRequested($request->txtFirstName, 
 	                		$request->txtLastName));
-                return redirect('registration/author')->with('success', 
-                	'Request for an author account submitted!');
+                return redirect()->back();
         		}
         	}
 		}
@@ -135,7 +134,7 @@ class RegisterAuthorController extends Controller
     public function grantAuthorAccount(Request $request, $applicantId)
     {
         // total registration of an author
-        // transafe name to user
+        // tranfer name to user
         // delete record sa 'authoraccountrequest' table
         $this->validate($request, [
             'g-recaptcha-response' => 'required|captcha',
@@ -168,7 +167,7 @@ class RegisterAuthorController extends Controller
                     \Notification::send($user, 
                         new AnAuthorAccountAdded($request->txtFirstName, 
                             $request->txtLastName));
-                    return redirect('/login-author')->with('success', 'Author Account Registered!');
+                    return redirect('/login-author')->with('success', 'You have a registered account now.');
                 }
             }   
         } else {

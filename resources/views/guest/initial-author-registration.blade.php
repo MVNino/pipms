@@ -14,7 +14,7 @@
     	<h1>Account Request</h1>
 	</div>
 <div class="container">
-{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'formId', 'onsubmit' => "return confirm('Submit your author account request form?')"]) !!}
+{!! Form::open(['id' => 'formInitAuthReg', 'action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 @csrf
 <div class="tile">
     <div class="tile-body">
@@ -106,7 +106,7 @@
 			<div class="col-md-5"></div>
 			<div class="col-md-2">
 				@captcha()
-				<button type="submit" class="btn btn-md btn-primary btn-block">
+				<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block">
 					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
 				</button>
 			</div>
@@ -165,6 +165,31 @@ $(document).ready(function() {
             drDestroy.init();
         }
     })
+});
+</script>
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Submit your author account request form?",
+    text: "A request form for an author account.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, submit my form!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formInitAuthReg').submit();
+      swal("Submitted", 
+      	"Your request form for an author account has been submitted!", 
+      	"success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
 });
 </script>
 @endsection
