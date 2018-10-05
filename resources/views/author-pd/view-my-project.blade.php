@@ -6,6 +6,7 @@
 <link href="{{asset('elite/css/timeline-vertical-horizontal.css')}}" rel="stylesheet">
 @endsection
 
+
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -164,7 +165,136 @@
                             @if($viewProject->patent)
                             <div class="tab-pane" id="patent" role="tabpanel">
                                 <h3 class="text-muted"><strong>Patent Timeline</strong></h3>
-                                {{ $viewProject->patent->char_patent_status }} siya mennn.
+                                <ul class="timeline">
+                                    @if($viewProject->patent->char_patent_status == 'pending')
+                                        <li>
+                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @elseif($viewProject->patent->char_patent_status == 'to submit')    
+                                        <li>
+                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+                                     @elseif($viewProject->patent->char_patent_status == 'on process')    
+                                        <li>
+                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>On process</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your document is now on process.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    @elseif($viewProject->patent->char_patent_status == 'patented')    
+                                        <li>
+                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>On process</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your document is now on process.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge info"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Patented</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_patented)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your document is already copyrighted. </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif    
+                                </ul>
                             </div>
                             @endif
                         </div>
