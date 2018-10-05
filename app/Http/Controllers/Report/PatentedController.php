@@ -16,7 +16,8 @@ class PatentedController extends Controller
     }
     public function listPatents()
     {
-        $patents = Patent::all();
+        $patents = Patent::where('char_patent_status', 'patented')
+            ->get();
         return view('admin.reports.list-patented', ['patents' => $patents]);
     }
 

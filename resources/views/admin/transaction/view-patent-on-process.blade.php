@@ -60,7 +60,7 @@
                 {{ $patent->copyright->str_project_title }}
               </a>
             @else
-              <a href="/admin/transaction/copyright/copyrighted/{{ $patent->copyright->int_id }}">
+              <a href="/admin/reports/copyrighted/{{ $patent->copyright->int_id }}">
                 {{ $patent->copyright->str_project_title }}
               </a>
             @endif
