@@ -111,6 +111,7 @@ Route::group(
 							'RequirementController@addRequirement');
 					Route::get('requirement/{id}', 
 							'RequirementController@viewRequirement');
+					Route::put('requirement/{id}/edit', 		'RequirementController@updateRequirement');
 				});
 			}
 		);
