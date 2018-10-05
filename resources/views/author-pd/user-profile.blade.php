@@ -21,7 +21,6 @@
         </div>
         <div class="modal-footer">
           {{ Form::hidden('_method', 'PUT') }}
-          @captcha()
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Update</button>  
         </div>

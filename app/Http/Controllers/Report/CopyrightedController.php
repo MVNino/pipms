@@ -16,17 +16,19 @@ class CopyrightedController extends Controller
     }
     public function listCopyrights()
     {
-        $copyrights = Copyright::all();
-        return view('admin.reports.list-copyrights', 
+        $copyrights = Copyright::where('char_copyright_status', 'copyrighted')->get();
+        return view('admin.reports.list-copyrighted', 
         	['copyrights' => $copyrights]);
     }
 
     public function viewCopyright($id)
     {   
         $copyrightCollection = Copyright::with('applicant.department.college.branch')
+            ->where('char_copyright_status', 'copyrighted')
+            ->where('dtm_copyrighted', '!=', NULL)
             ->where('int_id', $id)
             ->get();
-        return view('admin.reports.view-copyright', 
+        return view('admin.reports.view-copyrighted', 
             ['copyrightCollection' => $copyrightCollection]);
     }
 }

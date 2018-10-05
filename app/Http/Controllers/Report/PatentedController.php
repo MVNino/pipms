@@ -17,7 +17,7 @@ class PatentedController extends Controller
     public function listPatents()
     {
         $patents = Patent::all();
-        return view('admin.reports.list-patents', ['patents' => $patents]);
+        return view('admin.reports.list-patented', ['patents' => $patents]);
     }
 
     public function viewPatent($id)
@@ -25,7 +25,7 @@ class PatentedController extends Controller
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
-        return view('admin.reports.view-patent', 
+        return view('admin.reports.view-patented', 
             ['patentCollection' => $patentCollection]);
     }
 }

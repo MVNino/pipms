@@ -59,7 +59,7 @@
             </a>
           </label><br>
           <label>
-            <strong>Type of work: </strong>
+            <strong>Type of Work: </strong>
             <a href="/admin/maintenance/project-type/{{ $copyright->int_project_type_id }}">
               {{ $copyright->projectType->char_project_type }}
             </a>
@@ -182,7 +182,7 @@
       <div class="card-header pb-0">
       <div class="row">
         <div class="col-md-12">
-          <h4>Uploaded files</h4>
+          <h4>Uploaded Files</h4>
         </div> 
       </div>
       </div>

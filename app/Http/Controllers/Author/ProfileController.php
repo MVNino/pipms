@@ -31,7 +31,6 @@ class ProfileController extends Controller
     public function updateProfilePic(Request $request, $id)
     {
         $this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
             'fileUserProfileImg' => 'image|required|max:1000'
         ]);
 
