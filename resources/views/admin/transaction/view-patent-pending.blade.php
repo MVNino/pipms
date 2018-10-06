@@ -52,7 +52,7 @@
               <a href="/admin/transaction/copyright/to-submit/{{ $patent->copyright->int_id }}">
                 {{ $patent->copyright->str_project_title }}
               </a>
-            @elseif($patent->copyright->char_copyright_status == 'on-process')
+            @elseif($patent->copyright->char_copyright_status == 'on process')
               <a href="/admin/transaction/copyright/on-process/{{ $patent->copyright->int_id }}">
                 {{ $patent->copyright->str_project_title }}
               </a>
@@ -64,21 +64,7 @@
             <span class="text-muted">
               ({{ $patent->copyright->char_copyright_status }})
             </span>
-          </label><br>
-          <label>
-            <strong>Co-Authors: </strong>
           </label>
-          <div class="row">
-          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
-            <div class="col-md-4">
-              <p>
-                {{ $coAuthor->str_first_name }} {{ $coAuthor->str_middle_name }} {{ $coAuthor->str_last_name }}
-              </p>
-            </div>
-          @empty
-            <h6 class="text-muted">There is no other authors</h6>
-          @endforelse
-          </div>
         </div>
         <div class="card-footer text-muted">
           <div class="row">
@@ -182,6 +168,20 @@
               {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}
             </a>
           </label><br>
+          <label>
+            <strong>Co-Authors: </strong>
+          </label>
+          <div class="row">
+          @forelse($patent->copyright->applicant->coAuthors as $coAuthor)
+            <div class="col-md-4">
+              <p>
+                {{ $coAuthor->str_first_name }} {{ $coAuthor->str_middle_name }} {{ $coAuthor->str_last_name }}
+              </p>
+            </div>
+          @empty
+            <h6 class="text-muted">There is no other authors</h6>
+          @endforelse
+          </div>
         </div>
       </div>      
       <div class="card-footer text-muted">
