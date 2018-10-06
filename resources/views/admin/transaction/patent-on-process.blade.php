@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-certificate"></i> On process patents</h1>
-  <p>A listing of projects for patent registration</p>
+<h1><i class="fa fa-certificate"></i> On Process Patent Requests</h1>
+  <p>A listing of projects which are on its processs for patent registration</p>
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Transaction</li>

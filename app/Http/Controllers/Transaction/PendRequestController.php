@@ -40,7 +40,7 @@ class PendRequestController extends Controller
             ->whereStatusIs($this->status);
 
         // Group copyrights by college
-        return $groupedCopyrights = $this->copyright
+        $groupedCopyrights = $this->copyright
             ->groupByCollege($this->status);
 
         return view($this->viewPath.'copyright-pending', 
@@ -87,7 +87,7 @@ class PendRequestController extends Controller
     public function listPendingPatentRequest()
     {
         // List patent records
-        $patents = $this->patent->listPatents($this->status);
+        $patents = $this->patent->whereStatusIs($this->status);
 
         return view($this->viewPath.'patent-pending', 
             ['patents' => $patents]);

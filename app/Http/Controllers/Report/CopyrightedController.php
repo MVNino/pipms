@@ -28,6 +28,7 @@ class CopyrightedController extends Controller
             ->where('dtm_copyrighted', '!=', NULL)
             ->where('int_id', $id)
             ->get();
+
         return view('admin.reports.view-copyrighted', 
             ['copyrightCollection' => $copyrightCollection]);
     }
