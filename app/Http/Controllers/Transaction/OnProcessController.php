@@ -67,7 +67,7 @@ class OnProcessController extends Controller
     public function listOnProcessPatentRequest()
     {
         // List patent records
-        $patents = $this->patent->listPatents($this->status);
+        $patents = $this->patent->whereStatusIs($this->status);
 
         return view('admin.transaction.patent-on-process', ['patents' => $patents]);
     }

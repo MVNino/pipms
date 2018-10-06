@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-certificate"></i> To submit patents</h1>
-  <p>A listing of projects for patent registration</p>
+<h1><i class="fa fa-certificate"></i> Submission of Requirements for Patent Registration</h1>
+  <p>A listing of projects that needs to submit requirements for patent registration</p>
 @endsection
 
 @section('breadcrumb-label')

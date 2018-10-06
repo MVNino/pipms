@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1>Pending patent requests</h1>
-  <p>A listing of projects for patent registration</p>
+<h1>Pending Requests for Patent</h1>
+  <p>A listing of projects which requests for patent registration</p>
 @endsection
 
 @section('breadcrumb-label')
@@ -60,7 +60,202 @@
           </table>
         </div>
         <div class="tab-pane fade" id="college">
-          <p>THIS IS BY BRANCH - COLLEGE Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="tile">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h4 class="tile-title text-muted">
+                      CCIS - PUP Main
+                    </h4>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="{{ route('admin.today') }}" class="btn btn-primary">
+                      <i class="fa fa-eye"></i>Set Batch
+                    </a>
+                  </div>
+                </div>
+                <div class="tile-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño
+                          </b>(Student)
+                        </div>
+                        <div class="col-md-4">
+                          Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br>
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>    
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="tile">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h4 class="tile-title text-muted">
+                      CCIS - PUP Main
+                    </h4>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="{{ route('admin.today') }}" class="btn btn-primary">
+                      <i class="fa fa-eye"></i>Set Batch
+                    </a>
+                  </div>
+                </div>
+                <div class="tile-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño
+                          </b>(Student)
+                        </div>
+                        <div class="col-md-4">
+                          Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br>
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>  
+                      <div class="row">
+                        <div class="col-md-8">
+                          <b>
+                            <a href="#">
+                            PIPMS
+                            </a> - Marlon Niño</b> <br> 
+                          Student
+                          of BSIT-CCIS-PUP Main
+                        </div>
+                        <div class="col-md-4">
+                          Time: Oct 7, 2:30 PM
+                        </div>
+                      </div><hr>    
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </div>

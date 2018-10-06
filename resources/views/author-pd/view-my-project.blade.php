@@ -1,11 +1,9 @@
 @extends('author-pd.layouts.app')
 
 @section('pg-specific-css')
-<!-- Custom CSS -->
-<link href="{{asset('elite/css/style.min.css')}}" rel="stylesheet">
+{{-- Timeline CSS --}}
 <link href="{{asset('elite/css/timeline-vertical-horizontal.css')}}" rel="stylesheet">
 @endsection
-
 
 @section('content')
     <div class="row">
