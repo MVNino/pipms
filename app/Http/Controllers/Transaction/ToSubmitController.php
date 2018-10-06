@@ -16,32 +16,37 @@ use Carbon\Carbon;
 
 class ToSubmitController extends Controller
 {
+    public $copyright;
+    public $patent;
+    public $status;
+    public $viewPath;
+
     public function __construct()
     {
+        $this->status = 'to submit';
+        $this->copyright = new Copyright;
+        $this->patent = new Patent;
+        $this->viewPath = 'admin.transaction.';
         $this->middleware('auth');
     }
 
     # COPYRIGHT
     public function listToSubmitCopyrightRequest()
     { 
-        $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'to submit')
-            ->where('dtm_schedule', '!=', null)
-            ->orderBy('dtm_schedule')
-            ->get();
-        return view('admin.transaction.copyright-to-submit', 
+        $copyrights = $this->copyright
+            ->toSubmit($this->status);
+        return view($this->viewPath.'copyright-to-submit', 
         	['copyrights' => $copyrights]);
     }
 
     public function viewToSubmitCopyrightRequest($id)
     {
-        $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'to submit')
-            ->where('dtm_schedule', '!=', NULL)
-            ->where('int_id', $id)
-            ->get();
+        $copyrightCollection = $this->copyright
+            ->viewToSubmit($this->status, $id);
+
         $requirements = Requirement::where('char_ipr', 'C')->get();
-        return view('admin.transaction.view-copyright-to-submit', 
+
+        return view($this->viewPath.'view-copyright-to-submit', 
             ['copyrightCollection' => $copyrightCollection, 
             'requirements' => $requirements]);
     }
@@ -66,23 +71,19 @@ class ToSubmitController extends Controller
     # PATENT
     public function listToSubmitPatentRequest()
     {
-        $patents = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'to submit')
-            ->where('dtm_schedule', '!=', null)
-            ->orderBy('dtm_schedule')
-            ->get();
-        return view('admin.transaction.patent-to-submit', ['patents' => $patents]);
+        $patents = $this->patent
+            ->toSubmit($this->status);
+        return view($this->viewPath.'patent-to-submit', ['patents' => $patents]);
     }
 
     public function viewToSubmitPatentRequest($id)
     {  
+        $patentCollection = $this->patent
+            ->viewToSubmit($this->status, $id);
+
         $requirements = Requirement::where('char_ipr', 'P')->get();
-        $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'to submit')
-            ->where('dtm_schedule', '!=', NULL)
-            ->where('int_id', $id)
-            ->get();
-        return view('admin.transaction.view-patent-to-submit', 
+
+        return view($this->viewPath.'view-patent-to-submit', 
             ['patentCollection' => $patentCollection, 
             'requirements' => $requirements]);
     }

@@ -190,12 +190,18 @@
         <div class="bs-component">
           <div class="list-group">
             <div class="card card-body">
+              @if($copyright->str_exec_summary_file)
               <label>
                 <strong>Executive Summary File: </strong>
                 <a href="/storage/summary/copyright/{{ $copyright->str_exec_summary_file }}" target="_blank">
                 <i class="fa fa-file"></i> {{ $copyright->str_exec_summary_file }}
                 </a>
               </label>
+              @else
+              <label class="text-info">
+                There is no uploaded executive summary file
+              </label>
+              @endif
               <label>
                 <strong>Receipt: </strong>
                 {{$copyright->applicant->receipt->char_receipt_code}} - 

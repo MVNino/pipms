@@ -54,17 +54,51 @@ class Copyright extends Model
 		);
 	}	
 
-	// List pending request for copyright
-	public function listPendingCopyright()
+	// Listing of copyright records
+	public function whereStatusIs($status)
 	{
-        return $copyrights = Copyright::join('applicants', 'copyrights.int_applicant_id', 
-            '=', 'applicants.int_id')
+		return $this->with('applicant.department.college.branch')
+            ->where('char_copyright_status', $status)
+            ->get();
+	}
+
+	// Listing of 'to submit' copyright records
+	public function toSubmit($status)
+	{
+		return $this->with('applicant.department.college.branch')
+            ->where('char_copyright_status', $status)
+            ->where('dtm_schedule', '!=', null)
+            ->orderBy('dtm_schedule')
+            ->get();
+	}
+
+	// View a 'to submit' copyright record
+	public function viewToSubmit($status, $id)
+	{
+		return $this->with('applicant.department.college.branch')
+            ->where('char_copyright_status', $status)
+            ->where('dtm_schedule', '!=', NULL)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// View specific copyright record
+	public function extractThisRecord($status, $id)
+	{
+		return $this->with('applicant.department.college.branch')
+            ->where('char_copyright_status', $status)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// Group copyright record by college
+	public function groupByCollege($status)
+	{
+		return $this->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
             ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
             ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
-           ->select('copyrights.int_id', 'str_first_name', 'str_middle_name', 
-                'str_last_name', 'str_project_title', 'char_college_code', 'char_applicant_type',
-            'mdmTxt_project_description', 'copyrights.updated_at')
-            ->where('char_copyright_status', 'pending')
+            ->where('char_copyright_status', $status)
+            ->groupBy('departments.char_department_code')    
             ->get();
 	}
 }

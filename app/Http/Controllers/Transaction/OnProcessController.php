@@ -14,27 +14,37 @@ use App\User;
 
 class OnProcessController extends Controller
 {
+    public $copyright;
+    public $patent;
+    public $status;
+    public $viewPath;
+
     public function __construct()
     {
+        $this->status = 'on process';
+        $this->copyright = new Copyright;
+        $this->patent = new Patent;
+        $this->viewPath = 'admin.transaction.';
         $this->middleware('auth');
     }
 
     #COPYRIGHT
     public function listOnProcessCopyrightRequest()
     {
-        $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'on process')
-            ->get();
+        // List copyright records
+        $copyrights = $this->copyright
+            ->whereStatusIs($this->status);
+
         return view('admin.transaction.copyright-on-process', 
             ['copyrights' => $copyrights]);  
     }
 
     public function viewOnProcessCopyrightRequest($id)
     {
-        $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'on process')
-            ->where('int_id', $id)
-            ->get();
+        // Show specific copyright record
+        $copyrightCollection = $this->copyright
+            ->extractThisRecord($this->status, $id);
+            
         return view('admin.transaction.view-copyright-on-process', 
             ['copyrightCollection' => $copyrightCollection]); 
     }
@@ -56,18 +66,18 @@ class OnProcessController extends Controller
     # PATENT
     public function listOnProcessPatentRequest()
     {
-        $patents = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'On process')
-            ->get();
+        // List patent records
+        $patents = $this->patent->listPatents($this->status);
+
         return view('admin.transaction.patent-on-process', ['patents' => $patents]);
     }
 
     public function viewOnProcessPatentRequest($id)
     {  
-        $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status','on process')
-            ->where('int_id', $id)
-            ->get();
+        // Show specific patent record
+        $patentCollection = $this->patent
+            ->extractThisRecord($this->status, $id);
+            
         return view('admin.transaction.view-patent-on-process', 
             ['patentCollection' => $patentCollection]);
     }
