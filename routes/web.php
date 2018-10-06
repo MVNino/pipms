@@ -55,6 +55,9 @@ Route::group(
 			Route::get('schedule/today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
+			Route::get('schedule/today/id/college', function(){
+				return view('admin.schedule.college-today');
+			});
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
@@ -74,31 +77,51 @@ Route::group(
 			{
 				Route::namespace('Maintenance')->group(function () {
 					// Branches maintenance
-					Route::get('branches', 				'BranchController@maintainBranches');
-					Route::post('branches', 			'BranchController@addBranch');
-					Route::get('branch/{id}', 			'BranchController@viewBranch');
-					Route::put('branch/{id}/edit', 		'BranchController@updateBranch');
-					Route::delete('branch/{id}/delete',	'BranchController@deleteProfPic');
+					Route::get('branches', 
+							'BranchController@maintainBranches');
+					Route::post('branches', 			
+							'BranchController@addBranch');
+					Route::get('branch/{id}', 			
+							'BranchController@viewBranch');
+					Route::put('branch/{id}/edit', 		
+							'BranchController@updateBranch');
+					Route::delete('branch/{id}/delete',	
+							'BranchController@deleteProfPic');
 					// Colleges maintenance
-					Route::get('colleges', 				'CollegeController@maintainColleges');
-					Route::get('college/{id}', 			'CollegeController@viewCollege');
-					Route::post('colleges', 			'CollegeController@addCollege');
-					Route::put('college/{id}/edit', 	'CollegeController@updateCollege');
+					Route::get('colleges', 				
+							'CollegeController@maintainColleges');
+					Route::get('college/{id}', 			
+							'CollegeController@viewCollege');
+					Route::post('colleges', 			
+							'CollegeController@addCollege');
+					Route::put('college/{id}/edit', 	
+							'CollegeController@updateCollege');
 					// Departments maintenance
-					Route::get('departments', 			'DepartmentController@maintainDepartments');
-					Route::get('department/{id}', 		'DepartmentController@viewDepartment');
-					Route::post('departments', 			'DepartmentController@addDepartment');
-					Route::put('department/{id}/edit',	'DepartmentController@updateDepartment');	
+					Route::get('departments', 			
+							'DepartmentController@maintainDepartments');
+					Route::get('department/{id}', 		
+							'DepartmentController@viewDepartment');
+					Route::post('departments', 			
+							'DepartmentController@addDepartment');
+					Route::put('department/{id}/edit',	
+							'DepartmentController@updateDepartment');	
 					// Accounts maintenance
-					Route::get('accounts', 				'AccountController@maintainAccounts');
+					Route::get('accounts', 				
+							'AccountController@maintainAccounts');
 					// Project types maintenance
-					Route::get('project-types', 		'ProjectTypeController@maintainProjectTypes');
-					Route::get('project-type/{id}', 	'ProjectTypeController@showProjectType');
-					Route::post('project-types', 		'ProjectTypeController@addProjectType');
-					Route::put('project-type/{id}', 	'ProjectTypeController@updateProjectType');
+					Route::get('project-types', 		
+							'ProjectTypeController@maintainProjectTypes');
+					Route::get('project-type/{id}', 	
+							'ProjectTypeController@showProjectType');
+					Route::post('project-types', 		
+							'ProjectTypeController@addProjectType');
+					Route::put('project-type/{id}', 	
+							'ProjectTypeController@updateProjectType');
 					// Projects maintenance
-					Route::get('projects',				'ProjectController@maintainProjects');
-					Route::post('projects', 			'ProjectController@addProject');
+					Route::get('projects',				
+							'ProjectController@maintainProjects');
+					Route::post('projects', 			
+							'ProjectController@addProject');
 					Route::get('project/{id}/{deptId}',		
 							'ProjectController@viewProject');
 					Route::put('project/{id}/{deptId}/edit', 
@@ -111,7 +134,8 @@ Route::group(
 							'RequirementController@addRequirement');
 					Route::get('requirement/{id}', 
 							'RequirementController@viewRequirement');
-					Route::put('requirement/{id}/edit', 		'RequirementController@updateRequirement');
+					Route::put('requirement/{id}/edit', 
+							'RequirementController@updateRequirement');
 				});
 			}
 		);
@@ -143,6 +167,9 @@ Route::group(
 						'PendRequestController@viewPendingCopyrightRequest');
 					Route::put('copyright/set-schedule/{id}', 
 						'PendRequestController@setSchedule');
+					Route::get('copyrights/pend-request/id/college', function(){
+						return view('admin.transaction.college-copyright-pending');
+					});
 					// To submit
 					Route::get('copyrights/to-submit', 
 						'ToSubmitController@listToSubmitCopyrightRequest')
@@ -171,6 +198,9 @@ Route::group(
 						'PendRequestController@cloneCopyrightAppointment');
 					Route::put('patent/set-schedule/{id}', 
 						'PendRequestController@setScheduleForPatent');
+					Route::get('patents/pend-request/id/college', function(){
+						return view('admin.transaction.college-patent-pending');
+					});
 					// To submit
 					Route::get('patents/to-submit', 
 						'ToSubmitController@listToSubmitPatentRequest')
