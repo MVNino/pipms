@@ -11,7 +11,8 @@ class AuthorController extends Controller
 {
 	public function listApplicants()
 	{
-        $applicants = Applicant::all();        
+        $applicants = Applicant::with(['department.college.branch'], ['copyright.patent'], ['user'])
+            ->get();      
         return view('admin.reports.list-authors', 
             ['applicants' => $applicants]);
 	}

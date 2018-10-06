@@ -4,12 +4,13 @@
 <h1><i class="fa fa-user"></i> Authors</h1>
   <p>Authors of every project requests</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
 <li class="breadcrumb-item"><a href="{{ route('reports.authors') }}">Authors</a></li>
 @endsection
-@section('content')
-<div class="row">
+
+@section('content')<div class="row">
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
@@ -23,24 +24,25 @@
               </tr>
             </thead>
             <tbody>
-              {{-- @forelse($applicants as $applicant)
-              <tr>
-                <th>{{ $applicant->user->str_first_name }} {{ $applicant->user->str_middle_name }} {{ $applicant->user->str_last_name }}</th>
-                <td>{{ $applicant->department->college->char_college_code }} - {{ $applicant->department->char_department_code }} - {{ $applicant->department->college->branch->str_branch_name }}</td>
-                <td>{{ $applicant->char_applicant_type }}</td>
-                <td class="text-center"><a href="/admin/records/applicant/{{ $applicant->int_id }}" role="button" class="btn btn-info"><i class="fa fa-eye"></i>View</a></td>
-              </tr>
-              @empty  
-                <div class="alert alert-warning">
-                  There is no record yet.
-                </div>
+ {{--              @forelse($applicants as $applicant)
+                {{ $applicant->bigInt_cellphone_number }}
+                {{ $applicant->department->int_id }}
+              @empty
               @endforelse --}}
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 </div>
+@endsection
+
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 <!-- Data table plugin-->
@@ -53,5 +55,4 @@
     $('a[href="/admin/reports/authors"]').addClass('active');
   });
 </script>
-@endsection
 @endsection
