@@ -66,7 +66,9 @@
                 <div class="row">
                   <div class="col-md-9">
                     <h4 class="tile-title text-muted">
-                      CCIS - PUP Main
+                      <a href="/admin/transaction/copyrights/pend-request/id/college">
+                        CCIS - PUP Main
+                      </a>
                     </h4>
                   </div>
                   <div class="col-md-3">
