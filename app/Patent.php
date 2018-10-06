@@ -36,4 +36,53 @@ class Patent extends Model
 	{
 		return $this->belongsTo('App\Project', 'int_project_id', 'int_id');
 	}
+
+	// For listing of patents
+	public function whereStatusIs($status)
+	{
+		return $this->with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', $status)
+            ->get();
+	}
+
+	// Listing of 'to submit' patent records
+	public function toSubmit($status)
+	{
+		return $this->with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', $status)
+            ->where('dtm_schedule', '!=', null)
+            ->orderBy('dtm_schedule')
+            ->get();
+	}
+
+	// View a 'to submit' patent record
+	public function viewToSubmit($status, $id)
+	{
+		return $this->with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', $status)
+            ->where('dtm_schedule', '!=', NULL)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// For viewing specific record
+	public function extractThisRecord($status, $id)
+	{
+		return $this->with('copyright.applicant.department.college.branch')
+            ->where('char_patent_status', $status)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// Group copyright record by college
+	public function groupByCollege($status)
+	{
+		return $this->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+			->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+            ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+            ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+            ->where('char_patent_status', $status)
+            ->groupBy('departments.char_department_code')    
+            ->get();
+	}
 }

@@ -18,28 +18,43 @@ use Carbon\Carbon;
 
 class PendRequestController extends Controller
 {
+    public $copyright;
+    public $patent;
+    public $status;
+    public $viewPath;
+
     public function __construct()
     {
+        $this->status = 'pending';
+        $this->copyright = new Copyright;
+        $this->patent = new Patent;
+        $this->viewPath = 'admin.transaction.';
         $this->middleware('auth');
     }
 
     # COPYRIGHT
     public function listPendingCopyrightRequest()
     {
-        $copyrights = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'pending')
-            ->get();
-        return view('admin.transaction.copyright-pending', 
-            ['copyrights' => $copyrights]);
+        // List copyright records
+        $copyrights = $this->copyright
+            ->whereStatusIs($this->status);
+
+        // Group copyrights by college
+        return $groupedCopyrights = $this->copyright
+            ->groupByCollege($this->status);
+
+        return view($this->viewPath.'copyright-pending', 
+            ['copyrights' => $copyrights, 
+            'groupedCopyrights' => $groupedCopyrights]);
     }
 
     public function viewPendingCopyrightRequest($id)
     {
-        $copyrightCollection = Copyright::with('applicant.department.college.branch')
-            ->where('char_copyright_status', 'LIKE', '%pending%')
-            ->where('int_id', $id)
-            ->get();
-        return view('admin.transaction.view-copyright-pending', 
+        // Show specific copyright record
+        $copyrightCollection = $this->copyright
+            ->extractThisRecord($this->status, $id);
+
+        return view($this->viewPath.'view-copyright-pending', 
             ['copyrightCollection' => $copyrightCollection]);
     }
 
@@ -71,19 +86,20 @@ class PendRequestController extends Controller
     # PATENT
     public function listPendingPatentRequest()
     {
-        $patents = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'LIKE', '%pending%')
-            ->get();
-        return view('admin.transaction.patent-pending', ['patents' => $patents]);
+        // List patent records
+        $patents = $this->patent->listPatents($this->status);
+
+        return view($this->viewPath.'patent-pending', 
+            ['patents' => $patents]);
     }
 
     public function viewPendingPatentRequest($id)
     {  
-        $patentCollection = Patent::with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', 'pending')
-            ->where('int_id', $id)
-            ->get();
-        return view('admin.transaction.view-patent-pending', 
+        // Show specific patent record
+        $patentCollection = $this->patent
+            ->extractThisRecord($this->status, $id);
+
+        return view($this->viewPath.'view-patent-pending', 
             ['patentCollection' => $patentCollection]);
     }
  
