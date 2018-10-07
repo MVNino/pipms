@@ -10,6 +10,7 @@ use App\Notifications\AppointmentSetDb;
 use App\Notifications\PatentRequestAppointmentSet;
 use App\Notifications\PatentAppointmentSetDb;
 use App\Copyright;
+use App\Department;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
@@ -35,6 +36,9 @@ class PendRequestController extends Controller
     # COPYRIGHT
     public function listPendingCopyrightRequest()
     {
+        // $departments = Department::all();
+        // return $departments->groupBy('int_college_id');
+
         // List copyright records
         $copyrights = $this->copyright
             ->whereStatusIs($this->status);
@@ -42,6 +46,8 @@ class PendRequestController extends Controller
         // Group copyrights by college
         $groupedCopyrights = $this->copyright
             ->groupByCollege($this->status);
+
+        $groupedCopyrights->groupBy('char_college_code');
 
         return view($this->viewPath.'copyright-pending', 
             ['copyrights' => $copyrights, 

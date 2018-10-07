@@ -98,7 +98,6 @@ class Copyright extends Model
             ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
             ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
             ->where('char_copyright_status', $status)
-            ->groupBy('departments.char_department_code')    
             ->get();
 	}
 }
