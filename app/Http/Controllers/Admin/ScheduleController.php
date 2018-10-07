@@ -6,14 +6,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Copyright;
+use Calendar;
+
 
 class ScheduleController extends Controller
 {
-	protected $viewPath = 'admin.schedule.';
+	// protected $viewPath = 'admin.schedule.'; 
 
 	public function viewCalendar()
 	{
-		return view($this->viewPath.'calendar');
+		$events = Copyright::get();
+		$event_list = [];
+		foreach($events as $key => $event) {
+			$event_list[] = Calendar::event(
+				$event->str_project_title,
+				true,
+				new \DateTime($event->dtm_to_submit)
+			);
+		}
+		$calendar_details = Calendar::addEvents($event_list);
+
+		return view('admin.schedule', compact('caledar_details'));
 	}
 
 	public function listTodaySchedule()
