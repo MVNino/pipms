@@ -61,7 +61,7 @@
         </div>
         <div class="tab-pane fade" id="college">
           <div class="row">
-            @foreach($groupedCopyrights as $copyright)
+           {{--  @foreach($groupedCopyrights as $copyright)
             <div class="col-md-6">
               <div class="tile">
                 <div class="row">
@@ -96,8 +96,48 @@
               </div>
             </div>
           </div>
+          @endforeach --}}
+
+          @foreach($colleges as $college)
+            <div class="col-md-6">
+                <div class="tile">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <h4 class="tile-title text-muted">
+                        <a href="/admin/transaction/copyrights/pend-request/id/college">
+                          {{ $college->char_college_code }}
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="col-md-3">
+                      <a href="{{ route('admin.today') }}" class="btn btn-primary">
+                        <i class="fa fa-eye"></i>Set Batch
+                      </a>
+                    </div>
+                  </div>
+                  <div class="tile-body">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <b>
+                              @foreach($college->departments as $department)
+                                $department->char_depatment_code
+                              @endforeach
+                              {{-- <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
+                              {{ $copyright->str_project_title }}
+                              </a> - Marlon Niño --}}
+                            </b>(Student)
+                          </div>
+                          <div class="col-md-4">
+                            Oct 7, 2:30 PM
+                          </div> 
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endforeach
-        </div>
+          </div>
     </div>
   </div>
 </div>

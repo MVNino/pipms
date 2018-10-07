@@ -163,6 +163,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Maddhatter\LaravelFullcalendar\ServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
     ],
 
