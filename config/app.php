@@ -162,6 +162,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Maddhatter\LaravelFullcalendar\ServiceProvider::class,
+
     ],
 
     /*
@@ -212,6 +214,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Calendar' => Maddhatter\LaravelFullcalendar\Facades\Calendar::class,
 
     ],
 
