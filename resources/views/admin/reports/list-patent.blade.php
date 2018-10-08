@@ -15,37 +15,174 @@
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
-          <table class="table table-hover table-bordered" id="sampleTable">
-            <thead>
-              <tr>
-                <th scope="col">Patent Project Title</th>
-                <th scope="col">Type</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date requested</th>
-                <th scope="col">Applicant Name - Type</th>
-                <th scope="col">College - Department - Branch</th>
-                <th scope="col" class="text-center">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              @forelse($patents as $patent)
-              <tr>
-              <th scope="row">{{ $patent->str_patent_project_title }}</th>
-              <td scope="row">{{ $patent->projectType->char_project_type }}</td>
-              <td scope="row">{{ $patent->char_patent_status }}</td>
-              <td scope="row">{{ $patent->created_at }}</td>
-              <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
-              <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
-              <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
-              </tr>
-              @empty  
-                <div class="alert alert-warning">
-                  There is no record yet.
-                </div>
-              @endforelse
-              </tr>
-            </tbody>
-          </table>
+          <ul class="nav nav-tabs">
+              <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#patented">Patented</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#on-process">On Process</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#to-submit">To Submit</a></li>
+              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#pending">Pending</a></li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="patented"><br>
+              <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th scope="col">Patent Project Title</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date Patented</th>
+                    <th scope="col">Applicant Name - Type</th>
+                    <th scope="col">College - Department - Branch</th>
+                    <th scope="col" class="text-center">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patents as $patent)
+                    @if($patent->char_patent_status == 'patented')
+                    <tr>
+                    <th scope="row">
+                      <a href="/admin/reports/patented/{{ $patent->int_id }}">
+                        {{ $patent->str_patent_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $patent->int_project_type_id }}">
+                        {{ $patent->projectType->char_project_type }}
+                      </a>
+                    </td>
+                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    </tr>
+                    @endif
+                  @empty  
+                    <div class="alert alert-warning">
+                      There is no record yet.
+                    </div>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="on-process"><br>
+              <table class="table table-hover table-bordered" id="sampleTable2">
+                <thead>
+                  <tr>
+                    <th scope="col">Patent Project Title</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date Patented</th>
+                    <th scope="col">Applicant Name - Type</th>
+                    <th scope="col">College - Department - Branch</th>
+                    <th scope="col" class="text-center">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patents as $patent)
+                    @if($patent->char_patent_status == 'on process')
+                    <tr>
+                    <th scope="row">
+                      <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}">
+                        {{ $patent->str_patent_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $patent->int_project_type_id }}">
+                        {{ $patent->projectType->char_project_type }}
+                      </a>
+                    </td>
+                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    </tr>
+                    @endif
+                  @empty  
+                    <div class="alert alert-warning">
+                      There is no record yet.
+                    </div>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="to-submit"><br>
+              <table class="table table-hover table-bordered" id="sampleTable3">
+                <thead>
+                  <tr>
+                    <th scope="col">Patent Project Title</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date Patented</th>
+                    <th scope="col">Applicant Name - Type</th>
+                    <th scope="col">College - Department - Branch</th>
+                    <th scope="col" class="text-center">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patents as $patent)
+                    @if($patent->char_patent_status == 'to submit')
+                    <tr>
+                    <th scope="row">
+                      <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                        {{ $patent->str_patent_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $patent->int_project_type_id }}">
+                        {{ $patent->projectType->char_project_type }}
+                      </a>
+                    </td>
+                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    </tr>
+                    @endif
+                  @empty  
+                    <div class="alert alert-warning">
+                      There is no record yet.
+                    </div>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="pending"><br>
+              <table class="table table-hover table-bordered" id="sampleTable4">
+                <thead>
+                  <tr>
+                    <th scope="col">Patent Project Title</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date Patented</th>
+                    <th scope="col">Applicant Name - Type</th>
+                    <th scope="col">College - Department - Branch</th>
+                    <th scope="col" class="text-center">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patents as $patent)
+                    @if($patent->char_patent_status == 'pending')
+                    <tr>
+                    <th scope="row">
+                      <a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">
+                        {{ $patent->str_patent_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $patent->int_project_type_id }}">
+                        {{ $patent->projectType->char_project_type }}
+                      </a>
+                    </td>
+                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
+                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    </tr>
+                    @endif
+                  @empty  
+                    <div class="alert alert-warning">
+                      There is no record yet.
+                    </div>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,7 +194,12 @@
 <!-- Data table plugin-->
 <script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
-<script type="text/javascript">$('#sampleTable').DataTable();</script>
+<script type="text/javascript">
+  $('#sampleTable').DataTable();
+  $('#sampleTable2').DataTable();
+  $('#sampleTable3').DataTable();
+  $('#sampleTable4').DataTable();
+</script>
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
