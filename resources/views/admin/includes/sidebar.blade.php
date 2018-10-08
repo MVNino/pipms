@@ -76,7 +76,7 @@
       </li>
       <li class="treeview" id="li-query"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-history"></i><span class="app-menu__label">Query</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
-          <li><a class="treeview-item" href="#"><i class="icon fa fa-user-o"></i> Query Monitor</a></li>
+          <li><a class="treeview-item" href="/admin/queries/index"><i class="icon fa fa-user-o"></i> Query Monitor</a></li>
         </ul>
       </li>
       <li class="treeview" id="li-reports"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>

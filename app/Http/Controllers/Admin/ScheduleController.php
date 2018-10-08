@@ -11,7 +11,7 @@ use Calendar;
 
 class ScheduleController extends Controller
 {
-	// protected $viewPath = 'admin.schedule.'; 
+	protected $viewPath = 'admin.schedule.'; 
 
 	public function viewCalendar()
 	{
@@ -26,18 +26,18 @@ class ScheduleController extends Controller
 		}
 		$calendar_details = Calendar::addEvents($event_list);
 
-		return view('admin.schedule', compact('caledar_details'));
+		return view($this->viewPath, compact('caledar_details'));
 	}
 
 	public function listTodaySchedule()
 	{
 		// extract today's IPR requests
 		$current = Carbon::now()->format('Y-m-d');
-		$copyrights = Copyright::with('applicant.department.college.branch')
+		$copyrights = Copyright::with(['patent', 'applicant.department.college.branch'])
 			->where('char_copyright_status', 'to submit')
 			->where('dtm_schedule', 'LIKE', '%'.$current.'%')
 			->orderBy('dtm_schedule')
 			->get();
-		return view('admin.schedule.today', ['copyrights' => $copyrights]);
+		return view($this->viewPath.'today', ['copyrights' => $copyrights]);
 	}
 }

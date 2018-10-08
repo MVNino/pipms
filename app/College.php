@@ -22,6 +22,19 @@ class College extends Model
 	{
 		return $this->hasMany('App\Department' ,'int_college_id' ,'int_id');
 	}
+
+	public function applicants()
+	{
+		return $this->hasManyThrough(
+			'App\Applicant',
+			'App\Department',
+			'int_college_id',
+			'int_department_id',
+			'int_id',
+			'int_id'
+		);
+	}
+
 	public function projects()
 	{
 		return $this->hasManyThrough(
@@ -44,5 +57,14 @@ class College extends Model
 			'int_id',
 			'int_id'
 		);
+	}
+
+	public function groupByCol($status)
+	{
+		return $this->join('departments', 'colleges.int_id', '=', 'departments.int_college_id')
+            ->join('applicants', 'departments.int_id', '=', 'applicants.int_department_id')
+            ->join('copyrights', 'applicants.int_id', '=', 'copyrights.int_applicant_id')
+            // ->where('char_copyright_status', $status)
+            ->get();
 	}
 }

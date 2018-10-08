@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Charts\MonthlyCopyrightRequests;
 
 class DashboardController extends Controller
 {
@@ -24,9 +25,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $chart = new MonthlyCopyrightRequests;
+        $chart->labels(['One', 'Two', 'Three'])
+                ->dataset('My dataset 1', 'line', [1, 2, 3, 4]);
+                // $chart->setTitle('My first lara chart')
+                // ->setLabels(['First', 'Second', 'Third'])
+                // ->setValues([5, 10, 20])
+                // ->setDimensions(1000, 500)
+                // ->setResponsive(true);
+
         $title = 'Dashboard';
         $usersCount = User::count();
         return view('admin.dashboard', ['title' => $title, 
-            'usersCount' => $usersCount]);  
+            'usersCount' => $usersCount, 'chart' => $chart]);  
     }
 }
