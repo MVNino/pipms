@@ -4,10 +4,12 @@
 <h1><i class="fa fa-certificate"></i> Patent</h1>
   <p>An exclusive right granted for an invention</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
 <li class="breadcrumb-item"><a href="{{ route('reports.patented') }}">Patented</a></li>
 @endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -48,6 +50,8 @@
       </div>
     </div>
 </div>
+@endsection
+
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 <!-- Data table plugin-->
@@ -60,5 +64,4 @@
     $('a[href="/admin/reports/patented"]').addClass('active');
   });
 </script>
-@endsection
 @endsection

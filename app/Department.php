@@ -27,4 +27,16 @@ class Department extends Model
 	{
 		return $this->hasMany('App\Applicant', 'int_department_id', 'int_id');
 	}
+
+	public function copyrights()
+	{
+		return $this->hasManyThrough(
+			'App\Copyright',
+			'App\Applicant',
+			'int_department_id',
+			'int_applicant_id',
+			'int_id',
+			'int_id'
+		);
+	}
 }

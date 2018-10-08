@@ -232,6 +232,8 @@ Route::group(
 		);
 
 		# Query Module
+		Route::get('queries/index', 'QueryController@index')
+			->name('queries');
 
 		# Reports Module
 		Route::group(
