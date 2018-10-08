@@ -9,15 +9,18 @@ use App\Patent;
 
 class PatentController extends Controller
 {
+    public $viewPath;
+    public $patent;
     # Controller for Patented Reports
     public function __construct()
     {
+        $this->viewPath = 'admin.reports.';
+        $this->patent = new Patent;
         $this->middleware('auth');
     }
     public function listPatents()
-    {
-        $patents = Patent::where('char_patent_status', 'patented')
-            ->get();
+    
+        $patents = $this->patent->allRecords();
         return view('admin.reports.list-patent', ['patents' => $patents]);
     }
 

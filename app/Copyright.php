@@ -54,6 +54,7 @@ class Copyright extends Model
 		);
 	}	
 
+	// Listing of all copyright records
 	public function allRecords()
 	{
 		return $this->with(['applicant.department.college.branch', 
