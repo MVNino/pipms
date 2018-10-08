@@ -7,17 +7,25 @@ use App\Http\Controllers\Controller;
 use App\Copyright;
 use App\Patent;
 
-class CopyrightedController extends Controller
+class CopyrightController extends Controller
 {
     # Controller for Copyright records
+	public $viewPath;
+	public $copyright;
+    
     public function __construct()
     {
+    	$this->viewPath = 'admin.reports.';
+    	$this->copyright = new Copyright;
         $this->middleware('auth');
     }
+
     public function listCopyrights()
     {
-        $copyrights = Copyright::where('char_copyright_status', 'copyrighted')->get();
-        return view('admin.reports.list-copyrighted', 
+    	// extract all records(eager loading)
+    	$copyrights = $this->copyright->allRecords();
+
+        return view($this->viewPath.'list-copyright', 
         	['copyrights' => $copyrights]);
     }
 
@@ -29,7 +37,7 @@ class CopyrightedController extends Controller
             ->where('int_id', $id)
             ->get();
 
-        return view('admin.reports.view-copyrighted', 
+        return view($this->viewPath.'view-copyright', 
             ['copyrightCollection' => $copyrightCollection]);
     }
 }
