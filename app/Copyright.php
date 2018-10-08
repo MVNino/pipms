@@ -54,10 +54,18 @@ class Copyright extends Model
 		);
 	}	
 
-	// Listing of copyright records
+	public function allRecords()
+	{
+		return $this->with(['applicant.department.college.branch', 
+			'patent', 'project', 'projectType'])
+            ->get();
+	}
+
+	// Listing of copyright records with 'where'
 	public function whereStatusIs($status)
 	{
-		return $this->with('applicant.department.college.branch')
+		return $this->with(['applicant.department.college.branch', 
+			'patent', 'project', 'projectType'])
             ->where('char_copyright_status', $status)
             ->get();
 	}

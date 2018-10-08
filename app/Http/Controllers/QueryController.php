@@ -8,6 +8,6 @@ class QueryController extends Controller
 {
 	public function index()
 	{
-		return view('admin.queries.index');
+		return view('admin.queries');
 	}
 }

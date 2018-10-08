@@ -13,7 +13,7 @@
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.copyrighted') }}">Copyrighted</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.copyright') }}">Copyrighted</a></li>
 <li class="breadcrumb-item"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a></li>
 @endsection
 
@@ -315,7 +315,7 @@
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/copyrighted"]').addClass('active');
+    $('a[href="/admin/reports/copyright"]').addClass('active');
   });
 </script>
 @endsection

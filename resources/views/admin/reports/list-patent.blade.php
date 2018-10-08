@@ -7,7 +7,7 @@
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.patented') }}">Patented</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.patent') }}">Patented</a></li>
 @endsection
 
 @section('content')
@@ -61,7 +61,7 @@
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/patented"]').addClass('active');
+    $('a[href="/admin/reports/patent"]').addClass('active');
   });
 </script>
 @endsection
