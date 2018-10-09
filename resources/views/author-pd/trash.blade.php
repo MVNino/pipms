@@ -27,9 +27,9 @@
           <tbody>
           @foreach($mails as $mail)
             <tr>
-              @if($mail->char_message_status == 0)
-              <td><a href="read-mail.html">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</td>
+              
+              <td><a class="nav-link" href="/author/sent/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
+              <td class="mail-subject"><a class="nav-link" href="/author/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
               <td>8 mins ago</td>
               <td>
           <div align="center">
@@ -41,7 +41,7 @@
             {!!Form::close()!!}
           </div>
         </td>
-        @endif
+       
             </tr>
            @endforeach
           </tbody>

@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-3"><a class="mb-2 btn btn-primary btn-block" data-toggle="modal" data-target="#composeMails">Compose Mail</a>
+  <div class="col-md-3"><a class="mb-2 btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">Compose Mail</a>
     <div class="tile p-0">
       <h4 class="tile-title folder-head">Folders</h4>
       <div class="tile-body">
@@ -28,8 +28,8 @@
           @foreach($mails as $mail)
             <tr>
               @if($mail->char_message_status == 0)
-              <td><a href="read-mail.html">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</td>
+              <td><a class="nav-link" href="/author/mails/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
+              <td class="mail-subject"><a class="nav-link" href="/author/mails/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
               <td>8 mins ago</td>
               <td>
           <div align="center">
@@ -52,16 +52,16 @@
   </div>
 </div>
 
-<div class="modal fade" id="composeMails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="composeMails">New Message</h4>
+        <h4 class="modal-title" id="exampleModalLabel">New Message</h4>
       </div>
-      <div class="modal-body">
+     
         {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
           <div class="form-group">
             {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
@@ -82,7 +82,7 @@
             </div>
           </div>
 
-      </div>
+      
       <div class="modal-footer">
         <button type="submit" class="btn btn-info">Send</button>
       </div>

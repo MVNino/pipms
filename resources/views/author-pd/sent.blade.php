@@ -28,8 +28,8 @@
           @foreach($mails as $mail)
             <tr>
               @if($mail->char_message_status == 0)
-              <td><a href="read-mail.html">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</td>
+              <td><a class="nav-link" href="/author/sent/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
+              <td class="mail-subject"><a class="nav-link" href="/author/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
               <td>8 mins ago</td>
               <td>
           <div align="center">
@@ -62,7 +62,7 @@
         <h4 class="modal-title" id="composeMails">New Message</h4>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
+        {!! Form::open(['action' => 'Admin\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
           <div class="form-group">
             {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
             <div class="col-md-12">

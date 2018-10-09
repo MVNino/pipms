@@ -29,9 +29,9 @@
 	        <tbody>
 	        @foreach($mails as $mail)
 	          <tr>
-	          	@if($mail->char_message_status == 0)
-	            <td><a class="nav-link" href="/admin/mails/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
-	            <td class="mail-subject"><a class="nav-link" href="/admin/mails/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
+	          	
+	            <td><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
+	            <td class="mail-subject"><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</td>
 	            <td>8 mins ago</td>
 	            <td>
 					<div align="center">
@@ -43,8 +43,7 @@
 						{!!Form::close()!!}
 					</div>
 				</td>
-				@endif
-				</a>
+				
 	          </tr>
 	         @endforeach
 	        </tbody>
@@ -62,9 +61,9 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="composeMails">New Message</h4>
+				<h4 class="modal-title" id="exampleModalLabel">New Message</h4>
 			</div>
-			
+			<div class="modal-body">
 				{!! Form::open(['action' => 'Admin\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
 					<div class="form-group">
 						{{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
@@ -85,7 +84,7 @@
 						</div>
 					</div>
 
-		
+			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-info">Send</button>
 			</div>
