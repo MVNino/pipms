@@ -34,24 +34,26 @@
 			              <div class="col-md-5">
 			              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
 			              	@if($copyright->patent)
-			              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
+			              		@if($copyright->patent->char_patent_status == 'to submit')
+			              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+						              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
+			              			@endif
+			              		@endif
 			              	@endif 
 			              </div>
 			              <div class="col-md-3">
 			                Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br>
-			                @if($copyright->dtm_schedule->diffInHours(Carbon\Carbon::now()) > 1)
-			                	{{ $copyright->dtm_schedule->diffInHours(Carbon\Carbon::now()) }} hours from now
-			                @else
-			                	@if($copyright->dtm_schedule->diffInMinutes(Carbon\Carbon::now()) > 1)
-				                	{{ $copyright->dtm_schedule->diffInMinutes(Carbon\Carbon::now()) }} minutes from now
-			                	@else
-			                		@if($copyright->dtm_schedule->diffInSeconds(Carbon\Carbon::now()) > 1)
-				                	{{ $copyright->dtm_schedule->diffInSeconds(Carbon\Carbon::now()) }} seconds
-				                	@else
-				                	His appointment is now
-				                	@endif
-			                	@endif
-			                @endif
+			                @if($copyright->patent)
+			              		@if($copyright->patent->char_patent_status == 'to submit')
+			              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+			              				@if($copyright->patent->dtm_schedule == $copyright->dtm_schedule)
+						        			{{-- Show nothing --}}
+						        		@else
+						        		Time: {{ $copyright->patent->dtm_schedule->format('g:i A') }}
+						        		@endif
+			              			@endif
+			              		@endif
+			              	@endif 
 			              </div>
 			            </div><hr>  
 			          </div>

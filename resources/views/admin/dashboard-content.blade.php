@@ -77,6 +77,16 @@
       </div>
     </div>
   </div>
+
+  <div class="col-md-12 col-lg-6">
+    <div class="tile">
+      <h3 class="tile-title">Lara Chart Menn!</h3>
+      <div class="embed-responsive embed-responsive-16by9">
+        {{-- <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas> --}}
+        {!! $chart->container() !!}
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -142,4 +152,5 @@
     $('a[href="/admin/dashboard"]').addClass('active');
   });
 </script>
+<script type="text/javascript">{!! $chart->script() !!}</script>
 @endsection

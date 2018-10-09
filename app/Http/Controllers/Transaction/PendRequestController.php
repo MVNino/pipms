@@ -10,6 +10,8 @@ use App\Notifications\AppointmentSetDb;
 use App\Notifications\PatentRequestAppointmentSet;
 use App\Notifications\PatentAppointmentSetDb;
 use App\Copyright;
+use App\College;
+use App\Department;
 use App\Patent;
 use App\Project;
 use App\ProjectType;
@@ -22,9 +24,11 @@ class PendRequestController extends Controller
     public $patent;
     public $status;
     public $viewPath;
+    public $college;
 
     public function __construct()
     {
+        $this->college = new College;
         $this->status = 'pending';
         $this->copyright = new Copyright;
         $this->patent = new Patent;
@@ -35,17 +39,28 @@ class PendRequestController extends Controller
     # COPYRIGHT
     public function listPendingCopyrightRequest()
     {
+        // $departments = Department::all();
+        // return $departments->groupBy('int_college_id');
+
         // List copyright records
         $copyrights = $this->copyright
             ->whereStatusIs($this->status);
-
+        // $copyrights->groupBy('int_college_id');
         // Group copyrights by college
         $groupedCopyrights = $this->copyright
             ->groupByCollege($this->status);
 
+        $colleges = College::all();
+        $colleges2 = College::all();
+
+        $collegeGroup = $this->college->groupByCol($this->status);
+        $collegeGroup->groupBy('char_college_code');
+        // $groupedCopyrights->groupBy('char_college_code');
+
         return view($this->viewPath.'copyright-pending', 
             ['copyrights' => $copyrights, 
-            'groupedCopyrights' => $groupedCopyrights]);
+            'groupedCopyrights' => $groupedCopyrights, 'colleges' => $colleges, 
+            'colleges2' => $colleges2, 'collegeGroup' => $collegeGroup]);
     }
 
     public function viewPendingCopyrightRequest($id)
@@ -70,7 +85,7 @@ class PendRequestController extends Controller
             ->toDateTimeString();
         $copyright = Copyright::findOrFail($id);
         $copyright->dtm_schedule = $schedule;
-        $copyright->dtm_to_submit = $schedule;
+        $copyright->dtm_to_submit = now();
         $copyright->char_copyright_status = 'to submit';
         $copyright->save();
         $promptMsg = 'Appointment set! The record changed its status to "to submit". 
@@ -115,7 +130,7 @@ class PendRequestController extends Controller
             ->toDateTimeString();
         $patent = Patent::findOrFail($id);
         $patent->dtm_schedule = $schedule;
-        $patent->dtm_to_submit = $schedule;
+        $patent->dtm_to_submit = now();
         $patent->char_patent_status = 'to submit';
         if($patent->save()) {
             $promptMsg = 'Appointment set! The patent request record changed its status to "to submit". 

@@ -12,34 +12,45 @@
 
 @section('content')
 <div class="row">
-@forelse($copyrights as $copyright)
-<div class="col-md-6">
-  <div class="tile">
-    <div class="tile-title-w-btn">
-      <h3 class="title">{{ $copyright->str_project_title }}</h3>
-      <div class="btn-group"><a class="btn btn-primary" href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}"><i class="fa fa-lg fa-eye"></i> Details</a>
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+                <th scope="col">Project Title</th>
+                <th scope="col">Type</th>
+                <th scope="col">Date Complied</th>
+                <th scope="col">Applicant Name - Type</th>
+                <th scope="col">Department - College - Branch</th>
+                <th scope="col" class="text-center">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($copyrights as $copyright)
+              <tr>
+              <th scope="row">{{ $copyright->str_project_title }}</th>
+              <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
+              <td scope="row">{{ $copyright->dtm_on_process }}</td>
+              <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
+              <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+              <td scope="row" class="text-center">
+                <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info">
+                  <span class="fa fa-eye"></span> View
+                </a>
+              </td>
+              </tr>
+              @empty  
+                <div class="alert alert-warning">
+                  There is no record yet.
+                </div>
+              @endforelse
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="tile-body">
-      <strong>Applicant: </strong>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} 
-      {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }} of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> 
-      (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>)<br>
-    </div>
-    <div class="tile-footer">
-      <strong>Date complied: </strong>
-        @if($copyright->dtm_on_process->diffInYears(Carbon\Carbon::now()) == 0)
-          {{ $copyright->dtm_on_process->format('M d - g:i A')}}
-        @else
-          {{ $copyright->dtm_on_process->format('M d Y - g:i A')}}
-        @endif
-    </div>
-  </div>
-</div>
-@empty
-<div class="alert alert-warning">
-  There is no record yet.
-</div>
-@endforelse
 </div>
 @endsection
 
