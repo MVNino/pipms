@@ -12,9 +12,9 @@
       <h4 class="tile-title folder-head">Folders</h4>
       <div class="tile-body">
         <ul class="nav nav-pills flex-column mail-nav">
-          <li class="nav-item active"><a class="nav-link" href="mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
-          <li class="nav-item"><a class="nav-link" href="sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-          <li class="nav-item"><a class="nav-link" href="trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
+          <li class="nav-item active"><a class="nav-link" href="/author/mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
+          <li class="nav-item"><a class="nav-link" href="/author/sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
+          <li class="nav-item"><a class="nav-link" href="/author/trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
         </ul>
       </div>
     </div>
@@ -23,50 +23,47 @@
     <div class="tile">
       
       <div class="table-responsive mailbox-messages">
-        <table class="table table-hover">
-          <tbody>
-          @foreach($mails as $mail)
-            <tr>
-              @if($mail->char_message_status == 0)
-              <td><a href="read-mail.html">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</td>
-              <td>8 mins ago</td>
-              <td>
-          <div align="center">
-            {!!Form::open(['action' => ['Author\MailController@deleteMails', $mail->int_id],'method' => 'POST', 'onsubmit' => "return confirm('Remove Message?')"])!!}
-              {{Form::hidden('_method', 'DELETE')}}
-              <button type="submit" class="btn btn-sm btn-icon btn-danger delete-row-btn" data-toggle="tooltip" data-original-title="Delete">
-                <i class="ti-close" aria-hidden="true"></i>
-              </button>
-            {!!Form::close()!!}
-          </div>
-        </td>
-        @endif
-            </tr>
-           @endforeach
-          </tbody>
-        </table> 
+        
+          <div class="card-body">
+                  <h5 class="card-title"><b>FROM: </b>{{ $mails->sender_name }}</h5>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title"><b>Message:</b></h5>
+                  <p class="card-text">{{ $mails->mdmTxt_message }}</h5>
+            </div>
+
+          <div class="card-footer text-muted"><strong>Date received:</strong> 
+                  @if($mails->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+                    {{ $mails->created_at->format('M d - g:i A') }}
+                  @else
+                    {{ $mails->created_at->format('M d, Y') }}
+                  @endif
+            </div>
+
+            <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#replymodal"><i class="fa fa-reply"></i>Reply</button>
+        
       </div>
       
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="composeMails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="replymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="composeMails">New Message</h4>
+        <h4 class="modal-title" id="composeMails">Reply</h4>
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
           <div class="form-group">
             {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
             <div class="col-md-12">
-              {{ Form::text('email', '', ['class' => 'form-control']) }}    
+              {{ Form::text('email', 'Admin', ['class' => 'form-control']) }}    
             </div>      
           </div>
           <div class="form-group">
@@ -90,4 +87,5 @@
     </div>
   </div>
 </div>
+
 @endsection

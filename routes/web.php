@@ -58,15 +58,26 @@ Route::group(
 			Route::get('schedule/today/id/college', function(){
 				return view('admin.schedule.college-today');
 			});
+			Route::get('mails', 'MailController@viewMails');
+			Route::get('mails/{id}', 'MailController@viewMessage');
+			Route::get('sent', 'MailController@Sent');
+			Route::get('sent/{id}', 'MailController@viewSent');
+			Route::get('trash', 'MailController@Trash');
+			Route::get('trash/{id}', 'MailController@viewTrash');
+			Route::post('my-mails', 'MailController@composeMails');
+			Route::delete('mails/{id}', 'MailController@deleteMails');	
+			
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
-		Route::get('mails', function() {
-			return view('admin.mail');
-		});
+
+		
+
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
+
+
 		
 		// Maintenance Module
 		Route::group(
@@ -136,6 +147,7 @@ Route::group(
 							'RequirementController@viewRequirement');
 					Route::put('requirement/{id}/edit', 
 							'RequirementController@updateRequirement');
+					
 				});
 			}
 		);
@@ -286,9 +298,17 @@ Route::group(
 			Route::get('notifications', 
 				'NotificationController@viewNotifications')
 				->name('author.notifications');
-			Route::get('mails', 
-				'MailController@viewMails')
+
+			Route::get('mails', 'MailController@viewMyMails')
 				->name('author.mails');
+			Route::get('mails/{id}', 'MailController@viewMyMessage');
+
+			Route::get('sent', 'MailController@MySent');
+			Route::get('sent/{id}', 'MailController@viewMySent');
+			Route::get('trash', 'MailController@MyTrash');
+			Route::post('mails', 'MailController@composeMails');
+			Route::delete('mails/{id}', 'MailController@deleteMails');
+
 			// Profile
 			Route::get('user-profile', 
 				'ProfileController@viewProfile')

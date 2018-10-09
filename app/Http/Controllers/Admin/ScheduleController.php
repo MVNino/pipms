@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Copyright;
+use Validator;
 use Calendar;
 
 
@@ -15,18 +16,20 @@ class ScheduleController extends Controller
 
 	public function viewCalendar()
 	{
-		$events = Copyright::get();
+		$events = Events::get();
 		$event_list = [];
 		foreach($events as $key => $event) {
 			$event_list[] = Calendar::event(
-				$event->str_project_title,
+				$event->event_name,
 				true,
-				new \DateTime($event->dtm_to_submit)
+				new \DateTime($event->start_date),
+				new \DateTime($event->end_date.' +1 day')
 			);
 		}
 		$calendar_details = Calendar::addEvents($event_list);
 
-		return view($this->viewPath, compact('caledar_details'));
+		return view('admin.schedule.calendar', compact('calendar_details'));
+
 	}
 
 	public function listTodaySchedule()

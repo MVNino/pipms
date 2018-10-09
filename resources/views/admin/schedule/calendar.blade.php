@@ -9,7 +9,9 @@
  @endsection
 @section('content')
 <div class="row">
+
     {!! $calendar_details->calendar() !!}
+    
 </div>
 @endsection
 
@@ -18,7 +20,11 @@
 <script type="text/javascript" src="{{ asset('vali/js/plugins/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/jquery-ui.custom.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/fullcalendar.min.js') }}"></script>
+{!! $calendar_details->script() !!}
 <script type="text/javascript">
+
+
+
   $(document).ready(function() {
   
   	$('#external-events .fc-event').each(function() {
