@@ -26,7 +26,7 @@
                   <tr>
                     <th scope="col">Project Title</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Date requested</th>
+                    <th scope="col">Date Copyrighted</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">Department - College - Branch</th>
                     <th scope="col" class="text-center">Details</th>
@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                   @forelse($copyrights as $copyright)
-                    @if($copyright->char_copyright_status == 'copyrighted')
+                    @if($copyright->char_copyright_status == 'copyrighted' AND $copyright->dtm_copyrighted)
                     <tr>
                     <th scope="row">
                       <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
@@ -46,7 +46,7 @@
                         {{ $copyright->projectType->char_project_type }}
                       </a>
                     </td>
-                    <td scope="row">{{ $copyright->dtm_copyrighted }}</td>
+                    <td scope="row">{{ $copyright->dtm_copyrighted->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
@@ -75,7 +75,7 @@
                 </thead>
                 <tbody>
                   @forelse($copyrights as $copyright)
-                    @if($copyright->char_copyright_status == 'on process')
+                    @if($copyright->char_copyright_status == 'on process' AND $copyright->dtm_on_process)
                     <tr>
                     <th scope="row">
                       <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
@@ -87,7 +87,7 @@
                         {{ $copyright->projectType->char_project_type }}
                       </a>
                     </td> 
-                    <td scope="row">{{ $copyright->dtm_on_process }}</td>
+                    <td scope="row">{{ $copyright->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
@@ -116,11 +116,11 @@
                 </thead>
                 <tbody>
                   @forelse($copyrights as $copyright)
-                    @if($copyright->char_copyright_status == 'to submit')
+                    @if($copyright->char_copyright_status == 'to submit' AND $copyright->dtm_to_submit)
                     <tr>
                     <th scope="row">{{ $copyright->str_project_title }}</th>
                     <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
-                    <td scope="row">{{ $copyright->dtm_to_submit }}</td>
+                    <td scope="row">{{ $copyright->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
@@ -149,11 +149,11 @@
                 </thead>
                 <tbody>
                   @forelse($copyrights as $copyright)
-                    @if($copyright->char_copyright_status == 'pending')
+                    @if($copyright->char_copyright_status == 'pending' AND $copyright->created_at)
                     <tr>
                     <th scope="row">{{ $copyright->str_project_title }}</th>
                     <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
-                    <td scope="row">{{ $copyright->created_at }}</td>
+                    <td scope="row">{{ $copyright->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
