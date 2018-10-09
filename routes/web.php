@@ -244,6 +244,7 @@ Route::group(
 		);
 
 		# Query Module
+		Route::get('queries', 'QueryController@index')->name('queries');
 
 		# Reports Module
 		Route::group(
@@ -253,16 +254,16 @@ Route::group(
 			function()
 			{
 				Route::namespace('Report')->group(function(){
-					Route::get('copyrighted',	
-						'CopyrightedController@listCopyrights')
-						->name('reports.copyrighted');
+					Route::get('copyright',	
+						'CopyrightController@listCopyrights')
+						->name('reports.copyright');
 					Route::get('copyrighted/{id}', 		
-						'CopyrightedController@viewCopyright');
-					Route::get('patented', 		
-						'PatentedController@listPatents')
-						->name('reports.patented');	
+						'CopyrightController@viewCopyright');
+					Route::get('patent', 		
+						'PatentController@listPatents')
+						->name('reports.patent');	
 					Route::get('patented/{id}', 			
-						'PatentedController@viewPatent');	
+						'PatentController@viewPatent');	
 					Route::get('authors', 		
 						'AuthorController@listApplicants')
 						->name('reports.authors');	

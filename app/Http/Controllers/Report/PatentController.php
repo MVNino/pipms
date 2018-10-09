@@ -7,18 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Copyright;
 use App\Patent;
 
-class PatentedController extends Controller
+class PatentController extends Controller
 {
+    public $viewPath;
+    public $patent;
     # Controller for Patented Reports
     public function __construct()
     {
+        $this->viewPath = 'admin.reports.';
+        $this->patent = new Patent;
         $this->middleware('auth');
     }
     public function listPatents()
-    {
-        $patents = Patent::where('char_patent_status', 'patented')
-            ->get();
-        return view('admin.reports.list-patented', ['patents' => $patents]);
+    
+        $patents = $this->patent->allRecords();
+        return view('admin.reports.list-patent', ['patents' => $patents]);
     }
 
     public function viewPatent($id)
@@ -26,7 +29,7 @@ class PatentedController extends Controller
         $patentCollection = Patent::with('copyright.applicant.department.college.branch')
             ->where('int_id', $id)
             ->get();
-        return view('admin.reports.view-patented', 
+        return view('admin.reports.view-patent', 
             ['patentCollection' => $patentCollection]);
     }
 }

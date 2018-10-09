@@ -31,8 +31,8 @@
 </div>
 
 <div class ="tile">
-  <div class="tile-body">  
-    <table class="table table-hover">
+  <div class="tile-body">
+    <table class="table table-hover table-bordered">
       <thead>
         <th>Author Name</th>
         <th>Gender - Type</th>

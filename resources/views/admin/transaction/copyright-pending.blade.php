@@ -33,8 +33,8 @@
             @forelse($copyrights as $copyright)
             <tr>
               <td><b>{{ $copyright->str_project_title }}</b></td>
-              <td><b>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_last_name }}</b> - <b>{{ $copyright->applicant->char_applicant_type }}</b> </td>
-              <td>{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+              <td><a href="/admin/reports/author/{{ $copyright->applicant->user->id }}"><b>{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_last_name }}</b></a> - <b>{{ $copyright->applicant->char_applicant_type }}</b> </td>
+              <td><a href="/admin/maintenance/department/{{ $copyright->applicant->department->int_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
               <td>
                 @if($copyright->created_at->diffInYears(Carbon\Carbon::now()) == 0)
                   @if($copyright->created_at->diffInDays(Carbon\Carbon::now()) <= 3)
@@ -61,13 +61,14 @@
         </div>
         <div class="tab-pane fade" id="college">
           <div class="row">
+            @foreach($groupedCopyrights as $copyright)
             <div class="col-md-6">
               <div class="tile">
                 <div class="row">
                   <div class="col-md-9">
                     <h4 class="tile-title text-muted">
                       <a href="/admin/transaction/copyrights/pend-request/id/college">
-                        CCIS - PUP Main
+                        {{ $copyright->char_college_code }}
                       </a>
                     </h4>
                   </div>
@@ -82,183 +83,26 @@
                       <div class="row">
                         <div class="col-md-8">
                           <b>
-                            <a href="#">
-                            PIPMS
+                            <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
+                            {{ $copyright->str_project_title }}
                             </a> - Marlon Niño
                           </b>(Student)
                         </div>
                         <div class="col-md-4">
                           Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br>
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>    
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="tile">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h4 class="tile-title text-muted">
-                      CCIS - PUP Main
-                    </h4>
-                  </div>
-                  <div class="col-md-3">
-                    <a href="{{ route('admin.today') }}" class="btn btn-primary">
-                      <i class="fa fa-eye"></i>Set Batch
-                    </a>
-                  </div>
-                </div>
-                <div class="tile-body">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño
-                          </b>(Student)
-                        </div>
-                        <div class="col-md-4">
-                          Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br>
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>  
-                      <div class="row">
-                        <div class="col-md-8">
-                          <b>
-                            <a href="#">
-                            PIPMS
-                            </a> - Marlon Niño</b> <br> 
-                          Student
-                          of BSIT-CCIS-PUP Main
-                        </div>
-                        <div class="col-md-4">
-                          Time: Oct 7, 2:30 PM
-                        </div>
-                      </div><hr>    
+                        </div> 
                     </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          @endforeach
+            {{-- @foreach($collegeGroup as $copyright)
+              <div class="tile tile-body">
+                {{ $copyright }}
+              </div>
+            @endforeach --}}
+          </div>
     </div>
   </div>
 </div>

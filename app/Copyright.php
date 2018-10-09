@@ -54,10 +54,19 @@ class Copyright extends Model
 		);
 	}	
 
-	// Listing of copyright records
+	// Listing of all copyright records
+	public function allRecords()
+	{
+		return $this->with(['applicant.department.college.branch', 
+			'patent', 'project', 'projectType'])
+            ->get();
+	}
+
+	// Listing of copyright records with 'where'
 	public function whereStatusIs($status)
 	{
-		return $this->with('applicant.department.college.branch')
+		return $this->with(['applicant.department.college.branch', 
+			'patent', 'project', 'projectType'])
             ->where('char_copyright_status', $status)
             ->get();
 	}
@@ -98,7 +107,6 @@ class Copyright extends Model
             ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
             ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
             ->where('char_copyright_status', $status)
-            ->groupBy('departments.char_department_code')    
             ->get();
 	}
 }

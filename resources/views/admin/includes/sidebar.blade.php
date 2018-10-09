@@ -74,32 +74,38 @@
           </li>
         </ul>
       </li>
-      <li class="treeview" id="li-query"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-history"></i><span class="app-menu__label">Query</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-        <ul class="treeview-menu">
-          <li><a class="treeview-item" href="#"><i class="icon fa fa-user-o"></i> Query Monitor</a></li>
-        </ul>
+      <li>
+        <a class="app-menu__item {{Request::is('admin/queries') ? 'active':''}}" href="{{ route('queries') }}">
+          <i class="app-menu__icon fa fa-history"></i>
+          <span class="app-menu__label">Queries</span>
+        </a>
       </li>
       <li class="treeview" id="li-reports"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li>
-            <a class="treeview-item" href="/admin/reports/copyrighted">
-              Copyrighted
+            <a class="treeview-item" href="/admin/reports/copyright">
+              Copyright
             </a>
           </li>
           <li>
-            <a class="treeview-item" href="/admin/reports/patented">
-              Patented
+            <a class="treeview-item" href="/admin/reports/patent">
+              Patent
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/schedule-issues">
+              Branch
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/schedule-issues">
+              College
             </a>
           </li>
           <li>
             <a class="treeview-item" href="/admin/reports/authors">
-              Authors
+              Author
             </a>
-          </li>
-          <li>
-              <a class="treeview-item" href="/admin/reports/schedule-issues">
-                Schedule Issues
-              </a>
           </li>
         </ul>
       </li>

@@ -21,7 +21,7 @@ class Patent extends Model
 		'dtm_on_process',
 		'dtm_patented'
 	];
-	
+
 	// Relationship of 'patents' to 'copyrights'
 	public function copyright(){
 		return $this->belongsTo('App\Copyright', 'int_copyright_id', 'int_id');
@@ -37,10 +37,19 @@ class Patent extends Model
 		return $this->belongsTo('App\Project', 'int_project_id', 'int_id');
 	}
 
-	// For listing of patents
+	// Listing of all patent records
+	public function allRecords()
+	{
+		return $this->with(['copyright.applicant.department.college.branch', 
+			'project', 'projectType'])
+            ->get();
+	}
+
+	// For listing of patents with where method
 	public function whereStatusIs($status)
 	{
-		return $this->with('copyright.applicant.department.college.branch')
+		return $this->with(['copyright.applicant.department.college.branch', 
+			'project', 'projectType'])
             ->where('char_patent_status', $status)
             ->get();
 	}
