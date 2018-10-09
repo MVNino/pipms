@@ -8,7 +8,12 @@ use App\Applicant;
 use App\Patent;
 
 class AuthorController extends Controller
-{
+{    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public function listApplicants()
 	{
         $applicants = Applicant::with(['department.college.branch'], ['copyright.patent'], ['user'])
