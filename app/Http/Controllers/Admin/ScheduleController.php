@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Copyright;
+use App\Event;
 use Validator;
 use Calendar;
 
@@ -16,7 +17,7 @@ class ScheduleController extends Controller
 
 	public function viewCalendar()
 	{
-		$events = Events::get();
+		$events = Event::get();
 		$event_list = [];
 		foreach($events as $key => $event) {
 			$event_list[] = Calendar::event(

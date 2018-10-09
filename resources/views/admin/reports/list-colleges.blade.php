@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-building"></i> Branch Report</h1>
-  <p>Form of intellectual property protection</p>
+<h1><i class="fa fa-building"></i> College Report</h1>
+  <p>College Report</p>
 @endsection
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.branch') }}">Copyright</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.college') }}">College</a></li>
 @endsection
 
 @section('content')
@@ -22,7 +22,10 @@
 	        <label>End Date</label>
 	        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date">	  
 	    </div>
-	    <div class="col-md-2"></div>
+	    <div class="col-md-2">
+        <br>
+        <button class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+      </div>
 	    <div class="col-md-2">
 	      <!-- Button trigger modal -->
 	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Print PDF</button>
@@ -37,7 +40,7 @@
           <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
-                <th>Branch</th>
+                <th>College - Branch</th>
                 <th colspan="5" class="text-center">Copyright</th>
                 <th colspan="5" class="text-center">Patent</th>
               </tr>
@@ -56,10 +59,10 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($branches as $branch)
+              @foreach($colleges as $college)
             	<tr>
-            		<th class="text-center">{{ $branch->str_branch_name }}</th>
-            		<td class="text-center">62</td>
+            		<th class="text-center">{{ $college->char_college_code }} - {{ $college->branch->str_branch_name }}</th>
+            		<td class="text-center">145</td>
             		<td class="text-center">65</td>
             		<td class="text-center">64</td>
             		<td class="text-center text-danger">36</td>
@@ -103,7 +106,7 @@ $('#demoDate2').datepicker({
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/branch"]').addClass('active');
+    $('a[href="/admin/reports/college"]').addClass('active');
   });
 </script>
 @endsection

@@ -9,9 +9,9 @@
  @endsection
 @section('content')
 <div class="row">
-
+  <div class="tile tile-body">
     {!! $calendar_details->calendar() !!}
-    
+  </div>
 </div>
 @endsection
 
