@@ -29,8 +29,16 @@ class ScheduleController extends Controller
 		}
 		$calendar_details = Calendar::addEvents($event_list);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+		return view('admin.schedule.calendar', compact('calendar_details'));
+=======
+		return view($this->viewPath, compact('caledar_details'));
+>>>>>>> 53d7fbf679343f8db1712e41d70dc6b8e5a40fbe
+=======
 		return view('admin.schedule.calendar', compact('calendar_details'));
 
+>>>>>>> b59b342e0f37a3bec23cb473e9d3221bca718be4
 	}
 
 	public function listTodaySchedule()

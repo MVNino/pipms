@@ -61,8 +61,8 @@ class MailController extends Controller
   		$message->email = $request->email;
   		$message->str_subject = $request->subject;
   		$message->mdmTxt_message = $request->message;
-       	$message->sender_name = 'User';
-       	$message->char_message_status = '0';
+      $message->sender_name = 'User';
+      $message->char_message_status = '0';
         
 
         if ($message->save()) {

@@ -312,6 +312,7 @@ Route::group(
 			Route::get('sent', 'MailController@MySent');
 			Route::get('sent/{id}', 'MailController@viewMySent');
 			Route::get('trash', 'MailController@MyTrash');
+			
 			Route::post('mails', 'MailController@composeMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');
 
