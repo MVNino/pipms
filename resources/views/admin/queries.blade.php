@@ -13,12 +13,41 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="tile">
-			<h3 class="tile-header">hehe</h3>
+            <div class="tile-header">
+                
+            </div>
 			<div class="tile-body">
-				
+                <table class="table table-hover table-bordered" id="sampleTable">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Branch</th>
+                      <th class="text-center">Authors</th>
+                      <th colspan="5" class="text-center">Copyright</th>
+                    </tr>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                      <th scope="col">Pending</th>
+                      <th scope="col">To Submit</th>
+                      <th scope="col">On Process</th>
+                      <th scope="col" class="text-danger">Conflicts</th>
+                      <th scope="col" class="text-success">Copyrighted</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  </tbody>
+                </table>
 			</div>
 			<div class="tile-footer">
-				wewew
 			</div>
 		</div>
 	</div>
@@ -26,38 +55,11 @@
 @endsection
 
 @section('pg-specific-js')
-<script>
-    var pan = null;
-    $(document).ready(function (){
-        $('#query').addClass('active');
-        $('#list1').DataTable({
-            responsive: true,
-            ordering: false
-        });
-        $('#list2').DataTable({
-            responsive: true,
-            ordering: false
-        });
-        $('#list3').DataTable({
-            responsive: true,
-            ordering: false
-        });
-        $('#list4').DataTable({
-            responsive: true,
-            ordering: false
-        });
-        $('#list5').DataTable({
-            responsive: true,
-        });
-        $('#list6').DataTable({
-            responsive: true,
-        });
-    });
-    $('#queryId').on('change', function() {          
-        if(pan!=null){
-            $(pan).addClass('hidden');
-        }
-        pan = $('.pan'+$(this).val()).removeClass('hidden');
-    });
+{{-- Page Specific JavaScript --}}
+<!-- Data table plugin-->
+<script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
+<script type="text/javascript">
+  $('#sampleTable').DataTable();
 </script>
 @endsection

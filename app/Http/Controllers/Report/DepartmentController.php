@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\College;
 use App\Copyright;
 use App\Patent;
 
-class CollegeController extends Controller
+class DepartmentController extends Controller
 {
 	public $viewPath;
     public $copyright;
@@ -20,17 +19,17 @@ class CollegeController extends Controller
         $this->viewPath = 'admin.reports.';
         $this->copyright = new Copyright;
         $this->patent = new Patent;
-        $this->column = 'colleges.char_college_code';
+        $this->column = 'departments.char_department_code';
         $this->middleware('auth');
     }
 
-    public function listColleges()
+    public function listDepartments()
     {
         $patentStats = $this->patent
-            ->patentStats($this->column);
+        	->patentStats($this->column);
         $copyrightStats = $this->copyright
-            ->copyrightStats($this->column);
-    	return view($this->viewPath.'list-colleges', 
+        	->copyrightStats($this->column);
+    	return view($this->viewPath.'list-departments', 
             ['copyrightStats' => $copyrightStats, 
             'patentStats' => $patentStats]);
     }
