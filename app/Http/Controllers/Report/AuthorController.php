@@ -6,20 +6,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Applicant;
 use App\Patent;
+use App\User;
+use Carbon\Carbon;
 
 class AuthorController extends Controller
-{    
+{  
+    public $author;  
     public function __construct()
     {
+        $this->author = new User;
         $this->middleware('auth');
     }
 
 	public function listApplicants()
 	{
-        $applicants = Applicant::with(['department.college.branch'], ['copyright.patent'], ['user'])
-            ->get();      
+        $authors = $this->author->authorStats();
         return view('admin.reports.list-authors', 
-            ['applicants' => $applicants]);
+            ['authors' => $authors]);
 	}
 
 	public function viewApplicant($id)

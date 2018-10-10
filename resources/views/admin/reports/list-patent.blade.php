@@ -11,6 +11,28 @@
 @endsection
 
 @section('content')
+<div class="tile tile-body">
+  <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
+  <h5>Date Range</h5>
+  <div class="row">
+      <div class="col-md-4">
+      <label>Start Date</label>
+      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+      </div>
+      <div class="col-md-4">
+          <label>End Date</label>
+          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">    
+      </div>
+      <div class="col-md-2">
+        <br>
+        <button class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+      </div>
+      <div class="col-md-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+      </div>
+  </div>
+</div>
 <div class="row">
     <div class="col-md-12">
       <div class="tile">
@@ -50,7 +72,7 @@
                     </td>
                     <td scope="row">{{ $patent->dtm_patented->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></td>
                     <td scope="row" class="text-center">
                       <a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info">
                         <span class="fa fa-eye"></span> View
@@ -94,7 +116,7 @@
                     </td>
                     <td scope="row">{{ $patent->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></td>
                     <td scope="row" class="text-center">
                       <a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info">
                         <span class="fa fa-eye"></span> View
@@ -138,7 +160,8 @@
                     </td>
                     <td scope="row">{{ $patent->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif
@@ -178,7 +201,8 @@
                     </td>
                     <td scope="row">{{ $patent->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif

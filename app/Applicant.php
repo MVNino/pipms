@@ -16,6 +16,12 @@ class Applicant extends Model
     // Timestamps
 	public $timestamps = false;
 
+	protected $dates = [
+		'created_at',
+		'updated_at',
+		'dtm_birthdate'
+	];
+
 	public function user()
 	{
 		return $this->belongsTo('App\User', 'int_user_id', 'id');
@@ -25,12 +31,6 @@ class Applicant extends Model
 	{
 		return $this->belongsTo('App\Department', 'int_department_id', 'int_id');
 	}
-
-	// Relationship of 'applicants' to 'copyrights'
-	// public function copyrights()
-	// {
-	// 	return $this->hasMany('App\Copyright', 'int_applicant_id', 'int_id');
-	// }
 
 	public function copyrights()
 	{

@@ -12,6 +12,7 @@
 
 @section('content')
 <div class="tile tile-body">
+    <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
     <h5>Date Range</h5>
 	<div class="row">
 	    <div class="col-md-4">
@@ -20,7 +21,7 @@
 	    </div>
 	    <div class="col-md-4">
 	        <label>End Date</label>
-	        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date">	  
+	        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">	  
 	    </div>
 	    <div class="col-md-2">
         <br>
@@ -28,7 +29,9 @@
       </div>
 	    <div class="col-md-2">
 	      <!-- Button trigger modal -->
-	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
+          <i class="fa fa-file"></i>Generate PDF
+        </button>
 	    </div>
 	</div>
 </div>

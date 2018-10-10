@@ -117,7 +117,7 @@
       <li>
         <a class="app-menu__item" href="#">
           <i class="app-menu__icon fa fa-gears"></i>
-          <span class="app-menu__label">System Utilities</span>
+          <span class="app-menu__label"><strike>System Utilities</strike></span>
         </a>
       </li>
     </ul>

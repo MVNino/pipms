@@ -12,15 +12,16 @@
 
 @section('content')
 <div class="tile tile-body">
-    <h5>Date Range</h5>
+  <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
+  <h5>Date Range</h5>
   <div class="row">
       <div class="col-md-4">
-          <label>Start Date</label>
+      <label>Start Date</label>
       <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
       </div>
       <div class="col-md-4">
           <label>End Date</label>
-          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date">    
+          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">    
       </div>
       <div class="col-md-2">
         <br>
