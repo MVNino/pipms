@@ -27,6 +27,7 @@
               <tr>
                 <th scope="col">Account ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Type</th>
                 <th scope="col">Email Address</th>
                 <th scope="col" class="text-center">Details</th>
               </tr>
@@ -36,13 +37,20 @@
               <tr>
               <td scope="row">{{ $user->id }}</td>
               <td>{{ $user->str_first_name }} {{ $user->str_middle_name }} {{ $user->str_last_name }}</td>
+              <td>
+                @if($user->applicant)
+                  Author
+                @else
+                  Admin
+                @endif
+              </td>
               <td>{{ $user->email }}</td>
               <td class="text-center"><a href="/admin/maintenance/user/{{ $user->id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span>View</a></td>
               </tr>
               @empty	
               	<div class="alert alert-warning">
-					There is no record yet.
-				</div>
+        					There is no record yet.
+        				</div>
               @endforelse
             </tbody>
           </table>

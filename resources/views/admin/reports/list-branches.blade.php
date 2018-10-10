@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="tile tile-body">
-    <h5>Date Bracket</h5>
+    <h5>Date Range</h5>
 	<div class="row">
 	    <div class="col-md-4">
 	        <label>Start Date</label>

@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="tile tile-body">
-    <h5>Date Bracket</h5>
+    <h5>Date Range</h5>
 	<div class="row">
 	    <div class="col-md-4">
 	        <label>Start Date</label>
@@ -62,7 +62,14 @@
               @foreach($colleges as $college)
             	<tr>
             		<th class="text-center">{{ $college->char_college_code }} - {{ $college->branch->str_branch_name }}</th>
-            		<td class="text-center">145</td>
+            		<td class="text-center">
+                  {{ $copyrights->count() }}
+                </td>
+                 {{--  {{ $college->myDepts }} --}}
+          {{--         {{$college->departments->countCopyrights}} --}}
+{{--                   @foreach($college->departments as $department)
+                    {{ $department->countCopyrights }}
+                  @endforeach --}}
             		<td class="text-center">65</td>
             		<td class="text-center">64</td>
             		<td class="text-center text-danger">36</td>

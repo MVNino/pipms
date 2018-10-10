@@ -21,6 +21,12 @@ class Copyright extends Model
 		'dtm_on_process',
 		'dtm_copyrighted'
 	];
+
+	public function countMe($status, $collegeId)
+	{
+		return $this->count();
+	}
+
 	public function user(){
 		return $this->belongsTo('App\User', 'int_user_id', 'id');
 	}

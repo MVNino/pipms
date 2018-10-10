@@ -188,7 +188,27 @@
                 </div>
               </div>
             </div>
+
             <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Department - College - Branch</label>
+                  <select data-placeholder="Select department" class="custom-select" name="slctDepartmentId">
+                    @if($author->int_department_id == NULL)
+                      <option selected>Select department</option>
+                    @else
+                  <option value="{{ $author->int_department_id }}" selected>{{ $author->department->char_department_code }} - {{ $author->department->college->char_college_code }} - {{ $author->department->college->branch->str_branch_name }}</option>
+                    @endif
+                    @foreach($departments as $department)
+                      @if($department->int_id !== $author->int_department_id)
+                        <option value="{{ $department->int_id }}">{{ $department->char_department_code }} - {{ $department->college->char_college_code }} - {{ $department->college->branch->str_branch_name }}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </div>          
+              </div>
+            </div>
+            {{-- <div class="row">
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>Branch</label>
@@ -224,7 +244,7 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div> --}}
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
