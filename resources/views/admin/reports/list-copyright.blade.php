@@ -9,6 +9,28 @@
 <li class="breadcrumb-item"><a href="{{ route('reports.copyright') }}">Copyright</a></li>
 @endsection
 @section('content')
+<div class="tile tile-body">
+  <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
+  <h5>Date Range</h5>
+  <div class="row">
+      <div class="col-md-4">
+      <label>Start Date</label>
+      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+      </div>
+      <div class="col-md-4">
+          <label>End Date</label>
+          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">    
+      </div>
+      <div class="col-md-2">
+        <br>
+        <button class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+      </div>
+      <div class="col-md-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+      </div>
+  </div>
+</div>
 <div class="row">
     <div class="col-md-12">
       <div class="tile">
@@ -48,7 +70,8 @@
                     </td>
                     <td scope="row">{{ $copyright->dtm_copyrighted->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif
@@ -89,7 +112,8 @@
                     </td> 
                     <td scope="row">{{ $copyright->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif
@@ -118,11 +142,20 @@
                   @forelse($copyrights as $copyright)
                     @if($copyright->char_copyright_status == 'to submit' AND $copyright->dtm_to_submit)
                     <tr>
-                    <th scope="row">{{ $copyright->str_project_title }}</th>
-                    <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
+                    <th scope="row">
+                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                        {{ $copyright->str_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $copyright->int_project_type_id }}">
+                        {{ $copyright->projectType->char_project_type }}
+                      </a>
+                    </td>
                     <td scope="row">{{ $copyright->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif
@@ -151,11 +184,20 @@
                   @forelse($copyrights as $copyright)
                     @if($copyright->char_copyright_status == 'pending' AND $copyright->created_at)
                     <tr>
-                    <th scope="row">{{ $copyright->str_project_title }}</th>
-                    <td scope="row">{{ $copyright->projectType->char_project_type }}</td>
+                    <th scope="row">
+                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                        {{ $copyright->str_project_title }}
+                      </a>
+                    </th>
+                    <td scope="row">
+                      <a href="/admin/maintenance/project-type/{{ $copyright->int_project_type_id }}">
+                        {{ $copyright->projectType->char_project_type }}
+                      </a>
+                    </td>
                     <td scope="row">{{ $copyright->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
-                    <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
+                    <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+                    </td>
                     <td scope="row" class="text-center"><a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
                     </tr>
                     @endif

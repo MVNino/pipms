@@ -7,34 +7,77 @@
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.authors') }}">Authors</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.author') }}">Authors</a></li>
 @endsection
 
-@section('content')<div class="row">
+@section('content')
+<div class="tile tile-body">
+  <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
+  <h5>Date Range</h5>
+  <div class="row">
+      <div class="col-md-4">
+      <label>Start Date</label>
+      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+      </div>
+      <div class="col-md-4">
+          <label>End Date</label>
+          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">    
+      </div>
+      <div class="col-md-2">
+        <br>
+        <button class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+      </div>
+      <div class="col-md-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+      </div>
+  </div>
+</div>
+<div class="row">
     <div class="col-md-12">
       <div class="tile">
         <div class="tile-body">
           <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
-                <th scope="col">Author Name</th>
-                <th scope="col">College - Department - Branch</th>
-                <th scope="col">Type of Author</th>
-                <th scope="col" class="text-center">Details</th>
+                <th scope="col" class="text-center">Author Name</th>
+                <th scope="col" class="text-center">Gender - Birthdate</th>
+                <th scope="col" class="text-center">Type</th>
+                <th scope="col" class="text-center">College - Department - Branch</th>
+                <th scope="col" class="text-center">Copyrights</th>
+                <th scope="col" class="text-center">Patents</th>
+                <th scope="col" class="text-center">Date Registered</th>
               </tr>
             </thead>
             <tbody>
- {{--              @forelse($applicants as $applicant)
-                {{ $applicant->bigInt_cellphone_number }}
-                {{ $applicant->department->int_id }}
-              @empty
-              @endforelse --}}
+              @forelse($authors as $author)
               <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $author->str_first_name }} {{ $author->str_middle_name }} {{ $author->str_last_name }}</td>
+                <td>{{ $author->char_gender }} 
+                  - {{ $author->dtm_birthdate }}
+                </td>
+                <td>{{ $author->char_applicant_type }}</td>
+                <td>{{ $author->char_department_code }} 
+                  - {{ $author->char_college_code }} 
+                  - {{ $author->str_branch_name }}
+                </td>
+                <td>
+                  <ul>
+                    <li>{{ $author->str_project_title }}</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>{{ $author->str_patent_project_title }}</li>
+                  </ul>
+                </td>
+                <td>{{ $author->created_at }}</td>
               </tr>
+              @empty
+                <div class="alert alert-warning">
+                  There is no record yet.
+                </div>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -52,7 +95,7 @@
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/authors"]').addClass('active');
+    $('a[href="/admin/reports/author"]').addClass('active');
   });
 </script>
 @endsection

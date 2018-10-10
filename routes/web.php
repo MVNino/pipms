@@ -264,9 +264,9 @@ Route::group(
 						->name('reports.patent');	
 					Route::get('patented/{id}', 			
 						'PatentController@viewPatent');	
-					Route::get('authors', 		
+					Route::get('author', 		
 						'AuthorController@listApplicants')
-						->name('reports.authors');	
+						->name('reports.author');	
 					Route::get('author/{id}', 		
 						'AuthorController@viewApplicant');	
 					Route::get('schedule-issues', 
