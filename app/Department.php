@@ -40,9 +40,4 @@ class Department extends Model
 			'int_id'
 		);
 	}
-	
-	public function countCopyrights()
-	{
-		$this->copyrights->count();
-	}
 }

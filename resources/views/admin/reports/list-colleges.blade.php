@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-building"></i> College Report</h1>
-  <p>College Report</p>
+<h1><i class="fa fa-building"></i> College Reports</h1>
+  <p>Copyright and Patent Statistics as Per College</p>
 @endsection
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.college') }}">College</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.colleges') }}">Colleges</a></li>
 @endsection
 
 @section('content')
@@ -28,29 +28,90 @@
       </div>
 	    <div class="col-md-2">
 	      <!-- Button trigger modal -->
-	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Print PDF</button>
+	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
 	    </div>
 	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-      <div class="tile">
-        <div class="tile-body">
-          <table class="table table-hover table-bordered" id="sampleTable">
+  <div class="col-md-12">
+    <div class="tile">
+      <div class="tile-body">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyright">Copyright</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patent">Patent</a></li>
+        </ul>
+      <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade active show" id="copyright">
+            <br>
+            <table class="table table-hover table-bordered" id="sampleTable">
+              <thead>
+                <tr>
+                  <th class="text-center">College</th>
+                  <th class="text-center">Branch</th>
+                  <th class="text-center">Authors</th>
+                  <th colspan="5" class="text-center">Copyright</th>
+                </tr>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                  <th scope="col">Pending</th>
+                  <th scope="col">To Submit</th>
+                  <th scope="col">On Process</th>
+                  <th scope="col" class="text-danger">Conflicts</th>
+                  <th scope="col" class="text-success">Copyrighted</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($copyrightStats as $copyright)
+                <tr>
+                  <th class="text-center">
+                    <a href="/admin/maintenance/college/{{ $copyright->college_id }}">
+                      {{ $copyright->char_college_code }}
+                    </a>
+                  </th>
+                  <th class="text-center"> 
+                    <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                      {{ $copyright->str_branch_name }}
+                    </a>
+                  </th>
+                  <th class="text-center text-primary">
+                    {{ $copyright->author_count }}
+                  </th>
+                  <td class="text-center">
+                    {{ $copyright->copyright_count_pending }}
+                  </td>
+                  <td class="text-center">
+                    {{ $copyright->copyright_count_to_submit }}
+                    
+                  </td>
+                  <td class="text-center">
+                    {{ $copyright->copyright_count_on_process }}
+                  </td>
+                  <td class="text-center text-danger">
+                    {{ $copyright->copyright_count_to_submit }}
+                  </td>
+                  <th class="text-center text-success">
+                    {{ $copyright->copyright_count_copyrighted }}
+                  </th>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="patent">
+            <br>
+          <table class="table table-hover table-bordered">
             <thead>
               <tr>
-                <th>College - Branch</th>
-                <th colspan="5" class="text-center">Copyright</th>
+                <th class="text-center">College</th>
+                <th class="text-center">Branch</th>
                 <th colspan="5" class="text-center">Patent</th>
               </tr>
               <tr>
                 <th scope="col"></th>
-                <th scope="col">Pending</th>
-                <th scope="col">To Submit</th>
-                <th scope="col">On Process</th>
-                <th scope="col" class="text-danger">Conflicts</th>
-                <th scope="col" class="text-success">Copyrighted</th>
+                <th scope="col"></th>
                 <th scope="col">Pending</th>
                 <th scope="col">To Submit</th>
                 <th scope="col">On Process</th>
@@ -59,33 +120,42 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($colleges as $college)
-            	<tr>
-            		<th class="text-center">{{ $college->char_college_code }} - {{ $college->branch->str_branch_name }}</th>
-            		<td class="text-center">
-                  {{ $copyrights->count() }}
+              @foreach($patentStats as $patent)
+              <tr>
+                <th class="text-center">
+                  <a href="/admin/maintenance/college/{{ $copyright->college_id }}">
+                    {{ $copyright->char_college_code }}
+                  </a>
+                </th>
+                <th class="text-center">
+                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                  {{ $copyright->str_branch_name }}
+                  </a>
+                </th>
+                <td class="text-center">
+                  {{ $patent->patent_count_pending }}
                 </td>
-                 {{--  {{ $college->myDepts }} --}}
-          {{--         {{$college->departments->countCopyrights}} --}}
-{{--                   @foreach($college->departments as $department)
-                    {{ $department->countCopyrights }}
-                  @endforeach --}}
-            		<td class="text-center">65</td>
-            		<td class="text-center">64</td>
-            		<td class="text-center text-danger">36</td>
-            		<th class="text-center text-success">78</th>
-            		<td class="text-center">145</td>
-            		<td class="text-center">65</td>
-            		<td class="text-center">32</td>
-            		<td class="text-center text-danger">34</td>
-            		<th class="text-center text-success">78</th>
-            	</tr>
+                <td class="text-center">
+                  {{ $patent->patent_count_to_submit }} 
+                </td>
+                <td class="text-center">
+                  {{ $patent->patent_count_on_process }}
+                </td>
+                <td class="text-center text-danger">
+                  {{ $patent->patent_count_to_submit }}
+                </td>
+                <th class="text-center text-success">
+                  {{ $patent->patent_count_patented }}
+                </th>
+              </tr>
               @endforeach
             </tbody>
-          </table>
-        </div>
+          </table> 
+          </div>
+      </div>
       </div>
     </div>
+  </div>
 </div>
 @endsection
 
@@ -96,6 +166,7 @@
 <script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
 <script type="text/javascript">
   $('#sampleTable').DataTable();
+  $('#sampleTable2').DataTable();
 </script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>
@@ -113,7 +184,7 @@ $('#demoDate2').datepicker({
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/college"]').addClass('active');
+    $('a[href="/admin/reports/colleges"]').addClass('active');
   });
 </script>
 @endsection

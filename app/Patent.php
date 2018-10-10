@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Patent extends Model
 {
@@ -93,5 +94,28 @@ class Patent extends Model
             ->where('char_patent_status', $status)
             ->groupBy('departments.char_department_code')    
             ->get();
+	}
+
+	public function patentStats($column)
+	{
+		return DB::table('patents')
+			->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('count(case when char_patent_status = "pending" 
+	        		then 1 else null end) as patent_count_pending, 
+	        		count(case when char_patent_status = "to submit" 
+	        		then 1 else null end) as patent_count_to_submit, 
+	        		count(case when char_patent_status = "on process" 
+	        		then 1 else null end) as patent_count_on_process, 
+	        		count(case when char_patent_status = "patented" 
+	        		then 1 else null end) as patent_count_patented, 
+	        		departments.int_id as department_id, departments.char_department_code, 
+	        		colleges.int_id as college_id, colleges.char_college_code, 
+	        		branches.int_id as branch_id, branches.str_branch_name'))
+	        ->groupBy($column) 
+	        ->get();
 	}
 }
