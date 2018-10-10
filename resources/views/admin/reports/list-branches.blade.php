@@ -96,7 +96,7 @@
           </div>
           <div class="tab-pane fade" id="patent">
             <br>
-          <table class="table table-hover table-bordered">
+          <table class="table table-hover table-bordered" id="sampleTable">
             <thead>
               <tr>
                 <th class="text-center">Branch</th>
@@ -157,6 +157,7 @@ This is else!
 <script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
 <script type="text/javascript">
   $('#sampleTable').DataTable();
+  $('#sampleTable3').DataTable();
 </script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>

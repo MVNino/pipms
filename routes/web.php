@@ -275,14 +275,17 @@ Route::group(
 					Route::get('branches', 
 						'BranchController@listBranches')
 						->name('reports.branches');
+						// date range branches page
 					Route::get('branches/{start}/{end}', 
 						'BranchController@dateRangedBranches');
 					Route::get('colleges', 
 						'CollegeController@listColleges')
 						->name('reports.colleges');
+						// date range branches page
 					Route::get('departments', 
 						'DepartmentController@listDepartments')
 						->name('reports.departments');
+						// date range branches page
 				});
 			}
 		);
