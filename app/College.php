@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Branch;
+use App\Department;
 class College extends Model
 {
     // Table
@@ -22,6 +23,18 @@ class College extends Model
 	{
 		return $this->hasMany('App\Department' ,'int_college_id' ,'int_id');
 	}
+
+	# MADUGO to wait
+	public function countCopyrights($id)
+	{
+		//
+	}
+
+	public function myDepts()
+	{
+		return $department = $this->departments();
+	}
+
 
 	public function applicants()
 	{

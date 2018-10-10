@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Copyright;
 
 class Department extends Model
 {
@@ -38,5 +39,10 @@ class Department extends Model
 			'int_id',
 			'int_id'
 		);
+	}
+	
+	public function countCopyrights()
+	{
+		$this->copyrights->count();
 	}
 }
