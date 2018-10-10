@@ -19,7 +19,7 @@ class PatentController extends Controller
         $this->middleware('auth');
     }
     public function listPatents()
-    
+    {
         $patents = $this->patent->allRecords();
         return view('admin.reports.list-patent', ['patents' => $patents]);
     }

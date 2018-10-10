@@ -12,7 +12,7 @@
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.patented') }}">Patented</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.patent') }}">Patented</a></li>
 <li class="breadcrumb-item"><a href="/admin/reports/patented/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a></li>
 @endsection
 @section('content')
@@ -255,7 +255,7 @@
                 </div>
             </li>
             <li>
-                <div class="timeline-badge info"><i class="fa fa-patent"></i></div>
+                <div class="timeline-badge info"><i class="fa fa-certificate"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4 class="timeline-title">Patent Status: <b>Patented</b></h4>
@@ -316,7 +316,7 @@
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/patented"]').addClass('active');
+    $('a[href="/admin/reports/patent"]').addClass('active');
   });
 </script>
 @endsection

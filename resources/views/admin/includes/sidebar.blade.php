@@ -93,17 +93,17 @@
             </a>
           </li>
           <li>
-            <a class="treeview-item" href="/admin/reports/schedule-issues">
+            <a class="treeview-item" href="/admin/reports/branch">
               Branch
             </a>
           </li>
           <li>
-            <a class="treeview-item" href="/admin/reports/schedule-issues">
+            <a class="treeview-item" href="/admin/reports/college">
               College
             </a>
           </li>
           <li>
-            <a class="treeview-item" href="/admin/reports/authors">
+            <a class="treeview-item" href="/admin/reports/author">
               Author
             </a>
           </li>

@@ -272,6 +272,12 @@ Route::group(
 					Route::get('schedule-issues', 
 						'ScheduleIssueController@listScheduleIssues')
 						->name('reports.schedule-issues');	
+					Route::get('branch', 
+						'BranchController@listBranches')
+						->name('reports.branch');
+					Route::get('college', 
+						'CollegeController@listColleges')
+						->name('reports.college');
 				});
 			}
 		);

@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                   @forelse($patents as $patent)
-                    @if($patent->char_patent_status == 'patented')
+                    @if($patent->char_patent_status == 'patented' AND $patent->dtm_patented)
                     <tr>
                     <th scope="row">
                       <a href="/admin/reports/patented/{{ $patent->int_id }}">
@@ -48,10 +48,14 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
-                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->dtm_patented->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
-                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    <td scope="row" class="text-center">
+                      <a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info">
+                        <span class="fa fa-eye"></span> View
+                      </a>
+                    </td>
                     </tr>
                     @endif
                   @empty  
@@ -68,7 +72,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Date Patented</th>
+                    <th scope="col">Date On Process</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
                     <th scope="col" class="text-center">Details</th>
@@ -76,7 +80,7 @@
                 </thead>
                 <tbody>
                   @forelse($patents as $patent)
-                    @if($patent->char_patent_status == 'on process')
+                    @if($patent->char_patent_status == 'on process' AND $patent->dtm_on_process)
                     <tr>
                     <th scope="row">
                       <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}">
@@ -88,10 +92,14 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
-                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
-                    <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
+                    <td scope="row" class="text-center">
+                      <a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info">
+                        <span class="fa fa-eye"></span> View
+                      </a>
+                    </td>
                     </tr>
                     @endif
                   @empty  
@@ -108,7 +116,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Date Patented</th>
+                    <th scope="col">Date To Submit</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
                     <th scope="col" class="text-center">Details</th>
@@ -116,7 +124,7 @@
                 </thead>
                 <tbody>
                   @forelse($patents as $patent)
-                    @if($patent->char_patent_status == 'to submit')
+                    @if($patent->char_patent_status == 'to submit' AND $patent->dtm_to_submit)
                     <tr>
                     <th scope="row">
                       <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
@@ -128,7 +136,7 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
-                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
@@ -148,7 +156,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Date Patented</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
                     <th scope="col" class="text-center">Details</th>
@@ -156,7 +164,7 @@
                 </thead>
                 <tbody>
                   @forelse($patents as $patent)
-                    @if($patent->char_patent_status == 'pending')
+                    @if($patent->char_patent_status == 'pending' AND $patent->created_at)
                     <tr>
                     <th scope="row">
                       <a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">
@@ -168,7 +176,7 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
-                    <td scope="row">{{ $patent->dtm_patented }}</td>
+                    <td scope="row">{{ $patent->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
                     <td scope="row" class="text-center"><a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info"><span class="fa fa-eye"></span> View</a></td>
