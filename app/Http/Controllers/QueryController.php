@@ -10,4 +10,9 @@ class QueryController extends Controller
 	{
 		return view('admin.queries');
 	}
+
+	public function queryInfo($param)
+	{
+		
+	}
 }

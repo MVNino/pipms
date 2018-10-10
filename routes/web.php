@@ -231,10 +231,6 @@ Route::group(
 						'OnProcessController@changeStatusToPatented');
 				});
 				
-
-				Route::get('copyright/{id}/up', 'TransactionController@upStatus');
-				
-
 				Route::get('copyrights/initial-request', 
 					'TransactionController@listInitialRequests');
 
