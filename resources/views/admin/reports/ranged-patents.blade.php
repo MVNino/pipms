@@ -28,10 +28,10 @@
         <a href="{{ route('reports.patent') }}" class="btn btn-secondary">Back</a> 
       </div>
       <div class="col-md-2">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
-          <i class="fa fa-file"></i>Generate PDF
-        </button>
+        <a role="button" target="_blank" href="/admin/reports/patents/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/patents_pdf" class="btn btn-primary float-right">
+          <i class="fa fa-file"> Generate all to PDF</i>
+        </a>
       </div>
   </div>
 </div>
@@ -47,6 +47,10 @@
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade active show" id="patented"><br>
+              <a role="button" target="_blank" href="/admin/reports/patents/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/patented_pdf" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
@@ -93,6 +97,10 @@
               </table>
             </div>
             <div class="tab-pane fade" id="on-process"><br>
+              <a role="button" target="_blank" href="/admin/reports/patents/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/on_process_patents_pdf" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable2">
                 <thead>
                   <tr>
@@ -139,6 +147,10 @@
               </table>
             </div>
             <div class="tab-pane fade" id="to-submit"><br>
+              <a role="button" target="_blank" href="/admin/reports/patents/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/to_submit_patents_pdf" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable3">
                 <thead>
                   <tr>
@@ -182,6 +194,10 @@
               </table>
             </div>
             <div class="tab-pane fade" id="pending"><br>
+              <a role="button" target="_blank" href="/admin/reports/patents/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/pending_patents_pdf" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable4">
                 <thead>
                   <tr>
