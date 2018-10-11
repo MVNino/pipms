@@ -54,6 +54,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date Patented</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
@@ -74,6 +75,7 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
+                    <td scope="row">{{ $patent->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->dtm_patented->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></td>
@@ -98,6 +100,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date On Process</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
@@ -118,6 +121,7 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
+                    <td scope="row">{{ $patent->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a></td>
@@ -142,6 +146,7 @@
                   <tr>
                     <th scope="col">Patent Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date To Submit</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">College - Department - Branch</th>
@@ -162,6 +167,7 @@
                         {{ $patent->projectType->char_project_type }}
                       </a>
                     </td>
+                    <td scope="row">{{ $patent->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">{{ $patent->copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">{{ $patent->copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">{{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a>
