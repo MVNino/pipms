@@ -255,33 +255,40 @@ Route::group(
 						->name('reports.copyright');
 					Route::get('copyrighted/{id}', 		
 						'CopyrightController@viewCopyright');
+					Route::get('copyrights/range-date', 
+						'CopyrightController@rangedCopyrights');
 					Route::get('patent', 		
 						'PatentController@listPatents')
 						->name('reports.patent');	
 					Route::get('patented/{id}', 			
-						'PatentController@viewPatent');	
+						'PatentController@viewPatent');
+					Route::get('patents/range-date', 
+						'PatentController@rangedPatents');	
 					Route::get('author', 		
 						'AuthorController@listApplicants')
 						->name('reports.author');	
 					Route::get('author/{id}', 		
-						'AuthorController@viewApplicant');	
+						'AuthorController@viewApplicant');
+					Route::get('authors/range-date', 
+						'AuthorController@rangedAuthors');	
 					Route::get('schedule-issues', 
 						'ScheduleIssueController@listScheduleIssues')
 						->name('reports.schedule-issues');	
 					Route::get('branches', 
 						'BranchController@listBranches')
 						->name('reports.branches');
-						// date range branches page
-					Route::get('branches/{start}/{end}', 
-						'BranchController@dateRangedBranches');
+					Route::get('branches/range-date', 
+						'BranchController@rangedBranches');
 					Route::get('colleges', 
 						'CollegeController@listColleges')
 						->name('reports.colleges');
-						// date range branches page
+					Route::get('colleges/range-date', 
+						'CollegeController@rangedColleges');
 					Route::get('departments', 
 						'DepartmentController@listDepartments')
 						->name('reports.departments');
-						// date range branches page
+					Route::get('departments/range-date', 
+						'DepartmentController@rangedDepartments');
 				});
 			}
 		);

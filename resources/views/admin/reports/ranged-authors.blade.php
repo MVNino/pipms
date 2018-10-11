@@ -14,28 +14,26 @@
 <div class="tile tile-body">
   <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
   <h5>Date Range</h5>
-  {!! Form::open(['action' => 'Report\AuthorController@rangedAuthors', 'method' => 'GET', 'autocomplete' => 'off']) !!}
-    @csrf
   <div class="row">
       <div class="col-md-4">
       <label>Start Date</label>
-      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+        <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date" value="{{ $dateStart }}" readonly>
       </div>
       <div class="col-md-4">
-          <label>End Date</label>
-          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>    
+        <label>End Date</label>
+        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ $dateEnd }}" readonly>    
       </div>
       <div class="col-md-2">
         <br>
-        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+        <a href="{{ route('reports.author') }}" class="btn btn-secondary">Back</a> 
       </div>
       <div class="col-md-2">
-
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
+          <i class="fa fa-file"></i>Generate PDF
+        </button>
       </div>
   </div>
-  {!! Form::close() !!}
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -96,19 +94,6 @@
 <script src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
 <script>$('#sampleTable').DataTable();</script>
-<script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
-<script>
-$('#demoDate').datepicker({
-  format: "yyyy-mm-dd",
-  autoclose: true,
-  todayHighlight: true
-});
-$('#demoDate2').datepicker({
-  format: "yyyy-mm-dd",
-  autoclose: true,
-  todayHighlight: true
-});
-</script>
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');

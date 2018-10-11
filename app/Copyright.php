@@ -64,6 +64,15 @@ class Copyright extends Model
             ->get();
 	}
 
+	// Ranged patent records
+	public function rangeAllRecords($start, $end)
+	{
+		return $this->with(['applicant.department.college.branch', 
+			'project', 'projectType'])
+			->whereBetween('created_at', [$start, $end])
+            ->get();
+	}
+
 	// Listing of copyright records with 'where'
 	public function whereStatusIs($status)
 	{
@@ -134,5 +143,29 @@ class Copyright extends Model
 	        		branches.int_id as branch_id, branches.str_branch_name'))
 	        ->groupBy($column) 
 	        ->get();
+	}
+
+	public function rangedCopyrights($column, $start, $end)
+	{
+		return DB::table('copyrights')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('count(applicants.int_id) as author_count, 
+	        		count(case when char_copyright_status = "pending" 
+	        		then 1 else null end) as copyright_count_pending, 
+	        		count(case when char_copyright_status = "to submit" 
+	        		then 1 else null end) as copyright_count_to_submit, 
+	        		count(case when char_copyright_status = "on process" 
+	        		then 1 else null end) as copyright_count_on_process, 
+	        		count(case when char_copyright_status = "copyrighted" 
+	        		then 1 else null end) as copyright_count_copyrighted, 
+	        		departments.int_id as department_id, departments.char_department_code, 
+	        		colleges.int_id as college_id, colleges.char_college_code, 
+	        		branches.int_id as branch_id, branches.str_branch_name'))
+	        ->whereBetween('copyrights.created_at', [$start, $end])
+	        ->groupBy($column) 
+	        ->get();	
 	}
 }

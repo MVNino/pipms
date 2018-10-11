@@ -33,4 +33,23 @@ class DepartmentController extends Controller
             ['copyrightStats' => $copyrightStats, 
             'patentStats' => $patentStats]);
     }
+
+    public function rangedDepartments(Request $request)
+    {
+        $this->validate($request, [
+            'dateStart' => 'required',
+            'dateEnd' => 'required'
+        ]);
+        $dateStart = $request->dateStart;
+        $dateEnd = $request->dateEnd;
+
+        $copyrights = $this->copyright
+            ->rangedCopyrights($this->column, $dateStart, $dateEnd);
+        $patentStats = $this->patent->rangedPatents($this->column, $dateStart, $dateEnd);
+        $dateStart = date('m/d/Y', strtotime($request->dateStart));
+        $dateEnd = date('m/d/Y', strtotime($request->dateEnd));
+        return view($this->viewPath.'ranged-departments', 
+            ['copyrightStats' => $copyrights, 'patentStats' => $patentStats, 
+                'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
+    }
 }
