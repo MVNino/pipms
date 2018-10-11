@@ -52,6 +52,7 @@
                   <tr>
                     <th scope="col">Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date Copyrighted</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">Department - College - Branch</th>
@@ -72,6 +73,7 @@
                         {{ $copyright->projectType->char_project_type }}
                       </a>
                     </td>
+                    <td scope="row">{{ $copyright->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->dtm_copyrighted->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
@@ -94,6 +96,7 @@
                   <tr>
                     <th scope="col">Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date On Process</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">Department - College - Branch</th>
@@ -105,7 +108,7 @@
                     @if($copyright->char_copyright_status == 'on process' AND $copyright->dtm_on_process)
                     <tr>
                     <th scope="row">
-                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      <a href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}">
                         {{ $copyright->str_project_title }}
                       </a>
                     </th>
@@ -113,7 +116,8 @@
                       <a href="/admin/maintenance/project-type/{{ $copyright->int_project_type_id }}">
                         {{ $copyright->projectType->char_project_type }}
                       </a>
-                    </td> 
+                    </td>
+                    <td scope="row">{{ $copyright->created_at->format('m/d/Y g:i A') }}</td> 
                     <td scope="row">{{ $copyright->dtm_on_process->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
@@ -136,6 +140,7 @@
                   <tr>
                     <th scope="col">Project Title</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Date Requested</th>
                     <th scope="col">Date To Submit</th>
                     <th scope="col">Applicant Name - Type</th>
                     <th scope="col">Department - College - Branch</th>
@@ -147,7 +152,7 @@
                     @if($copyright->char_copyright_status == 'to submit' AND $copyright->dtm_to_submit)
                     <tr>
                     <th scope="row">
-                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
                         {{ $copyright->str_project_title }}
                       </a>
                     </th>
@@ -156,6 +161,7 @@
                         {{ $copyright->projectType->char_project_type }}
                       </a>
                     </td>
+                    <td scope="row">{{ $copyright->created_at->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->dtm_to_submit->format('m/d/Y g:i A') }}</td>
                     <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
                     <td scope="row"><a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">{{ $copyright->applicant->department->char_department_code }}</a> - <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">{{ $copyright->applicant->department->college->char_college_code }}</a> - <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">{{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
@@ -189,7 +195,7 @@
                     @if($copyright->char_copyright_status == 'pending' AND $copyright->created_at)
                     <tr>
                     <th scope="row">
-                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
                         {{ $copyright->str_project_title }}
                       </a>
                     </th>

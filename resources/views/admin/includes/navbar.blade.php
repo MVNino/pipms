@@ -24,7 +24,7 @@
                 <span class="app-notification__icon">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-bell-o fa-stack-1x fa-inverse"></i>
                   </span>
                 </span>
                 <div>
