@@ -28,9 +28,9 @@
         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
       </div>
       <div class="col-md-2">
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+        <a role="button" target="_blank" href="{{ route('copyrights-pdf') }}" class="btn btn-primary float-right">
+          <i class="fa fa-file"> Generate all to PDF</i>
+        </a>
       </div>
   </div>
   {!! Form::close() !!}
@@ -47,6 +47,9 @@
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade active show" id="copyrighted"><br>
+              <a role="button" target="_blank" href="{{ route('copyrighted-pdf') }}" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
@@ -91,6 +94,9 @@
               </table>
             </div>
             <div class="tab-pane fade" id="on-process"><br>
+              <a role="button" target="_blank" href="{{ route('copyright.on-process-pdf') }}" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable2">
                 <thead>
                   <tr>
@@ -135,6 +141,9 @@
               </table>
             </div>
             <div class="tab-pane fade" id="to-submit"><br>
+              <a role="button" target="_blank" href="{{ route('copyright.to-submit-pdf') }}" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable3">
                 <thead>
                   <tr>
@@ -179,6 +188,9 @@
               </table>
             </div>
             <div class="tab-pane fade" id="pending"><br>
+              <a role="button" target="_blank" href="{{ route('copyright.pending-pdf') }}" class="btn btn-primary float-right">
+                <i class="fa fa-file"> Generate PDF</i>
+              </a>
               <table class="table table-hover table-bordered" id="sampleTable4">
                 <thead>
                   <tr>

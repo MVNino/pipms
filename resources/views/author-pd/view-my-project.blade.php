@@ -32,33 +32,59 @@
                                 <h4 class="text-muted"><strong>({{ $viewProject->str_project_title }})</strong></h4>
                                 <ul class="timeline">
                                     @if($viewProject->char_copyright_status == 'pending')
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
                                         <li>
-                                            <div class="timeline-badge success"><i class="fa fa-bolt"></i></div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                    <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
                                                 </div>
                                             </div>
                                         </li>
                                     @elseif($viewProject->char_copyright_status == 'to submit')    
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                    <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
@@ -72,20 +98,33 @@
 
 
                                      @elseif($viewProject->char_copyright_status == 'on process')    
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                    <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
@@ -97,7 +136,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Copyright Status: <b>On process</b></h4>
