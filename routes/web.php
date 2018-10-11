@@ -257,7 +257,8 @@ Route::group(
 						'CopyrightController@viewCopyright');
 					Route::get('copyrights/range-date', 
 						'CopyrightController@rangedCopyrights');
-					// Copyright Records to PDF
+
+					// Copyright Report PDF
 					//All
 					Route::get('copyrights/copyrights_pdf', 
 						'CopyrightController@copyrightsPDF')
@@ -288,13 +289,48 @@ Route::group(
 						->name('copyrighted-pdf');
 					Route::get('copyrights/{start}/{end}/copyrighted_pdf', 
 						'CopyrightController@rangedCopyrightedPDF');
+
+					# Patent
 					Route::get('patent', 		
 						'PatentController@listPatents')
 						->name('reports.patent');	
 					Route::get('patented/{id}', 			
 						'PatentController@viewPatent');
 					Route::get('patents/range-date', 
-						'PatentController@rangedPatents');	
+						'PatentController@rangedPatents');
+					// Patent Report PDF
+					//All
+					Route::get('patents/patents_pdf', 
+						'PatentController@patentsPDF')
+						->name('patents-pdf');
+					Route::get('patents/{start}/{end}/patents_pdf', 
+						'PatentController@rangedPatentsPDF');
+					// Pending
+					Route::get('patents/pending_patents_pdf', 
+						'PatentController@pendingPatentsPDF')
+						->name('patent.pending-pdf');
+					Route::get('patents/{start}/{end}/pending_patents_pdf', 
+						'PatentController@rangedPendingPatentsPDF');
+					// To Submit
+					Route::get('patents/to_submit_patents_pdf', 
+						'PatentController@toSubmitPatentsPDF')
+						->name('patent.to-submit-pdf');
+					Route::get('patents/{start}/{end}/to_submit_patents_pdf', 
+						'PatentController@rangedToSubmitPatentsPDF');
+					// On Process
+					Route::get('patents/on_process_patents_pdf', 
+						'PatentController@onProcessPatentsPDF')
+						->name('patent.on-process-pdf');
+					Route::get('patents/{start}/{end}/on_process_patents_pdf', 
+						'PatentController@rangedOnProcessPatentsPDF');
+					// Patented
+					Route::get('patents/patented_pdf', 
+						'PatentController@patentedPDF')
+						->name('patented-pdf');
+					Route::get('patents/{start}/{end}/patented_pdf', 
+						'PatentController@rangedPatentedPDF');
+
+
 					Route::get('author', 		
 						'AuthorController@listApplicants')
 						->name('reports.author');	

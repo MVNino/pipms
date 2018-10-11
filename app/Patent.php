@@ -55,6 +55,16 @@ class Patent extends Model
             ->get();
 	}
 
+	// Range patent records by date and status
+	public function rangeAllRecordsWithStatus($status, $start, $end)
+	{
+		return $this->with(['copyright.applicant.department.college.branch', 
+			'project', 'projectType'])
+			->whereBetween('created_at', [$start, $end])
+			->where('char_patent_status', $status)
+            ->get();
+	}
+
 	// For listing of patents with where method
 	public function whereStatusIs($status)
 	{
