@@ -1,44 +1,41 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-building"></i> Branch Report</h1>
-  <p>Copyright and Patent Statistics as Per Branch</p>
+<h1><i class="fa fa-building"></i> College Reports</h1>
+  <p>Copyright and Patent Statistics as Per College</p>
 @endsection
 
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
-<li class="breadcrumb-item"><a href="{{ route('reports.branches') }}">Branches</a></li>
+<li class="breadcrumb-item"><a href="{{ route('reports.colleges') }}">Colleges</a></li>
 @endsection
 
 @section('content')
 <div class="tile tile-body">
-  <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
-  <h5>Date Range</h5>
-  {!! Form::open(['action' => 'Report\BranchController@rangedBranches', 'method' => 'GET', 'autocomplete' => 'off']) !!}
-    @csrf
-  <div class="row">
-      <div class="col-md-4">
-      <label>Start Date</label>
-      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
-      </div>
-      <div class="col-md-4">
+    <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
+    <h5>Date Range</h5>
+    <div class="row">
+        <div class="col-md-4">
+        <label>Start Date</label>
+          <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date" value="{{ $dateStart }}" readonly>
+        </div>
+        <div class="col-md-4">
           <label>End Date</label>
-          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>    
-      </div>
-      <div class="col-md-2">
-        <br>
-        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
-      </div>
-      <div class="col-md-2">
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
-      </div>
-  </div>
-  {!! Form::close() !!}
+          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ $dateEnd }}" readonly>    
+        </div>
+        <div class="col-md-2">
+          <br>
+          <a href="{{ route('reports.colleges') }}" class="btn btn-secondary">Back</a> 
+        </div>
+        <div class="col-md-2">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
+            <i class="fa fa-file"></i>Generate PDF
+          </button>
+        </div>
+    </div>
 </div>
 
-@if(Request::is('admin/reports/branches'))
 <div class="row">
   <div class="col-md-12">
     <div class="tile">
@@ -53,11 +50,13 @@
             <table class="table table-hover table-bordered" id="sampleTable">
               <thead>
                 <tr>
+                  <th class="text-center">College</th>
                   <th class="text-center">Branch</th>
                   <th class="text-center">Authors</th>
                   <th colspan="5" class="text-center">Copyright</th>
                 </tr>
                 <tr>
+                  <th scope="col"></th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                   <th scope="col">Pending</th>
@@ -68,11 +67,16 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($copyrightStats as $copyright)
-                <tr>                  
+                @forelse($copyrightStats as $copyright)
+                <tr>
+                  <th class="text-center">
+                    <a href="/admin/maintenance/college/{{ $copyright->college_id }}">
+                      {{ $copyright->char_college_code }}
+                    </a>
+                  </th>
                   <th class="text-center"> 
                     <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
-                    {{ $copyright->str_branch_name }}
+                      {{ $copyright->str_branch_name }}
                     </a>
                   </th>
                   <th class="text-center text-primary">
@@ -95,19 +99,22 @@
                     {{ $copyright->copyright_count_copyrighted }}
                   </th>
                 </tr>
-                @endforeach
+                @empty
+                @endforelse
               </tbody>
             </table>
           </div>
           <div class="tab-pane fade" id="patent">
             <br>
-          <table class="table table-hover table-bordered" id="sampleTable">
+          <table class="table table-hover table-bordered">
             <thead>
               <tr>
+                <th class="text-center">College</th>
                 <th class="text-center">Branch</th>
                 <th colspan="5" class="text-center">Patent</th>
               </tr>
               <tr>
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col">Pending</th>
                 <th scope="col">To Submit</th>
@@ -117,11 +124,16 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($patentStats as $patent)
+              @forelse($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
-                    {{ $patent->str_branch_name }}
+                  <a href="/admin/maintenance/college/{{ $copyright->college_id }}">
+                    {{ $copyright->char_college_code }}
+                  </a>
+                </th>
+                <th class="text-center">
+                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                  {{ $copyright->str_branch_name }}
                   </a>
                 </th>
                 <td class="text-center">
@@ -140,7 +152,8 @@
                   {{ $patent->patent_count_patented }}
                 </th>
               </tr>
-              @endforeach
+              @empty
+              @endforelse
             </tbody>
           </table> 
           </div>
@@ -149,10 +162,6 @@
     </div>
   </div>
 </div>
-@else
-This is else!
-{{ $data }}
-@endif
 @endsection
 
 @section('pg-specific-js')
@@ -162,7 +171,7 @@ This is else!
 <script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
 <script type="text/javascript">
   $('#sampleTable').DataTable();
-  $('#sampleTable3').DataTable();
+  $('#sampleTable2').DataTable();
 </script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>
@@ -180,7 +189,7 @@ $('#demoDate2').datepicker({
 <script>
   $(document).ready(function(){
     $('#li-reports').addClass('is-expanded');
-    $('a[href="/admin/reports/branches"]').addClass('active');
+    $('a[href="/admin/reports/colleges"]').addClass('active');
   });
 </script>
 @endsection

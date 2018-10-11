@@ -14,31 +14,28 @@
 <div class="tile tile-body">
   <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
   <h5>Date Range</h5>
-  {!! Form::open(['action' => 'Report\BranchController@rangedBranches', 'method' => 'GET', 'autocomplete' => 'off']) !!}
-    @csrf
   <div class="row">
       <div class="col-md-4">
       <label>Start Date</label>
-      <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+        <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date" value="{{ $dateStart }}" readonly>
       </div>
       <div class="col-md-4">
-          <label>End Date</label>
-          <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>    
+        <label>End Date</label>
+        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ $dateEnd }}" readonly>    
       </div>
       <div class="col-md-2">
         <br>
-        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+        <a href="{{ route('reports.branches') }}" class="btn btn-secondary">Back</a> 
       </div>
       <div class="col-md-2">
-
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-file"></i>Generate PDF</button>
+        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
+          <i class="fa fa-file"></i>Generate PDF
+        </button>
       </div>
   </div>
-  {!! Form::close() !!}
 </div>
 
-@if(Request::is('admin/reports/branches'))
 <div class="row">
   <div class="col-md-12">
     <div class="tile">
@@ -68,7 +65,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($copyrightStats as $copyright)
+                @forelse($copyrightStats as $copyright)
                 <tr>                  
                   <th class="text-center"> 
                     <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
@@ -95,7 +92,8 @@
                     {{ $copyright->copyright_count_copyrighted }}
                   </th>
                 </tr>
-                @endforeach
+                @empty
+                @endforelse
               </tbody>
             </table>
           </div>
@@ -117,7 +115,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($patentStats as $patent)
+              @forelse($patentStats as $patent)
               <tr>
                 <th class="text-center">
                   <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
@@ -140,7 +138,8 @@
                   {{ $patent->patent_count_patented }}
                 </th>
               </tr>
-              @endforeach
+              @empty
+              @endforelse
             </tbody>
           </table> 
           </div>
@@ -149,10 +148,7 @@
     </div>
   </div>
 </div>
-@else
-This is else!
-{{ $data }}
-@endif
+
 @endsection
 
 @section('pg-specific-js')

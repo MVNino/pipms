@@ -40,4 +40,22 @@ class CopyrightController extends Controller
         return view($this->viewPath.'view-copyright', 
             ['copyrightCollection' => $copyrightCollection]);
     }
+
+    public function rangedCopyrights(Request $request)
+    {
+        $this->validate($request, [
+            'dateStart' => 'required',
+            'dateEnd' => 'required'
+        ]);
+        $dateStart = $request->dateStart;
+        $dateEnd = $request->dateEnd;
+
+        $copyrights = $this->copyright
+            ->rangeAllRecords($dateStart, $dateEnd);
+        $dateStart = date('m/d/Y', strtotime($request->dateStart));
+        $dateEnd = date('m/d/Y', strtotime($request->dateEnd));
+        return view($this->viewPath.'ranged-copyrights', 
+            ['copyrights' => $copyrights,
+                'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
+    }
 }

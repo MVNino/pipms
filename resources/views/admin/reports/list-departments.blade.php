@@ -14,26 +14,29 @@
 <div class="tile tile-body">
     <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
     <h5>Date Range</h5>
-	<div class="row">
-	    <div class="col-md-4">
-	        <label>Start Date</label>
-			<input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
-	    </div>
-	    <div class="col-md-4">
-	        <label>End Date</label>
-	        <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">	  
-	    </div>
-	    <div class="col-md-2">
-        <br>
-        <button class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
-      </div>
-	    <div class="col-md-2">
-	      <!-- Button trigger modal -->
-	      <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
-          <i class="fa fa-file"></i>Generate PDF
-        </button>
-	    </div>
-	</div>
+    {!! Form::open(['action' => 'Report\DepartmentController@rangedDepartments', 'method' => 'GET', 'autocomplete' => 'off']) !!}
+      @csrf
+    <div class="row">
+        <div class="col-md-4">
+        <label>Start Date</label>
+        <input class="form-control" name="dateStart" id="demoDate" type="text" placeholder="Select Date">
+        </div>
+        <div class="col-md-4">
+            <label>End Date</label>
+            <input class="form-control" name="dateEnd" id="demoDate2" type="text" placeholder="Select Date" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>    
+        </div>
+        <div class="col-md-2">
+          <br>
+          <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
+        </div>
+        <div class="col-md-2">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
+            <i class="fa fa-file"></i>Generate PDF
+          </button>
+        </div>
+    </div>
+    {!! Form::close() !!}
 </div>
 
 <div class="row">
