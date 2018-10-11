@@ -55,7 +55,7 @@
                     <th scope="col">Date Requested</th>
                     <th scope="col">Date Patented</th>
                     <th scope="col">Applicant Name - Type</th>
-                    <th scope="col">College - Department - Branch</th>
+                    <th scope="col">Department - College - Branch</th>
                     <th scope="col" class="text-center">Details</th>
                   </tr>
                 </thead>

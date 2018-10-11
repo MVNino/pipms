@@ -64,12 +64,22 @@ class Copyright extends Model
             ->get();
 	}
 
-	// Ranged patent records
+	// Range copyright records by date
 	public function rangeAllRecords($start, $end)
 	{
 		return $this->with(['applicant.department.college.branch', 
 			'project', 'projectType'])
 			->whereBetween('created_at', [$start, $end])
+            ->get();
+	}
+
+	// Range copyright records by date and status
+	public function rangeAllRecordsWithStatus($status, $start, $end)
+	{
+		return $this->with(['applicant.department.college.branch', 
+			'project', 'projectType'])
+			->whereBetween('created_at', [$start, $end])
+			->where('char_copyright_status', $status)
             ->get();
 	}
 

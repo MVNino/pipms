@@ -257,6 +257,37 @@ Route::group(
 						'CopyrightController@viewCopyright');
 					Route::get('copyrights/range-date', 
 						'CopyrightController@rangedCopyrights');
+					// Copyright Records to PDF
+					//All
+					Route::get('copyrights/copyrights_pdf', 
+						'CopyrightController@copyrightsPDF')
+						->name('copyrights-pdf');
+					Route::get('copyrights/{start}/{end}/copyrights_pdf', 
+						'CopyrightController@rangedCopyrightsPDF');
+					// Pending
+					Route::get('copyrights/pending_copyrights_pdf', 
+						'CopyrightController@pendingCopyrightsPDF')
+						->name('copyright.pending-pdf');
+					Route::get('copyrights/{start}/{end}/pending_copyrights_pdf', 
+						'CopyrightController@rangedPendingCopyrightsPDF');
+					// To Submit
+					Route::get('copyrights/to_submit_copyrights_pdf', 
+						'CopyrightController@toSubmitCopyrightsPDF')
+						->name('copyright.to-submit-pdf');
+					Route::get('copyrights/{start}/{end}/to_submit_copyrights_pdf', 
+						'CopyrightController@rangedToSubmitCopyrightsPDF');
+					// On Process
+					Route::get('copyrights/on_process_copyrights_pdf', 
+						'CopyrightController@onProcessCopyrightsPDF')
+						->name('copyright.on-process-pdf');
+					Route::get('copyrights/{start}/{end}/on_process_copyrights_pdf', 
+						'CopyrightController@rangedOnProcessCopyrightsPDF');
+					// Copyrighted
+					Route::get('copyrights/copyrighted_pdf', 
+						'CopyrightController@copyrightedPDF')
+						->name('copyrighted-pdf');
+					Route::get('copyrights/{start}/{end}/copyrighted_pdf', 
+						'CopyrightController@rangedCopyrightedPDF');
 					Route::get('patent', 		
 						'PatentController@listPatents')
 						->name('reports.patent');	
