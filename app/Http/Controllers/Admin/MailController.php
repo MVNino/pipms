@@ -57,7 +57,7 @@ class MailController extends Controller
     {	
         $this->validate($request, [
   			'email' => 'required|string|max:5000',
-  			'subject' => 'required|string|max:5000',
+  			'subject' => 'nullable|string|max:5000',
   			'message' => 'required|string|max:5000',
             
   		]);
