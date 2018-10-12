@@ -123,7 +123,8 @@ class Patent extends Model
 	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
 	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
 	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-	        ->select(DB::raw('count(case when char_patent_status = "pending" 
+	        ->select(DB::raw('count(applicants.int_id) as author_count,
+	        		count(case when char_patent_status = "pending" 
 	        		then 1 else null end) as patent_count_pending, 
 	        		count(case when char_patent_status = "to submit" 
 	        		then 1 else null end) as patent_count_to_submit, 
@@ -146,7 +147,8 @@ class Patent extends Model
 	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
 	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
 	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-	        ->select(DB::raw('count(case when char_patent_status = "pending" 
+	        ->select(DB::raw('count(applicants.int_id) as author_count, 
+	        		count(case when char_patent_status = "pending" 
 	        		then 1 else null end) as patent_count_pending, 
 	        		count(case when char_patent_status = "to submit" 
 	        		then 1 else null end) as patent_count_to_submit, 

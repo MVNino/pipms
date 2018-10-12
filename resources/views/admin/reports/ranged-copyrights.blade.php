@@ -4,10 +4,12 @@
 <h1><i class="fa fa-copyright"></i> Copyright Report</h1>
   <p>Form of intellectual property protection</p>
 @endsection
+
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Reports</li>
 <li class="breadcrumb-item"><a href="{{ route('reports.copyright') }}">Copyright</a></li>
 @endsection
+
 @section('content')
 <div class="tile tile-body">
   <h4 align="right">Reports as of today, {{ Carbon\Carbon::now()->format('M d, Y') }}</h4>
