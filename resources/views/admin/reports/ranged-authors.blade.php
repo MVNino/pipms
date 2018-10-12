@@ -28,10 +28,10 @@
         <a href="{{ route('reports.author') }}" class="btn btn-secondary">Back</a> 
       </div>
       <div class="col-md-2">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
-          <i class="fa fa-file"></i>Generate PDF
-        </button>
+        <a role="button" target="_blank" href="/admin/reports/author/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                {{date('Y-m-d', strtotime($dateEnd))}}/authors_pdf" class="btn btn-primary float-right">
+          <i class="fa fa-file"> Generate PDF</i>
+        </a>
       </div>
   </div>
 </div>
@@ -77,7 +77,7 @@
               </tr>
               @empty
                 <div class="alert alert-warning">
-                  There is no record yet.
+                  There is no record.
                 </div>
               @endforelse
             </tbody>

@@ -330,22 +330,36 @@ Route::group(
 					Route::get('patents/{start}/{end}/patented_pdf', 
 						'PatentController@rangedPatentedPDF');
 
-
 					Route::get('author', 		
 						'AuthorController@listApplicants')
 						->name('reports.author');	
 					Route::get('author/{id}', 		
 						'AuthorController@viewApplicant');
 					Route::get('authors/range-date', 
-						'AuthorController@rangedAuthors');	
+						'AuthorController@rangedAuthors');
+					// Author Report PDF
+					Route::get('author/authors_pdf', 
+						'AuthorController@authorsPDF')
+						->name('authors-pdf');
+					Route::get('author/{start}/{end}/authors_pdf', 
+						'AuthorController@rangedAuthorsPDF');
+
 					Route::get('schedule-issues', 
 						'ScheduleIssueController@listScheduleIssues')
 						->name('reports.schedule-issues');	
+
 					Route::get('branches', 
 						'BranchController@listBranches')
 						->name('reports.branches');
 					Route::get('branches/range-date', 
 						'BranchController@rangedBranches');
+					// Branch Report PDF
+					Route::get('branch/branches_pdf', 
+						'BranchController@branchesPDF')
+						->name('branches-pdf');
+					Route::get('branch/{start}/{end}/branches_pdf', 
+						'BranchController@rangedBranchesPDF');
+
 					Route::get('colleges', 
 						'CollegeController@listColleges')
 						->name('reports.colleges');
