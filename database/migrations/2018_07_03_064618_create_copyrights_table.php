@@ -27,12 +27,10 @@ class CreateCopyrightsTable extends Migration
             $table->string('str_project_title');
             $table->mediumText('mdmTxt_project_description')
                 ->nullable();
+            $table->string('str_exec_summary_file')->nullable();    
             $table->char('char_copyright_status')
                 ->default('pending');
             $table->dateTime('dtm_schedule')
-                ->nullable();
-            $table->string('str_revision_token')
-                ->comment('For revision of request')
                 ->nullable();
             $table->timestamps();
 

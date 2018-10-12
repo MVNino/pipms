@@ -17,6 +17,8 @@ class CreateProjectTypesTable extends Migration
             $table->increments('int_id');
             $table->char('char_project_type', 16);
             $table->char('char_classification'); // C-Copyright | P-Patent
+             $table->string('str_project_type_image')
+                ->default('default_project_type_image.png');
         });
     }
 
