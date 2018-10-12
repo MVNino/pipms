@@ -13,7 +13,8 @@ class MailController extends Controller
 	//admin
     public function viewMails()
     {
-        $mails = Message::all()->where('receiver_id', 1);
+        $mails = Message::where('receiver_id', 1)
+                        ->orderBy('created_at', 'desc')->get();
         
      return view('admin.mail', ['mails'=>$mails]);  
     }
@@ -26,7 +27,8 @@ class MailController extends Controller
 
     public function Sent()
     {
-        $mails = Message::all()->where('sender_id', 1);
+        $mails = Message::where('sender_id', 1)
+                        ->orderBy('created_at', 'desc')->get();
         
      return view('admin.sent', ['mails'=>$mails]);  
     }
@@ -39,7 +41,8 @@ class MailController extends Controller
 
     public function Trash()
     {
-        $mails = Message::all()->where('char_message_status', 1);
+        $mails = Message::where('char_message_status', 1)
+                        ->orderBy('created_at', 'desc')->get();
         
      return view('admin.trash', ['mails'=>$mails]);  
     }

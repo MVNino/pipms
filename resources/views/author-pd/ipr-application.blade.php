@@ -181,7 +181,7 @@
 							<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your work's copyright registration</strong></label>
 							<ul class="list-group list-group-flush">
 							  @foreach($requirements as $requirement)
-							  @if($requirement->char_ipr == 'P')
+							  @if($requirement->char_ipr == 'C')
 							  <li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
 							  @endif
 							  @endforeach

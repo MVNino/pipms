@@ -12,9 +12,9 @@
       <h4 class="tile-title folder-head">Folders</h4>
       <div class="tile-body">
         <ul class="nav nav-pills flex-column mail-nav">
-          <li class="nav-item active"><a class="nav-link" href="mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
+          <li class="nav-item"><a class="nav-link" href="mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
           <li class="nav-item"><a class="nav-link" href="sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-          <li class="nav-item"><a class="nav-link" href="trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
+          <li class="nav-item active"><a class="nav-link" href="trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
         </ul>
       </div>
     </div>
@@ -27,21 +27,21 @@
           <tbody>
           @foreach($mails as $mail)
             <tr>
-              
+              @if($mail->email == Auth::user()->email)
               <td><a class="nav-link" href="/author/sent/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><a class="nav-link" href="/author/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
-              <td>8 mins ago</td>
+              <td class="mail-subject"><a class="nav-link" href="/author/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{str_limit($mail->mdmTxt_message, $limit = 20, $end = '...')}}</a></td>
+              <td><a class="nav-link" href="/author/sent/{{ $mail->int_id }}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$mail->created_at)->format('F j Y g:i A ')}}</a></td>
               <td>
-          <div align="center">
-            {!!Form::open(['action' => ['Author\MailController@deleteMails', $mail->int_id],'method' => 'POST', 'onsubmit' => "return confirm('Remove Message?')"])!!}
-              {{Form::hidden('_method', 'DELETE')}}
-              <button type="submit" class="btn btn-sm btn-icon btn-danger delete-row-btn" data-toggle="tooltip" data-original-title="Delete">
-                <i class="ti-close" aria-hidden="true"></i>
-              </button>
-            {!!Form::close()!!}
-          </div>
-        </td>
-       
+                <div align="center">
+                  {!!Form::open(['action' => ['Author\MailController@deleteMails', $mail->int_id],'method' => 'POST', 'onsubmit' => "return confirm('Remove Message?')"])!!}
+                    {{Form::hidden('_method', 'DELETE')}}
+                    <button type="submit" class="fa fa-trash-o" data-toggle="tooltip" data-original-title="Delete">
+                      <i class="ti-close" aria-hidden="true"></i>
+                    </button>
+                  {!!Form::close()!!}
+                </div>
+              </td>
+              @endif
             </tr>
            @endforeach
           </tbody>
@@ -56,10 +56,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title" id="composeMails">New Message</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="composeMails">New Message</h4>
+        
       </div>
       <div class="modal-body">
         {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}

@@ -53,5 +53,44 @@
 	  </div>
 	</div>
 </div>
+<div class="modal fade" id="composeMails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="composeMails">New Message</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+      </div>
+     
+        {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
+          <div class="form-group">
+            {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::text('email', '', ['class' => 'form-control']) }}    
+            </div>      
+          </div>
+          <div class="form-group">
+            {{ Form::label('lblSubject', 'Subject', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::text('subject', '', ['class' => 'form-control']) }}    
+            </div>      
+          </div>
+          <div class="form-group">
+            {{ Form::label('lblMessage', 'Message', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::textarea('message', '', ['class' => 'form-control', 'rows' => '5']) }}
+            </div>
+          </div>
+
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-info">Send</button>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+</div>
 
 @endsection

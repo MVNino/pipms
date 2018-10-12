@@ -29,13 +29,16 @@
           <div class="card-body">
                   <h5 class="card-title"><b>TO: </b>{{ $mails->sender_name }}</h5>
             </div>
-
+            <div class="card-body">
+                <h5 class="card-title"><b>Subject:</b></h5>
+                  <p class="card-text">{{ $mails->str_subject }}</h5>
+            </div>
             <div class="card-body">
                 <h5 class="card-title"><b>Message:</b></h5>
                   <p class="card-text">{{ $mails->mdmTxt_message }}</h5>
             </div>
 
-          <div class="card-footer text-muted"><strong>Date received:</strong> 
+          <div class="card-footer text-muted"><strong>Date sent:</strong> 
                   @if($mails->created_at->diffInDays(Carbon\Carbon::now()) < 2)
                     {{ $mails->created_at->format('M d - g:i A') }}
                   @else
@@ -43,12 +46,50 @@
                   @endif
             </div>
 
-            <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#replymodal"><i class="fa fa-reply"></i>Reply</button>
+            
         
       </div>
       
     </div>
   </div>
 </div>
+<div class="modal fade" id="composeMails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="composeMails">New Message</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        
+      </div>
+     
+        {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
+          <div class="form-group">
+            {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::text('email', '', ['class' => 'form-control']) }}    
+            </div>      
+          </div>
+          <div class="form-group">
+            {{ Form::label('lblSubject', 'Subject', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::text('subject', '', ['class' => 'form-control']) }}    
+            </div>      
+          </div>
+          <div class="form-group">
+            {{ Form::label('lblMessage', 'Message', ['class' => 'col-md-12']) }}
+            <div class="col-md-12">
+              {{ Form::textarea('message', '', ['class' => 'form-control', 'rows' => '5']) }}
+            </div>
+          </div>
 
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-info">Send</button>
+      </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+</div>
 @endsection
