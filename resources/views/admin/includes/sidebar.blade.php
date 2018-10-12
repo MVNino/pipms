@@ -83,6 +83,16 @@
       <li class="treeview" id="li-reports"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li>
+            <a class="treeview-item" href="/admin/reports/copyright">
+              Copyright
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/patent">
+              Patent
+            </a>
+          </li>
+          <li>
             <a class="treeview-item" href="/admin/reports/branches">
               Branch
             </a>
@@ -95,16 +105,6 @@
           <li>
             <a class="treeview-item" href="/admin/reports/departments">
               Department
-            </a>
-          </li>
-          <li>
-            <a class="treeview-item" href="/admin/reports/copyright">
-              Copyright
-            </a>
-          </li>
-          <li>
-            <a class="treeview-item" href="/admin/reports/patent">
-              Patent
             </a>
           </li>
           <li>

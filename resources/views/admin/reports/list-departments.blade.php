@@ -30,10 +30,9 @@
           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>Search</button> 
         </div>
         <div class="col-md-2">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
-            <i class="fa fa-file"></i>Generate PDF
-          </button>
+          <a role="button" target="_blank" href="{{ route('departments-pdf') }}" class="btn btn-primary float-right">
+            <i class="fa fa-file"> Generate PDF</i>
+          </a>
         </div>
     </div>
     {!! Form::close() !!}
