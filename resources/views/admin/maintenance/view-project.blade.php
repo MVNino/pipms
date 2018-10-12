@@ -26,6 +26,31 @@
           {{Form::label('lblProjectName', 'Project Name', ['style' => 'font-weight: bold'])}} 
           {{Form::text('txtProjectName', $project->str_project_name, ['class' => 'form-control', 'placeholder' => 'Enter project name', 'required'])}}
         </div>
+        <div class="form-group">   
+          <div class="row">
+            <div class="col">
+              {{Form::label('lblYear', 'Year Level', ['style' => 'font-weight: bold'])}}
+              <select data-placeholder="Select project type" class="custom-select" name="slctYearLevelId">
+                <option value="{{ $project->int_year_level }}" selected>{{ $project->int_year_level }}</option>
+                <option value="1st">First Year</option>
+                <option value="2nd">Second Year</option>
+                <option value="3rd">Third Year</option>
+                <option value="4th">Fourth Year</option>
+                <option value="5th">Fifth Year</option>
+              </select>
+            </div>
+            <div class="col">
+              {{Form::label('lblSemester', 'Semester', ['style' => 'font-weight: bold'])}}
+              <select data-placeholder="Select project type" class="custom-select" name="slctSemesterId">
+                <option value="{{ $project->char_semester }}" selected>{{ $project->char_semester }}</option>
+                <option value="1st">First Semester</option>
+                <option value="2nd">Second Semester</option>
+                <option value="3rd">Third Semester</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
         <div class="form-group">
           {{Form::label('lblProjectDescription', 'Project Description', ['style' => 'font-weight: bold'])}}
           {{Form::textarea('txtAreaProjectDescription', $project->mdmTxt_project_description, ['id' => 'container-form-control article-ckeditor', 'class' => 'form-control', 'placeholder' => "Enter project description *optional field*", 'rows' => '4'])}}

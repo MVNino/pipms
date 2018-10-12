@@ -53,7 +53,11 @@
 						        		@endif
 			              			@endif
 			              		@endif
-			              	@endif 
+			              	@endif
+
+			              		hey late ka na
+			              		{{ Carbon\Carbon::now()->diffInMinutes($copyright->dtm_schedule) }}
+			              	
 			              </div>
 			            </div><hr>  
 			          </div>

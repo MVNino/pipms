@@ -25,29 +25,28 @@
           {{Form::label('lblProjectName', 'Project Name', ['style' => 'font-weight: bold'])}} 
           {{Form::text('txtProjectName', '', ['class' => 'form-control', 'placeholder' => 'Enter project name', 'required'])}}
         </div>
-        <div class="form-group">
-          
-        <div class="row">
-          <div class="col">
-            
+        <div class="form-group">   
+          <div class="row">
+            <div class="col">
               {{Form::label('lblYear', 'Year Level', ['style' => 'font-weight: bold'])}}
-            <select data-placeholder="Select project type" class="custom-select" name="slctYearLevelId">
-              <option selected>Select its year level</option>
-              <option value="1st">First Year</option>
-              <option value="2nd">Second Year</option>
-              <option value="3rd">Third Year</option>
-              <option value="4th">Fourth Year</option>
-              <option value="5th">Fifth Year</option>
-            </select>
-          </div>
-          <div class="col">
-            {{Form::label('lblSemester', 'Semester', ['style' => 'font-weight: bold'])}}
-            <select data-placeholder="Select project type" class="custom-select" name="slctSemesterId">
-              <option selected>Select which semester it is taken</option>
-              <option value="1st">First Semester</option>
-              <option value="2nd">Second Semester</option>
-              <option value="3rd">Third Semester</option>
-            </select>
+              <select data-placeholder="Select project type" class="custom-select" name="slctYearLevelId">
+                <option selected>Select its year level</option>
+                <option value="1st">First Year</option>
+                <option value="2nd">Second Year</option>
+                <option value="3rd">Third Year</option>
+                <option value="4th">Fourth Year</option>
+                <option value="5th">Fifth Year</option>
+              </select>
+            </div>
+            <div class="col">
+              {{Form::label('lblSemester', 'Semester', ['style' => 'font-weight: bold'])}}
+              <select data-placeholder="Select project type" class="custom-select" name="slctSemesterId">
+                <option selected>Select which semester it is taken</option>
+                <option value="1st">First Semester</option>
+                <option value="2nd">Second Semester</option>
+                <option value="3rd">Third Semester</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="form-group">
