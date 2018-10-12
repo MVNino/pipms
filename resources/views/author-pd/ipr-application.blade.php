@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container">
-{!! Form::open(['id' => 'formCopyright', 'action' => 'Author\IPRApplicationController@storeCopyrightRequest', 
-	'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Author\IPRApplicationController@storeCopyrightRequest', 
+	'method' => 'POST', 'enctype' => 'multipart/form-data', 
+	'onsubmit' => "return confirm('Submit application form for copyright registration?')"]) !!}
 @csrf
 {{-- GIVE OPTION IF REUSE CoAuthors! Fix js issue --}}
 <div class="card">
@@ -88,7 +89,9 @@
 </div>
 
 {{-- FIX receipt issue when in first application --}}
-@includeWhen(Auth::user()->applicant->receipt->count() > 1, 'author-pd.includes.receipt-form')
+@if(Auth::user()->applicant->receipt->count() > 1)
+	@include('author-pd.includes.receipt-form')
+@endif
 
 <div class="card">
 	<div class="card-header">
@@ -134,7 +137,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="card">
 	<div class="card-header">
 		<h4>Executive Summary</h4>
@@ -196,7 +198,7 @@
 			</div>
 			<div class="col-md-4 col-sm-2">
 				@captcha
-				<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">
+				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">
 				Submit
 				</button>
 			</div>

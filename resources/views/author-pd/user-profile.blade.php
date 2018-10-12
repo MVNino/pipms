@@ -76,14 +76,14 @@
         <div class="card-header">
           <h4 class="card-title">Co-Authors</h4>
         </div>
-        @foreach($coAuthors as $coAuthor)
+        @foreach(Auth::user()->applicant->coAuthors as $coAuthor)
         <div class="card-body">
           <ul class="list-unstyled team-members">
             <li>
               <div class="row">
                 <div class="col-md-2 col-2">
                   <div class="avatar">
-                    <img src="{{ asset('pd/') }}../assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                    <i class="fa fa-user fa-2x"></i>
                   </div>
                 </div>
                 <div class="col-md-7 col-7">
@@ -91,7 +91,6 @@
                   <br />
                 </div>
                 <div class="col-md-3 col-3 text-right">
-                  <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
                 </div>
               </div>
             </li>
