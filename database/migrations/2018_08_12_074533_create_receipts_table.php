@@ -16,7 +16,7 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('int_id');
             $table->unsignedInteger('int_applicant_id')
-                ->comment('foreign key for applicants');// FK for 'applicants'
+                ->comment('foreign key for applicants');
             $table->unsignedInteger('int_copyright_id')
                 ->comment('foreign key for copyrights')
                 ->nullable();
@@ -28,8 +28,10 @@ class CreateReceiptsTable extends Migration
                 $table->foreign('int_applicant_id')
                     ->references('int_id')
                     ->on('applicants')
-                    ->onUpdate('cascade');
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
             }
+
             if (Schema::hasTable('copyrights')) {
                 $table->foreign('int_copyright_id')
                     ->references('int_id')

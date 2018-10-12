@@ -36,7 +36,7 @@ class RegisterAuthorController extends Controller
             'txtLastName' => 'required|max:155',
             'txtEmail' => 'required',
             'txtReceiptCode' => 'required',
-            'fileReceiptImg' => 'image|required|max:1500'
+            'fileReceiptImg' => 'image|mimes:jpeg,png,jpg|required|max:1500'
     	]);
 
     	// insert some to applicant

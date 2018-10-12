@@ -14,7 +14,7 @@
     	<h1>Account Request</h1>
 	</div>
 <div class="container">
-{!! Form::open(['id' => 'formInitAuthReg', 'action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Transaction\RegisterAuthorController@requestAuthorAccount', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit your author account request form?')"]) !!}
 @csrf
 <div class="tile">
     <div class="tile-body">
@@ -106,7 +106,7 @@
 			<div class="col-md-5"></div>
 			<div class="col-md-2">
 				@captcha()
-				<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block">
+				<button type="submit" class="btn btn-md btn-primary btn-block">
 					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
 				</button>
 			</div>

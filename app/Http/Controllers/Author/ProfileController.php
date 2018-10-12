@@ -22,10 +22,9 @@ class ProfileController extends Controller
     public function viewProfile()
     {
         $author = Applicant::findOrFail(auth()->user()->applicant->int_id);
-        $coAuthors = CoAuthor::all();
         $departments = Department::all();
         return view('author-pd.user-profile', ['author' => $author, 
-        'departments' => $departments, 'coAuthors' => $coAuthors]);
+        'departments' => $departments]);
     }
 
     public function updateProfilePic(Request $request, $id)
@@ -57,7 +56,7 @@ class ProfileController extends Controller
     public function updateAuthor(Request $request, $id)
     {
     	$this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'txtFirstName' => 'required|max:155',
             'txtMiddleName' => 'nullable|max:155',
             'txtLastName' => 'required|max:155',

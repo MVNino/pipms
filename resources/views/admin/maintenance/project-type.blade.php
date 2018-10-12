@@ -20,7 +20,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => 'Maintenance\ProjectTypeController@addProjectType', 'method' => 'POST']) !!}
+        {!! Form::open(['action' => 'Maintenance\ProjectTypeController@addProjectType', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
           <div class="form-group">
             {{Form::label('lblProjectType', 'Type of project', ['style' => 'font-weight: bold'])}} 
             {{ Form::text('txtProjectType', '', ['class' => 'form-control', 'placeholder' => 'Enter type of project']) }}

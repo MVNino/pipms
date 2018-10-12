@@ -225,7 +225,6 @@ class CopyrightController extends Controller
               
         $output .= '</table>';
         return $output;
-
     }
 
     public function convert_copyright_records_to_pdf($copyrights, $caption)

@@ -83,21 +83,6 @@
       <li class="treeview" id="li-reports"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">
           <li>
-            <a class="treeview-item" href="/admin/reports/branches">
-              Branch
-            </a>
-          </li>
-          <li>
-            <a class="treeview-item" href="/admin/reports/colleges">
-              College
-            </a>
-          </li>
-          <li>
-            <a class="treeview-item" href="/admin/reports/departments">
-              Department
-            </a>
-          </li>
-          <li>
             <a class="treeview-item" href="/admin/reports/copyright">
               Copyright
             </a>
@@ -112,13 +97,22 @@
               Author
             </a>
           </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/branches">
+              Branch
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/colleges">
+              College
+            </a>
+          </li>
+          <li>
+            <a class="treeview-item" href="/admin/reports/departments">
+              Department
+            </a>
+          </li>
         </ul>
-      </li>
-      <li>
-        <a class="app-menu__item" href="#">
-          <i class="app-menu__icon fa fa-gears"></i>
-          <span class="app-menu__label"><strike>System Utilities</strike></span>
-        </a>
       </li>
     </ul>
   </aside>

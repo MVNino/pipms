@@ -17,6 +17,9 @@ class CreateCoAuthorsTable extends Migration
             $table->increments('int_id');
             $table->unsignedInteger('int_applicant_id')
                 ->comment('foreign key for applicants');
+            $table->unsignedInteger('int_copyright_id')
+                ->comment('foreign key for copyrights')
+                ->nullable();
             $table->string('str_first_name');
             $table->string('str_middle_name')
                 ->nullable();
@@ -26,6 +29,14 @@ class CreateCoAuthorsTable extends Migration
                 $table->foreign('int_applicant_id')
                     ->references('int_id')
                     ->on('applicants')
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
+            }
+
+            if (Schema::hasTable('copyrights')) {
+                $table->foreign('int_copyright_id')
+                    ->references('int_id')
+                    ->on('copyrights')
                     ->onUpdate('cascade')
                     ->onDelete('restrict');
             }

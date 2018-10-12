@@ -22,6 +22,8 @@ class CreateAuthorAccountRequestsTable extends Migration
             $table->string('str_last_name');
             $table->string('str_email')
                 ->unique();
+            $table->char('char_request_status', 12)
+                ->default('pending');
             $table->string('str_account_request_token');
             $table->timestamps();
 
