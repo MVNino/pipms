@@ -33,7 +33,7 @@ class ProjectTypeController extends Controller
         $this->validate($request, [
         'txtProjectType' => 'required',
         'radioProjectType' => 'required',
-        'fileProjectTypeImg' => 'image|nullable|max:1500'
+        'fileProjectTypeImg' => 'image|mimes:jpeg,png,jpg|nullable|max:1500'
  	   ]);
 
         // Store record to database

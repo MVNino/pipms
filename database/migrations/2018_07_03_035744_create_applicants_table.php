@@ -26,9 +26,9 @@ class CreateApplicantsTable extends Migration
             $table->char('char_applicant_type', 16);
             $table->string('str_home_address')
                 ->nullable();
-            $table->bigInteger('bigInt_cellphone_number')
+            $table->string('bigInt_cellphone_number', 30)
                 ->nullable();
-            $table->mediumInteger('mdmInt_telephone_number')
+            $table->string('mdmInt_telephone_number', 30)
                 ->nullable();
     
             // Assign foreign key for 'users' table

@@ -15,17 +15,17 @@ class CreateCoAuthorsTable extends Migration
     {
         Schema::create('co_authors', function (Blueprint $table) {
             $table->increments('int_id');
-            $table->unsignedInteger('int_applicant_id')
-                ->comment('foreign key for applicants');
+            $table->unsignedInteger('int_copyright_id')
+                ->comment('foreign key for copyrights');
             $table->string('str_first_name');
             $table->string('str_middle_name')
                 ->nullable();
             $table->string('str_last_name');
 
-            if (Schema::hasTable('applicants')) {
-                $table->foreign('int_applicant_id')
+            if (Schema::hasTable('copyrights')) {
+                $table->foreign('int_copyright_id')
                     ->references('int_id')
-                    ->on('applicants')
+                    ->on('copyrights')
                     ->onUpdate('cascade')
                     ->onDelete('restrict');
             }

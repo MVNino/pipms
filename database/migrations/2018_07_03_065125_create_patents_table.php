@@ -25,12 +25,11 @@ class CreatePatentsTable extends Migration
             $table->string('str_custom_project')->nullable();
             $table->string('str_patent_project_title');
             $table->mediumText('mdmTxt_patent_description');
+            $table->string('str_patent_summary_file')
+                ->nullable();
             $table->char('char_patent_status')->default('pending');
             $table->dateTime('dtm_schedule')
                 ->comment('schedule of actual application')
-                ->nullable();
-            $table->string('str_revision_token')
-                ->comment('For revision of request')
                 ->nullable();
             $table->timestamps();
 

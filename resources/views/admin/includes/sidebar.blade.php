@@ -93,6 +93,11 @@
             </a>
           </li>
           <li>
+            <a class="treeview-item" href="/admin/reports/author">
+              Author
+            </a>
+          </li>
+          <li>
             <a class="treeview-item" href="/admin/reports/branches">
               Branch
             </a>
@@ -107,18 +112,7 @@
               Department
             </a>
           </li>
-          <li>
-            <a class="treeview-item" href="/admin/reports/author">
-              Author
-            </a>
-          </li>
         </ul>
-      </li>
-      <li>
-        <a class="app-menu__item" href="#">
-          <i class="app-menu__icon fa fa-gears"></i>
-          <span class="app-menu__label"><strike>System Utilities</strike></span>
-        </a>
       </li>
     </ul>
   </aside>

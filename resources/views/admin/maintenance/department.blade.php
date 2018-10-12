@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           {{Form::label('lblCollegeCode', 'Assign department to', ['style' => 'font-weight: bold'])}}
-        <select data-placeholder="Select college" class="custom-select" name="slctCollegeId">
+        <select data-placeholder="Select college" class="custom-select" name="slctCollegeId" required>
           <option selected>Select college</option>
           @forelse($colleges as $college)
           <option value="{{ $college->int_id }}">{{ $college->char_college_code }} - {{ $college->str_college_name }} ({{ $college->branch->str_branch_name }})</option>
