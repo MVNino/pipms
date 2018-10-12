@@ -26,7 +26,6 @@
           <option value="4">Most copyrightable type of works</option>
           <option value="5">Most patentable type of works</option>
           <option value="6">Most projects to comply</option>
-          <option value="7">Applicants with appointment issue</option>
         </select>
         </div>
       </div>  
@@ -270,22 +269,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div id="panel7" style="display: none;">
-                  <table class="table table-hover table-bordered" id="sampleTable6">
-                    <thead>
-                      <tr>
-                        <th class="text-center">Branch6</th>
-                        <th class="text-center">Authors</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                          <td></td>
-                          <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                
               </div>
           </div>
       </div>

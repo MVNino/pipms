@@ -8,13 +8,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use DB;
 use App\Message;
+use Auth;
 
 class MailController extends Controller
 {
    
     public function viewMyMails()
     {
-        $mails = Message::all()->where('sender_id', 1);
+        $mails = Message::where('sender_id', 1)
+                        ->orderBy('created_at', 'desc')->get();
+
      return view('author-pd.mails', ['mails'=>$mails] );  
     }
 
@@ -26,7 +29,8 @@ class MailController extends Controller
 
     public function MySent()
     {
-        $mails = Message::all()->where('sender_id', 0);
+        $mails = Message::where('sender_id', 0)
+                        ->orderBy('created_at', 'desc')->get();
         
      return view('author-pd.sent', ['mails'=>$mails]);  
     }
@@ -39,7 +43,8 @@ class MailController extends Controller
 
     public function MyTrash()
     {
-        $mails = Message::all()->where('char_message_status', 1);
+        $mails = Message::where('char_message_status', 1)
+                        ->orderBy('created_at', 'desc')->get();
         
      return view('author-pd.trash', ['mails'=>$mails]);  
     }
@@ -61,7 +66,7 @@ class MailController extends Controller
   		$message->email = $request->email;
   		$message->str_subject = $request->subject;
   		$message->mdmTxt_message = $request->message;
-      $message->sender_name = 'User';
+      $message->sender_name = Auth::user()->email;
       $message->char_message_status = '0';
         
 
@@ -81,7 +86,7 @@ class MailController extends Controller
         try
         {
             $message = Message::find($id);
-            $message->char_message_status = 1;
+            $message->char_message_status = '1';
 
 
             if ($message->save())

@@ -219,8 +219,21 @@
                                 <h4 class="text-muted"><strong>({{ $viewProject->patent->str_patent_project_title }})</strong></h4>
                                 <ul class="timeline">
                                     @if($viewProject->patent->char_patent_status == 'pending')
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Patent Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for patent registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
@@ -231,9 +244,22 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    @elseif($viewProject->patent->char_patent_status == 'to submit')    
+                                    @elseif($viewProject->patent->char_patent_status == 'to submit')  
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Patent Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for patent registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
@@ -245,7 +271,7 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
@@ -258,9 +284,22 @@
                                         </li>
 
 
-                                     @elseif($viewProject->patent->char_patent_status == 'on process')    
+                                     @elseif($viewProject->patent->char_patent_status == 'on process') 
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Patent Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for patent registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>   
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
@@ -272,7 +311,7 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
@@ -284,7 +323,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>On process</b></h4>
@@ -298,20 +337,20 @@
 
                                     @elseif($viewProject->patent->char_patent_status == 'patented')
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge primary">
+                                            <div class="timeline-badge default">
                                                 <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
                                             </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
-                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                    <h4 class="timeline-title"><b>Application</b> for Patent Registration</h4>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                    <p>You've submitted your application form for patent registration.</p>
                                                 </div>
                                             </div>
-                                        </li>      
+                                        </li>     
                                         <li>
-                                            <div class="timeline-badge success"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
@@ -323,7 +362,7 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge warning"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
@@ -335,7 +374,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge danger"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>On process</b></h4>
@@ -347,14 +386,14 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge info"><img class="img-responsive" alt="user" src="../assets/images/users/1.jpg" alt="img"> </div>
+                                            <div class="timeline-badge info"><i class="fa fa-trademark"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Patented</b></h4>
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_patented)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your document is already copyrighted. </p>
+                                                    <p>Your document is already patented. </p>
                                                 </div>
                                             </div>
                                         </li>

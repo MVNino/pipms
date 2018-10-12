@@ -28,10 +28,7 @@ class IPRApplicationController extends Controller
         if(auth()->user()->applicant->int_department_id) {
             $projects = Project::all();
             $projectTypes = ProjectType::all();
-            $requirements = Requirement::where('char_ipr', 'C')
-                    ->get();
-            $pRequirements = Requirement::where('char_ipr', 'P')
-                    ->get();
+            $requirements = Requirement::all();
             return view('author-pd.ipr-application', 
                 ['projects' => $projects, 
                 'projectTypes' => $projectTypes, 
