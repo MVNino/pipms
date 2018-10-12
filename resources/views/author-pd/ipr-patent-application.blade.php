@@ -9,7 +9,7 @@
 @endsection
 @section('content')
 <div class="container">	
-{!! Form::open(['id' => 'formPatent', 'action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['action' => 'Author\IPRApplicationController@storePatentRequest', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'onsubmit' => "return confirm('Submit application form for patent registration?')"]) !!}
 @csrf
 <div class="row">
 	<div class="col-md-12">
@@ -98,7 +98,9 @@
 											<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's patent registration</strong></label>
 											<ul class="list-group list-group-flush">
 									  			@foreach($requirements as $requirement)
+									  				@if($requirement->char_ipr == 'P')
 							  						<li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
+									  				@endif
 							  					@endforeach			
 											</ul>
 						            		<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>
@@ -113,7 +115,7 @@
 							</div>
 							<div class="col-md-4 col-sm-2">
 								@captcha
-								<button type="button" id="demoSwal" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">Submit</button>
+								<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">Submit</button>
 							</div>
 							<div class="col-md-4 col-sm-5">
 								<span></span>

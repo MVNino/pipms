@@ -62,12 +62,23 @@ class IPRApplicationController extends Controller
             'slctProjectType' => 'required',
             'txtProjectTitle' => 'required',
             'txtAreaDescription' => 'nullable',
-            'fileExecutiveSummary' => 'nullable'
+            'fileExecutiveSummary' => 'nullable',
+            'txtCAFirstName' => 'nullable',
+            'txtCAFirstName2' => 'nullable',
+            'txtCAFirstName3' => 'nullable',
+            'txtCAMiddleName' => 'nullable',
+            'txtCAMiddleName2' => 'nullable',
+            'txtCAMiddleName3' => 'nullable',
+            'txtCALastName' => 'nullable',
+            'txtCALastName2' => 'nullable',
+            'txtCALastName3' => 'nullable'
         ]);
         // store data to copyrights table
 		$applicantId = auth()->user()->applicant->int_id;
         $applicantSingle = Applicant::findOrFail($applicantId);
         // Store co-author
+
+
         $applicantSingle->coAuthors()->saveMany([
             new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName, 
                 'str_middle_name' => $request->txtCAMiddleName, 
@@ -79,6 +90,7 @@ class IPRApplicationController extends Controller
                 'str_middle_name' => $request->txtCAMiddleName3, 
                 'str_last_name' => $request->txtCALastName3])
         ]);
+
 
         if($request->txtAreaDescription == ''){
             $projectDescription = 'There is no description supplied.';
@@ -106,13 +118,14 @@ class IPRApplicationController extends Controller
         }
         if ($copyright->save()) {
             // notify
-        $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
-        $userId = User::min('id');
-        $user = User::findOrFail($userId);
-        // $user->notify(ApplicantRequests($txtFirstName, $txtLastName, $department));
+            $department = Department::findOrFail(auth()->user()->applicant->int_department_id);
+            $userId = User::min('id');
+            $user = User::findOrFail($userId);
+            // $user->notify(ApplicantRequests($txtFirstName, $txtLastName, $department));
 
-        \Notification::send($user, new ApplicantRequests(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-            return redirect()->back();
+            \Notification::send($user, new ApplicantRequests(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
+            return redirect()->back()->with('success', 
+                'The application form for copyright registration has been sent!');
         }
 	}
 

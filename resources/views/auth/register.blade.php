@@ -26,7 +26,8 @@
                         <div class="card-header">{{ __('Register') }}</div>
         
                         <div class="card-body">
-                            <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
+                            <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}", onsubmit ="return confirm('Submit your author account request form?')"
+                                >
                                 @csrf
         
                                 <div class="form-group row">

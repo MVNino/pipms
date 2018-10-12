@@ -15,7 +15,7 @@ class CreateProjectTypesTable extends Migration
     {
         Schema::create('project_types', function (Blueprint $table) {
             $table->increments('int_id');
-            $table->char('char_project_type', 16);
+            $table->string('char_project_type', 64);
             $table->char('char_classification'); // C-Copyright | P-Patent
              $table->string('str_project_type_image')
                 ->default('default_project_type_image.png');

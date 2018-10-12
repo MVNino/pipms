@@ -28,6 +28,7 @@ class BranchController extends Controller
 
     public function listBranches()
     {
+        // return $copyrightStats = $this->copyright->copyrightStats($this->column);
         $patentStats = $this->patent
             ->patentStats($this->column);
         $copyrightStats = $this->copyright
