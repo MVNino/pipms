@@ -28,10 +28,10 @@
           <a href="{{ route('reports.colleges') }}" class="btn btn-secondary">Back</a> 
         </div>
         <div class="col-md-2">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary mb-2 float-right" data-toggle="modal" data-target="#exampleModalLong">
-            <i class="fa fa-file"></i>Generate PDF
-          </button>
+          <a role="button" target="_blank" href="/admin/reports/college/{{ date('Y-m-d', strtotime($dateStart)) }}/
+                  {{date('Y-m-d', strtotime($dateEnd))}}/colleges_pdf" class="btn btn-primary float-right">
+            <i class="fa fa-file"> Generate all to PDF</i>
+          </a>
         </div>
     </div>
 </div>
@@ -111,9 +111,11 @@
               <tr>
                 <th class="text-center">College</th>
                 <th class="text-center">Branch</th>
+                <th class="text-center">Authors</th>
                 <th colspan="5" class="text-center">Patent</th>
               </tr>
               <tr>
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col">Pending</th>
@@ -135,6 +137,9 @@
                   <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
                   {{ $copyright->str_branch_name }}
                   </a>
+                </th>
+                <th class="text-center">
+                  {{ $patent->author_count }}
                 </th>
                 <td class="text-center">
                   {{ $patent->patent_count_pending }}

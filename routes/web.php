@@ -365,11 +365,24 @@ Route::group(
 						->name('reports.colleges');
 					Route::get('colleges/range-date', 
 						'CollegeController@rangedColleges');
+					// College Report PDF
+					Route::get('college/colleges_pdf', 
+						'CollegeController@collegesPDF')
+						->name('colleges-pdf');
+					Route::get('college/{start}/{end}/colleges_pdf', 
+						'CollegeController@rangedCollegesPDF');
+
 					Route::get('departments', 
 						'DepartmentController@listDepartments')
 						->name('reports.departments');
 					Route::get('departments/range-date', 
 						'DepartmentController@rangedDepartments');
+					// Department Report PDF
+					Route::get('department/departments_pdf', 
+						'DepartmentController@departmentsPDF')
+						->name('departments-pdf');
+					Route::get('department/{start}/{end}/departments_pdf', 
+						'DepartmentController@rangedDepartmentsPDF');
 				});
 			}
 		);
