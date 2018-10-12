@@ -98,15 +98,10 @@
 											<label><strong><span class="text-warning">Note:</span> You must have the following requirements for your project's patent registration</strong></label>
 											<ul class="list-group list-group-flush">
 									  			@foreach($requirements as $requirement)
-<<<<<<< HEAD
+
 									  			@if($requirement->char_ipr == 'P')
 							  						<li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
 							  					@endif
-=======
-									  				@if($requirement->char_ipr == 'P')
-							  						<li class="list-group-item text-muted">{{ $requirement->str_requirement }}</li>
-									  				@endif
->>>>>>> a82a3e6ca9eabec51a386cef71e83aa0de68ebb6
 							  					@endforeach			
 											</ul>
 						            		<small id="requirementHelp" class="form-text text-muted">Note: You must bring these things for your actual copyright application in the office.</small>

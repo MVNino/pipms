@@ -29,7 +29,7 @@
             <tr>
               @if($mail->char_message_status == 0 && $mail->email == Auth::user()->email)
               <td><a class="nav-link" href="/author/mails/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
-              <td class="mail-subject"><a class="nav-link" href="/author/mails/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{$mail->mdmTxt_message, $limit = 20, $end = '...'}}</a></td>
+              <td class="mail-subject"><a class="nav-link" href="/author/mails/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{ str_limit($mail->mdmTxt_message, $limit = 20, $end = '...') }}</a></td>
               <td><a class="nav-link" href="/author/mails/{{ $mail->int_id }}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$mail->created_at)->format('F j Y g:i A ')}}</a></td>
               <td>
           <div align="center">
