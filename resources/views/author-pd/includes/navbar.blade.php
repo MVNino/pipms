@@ -137,7 +137,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="#pablo">
+                <a class="nav-link btn-rotate" href="{{ route('author.mails') }}">
                   <i class="nc-icon nc-settings-gear-65"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>

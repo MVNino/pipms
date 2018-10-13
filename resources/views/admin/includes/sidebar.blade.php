@@ -29,20 +29,11 @@
           <span class="app-menu__label">My Account</span>
         </a>
       </li>
-      <li class="treeview" id="li-schedule">
-        <a class="app-menu__item" href="#" data-toggle="treeview">
+      <li>
+        <a class="app-menu__item {{Request::is('admin/schedule-today') ? 'active':''}}" href="{{ route('admin.today') }}">
           <i class="app-menu__icon fa fa-calendar"></i>
-          <span class="app-menu__label">Schedule</span>
-          <i class="treeview-indicator fa fa-angle-right"></i>
+          <span class="app-menu__label">Schedule Today</span>
         </a>
-        <ul class="treeview-menu">
-          <li>
-              <a class="treeview-item" href="{{ route('schedule.calendar') }}">Calendar</a>
-          </li>
-          <li>
-              <a id="admin-today" class="treeview-item" href="{{ route('admin.today') }}">Today</a>
-          </li>
-        </ul>
       </li>
       <li class="treeview" id="li-maintenance"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-database"></i><span class="app-menu__label">Maintenance</span><i class="treeview-indicator fa fa-angle-right"></i></a>
         <ul class="treeview-menu">

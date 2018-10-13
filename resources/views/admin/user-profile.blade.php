@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('pg-title')
-<h1><i class="fa fa-building"></i> My Profile</h1>
+<h1><i class="fa fa-building"></i> My Account</h1>
   <p>Information about the user</p>
 @endsection
 @section('breadcrumb-label')
@@ -12,9 +12,8 @@
 <br/><div class="row user">
     <div class="col-md-12">
       <div class="profile">
-        <div class="info"><img class="user-img" src="{{ asset('pd/assets/img/damir-bosnjak.jpg') }}">
-          <h4>KEME Group</h4>
-          <p>FrontEnd Developer</p>
+        <div class="info"><img class="user-img" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}">
+          <h4>Administrator</h4>
         </div>
         <div class="cover-image"></div>
       </div>
@@ -22,14 +21,14 @@
     <div class="col-md-3">
       <div class="tile p-0">
         <ul class="nav flex-column nav-tabs user-tabs">
-          <li class="nav-item"><a class="nav-link active" href="#user-timeline" data-toggle="tab">Timeline</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#user-notifications" data-toggle="tab">Notifications</a></li>
           <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">Settings</a></li>
         </ul>
       </div>
     </div>
     <div class="col-md-9">
       <div class="tab-content">
-        <div class="tab-pane active" id="user-timeline">
+        <div class="tab-pane active" id="user-notifications">
           <div class="timeline-post">
             <div class="post-media"><a href="#"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"></a>
               <div class="content">
@@ -69,38 +68,32 @@
             <form>
               <div class="row mb-4">
                 <div class="col-md-4">
-                  <label>First Name</label>
-                  <input class="form-control" type="text">
+                  <label>Last Name</label>
+                  <input class="form-control" type="text" value="{{ auth()->user()->str_last_name }}">
                 </div>
                 <div class="col-md-4">
-                  <label>Last Name</label>
-                  <input class="form-control" type="text">
+                  <label>First Name</label>
+                  <input class="form-control" type="text" value="{{ auth()->user()->str_first_name }}">
+                </div>
+                <div class="col-md-4">
+                  <label>Middle Name</label>
+                  <input class="form-control" type="text" value="{{ auth()->user()->str_middle_name }}">
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-8 mb-4">
+                <div class="col-md-12 mb-4">
+                  <label>Username</label>
+                  <input class="form-control" type="text" value="{{ auth()->user()->str_username }}">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mb-4">
                   <label>Email</label>
-                  <input class="form-control" type="text">
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-8 mb-4">
-                  <label>Mobile No</label>
-                  <input class="form-control" type="text">
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-8 mb-4">
-                  <label>Office Phone</label>
-                  <input class="form-control" type="text">
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-8 mb-4">
-                  <label>Home Phone</label>
-                  <input class="form-control" type="text">
+                  <input class="form-control" type="text" value="{{ auth()->user()->email }}">
                 </div>
               </div>
               <div class="row mb-10">
                 <div class="col-md-12">
-                  <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>
+                  <button class="btn btn-primary float-right" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i> Update</button>
                 </div>
               </div>
             </form>

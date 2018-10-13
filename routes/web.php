@@ -49,15 +49,9 @@ Route::group(
 				'NotificationController@viewNotifications')
 				->name('admin.notifications');
 			// Schedule
-			Route::get('schedule/calendar', 
-				'ScheduleController@viewCalendar')
-				->name('schedule.calendar');
-			Route::get('schedule/today', 
+			Route::get('schedule-today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
-			Route::get('schedule/today/id/college', function(){
-				return view('admin.schedule.college-today');
-			});
 			Route::get('mails', 'MailController@viewMails');
 			Route::get('mails/{id}', 'MailController@viewMessage');
 			Route::get('sent', 'MailController@Sent');
@@ -70,15 +64,10 @@ Route::group(
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
-
-		
-
 		Route::get('user-profile', function(){
 			return view('admin.user-profile');
 		});
 
-
-		
 		// Maintenance Module
 		Route::group(
 			[
