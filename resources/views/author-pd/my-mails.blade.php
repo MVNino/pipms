@@ -7,7 +7,8 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-3"><a class="mb-2 btn btn-primary btn-block" data-toggle="modal" data-target="#composeMails">Compose Mail</a>
+  <div class="col-md-3">
+    <a class="mb-2 btn btn-primary btn-block" data-toggle="modal" data-target="#composeMails">Compose Mail</a>
     <div class="tile p-0">
       <h4 class="tile-title folder-head">Folders</h4>
       <div class="tile-body">
@@ -20,8 +21,7 @@
     </div>
   </div>
   <div class="col-md-9">
-    <div class="tile">
-      
+    <div class="tile">      
       <div class="table-responsive mailbox-messages">
         <table class="table table-hover">
           <tbody>

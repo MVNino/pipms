@@ -57,7 +57,7 @@
           <div class="button-container">
             <div class="row">
               <div class="col-lg-6 col-md-6 col-6 ml-auto">
-                <h5>12
+                <h5>2
                   <br>
                   <small>Files Uploaded</small>
                 </h5>
