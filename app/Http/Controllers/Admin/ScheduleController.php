@@ -13,6 +13,11 @@ class ScheduleController extends Controller
 {
 	protected $viewPath = 'admin.schedule.'; 
 
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public function viewCalendar()
 	{
 		$events = Copyright::get();

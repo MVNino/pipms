@@ -103,7 +103,6 @@ class PendRequestController extends Controller
     {
         // List patent records
         $patents = $this->patent->whereStatusIs($this->status);
-
         return view($this->viewPath.'patent-pending', 
             ['patents' => $patents]);
     }

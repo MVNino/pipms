@@ -7,6 +7,16 @@
 */
 
 # GUEST
+// For lalay guest page test
+Route::get('showThis', function(){
+	return view('temp-index');
+});
+
+// For charts
+Route::get('monthly-copyrights-patents', 
+		'DashboardController@getMonthlyCopyrightPatents');
+// Route::get('monthly-patents', 'DashboardController@getMonthlyPatents');
+
 Route::get('/', 'GuestController@index')
 		->name('index');
 Route::get('/about-us', 'GuestController@about')
@@ -60,14 +70,15 @@ Route::group(
 			Route::get('trash/{id}', 'MailController@viewTrash');
 			Route::post('my-mails', 'MailController@composeMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');	
-			
+			Route::get('user-profile', 'ProfileController@viewUserProfile')
+				->name('admin.user-profile');
+			Route::put('{id}/update-profile-pic', 
+				'ProfileController@updateProfilePic');
+			Route::put('{id}/update-profile', 
+				'ProfileController@updateUserProfile');
 		});
 
 		Route::get('dashboard', 'DashboardController@index');
-		Route::get('user-profile', function(){
-			return view('admin.user-profile');
-		});
-
 		// Maintenance Module
 		Route::group(
 			[
