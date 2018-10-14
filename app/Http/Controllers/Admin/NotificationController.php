@@ -8,6 +8,11 @@ use App\Notification;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function readNotif($id)
     {
     	// $notification = DB::table('notifications')->where('id', $id)->get();
