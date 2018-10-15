@@ -17,27 +17,20 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="widget-small info coloured-icon"><i class="icon fa fa-sign-in fa-3x"></i>
-      <div class="info">
-        <h4>Daily Visits</h4>
-        <p><span class="count"><b>4001</b></span></p>
-      </div>
-    </div>
-  </div>
+  
   <div class="col-sm-6 col-md-6 col-lg-3">
     <div class="widget-small warning coloured-icon"><i class="icon fa fa-copyright fa-3x"></i>
       <div class="info">
         <h4>Copyrights</h4>
-        <p><span class="count"><b>267</b></span></p>
+        <p><span class="count"><b>{{ $copyrightCount }}</b></span></p>
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-6 col-lg-3">
-    <div class="widget-small danger coloured-icon"><i class="icon fa fa-certificate fa-3x"></i>
+    <div class="widget-small danger coloured-icon"><i class="icon fa fa-folder fa-3x"></i>
       <div class="info">
         <h4>Patents</h4>
-        <p><span class="count"><b>125</b></span></p>
+        <p><span class="count"><b>{{ $patentCount}}</b></span></p>
       </div>
     </div>
   </div>

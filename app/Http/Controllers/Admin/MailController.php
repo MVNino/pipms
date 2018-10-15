@@ -39,20 +39,6 @@ class MailController extends Controller
         return view('admin.view-sent', ['mails' => $mails]);
     }    
 
-    public function Trash()
-    {
-        $mails = Message::where('char_message_status', 1)
-                        ->orderBy('created_at', 'desc')->get();
-        
-     return view('admin.trash', ['mails'=>$mails]);  
-    }
-
-    public function viewTrash($id)
-    {
-        $mails = Message::findOrFail($id);
-        return view('admin.view-trash', ['mails' => $mails]);
-    }
-
     public function composeMails(Request $request)
     {	
         $this->validate($request, [

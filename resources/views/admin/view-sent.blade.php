@@ -16,7 +16,6 @@
 	      <ul class="nav nav-pills flex-column mail-nav">
 	        <li class="nav-item active"><a class="nav-link" href="/admin/mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
 	        <li class="nav-item"><a class="nav-link" href="/admin/sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-	        <li class="nav-item"><a class="nav-link" href="/admin/trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
 	      </ul>
 	    </div>
 	  </div>
@@ -27,7 +26,7 @@
       <div class="table-responsive mailbox-messages">
         
           <div class="card-body">
-                  <h5 class="card-title"><b>TO: </b>{{ $mails->sender_name }}</h5>
+                  <h5 class="card-title"><b>TO: </b>{{ $mails->email }}</h5>
             </div>
             <div class="card-body">
                 <h5 class="card-title"><b>Subject:</b></h5>
@@ -64,7 +63,7 @@
         
       </div>
      
-        {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
+        {!! Form::open(['action' => 'Admin\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
           <div class="form-group">
             {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
             <div class="col-md-12">
