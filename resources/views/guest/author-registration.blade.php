@@ -1,4 +1,5 @@
 @include('guest.includes.head-content')
+@include('guest.includes.messages')
 <section class="material-half-bg">
   <div class="cover"></div>
 </section>

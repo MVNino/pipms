@@ -5,7 +5,7 @@
     <div class="cover"></div>
 </section>
 <section class="login-content">
-	<div class="logo">
+	<div class="logo"><br><br><br>
 	  <h1>Copyrightable Works</h1>
 	</div>
 	<div class="container">

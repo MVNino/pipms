@@ -120,12 +120,37 @@ class RegisterAuthorController extends Controller
         }      
     }
 
+    public function approvePutAccountRequest(Request $request, $id)
+    {
+        $accountRequestToken = $this->random_code();
+        $authorAccount = AuthorAccountRequest::find($id);
+        $authorAccount->char_request_status = 'approved';
+        $authorAccount->str_account_request_token = $accountRequestToken;
+        if($authorAccount->save()) {
+            \Notification::route('mail', $authorAccount->str_email)
+                ->notify(new AuthorReadyForRegistration($authorAccount->applicant->int_id, $authorAccount->str_first_name, $accountRequestToken));
+            return redirect()->back()->with('success', 'Account request approved!');
+        }    
+    }
+
     public function authorAccountRegistration($applicantId, $registrationToken)
     {
         $applicant = Applicant::findOrFail($applicantId);
         if($applicant->authorAccountRequest->str_account_request_token == $registrationToken) {
             return view('guest.author-registration', ['applicant' => $applicant, 
                 'registrationToken' => $registrationToken]);
+        } else {
+            return view('admin.includes.page-error');
+        }
+    }
+
+    public function authorAccountRequestRevision($applicantId, $revisionToken)
+    {
+        $authorAccountRequest = AuthorAccountRequest::findOrFail($applicantId);
+        if($authorAccountRequest->str_account_request_token === $revisionToken) {
+            // return page for account request revision
+            return view('guest.account-request-revision', ['authorAccountRequest' => $authorAccountRequest, 
+                'revisionToken' => $revisionToken]);
         } else {
             return view('admin.includes.page-error');
         }
@@ -182,15 +207,17 @@ class RegisterAuthorController extends Controller
             'txtEmail' => 'required',
             'txtAreaMessage' => 'required'
         ]);
-        // $copyrightId = $request->numCopyrightId;
-        // $revisionToken = $this->random_code();
-        // $this->putCopyrightRevisionToken($revisionToken, $copyrightId);
-
-        \Notification::route('mail', $request->txtEmail)
-            ->notify(new AccountRequestRevision($request->txtFName, $request->txtAreaMessage));
-
-        $promptMsg = 'Mail sent!';
-        return redirect()->back()->with('success', $promptMsg);
+        $accountId = $request->numId;
+        $revisionToken = $request->_token;
+        $accountRequest = AuthorAccountRequest::findOrFail($accountId);
+        $accountRequest->char_request_status = 'to revise';
+        $accountRequest->str_account_request_token = $revisionToken;
+        if ($accountRequest->save()) {
+            \Notification::route('mail', $request->txtEmail)
+                ->notify(new AccountRequestRevision($request->txtFName, $request->txtAreaMessage, 
+                    $accountId, $revisionToken));
+            $promptMsg = 'Mail sent!';
+            return redirect()->back()->with('success', $promptMsg);
+        }
     }
-
 }

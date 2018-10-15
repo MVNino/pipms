@@ -31,7 +31,7 @@
 			                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
 			                    </a>
 			              </div>
-			              <div class="col-md-5">
+			              <div class="col-md-4">
 			              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
 			              	@if($copyright->patent)
 			              		@if($copyright->patent->char_patent_status == 'to submit')
@@ -41,7 +41,7 @@
 			              		@endif
 			              	@endif 
 			              </div>
-			              <div class="col-md-3">
+			              <div class="col-md-2">
 			              	Time: {{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br>
 			                {{-- Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br> --}}
 			                @if($copyright->patent)
@@ -55,6 +55,15 @@
 			              			@endif
 			              		@endif
 			              	@endif
+			              </div>
+			              <div class="col-md-2">
+			              	{{-- {!! Form::open(['action' => ['Admin\ScheduleController@classifyToConflicts', $copyright->int_id], 'method' => 'POST', 'id' => 'formConflicts']) !!}
+			              		@csrf --}}
+			              		<a href="/admin/schedule-today/{{ $copyright->int_id }}/conflict" role="button" class="btn btn-danger"><i class="fa fa-times"></i></a>
+			              		<a role="button" class="btn btn-info" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}"><i class="fa fa-check"></i></a>
+			              		{{-- {{ Form::hidden('_method', 'PUT') }}
+			              		<button type="button" id="demoSwal" class="btn btn-danger"><i class="fa fa-times"></i></button>
+			              	{!! Form::close() !!} --}}
 			              </div>
 			            </div><hr>  
 			          </div>
@@ -78,23 +87,33 @@
 					<div class="card">
 						<div class="card-body">
 							Legend:<br> 
-							<span class="badge badge-pill badge-primary">&nbsp&nbspCurrent&nbsp&nbsp</span> 
 							<span class="badge badge-pill badge-success">&nbsp&nbspProcessed&nbsp&nbsp</span>
 							<span class="badge badge-pill badge-info">&nbsp&nbspTo process&nbsp&nbsp</span>
-							<span class="badge badge-pill badge-danger">&nbsp&nbspIssue&nbsp&nbsp</span>
+							<span class="badge badge-pill badge-danger">&nbsp&nbspConflict&nbsp&nbsp</span>
 						</div>
 					</div>
-					@foreach($copyrights as $copyright)
+					<h4>Copyrights</h4>
+					@foreach($copyrightsToday as $copyright)
 					<div class="row">
 						<div class="col-md-10">
-							<a href="#">Copyright</a> | <a href="#">Patent</a> - 
+							<a href="#">{{ $copyright->str_project_title }}</a> - 
 							{{ $copyright->applicant->user->str_first_name }} 
 							{{ $copyright->applicant->user->str_last_name }} 
 						</div>
 						<div class="col-md-2">
+							@if($copyright->char_copyright_status == 'on process' || $copyright->char_copyright_status == 'copyrighted')
 							<span class="badge badge-success badge-pill">
 								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							</span>
+							@elseif($copyright->char_copyright_status == 'conflict')
+								<span class="badge badge-danger badge-pill">
+									&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								</span>
+							@else
+								<span class="badge badge-info badge-pill">
+								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								</span>
+							@endif
 						</div>
 					</div>
 					@endforeach
@@ -106,6 +125,29 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Are you sure?",
+    text: "This copyright request will be classify as a conflict from scheduled appointment",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formConflicts').submit();
+      swal("A conflict", "This request was being added to appointment conflict.", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
 <script>
   $(document).ready(function(){
     $('#li-schedule').addClass('is-expanded');

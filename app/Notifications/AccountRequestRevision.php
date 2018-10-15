@@ -12,16 +12,20 @@ class AccountRequestRevision extends Notification
     use Queueable;
     public $firstName;
     public $message;
+    public $accountId;
+    public $revisionToken;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($firstName, $message)
+    public function __construct($firstName, $message, $accountId, $revisionToken)
     {
         $this->firstName = $firstName;
         $this->message = $message;
+        $this->accountId = $accountId;
+        $this->revisionToken = $revisionToken;
     }
 
     /**
@@ -46,7 +50,7 @@ class AccountRequestRevision extends Notification
         return (new MailMessage)
                     ->line('Dear, '.$this->firstName)
                     ->line($this->message)
-                    ->action('Notification Action', url('/'))
+                    ->action('To Revision Page', url('http://pipms.test/registration/author/'.$this->accountId.'/revision-form/'.$this->revisionToken))
                     ->line('Please respond at your earliest convenience.');
     }
 

@@ -142,6 +142,8 @@ class Copyright extends Model
 	        ->select(DB::raw('count(applicants.int_id) as author_count, 
 	        		count(case when char_copyright_status = "pending" 
 	        		then 1 else null end) as copyright_count_pending, 
+	        		count(case when char_copyright_status = "conflict" 
+	        		then 1 else null end) as copyright_count_to_conflict, 
 	        		count(case when char_copyright_status = "to submit" 
 	        		then 1 else null end) as copyright_count_to_submit, 
 	        		count(case when char_copyright_status = "on process" 
@@ -165,6 +167,8 @@ class Copyright extends Model
 	        ->select(DB::raw('count(applicants.int_id) as author_count, 
 	        		count(case when char_copyright_status = "pending" 
 	        		then 1 else null end) as copyright_count_pending, 
+	        		count(case when char_copyright_status = "conflict" 
+	        		then 1 else null end) as copyright_count_to_conflict, 
 	        		count(case when char_copyright_status = "to submit" 
 	        		then 1 else null end) as copyright_count_to_submit, 
 	        		count(case when char_copyright_status = "on process" 
