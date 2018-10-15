@@ -80,7 +80,7 @@ class RegisterAuthorController extends Controller
 	                \Notification::send($user, 
 	                	new AuthorAccountRequested($request->txtFirstName, 
 	                		$request->txtLastName));
-                return redirect()->back();
+                return redirect()->back()->with('success', 'The request for an author account has been sent!');
         		}
         	}
 		}

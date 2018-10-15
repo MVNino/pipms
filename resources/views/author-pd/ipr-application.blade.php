@@ -81,6 +81,26 @@
 							</div>
 							</div>
 						</div>
+						<div id="row-co-author-4" style="display: none;">
+							<label><strong>Name</strong></label>	
+							<div class="row">
+								<div class="col">
+								<div class="form-group">
+									<input type="text" name="txtCALastName4" class="form-control" placeholder="Enter last name" />
+								</div>
+								</div>
+								<div class="col">
+								<div class="form-group">
+									<input type="text" name="txtCAFirstName4" class="form-control" placeholder="Enter first name"/>
+								</div>
+								</div>
+								<div class="col">
+								<div class="form-group">
+									<input type="text" name="txtCAMiddleName4" class="form-control" placeholder="Enter middle name"/>
+								</div>
+								</div>
+							</div>
+						</div>		
 					</div>
 				</div>
 			</div>
@@ -226,24 +246,25 @@ $(document).ready(function(){
 
 $('#btnCoAuthor').on('click', (e) => {
 	e.preventDefault();
-	$('#body-co-author').append(`<label><strong>Name</strong></label>
-		<div class="row" id="row-co-author">
-		    <div class="col-md-4">
-				<div class="form-group">
-					<input type="text" name="txtCALastName" class="form-control" placeholder="Enter last name" />
-				</div>
-		    </div>
-		    <div class="col-md-4">
-				<div class="form-group">
-					<input type="text" name="txtCAFirstName" class="form-control" placeholder="Enter first name"/>
-				</div>
-		    </div>
-		    <div class="col-md-4">
-				<div class="form-group">
-					<input type="text" name="txtCAMiddleName" class="form-control" placeholder="Enter middle name"/>
-				</div>
-		    </div>
-		</div>`);
+	$('#row-co-author-4').css('display', 'block');
+	// $('#body-co-author').append(`<label><strong>Name</strong></label>
+	// 	<div class="row" id="row-co-author">
+	// 	    <div class="col-md-4">
+	// 			<div class="form-group">
+	// 				<input type="text" name="txtCALastName" class="form-control" placeholder="Enter last name" />
+	// 			</div>
+	// 	    </div>
+	// 	    <div class="col-md-4">
+	// 			<div class="form-group">
+	// 				<input type="text" name="txtCAFirstName" class="form-control" placeholder="Enter first name"/>
+	// 			</div>
+	// 	    </div>
+	// 	    <div class="col-md-4">
+	// 			<div class="form-group">
+	// 				<input type="text" name="txtCAMiddleName" class="form-control" placeholder="Enter middle name"/>
+	// 			</div>
+	// 	    </div>
+	// 	</div>`);
 });
 </script>
 <!-- Plugins for this page -->

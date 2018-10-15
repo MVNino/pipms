@@ -30,9 +30,9 @@ class AuthorController extends Controller
 
 	public function viewApplicant($id)
 	{
-        $applicantCollection = Applicant::with(['department.college.branch'], 
-            ['copyright.patent'])
-            ->where('applicants.int_id', $id)
+        $applicantCollection = User::with(['applicant.department.college.branch'], 
+            ['applicant.copyright.patent'])
+            ->where('users.id', $id)
             ->get();           
         return view($this->viewPath.'view-author', 
             ['applicantCollection' => $applicantCollection]);

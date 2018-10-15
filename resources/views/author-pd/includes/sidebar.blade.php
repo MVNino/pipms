@@ -44,7 +44,7 @@
           </li>
           <li id="li-my-projects" class="{{Request::is('author/my-projects') ? 'active':''}}">
             <a href="{{ route('author.my-projects') }}">
-              <i class="nc-icon nc-caps-small"></i>
+              <i class="nc-icon nc-tile-56"></i>
               <p>My Projects</p>
             </a>
           </li>
@@ -52,6 +52,12 @@
             <a href="{{ route('author.guide') }}">
               <i class="nc-icon nc-alert-circle-i"></i>
               <p>My Guide</p>
+            </a>
+          </li>
+          <li id="li-notifications" class="{{Request::is('author/notifications') ? 'active':''}}">
+            <a href="{{ route('author.notifications') }}">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>Notifications</p>
             </a>
           </li>
           <li class="active-pro">

@@ -16,8 +16,15 @@
                     <a class="nav-link {{Request::is('/') ? 'active':''}}" href="{{ route('index') }}">Home</a>
                 </li>
                 @endguest
-                <li class="nav-item">
-                    <a class="nav-link {{Request::is('application/guide') ? 'active':''}}" href="{{ route('application.guide') }}">IPR Application</a>
+
+                 {{-- IPR Menu --}}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown-ipr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Intellectual Property Rights</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item" href="{{ route('application.guide') }}">IPR Application</a>
+                    <a class="dropdown-item" href="{{ route('copyrightables') }}">Copyrightable Works</a>
+                    <a class="dropdown-item" href="{{ route('patentables') }}">Patentable Works</a>
+                  </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{Request::is('about-us') ? 'active':''}}" href="{{ route('about-us') }}">About Us</a>
@@ -29,7 +36,7 @@
                 @guest
                  {{-- Login Menu --}}
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                  <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown10">
                     <a class="dropdown-item" href="{{ route('login.author') }}">as Author</a>
                     <a class="dropdown-item" href="{{ route('login.admin') }}">as Admin</a>

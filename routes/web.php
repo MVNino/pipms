@@ -12,13 +12,22 @@ Route::get('showThis', function(){
 	return view('temp-index');
 });
 
-// For charts
+// For Admin Charts
 Route::get('monthly-copyrights-patents', 
 		'DashboardController@getMonthlyCopyrightPatents');
-// Route::get('monthly-patents', 'DashboardController@getMonthlyPatents');
+Route::get('monthly-copyrighted-patented', 
+		'DashboardController@getMonthlyCopyrightedPatented');
+Route::get('copyrights-for-this-month', 
+		'DashboardController@copyrightsForThisMonth');
+Route::get('patents-for-this-month', 
+		'DashboardController@patentsForThisMonth');
 
 Route::get('/', 'GuestController@index')
 		->name('index');
+Route::get('/copyrightable-works', 'GuestController@listCopyrightables')
+		->name('copyrightables');
+Route::get('/patentable-works', 'GuestController@listPatentables')
+		->name('patentables');
 Route::get('/about-us', 'GuestController@about')
 		->name('about-us');
 Route::get('/application/guide', 'GuestController@viewApplicationGuide')
@@ -119,6 +128,7 @@ Route::group(
 					// Accounts maintenance
 					Route::get('accounts', 				
 							'AccountController@maintainAccounts');
+					Route::post('accounts', 'AccountController@addAnotherAdmin');
 					// Project types maintenance
 					Route::get('project-types', 		
 							'ProjectTypeController@maintainProjectTypes');

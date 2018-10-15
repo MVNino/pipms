@@ -54,7 +54,12 @@
             <tbody>
               @forelse($authors as $author)
               <tr>
-                <td>{{ $author->str_first_name }} {{ $author->str_middle_name }} {{ $author->str_last_name }}</td>
+
+                <td>
+                  <a href="/admin/reports/author/{{ $author->id }}">
+                    {{ $author->str_first_name }} {{ $author->str_middle_name }} {{ $author->str_last_name }}
+                  </a>
+                </td>
                 <td>{{ $author->char_gender }} 
                   - {{ $author->dtm_birthdate }}
                 </td>

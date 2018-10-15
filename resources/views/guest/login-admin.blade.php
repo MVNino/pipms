@@ -88,5 +88,11 @@
 
       $('[a href="/index-vali"]').addClass
     </script>
+    <script>
+      $(document).ready(function(){
+        $('#dropdown-login').css('color', 'maroon');
+        $('#dropdown-login').css('border-bottom', '1px solid rgb(136,136,129)');
+      });
+    </script>
   </body>
 </html>

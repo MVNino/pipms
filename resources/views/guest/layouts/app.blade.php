@@ -8,7 +8,7 @@
   @include('guest.includes.navbar')
   <div class="container-fluid" style="padding:0;margin:0;">
     @include('guest.includes.messages')
-    <main class="py-4">
+    <main>
         @yield('content')
     </main>
   </div>
