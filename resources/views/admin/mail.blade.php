@@ -16,7 +16,6 @@
 	      <ul class="nav nav-pills flex-column mail-nav">
 	        <li class="nav-item active"><a class="nav-link" href="mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
 	        <li class="nav-item"><a class="nav-link" href="sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-	        <li class="nav-item"><a class="nav-link" href="trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
 	      </ul>
 	    </div>
 	  </div>

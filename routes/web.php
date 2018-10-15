@@ -75,8 +75,6 @@ Route::group(
 			Route::get('mails/{id}', 'MailController@viewMessage');
 			Route::get('sent', 'MailController@Sent');
 			Route::get('sent/{id}', 'MailController@viewSent');
-			Route::get('trash', 'MailController@Trash');
-			Route::get('trash/{id}', 'MailController@viewTrash');
 			Route::post('my-mails', 'MailController@composeMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');	
 			Route::get('user-profile', 'ProfileController@viewUserProfile')
@@ -86,6 +84,8 @@ Route::group(
 			Route::put('{id}/update-profile', 
 				'ProfileController@updateUserProfile');
 		});
+
+
 
 		Route::get('dashboard', 'DashboardController@index');
 		// Maintenance Module
@@ -426,9 +426,8 @@ Route::group(
 
 			Route::get('sent', 'MailController@MySent');
 			Route::get('sent/{id}', 'MailController@viewMySent');
-			Route::get('trash', 'MailController@MyTrash');
-			
 			Route::post('mails', 'MailController@composeMails');
+			Route::post('mails', 'MailController@replyMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');
 
 			// Profile

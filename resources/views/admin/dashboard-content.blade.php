@@ -48,6 +48,7 @@
       <div class="info">
         <h4>Copyrighted</h4>
         <p><span class="count"><b>{{ $copyrighted }}</b></span></p>
+
       </div>
     </div>
   </div>
@@ -59,6 +60,7 @@
       <div class="info">
         <h4>Patented</h4>
         <p><span class="count"><b>{{$patented}}</b></span></p>
+
       </div>
     </div>
   </div>

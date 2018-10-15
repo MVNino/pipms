@@ -7,6 +7,8 @@ use App\AuthorAccountRequest;
 use App\Copyright;
 use App\Patent;
 use App\User;
+use App\Copyright;
+use App\Patent;
 use App\Charts\MonthlyCopyrightRequests;
 use Carbon\Carbon;
 use DB;
@@ -43,6 +45,7 @@ class DashboardController extends Controller
         return view('admin.dashboard', ['title' => $title, 
             'usersCount' => $usersCount, 'copyrighted' => $copyrighted,
             'patented' => $patented, 'accountRequests' => $accountRequests]);  
+
     }
 
     public function getMonthlyCopyrightPatents()

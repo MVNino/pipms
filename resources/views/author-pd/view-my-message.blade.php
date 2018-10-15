@@ -14,7 +14,6 @@
         <ul class="nav nav-pills flex-column mail-nav">
           <li class="nav-item active"><a class="nav-link" href="/author/mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
           <li class="nav-item"><a class="nav-link" href="/author/sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-          <li class="nav-item"><a class="nav-link" href="/author/trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
         </ul>
       </div>
     </div>
@@ -63,7 +62,7 @@
         
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => 'Author\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
+        {!! Form::open(['action' => 'Admin\MailController@composeMails', 'method' => 'POST', 'autocomplete' => 'off', 'enctype' => 'multipart/form-data', 'class' => 'form-material form-horizontal'])!!}
           <div class="form-group">
             {{ Form::label('lblEmail', 'Email', ['class' => 'col-md-12']) }}
             <div class="col-md-12">
