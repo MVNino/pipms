@@ -32,12 +32,12 @@
 
 <div class ="tile">
   <div class="tile-body">
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover table-bordered" id="sampleTable">
       <thead>
-        <th>Author Name</th>
-        <th>Gender - Type</th>
-        <th>Receipt Code</th>
-        <th>Date requested</th>
+        <th scope="col">Author Name</th>
+        <th scope="col">Gender - Type</th>
+        <th scope="col">Receipt Code</th>
+        <th scope="col">Date requested</th>
         <th class="text-center">Actions</th>
       </thead>
       <tbody>
@@ -76,19 +76,15 @@
     </tbody>
   </table>
   </div>
-  <div class="tile-footer">
-    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
-      <div class="btn-group">
-        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
-        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
-      </div>
-    </div>
-  </div>
 </div>
 @endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+<!-- Data table plugin-->
+<script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
+<script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');

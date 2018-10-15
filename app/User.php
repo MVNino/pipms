@@ -59,7 +59,7 @@ class User extends Authenticatable
             ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
             ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
             ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-            ->select(DB::raw('users.str_first_name, users.str_middle_name, 
+            ->select(DB::raw('users.id, users.str_first_name, users.str_middle_name, 
                 users.str_last_name, applicants.dtm_birthdate, 
                 applicants.char_gender, applicants.char_applicant_type, 
                 count(copyrights.int_id) as copyright_count, 
@@ -82,7 +82,7 @@ class User extends Authenticatable
             ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
             ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
             ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-            ->select(DB::raw('users.str_first_name, users.str_middle_name, 
+            ->select(DB::raw('users.id, users.str_first_name, users.str_middle_name, 
                 users.str_last_name, applicants.dtm_birthdate, 
                 applicants.char_gender, applicants.char_applicant_type, 
                 count(copyrights.int_id) as copyright_count, 

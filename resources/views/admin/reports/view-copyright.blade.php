@@ -36,9 +36,9 @@
                         <h4>Copyright Details</h4>
                       </div>
                       <div class="col-md-3">
-                        <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#toApproveModalLong">
+                       {{--  <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#toApproveModalLong">
                           <i class="fa fa-fw fa-lg fa-envelope"></i> Message
-                        </button>
+                        </button> --}}
                       </div>
                     </div>
                   </div>

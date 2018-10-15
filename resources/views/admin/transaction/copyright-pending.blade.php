@@ -13,7 +13,7 @@
 @section('content')
 <div class="tile">
   <div class="tile-body">
-  <table class="table table-hover table-bordered">
+  <table class="table table-hover table-bordered" id="sampleTable">
     <thead>
       <tr>
         <th>Project/Work Title</th>
@@ -58,6 +58,9 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+<script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>
+<script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');

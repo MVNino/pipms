@@ -13,11 +13,6 @@ use App\User;
 
 class GuestController extends Controller
 {
-    public function _construct()
-    {
-    	//
-    }
-
     // Index page
     public function index()
     {	
@@ -25,7 +20,7 @@ class GuestController extends Controller
         if(!auth()->guest()) {
             $isAdmin = auth()->user()->isAdmin;
             if ($isAdmin === 0) {
-                return redirect('/author/'.auth()->user()->id.'/dashboard');
+                return redirect('/dashboard');
             } else {
                 return redirect('/admin/dashboard');   
             }
@@ -35,6 +30,26 @@ class GuestController extends Controller
         }
     	$title = 'PUP-Intellectual Property Management System';
     	return view('guest.index')->with('title', $title);
+    }
+
+    public function listCopyrightables()
+    {
+        // Extract works that is copyrightables
+        $copyrightables = ProjectType::where('char_classification', 'C')
+            ->orderBy('char_project_type')
+            ->get();
+        return view('guest.copyrightables', 
+            ['copyrightables' => $copyrightables]);
+    }
+
+    public function listPatentables()
+    {
+        // Extract works that is copyrightables
+        $patentables = ProjectType::where('char_classification', 'P')
+            ->orderBy('char_project_type')
+            ->get();
+        return view('guest.patentables', 
+            ['patentables' => $patentables]);
     }
 
     // About Page

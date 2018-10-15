@@ -63,12 +63,15 @@ class IPRApplicationController extends Controller
             'txtCAFirstName' => 'nullable',
             'txtCAFirstName2' => 'nullable',
             'txtCAFirstName3' => 'nullable',
+            'txtCAFirstName4' => 'nullable',
             'txtCAMiddleName' => 'nullable',
             'txtCAMiddleName2' => 'nullable',
             'txtCAMiddleName3' => 'nullable',
+            'txtCAMiddleName4' => 'nullable',
             'txtCALastName' => 'nullable',
             'txtCALastName2' => 'nullable',
-            'txtCALastName3' => 'nullable'
+            'txtCALastName3' => 'nullable',
+            'txtCALastName4' => 'nullable'
         ]);
         // store data to copyrights table
 		$applicantId = auth()->user()->applicant->int_id;

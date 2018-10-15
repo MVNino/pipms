@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\AuthorAccountRequest;
 use App\Copyright;
 use App\Patent;
 use App\User;
 use App\Charts\MonthlyCopyrightRequests;
+use Carbon\Carbon;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -27,19 +30,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $chart = new MonthlyCopyrightRequests;
-        $chart->labels(['One', 'Two', 'Three'])
-                ->dataset('My dataset 1', 'line', [1, 2, 3, 4]);
-                // $chart->setTitle('My first lara chart')
-                // ->setLabels(['First', 'Second', 'Third'])
-                // ->setValues([5, 10, 20])
-                // ->setDimensions(1000, 500)
-                // ->setResponsive(true);
-
         $title = 'Dashboard';
-        $usersCount = User::count();
+        $usersCount = User::where('isAdmin', 0)->get()->count();
+        $accountRequests = AuthorAccountRequest::count();
+        $copyrighted = Copyright::where('char_copyright_status', 'copyrighted')
+            ->get()
+            ->count();
+        $patented = Patent::where('char_patent_status', 'patented')
+            ->get()
+            ->count();
+
         return view('admin.dashboard', ['title' => $title, 
-            'usersCount' => $usersCount, 'chart' => $chart]);  
+            'usersCount' => $usersCount, 'copyrighted' => $copyrighted,
+            'patented' => $patented, 'accountRequests' => $accountRequests]);  
     }
 
     public function getMonthlyCopyrightPatents()
@@ -164,5 +167,35 @@ class DashboardController extends Controller
     }
 
     #2 Count this month's copyrights and patents
-    // public function
+    public function copyrightsForThisMonth()
+    {
+        $thisMonth = Carbon::now();
+        $lastMonth = Carbon::now()->subMonth();
+        $copyright = Copyright::select(DB::raw('count(case when char_copyright_status = "pending" 
+                    or char_copyright_status = "to submit" or char_copyright_status = "on process"
+                    then 1 else null end) as copyright_count_on_its_processes, 
+                    count(case when char_copyright_status = "copyrighted" 
+                    then 1 else null end) as copyright_count_copyrighted'))
+            ->whereBetween('copyrights.created_at', [$lastMonth, $thisMonth])
+            ->get(); 
+        return $copyright;   
+    }
+    public function patentsForThisMonth()
+    {
+        $thisMonth = Carbon::now();
+        $lastMonth = Carbon::now()->subMonth();
+        $patent = Patent::select(DB::raw('count(case when char_patent_status = "pending" 
+                    or char_patent_status = "to submit" or char_patent_status = "on process" 
+                    then 1 else null end) as patent_count_on_its_processes,
+                    count(case when char_patent_status = "patented" 
+                    then 1 else null end) as patent_count_patented'))
+            ->whereBetween('patents.created_at', [$lastMonth, $thisMonth])
+            ->get();  
+        return $patent;
+    }
+
+    public function getMonthlyCopyrighedPatented()
+    {
+        //
+    }
 }

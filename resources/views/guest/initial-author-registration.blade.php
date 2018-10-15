@@ -92,7 +92,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Receipt</h4>
                                 <label for="input-file-max-fs">Allowed file type: jpg, jpeg, png</label>
-                                <input type="file" name="fileReceiptImg" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
+                                <input type="file" name="fileReceiptImg" id="input-file-max-fs" class="dropify" data-max-file-size="2M" required/>
 								<small id="emailHelp" class="form-text text-muted">You are required to attach the photo of the official receipt.</small>
                             </div>
                         </div>

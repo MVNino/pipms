@@ -34,9 +34,9 @@
                         <h4>Patent Details</h4>
                       </div>
                       <div class="col-md-3">
-                        <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#messageModal">
+                        {{-- <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#messageModal">
                           <i class="fa fa-fw fa-lg fa-envelope"></i> Message
-                        </button>
+                        </button> --}}
                       </div>
                     </div>
                   </div>

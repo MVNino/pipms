@@ -127,7 +127,7 @@
               <div class="col-md-4 pl-1">
                 <div class="form-group">
                   <label>Birthdate</label>
-                  <input type="text" class="form-control" placeholder="Birthdate" value="{{ $author->dtm_birthdate }}" readonly="">
+                  <input type="text" class="form-control" placeholder="Birthdate" value="{{ $author->dtm_birthdate->format('F d, Y') }}" readonly="">
                 </div>
               </div>
             </div>
