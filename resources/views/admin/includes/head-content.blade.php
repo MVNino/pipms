@@ -26,5 +26,3 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vali/css/main.css') }}">
     <!-- Main Modified CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-
-    

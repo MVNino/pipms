@@ -91,7 +91,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -131,7 +131,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -182,7 +182,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -278,7 +278,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -318,7 +318,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -369,7 +369,7 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your Document is to be submitted to the National Library.</p>
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -386,7 +386,7 @@
                                             </div>
                                         </li>
                                         <li class="timeline-inverted">
-                                            <div class="timeline-badge info"><i class="fa fa-trademark"></i></div>
+                                            <div class="timeline-badge info"><i class="fa fa-certificate"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Patent Status: <b>Patented</b></h4>

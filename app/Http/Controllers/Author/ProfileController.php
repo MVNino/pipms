@@ -30,7 +30,7 @@ class ProfileController extends Controller
     public function updateProfilePic(Request $request, $id)
     {
         $this->validate($request, [
-            'fileUserProfileImg' => 'image|required|max:1000'
+            'fileUserProfileImg' => 'image|mimes:jpeg,png,jpg|required|max:1000'
         ]);
 
         $author = User::findOrFail($id);
@@ -62,7 +62,7 @@ class ProfileController extends Controller
             'txtLastName' => 'required|max:155',
             'txtEmail' => 'required',
             'txtUsername' => 'required|string|max:155',
-            'txtMobileNumber' => 'required',
+            'txtMobileNumber' => 'required|min:11|numeric',
             'txtTelephoneNumber' => 'required',
             'txtHomeAddress' => 'required',
             'slctDepartmentId' => 'required'

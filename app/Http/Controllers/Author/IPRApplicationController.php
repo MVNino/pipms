@@ -174,8 +174,10 @@ class IPRApplicationController extends Controller
         $userId = User::min('id');
         $user = User::findOrFail($userId);
         
-        \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, auth()->user()->str_last_name, $department));
-        return redirect()->back();
+        \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, 
+            auth()->user()->str_last_name, $department));
+        return redirect()->back()->with('success', 
+            'Your application form for patent registration has been submitted!');
         }
     }
 

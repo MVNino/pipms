@@ -7,6 +7,16 @@
 */
 
 # GUEST
+// For lalay guest page test
+Route::get('showThis', function(){
+	return view('temp-index');
+});
+
+// For charts
+Route::get('monthly-copyrights-patents', 
+		'DashboardController@getMonthlyCopyrightPatents');
+// Route::get('monthly-patents', 'DashboardController@getMonthlyPatents');
+
 Route::get('/', 'GuestController@index')
 		->name('index');
 Route::get('/about-us', 'GuestController@about')
@@ -49,36 +59,26 @@ Route::group(
 				'NotificationController@viewNotifications')
 				->name('admin.notifications');
 			// Schedule
-			Route::get('schedule/calendar', 
-				'ScheduleController@viewCalendar')
-				->name('schedule.calendar');
-			Route::get('schedule/today', 
+			Route::get('schedule-today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
-			Route::get('schedule/today/id/college', function(){
-				return view('admin.schedule.college-today');
-			});
 			Route::get('mails', 'MailController@viewMails');
 			Route::get('mails/{id}', 'MailController@viewMessage');
 			Route::get('sent', 'MailController@Sent');
 			Route::get('sent/{id}', 'MailController@viewSent');
 			Route::post('my-mails', 'MailController@composeMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');	
-			
+			Route::get('user-profile', 'ProfileController@viewUserProfile')
+				->name('admin.user-profile');
+			Route::put('{id}/update-profile-pic', 
+				'ProfileController@updateProfilePic');
+			Route::put('{id}/update-profile', 
+				'ProfileController@updateUserProfile');
 		});
 
 
 
 		Route::get('dashboard', 'DashboardController@index');
-
-		
-
-		Route::get('user-profile', function(){
-			return view('admin.user-profile');
-		});
-
-
-		
 		// Maintenance Module
 		Route::group(
 			[

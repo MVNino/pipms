@@ -42,7 +42,8 @@
 			              	@endif 
 			              </div>
 			              <div class="col-md-3">
-			                Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br>
+			              	Time: {{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br>
+			                {{-- Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br> --}}
 			                @if($copyright->patent)
 			              		@if($copyright->patent->char_patent_status == 'to submit')
 			              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
@@ -53,7 +54,7 @@
 						        		@endif
 			              			@endif
 			              		@endif
-			              	@endif 
+			              	@endif
 			              </div>
 			            </div><hr>  
 			          </div>
@@ -77,11 +78,10 @@
 					<div class="card">
 						<div class="card-body">
 							Legend:<br> 
-							<span class="badge badge-pill badge-default">Ongoing</span> 
-							<span class="badge badge-pill badge-primary">Now</span> 
-							<span class="badge badge-pill badge-success">Processed</span>
-							<span class="badge badge-pill badge-info">To process</span>
-							<span class="badge badge-pill badge-danger">Issue</span>
+							<span class="badge badge-pill badge-primary">&nbsp&nbspCurrent&nbsp&nbsp</span> 
+							<span class="badge badge-pill badge-success">&nbsp&nbspProcessed&nbsp&nbsp</span>
+							<span class="badge badge-pill badge-info">&nbsp&nbspTo process&nbsp&nbsp</span>
+							<span class="badge badge-pill badge-danger">&nbsp&nbspIssue&nbsp&nbsp</span>
 						</div>
 					</div>
 					@foreach($copyrights as $copyright)

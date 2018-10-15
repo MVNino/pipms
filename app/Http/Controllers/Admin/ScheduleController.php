@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Copyright;
-
 use Validator;
 use Calendar;
-
 
 class ScheduleController extends Controller
 {
 	protected $viewPath = 'admin.schedule.'; 
+
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 	public function viewCalendar()
 	{
@@ -28,5 +31,12 @@ class ScheduleController extends Controller
 		}
 		$calendar_details = Calendar::addEvents($event_list);
 
-	return view('admin.schedule.calendar', compact('calendar_details'));
+		return view('admin.schedule.calendar', compact('calendar_details'));
+	}
+
+	public function listTodaySchedule()
+	{
+		$copyrights = Copyright::all();
+		return view('admin.schedule.today', ['copyrights' => $copyrights]);
+	}
 }
