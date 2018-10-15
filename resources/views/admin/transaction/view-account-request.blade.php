@@ -39,10 +39,16 @@
             <div class="col-lg-6 col-md-0 col-sm-0"><span></span></div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <a class="btn btn-info" href="#" data-toggle="modal" data-target="#exampleModalCenter">
-                  <i class="fa fa-lg fa-envelope"></i>Message</a>
+                  <i class="fa fa-lg fa-envelope"></i>Message
+                </a>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <a class="btn btn-primary" href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved"><i class="fa fa-lg fa-thumbs-up"></i>Approve</a>
+              {!! Form::open(['id' => 'formApproveRequest', 'action' => ['Transaction\RegisterAuthorController@approvePutAccountRequest', $accountRequest->int_id], 'method' => 'POST']) !!}
+                @csrf
+                {{ Form::hidden('_method', 'PUT') }}
+                <button type="button" id="demoSwal" class="btn btn-primary"><span class="fa fa-thumbs-up"></span> Approve</button>
+              {!! Form::close() !!}
+          {{--       <a class="btn btn-primary" href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved"><i class="fa fa-lg fa-thumbs-up"></i>Approve</a> --}}
             </div>
           </div>
         </div>
@@ -83,6 +89,9 @@
       {!! Form::open(['action' => 'Transaction\RegisterAuthorController@messageAuthor', 'method' => 'POST']) !!}
       <div class="modal-body">
           <div class="form-group" hidden>
+            <input type="text" class="form-control" name="numId" readonly value="{{ $accountRequest->int_id }}">
+          </div>
+          <div class="form-group" hidden>
             <label for="recipient-name" class="col-form-label"><b>Recipient Name:</b></label>
             <input type="text" class="form-control" id="recipient-name" name="txtFName" readonly value="{{ $accountRequest->str_first_name }}">
           </div>
@@ -92,7 +101,7 @@
           </div>
           <div class="form-group">
             <label class="col-form-label"><b>Message:</b></label>
-            {{Form::textarea('txtAreaMessage', '', ['class' => 'form-control', 'placeholder' => 'Body Text', 'rows' => 9])}}
+            {{Form::textarea('txtAreaMessage', '', ['class' => 'form-control', 'placeholder' => 'Enter your message here', 'rows' => 7])}}
           </div>
       </div>
       <div class="modal-footer">
@@ -108,6 +117,29 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Are you sure?",
+    text: "Approve this account request.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, approve this request!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formApproveRequest').submit();
+      swal("Approved", "An author account request has been approved!", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
 <script>
   $(document).ready(function(){
     $('#li-transaction').addClass('is-expanded');

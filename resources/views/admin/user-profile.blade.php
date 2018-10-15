@@ -28,6 +28,7 @@
         <ul class="nav flex-column nav-tabs user-tabs">
           <li class="nav-item"><a class="nav-link active" href="#user-notifications" data-toggle="tab">Notifications</a></li>
           <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" href="#user-change-password" data-toggle="tab">Change Password</a></li>
         </ul>
       </div>
     </div>
@@ -231,6 +232,27 @@
                   
                 </div>
               </div>
+            {!! Form::close() !!}
+          </div>
+        </div>
+        <div class="tab-pane fade" id="user-change-password">
+          <div class="tile user-settings">
+            <h4 class="line-head">Change Password</h4>
+            {!! Form::open() !!}
+              @csrf
+              <div class="row mb-4">
+                <label>Current Password</label>
+                <input class="form-control" name="txtCurrentPassword" type="password" placeholder="Enter current password">
+              </div>
+              <div class="row mb-4">
+                <label>New Password</label>
+                <input class="form-control" name="txtNewPassword" type="password" placeholder="Enter new password">
+              </div>
+              <div class="row mb-4">
+                <label>Re-type New Password</label>
+                <input class="form-control" name="txtRetypeNewPassword" type="password" placeholder="Re-enter your new password">
+              </div>
+              <button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>
             {!! Form::close() !!}
           </div>
         </div>

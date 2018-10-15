@@ -45,9 +45,8 @@
           @forelse($authAccoRequests as $accountRequest)
           <tr>
             <td>
-              <b>{{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }} 
+              {{ $accountRequest->str_first_name }} {{ $accountRequest->str_middle_name }} 
                 {{ $accountRequest->str_last_name }}
-              </b>
             </td>
             <td>@if($accountRequest->applicant->char_gender == 'M')
                 Male
@@ -62,9 +61,15 @@
               <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}" role="button" class="btn btn-info">
                 <span class="fa fa-eye"></span>
               </a>
-              <a href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved" role="button" class="btn btn-primary">
-                <span class="fa fa-thumbs-up"></span>
+              <a class="btn btn-primary" href="/admin/transaction/author/account-request/{{ $accountRequest->int_id }}/approved">
+                <i class="fa fa-lg fa-thumbs-up"></i>
               </a>
+              {{-- {!! Form::open(['id' => 'formApproveRequest', 'action' => ['Transaction\RegisterAuthorController@approvePutAccountRequest', $accountRequest->int_id], 'method' => 'POST']) !!}
+                @csrf
+                {{ Form::hidden('_method', 'PUT') }}
+                
+                <button type="button" id="demoSwal" class="btn btn-primary"><span class="fa fa-thumbs-up"></span></button>
+              {!! Form::close() !!} --}}
             </td>
           </tr>
           @empty
@@ -81,6 +86,29 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Are you sure?",
+    text: "Approve this account request.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes, I am!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formApproveRequest').submit();
+      swal("Approved", "An author account request has been approved!", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
 <!-- Data table plugin-->
 <script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/dataTables.bootstrap.min.js') }}"></script>

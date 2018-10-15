@@ -36,7 +36,7 @@ class IPRApplicationController extends Controller
         } else {
             // Error
             $msgPrompt = 'Oops! Please update your profile account details 
-                first before proceeding to the application.';
+                first before you proceed to the application.';
             return redirect()->back()->with('error', $msgPrompt);
         }
     }
@@ -88,7 +88,10 @@ class IPRApplicationController extends Controller
                 'str_last_name' => $request->txtCALastName2]),
             new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName3, 
                 'str_middle_name' => $request->txtCAMiddleName3, 
-                'str_last_name' => $request->txtCALastName3])
+                'str_last_name' => $request->txtCALastName3]),
+            new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName4, 
+                'str_middle_name' => $request->txtCAMiddleName4, 
+                'str_last_name' => $request->txtCALastName4])
         ]);
 
 
@@ -179,7 +182,7 @@ class IPRApplicationController extends Controller
         
         \Notification::send($user, new ApplicantRequestsPatent(auth()->user()->str_first_name, 
             auth()->user()->str_last_name, $department));
-        return redirect()->back()->with('success', 
+        return redirect('/author/my-projects')->with('success', 
             'Your application form for patent registration has been submitted!');
         }
     }

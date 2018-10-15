@@ -71,6 +71,10 @@ Route::group(
 			Route::get('schedule-today', 
 				'ScheduleController@listTodaySchedule')
 				->name('admin.today');
+			Route::put('schedule-today/{id}/conflict', 
+				'ScheduleController@classifyToConflicts');
+			Route::get('schedule-today/{id}/conflict', 
+				'ScheduleController@getClassifyToConflicts');
 			Route::get('mails', 'MailController@viewMails');
 			Route::get('mails/{id}', 'MailController@viewMessage');
 			Route::get('sent', 'MailController@Sent');
@@ -175,6 +179,8 @@ Route::group(
 						'RegisterAuthorController@listAccountRequests');
 					Route::get('author/account-request/{id}/approved', 
 						'RegisterAuthorController@approveAccountRequest');
+					Route::put('author/account-request/{id}/approved/put', 
+						'RegisterAuthorController@approvePutAccountRequest');
 					Route::get('author/account-request/{id}', 
 						'RegisterAuthorController@viewAccountRequest');
 					Route::post('author/account-requests/message', 
@@ -476,8 +482,13 @@ Route::namespace('Transaction')->group(function(){
 		return view('guest.author-account-request');
 	});
 	Route::post('/registration/author', 'RegisterAuthorController@requestAuthorAccount');
+	// author registration
 	Route::get('/registration/author/{id}/form/{token}', 
 		'RegisterAuthorController@authorAccountRegistration');
+	// author revision of author account request
+	Route::get('/registration/author/{id}/revision-form/{token}', 
+		'RegisterAuthorController@authorAccountRequestRevision');
+
 	Route::put('/registration/author/{id}/form', 
 		'RegisterAuthorController@grantAuthorAccount');
 });

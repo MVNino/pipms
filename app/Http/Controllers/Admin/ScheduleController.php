@@ -36,7 +36,29 @@ class ScheduleController extends Controller
 
 	public function listTodaySchedule()
 	{
-		$copyrights = Copyright::all();
-		return view('admin.schedule.today', ['copyrights' => $copyrights]);
+		// return copyrights TODAY and !PENDING!
+		$copyrightsToday = Copyright::where('dtm_schedule', 'LIKE', '%'.Carbon::now()->format('Y-m').'%')
+			->where('char_copyright_status', '!=', 'pending')->get();
+		$copyrights = Copyright::where('char_copyright_status', 'to submit')->get();
+		return view('admin.schedule.today', ['copyrights' => $copyrights, 
+			'copyrightsToday' => $copyrightsToday]);
+	}
+
+	public function classifyToConflicts(Request $request, $id)
+	{
+		$copyright = Copyright::findOrFail($id);
+		$copyright->char_copyright_status = 'conflict';
+		if($copyright->save()) {
+			return redirect()->back();
+		}
+	}
+
+	public function getClassifyToConflicts($id)
+	{
+		$copyright = Copyright::findOrFail($id);
+		$copyright->char_copyright_status = 'conflict';
+		if($copyright->save()) {
+			return redirect()->back()->with('success', 'This request was being added to appointment conflict.');
+		}
 	}
 }

@@ -93,7 +93,7 @@
                     {{ $copyright->copyright_count_on_process }}
                   </td>
                   <td class="text-center text-danger">
-                    {{ $copyright->copyright_count_to_submit }}
+                    {{ $copyright->copyright_count_to_conflict }}
                   </td>
                   <th class="text-center text-success">
                     {{ $copyright->copyright_count_copyrighted }}
@@ -151,7 +151,7 @@
                   {{ $patent->patent_count_on_process }}
                 </td>
                 <td class="text-center text-danger">
-                  {{ $patent->patent_count_to_submit }}
+                  {{ $patent->patent_count_to_conflict }}
                 </td>
                 <th class="text-center text-success">
                   {{ $patent->patent_count_patented }}
