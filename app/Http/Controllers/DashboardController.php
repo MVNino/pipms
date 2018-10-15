@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Copyright;
 use App\Patent;
 use App\User;
-use App\Copyright;
-use App\Patent;
 use App\Charts\MonthlyCopyrightRequests;
 
 class DashboardController extends Controller
