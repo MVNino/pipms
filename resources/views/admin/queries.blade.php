@@ -23,9 +23,10 @@
           <option value="1" selected>Branches with most copyrighted and patented works</option>
           <option value="2">Colleges with most copyrighted and patented works</option>
           <option value="3">Departments with most copyrighted and patented works</option>
-          <option value="4">Most copyrightable type of works</option>
-          <option value="5">Most patentable type of works</option>
-          <option value="6">Most projects to comply</option>
+          <option value="4">Total number of Applicants per Branch</option>
+          <option value="5">Total number of Applicants per College</option>
+          <option value="6">Total number of Applicants per Department</option>
+          <option value="7">List of Applicants with Appointment issues</option>
         </select>
         </div>
       </div>  
@@ -165,31 +166,19 @@
                   <table class="table table-hover table-bordered" id="sampleTable4">
                     <thead>
                       <tr>
-                        <th class="text-center">Rank</th>
-                        <th class="text-center">Copyrightable Work</th>
-                        <th class="text-center">Total Number</th>
-                        <th class="text-center">Rate</th>
+                        <th class="text-center">Branch Name</th>
+                        <th class="text-center">Total no. of Applicants</th>
                       </tr>
+                      
                     </thead>
                     <tbody>
                       <tr>
-                          <td class="text-center">1st</td>
-                          <td class="text-center">Thesis</td>
-                          <td class="text-center">625</td>
-                          <td class="text-center">58%</td>
+                        @foreach($applicantcount as $applicant)
+                          <td class="text-center">{{$applicant->str_branch_name}}</td>
+                          <td class="text-center">{{$applicant->author_count}}</td>
+                        @endforeach
                       </tr>
-                      <tr>
-                          <td class="text-center">2nd</td>
-                          <td class="text-center">Dramatic Works</td>
-                          <td class="text-center">256</td>
-                          <td class="text-center">26%</td>
-                      </tr>
-                      <tr>
-                          <td class="text-center">3rd</td>
-                          <td class="text-center">Musical Works</td>
-                          <td class="text-center">156</td>
-                          <td class="text-center">16%</td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -197,43 +186,50 @@
                   <table class="table table-hover table-bordered" id="sampleTable5">
                     <thead>
                       <tr>
-                        <th class="text-center">Rank</th>
-                        <th class="text-center">Copyrightable Work</th>
-                        <th class="text-center">Total Number</th>
-                        <th class="text-center">Rate</th>
+                        <th class="text-center">College Name</th>
+                        <th class="text-center">Branch Name</th>
+                        <th class="text-center">Total no. of Applicant</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody> 
+                    @foreach($applicantcount as $applicant)            
                       <tr>
-                          <td class="text-center">1st</td>
-                          <td class="text-center">Thesis</td>
-                          <td class="text-center">625</td>
-                          <td class="text-center">58%</td>
+                          <th class="text-center">{{$applicant->char_college_code}}</th>
+                          <th class="text-center">{{$applicant->str_branch_name}}</th>
+                          <td class="text-center">{{$applicant->author_count}}</td>
                       </tr>
-                      <tr>
-                          <td class="text-center">2nd</td>
-                          <td class="text-center">Dramatic Works</td>
-                          <td class="text-center">256</td>
-                          <td class="text-center">26%</td>
-                      </tr>
-                      <tr>
-                          <td class="text-center">3rd</td>
-                          <td class="text-center">Musical Works</td>
-                          <td class="text-center">156</td>
-                          <td class="text-center">16%</td>
-                      </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
-                <div id="panel6" style="display: none;">
+                 <div id="panel6" style="display: none;">
                   <table class="table table-hover table-bordered" id="sampleTable6">
                     <thead>
                       <tr>
-                        <th class="text-center">Rank</th>
-                        <th class="text-center">Project</th>
-                        <th class="text-center">Department - College - Branch</th>
-                        <th class="text-center">Total Number</th>
-                        <th class="text-center">Rate</th>
+                        <th class="text-center">Department Name</th>
+                        <th class="text-center">College - Branch</th>
+                        <th class="text-center">Total no. of Applicants</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($applicantcount as $applicant)                       
+                      <tr>
+                          <th class="text-center">{{$applicant->char_department_code}}</th>
+                          <th class="text-center">{{$applicant->char_college_code}} - {{$applicant->str_branch_name}}</th>
+                          <td class="text-center">{{$applicant->author_count}}</td>
+                      </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <div id="panel7" style="display: none;">
+                  <table class="table table-hover table-bordered" id="sampleTable7">
+                    <thead>
+                      <tr>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Branch</th>
+                        <th class="text-center">College</th>
+                        <th class="text-center">Department</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -241,16 +237,8 @@
                           <td class="text-center"><b>1st</b></td>
                           <td class="text-center">Capstone</td>
                           <td class="text-center">BSIT - CCIS - PUP Main</td>
-                          <td class="text-center">520</td>
-                          <td class="text-center">64%</td>
                       </tr>
-                      <tr>
-                          <td class="text-center"><b>2nd</b></td>
-                          <td class="text-center">SAD</td>
-                          <td class="text-center">BSIT - CCIS - PUP Main</td>
-                          <td class="text-center">260</td>
-                          <td class="text-center">32%</td>
-                      </tr>
+                     
                     </tbody>
                   </table>
                 </div>

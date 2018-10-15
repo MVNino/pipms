@@ -7,8 +7,6 @@ use App\AuthorAccountRequest;
 use App\Copyright;
 use App\Patent;
 use App\User;
-use App\Copyright;
-use App\Patent;
 use App\Charts\MonthlyCopyrightRequests;
 use Carbon\Carbon;
 use DB;

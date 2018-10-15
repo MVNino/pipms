@@ -426,7 +426,7 @@ Route::group(
 
 			Route::get('sent', 'MailController@MySent');
 			Route::get('sent/{id}', 'MailController@viewMySent');
-			Route::post('mails', 'MailController@composeMails');
+			Route::post('my-mails', 'MailController@composeMails');
 			Route::post('mails', 'MailController@replyMails');
 			Route::delete('mails/{id}', 'MailController@deleteMails');
 
