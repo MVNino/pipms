@@ -14,7 +14,6 @@
         <ul class="nav nav-pills flex-column mail-nav">
           <li class="nav-item"><a class="nav-link" href="/author/mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
           <li class="nav-item active"><a class="nav-link" href="/author/sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-          <li class="nav-item"><a class="nav-link" href="/author/trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
         </ul>
       </div>
     </div>
@@ -26,7 +25,7 @@
           <div class="table-responsive mailbox-messages">
   	      
   	       	  <div class="card-body">
-                    <h5 class="card-title"><b>TO: </b>{{ $mails->sender_name }}</h5>
+                    <h5 class="card-title"><b>TO: </b>{{ $mails->email }}</h5>
               </div>
               <div class="card-body">
                   <h5 class="card-title"><b>Subject:</b></h5>

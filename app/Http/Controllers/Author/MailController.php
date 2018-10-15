@@ -41,13 +41,6 @@ class MailController extends Controller
         return view('author-pd.view-my-sent', ['mails' => $mails]);
     }
 
-    public function MyTrash()
-    {
-        $mails = Message::where('char_message_status', 1)
-                        ->orderBy('created_at', 'desc')->get();
-        
-     return view('author-pd.trash', ['mails'=>$mails]);  
-    }
 
      public function composeMails(Request $request)
     {	
@@ -72,6 +65,38 @@ class MailController extends Controller
 
         if ($message->save()) {
         	return redirect()->back()->with('success', 'Message sent!');
+        }
+
+        }
+        catch (\Exception $e)
+        {
+            return $e->getMessage();
+        } 
+    }
+
+    public function replyMails(Request $request)
+    { 
+        $this->validate($request, [
+        'email' => 'required|string|max:5000',
+        'subject' => 'nullable|string|max:5000',
+        'message' => 'required|string|max:5000',
+            
+      ]);
+
+      try 
+      {
+      $message = new Message;
+      $message->sender_id = 0;
+      $message->receiver_id = 1;
+      $message->email = $request->email;
+      $message->str_subject = $request->subject;
+      $message->mdmTxt_message = $request->message;
+      $message->sender_name = 'Admin';
+      $message->char_message_status = '0';
+        
+
+        if ($message->save()) {
+          return redirect()->back()->with('success', 'Message sent!');
         }
 
         }

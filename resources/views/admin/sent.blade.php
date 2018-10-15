@@ -16,7 +16,6 @@
 	      <ul class="nav nav-pills flex-column mail-nav">
 	        <li class="nav-item active"><a class="nav-link" href="/admin/mails"><i class="fa fa-inbox fa-fw"></i> Inbox</a></li>
 	        <li class="nav-item"><a class="nav-link" href="/admin/sent"><i class="fa fa-envelope-o fa-fw"></i> Sent</a></li>
-	        <li class="nav-item"><a class="nav-link" href="/admin/trash"><i class="fa fa-trash-o fa-fw"></i> Trash</a></li>
 	      </ul>
 	    </div>
 	  </div>
@@ -29,8 +28,8 @@
 	        <tbody>
 	        @foreach($mails as $mail)
 	          <tr>
-	          	@if($mail->char_message_status == 0)
-	            <td><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}">{{$mail->sender_name}}</a></td>
+	          	
+	            <td><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}">{{$mail->email}}</a></td>
 	            <td class="mail-subject"><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}"><b>{{$mail->str_subject}}</b> - {{str_limit($mail->mdmTxt_message, $limit = 20, $end = '...')}}</td>
 	            <td><a class="nav-link" href="/admin/sent/{{ $mail->int_id }}">{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$mail->created_at)->format('F j Y g:i A ')}}</a></td>
 	            <td>
@@ -43,7 +42,7 @@
 						{!!Form::close()!!}
 					</div>
 				</td>
-				@endif
+				
 	          </tr>
 	         @endforeach
 	        </tbody>

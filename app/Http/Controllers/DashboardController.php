@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Copyright;
 use App\Patent;
 use App\User;
+use App\Copyright;
+use App\Patent;
 use App\Charts\MonthlyCopyrightRequests;
 
 class DashboardController extends Controller
@@ -38,8 +40,12 @@ class DashboardController extends Controller
 
         $title = 'Dashboard';
         $usersCount = User::count();
+        $copyrightCount = Copyright::count();
+        $patentCount = Patent::count();
         return view('admin.dashboard', ['title' => $title, 
-            'usersCount' => $usersCount, 'chart' => $chart]);  
+            'usersCount' => $usersCount, 'chart' => $chart, 'copyrightCount'=>$copyrightCount, 'patentCount'=>$patentCount]);  
+
+
     }
 
     public function getMonthlyCopyrightPatents()
