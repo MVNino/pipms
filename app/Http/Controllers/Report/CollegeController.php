@@ -56,6 +56,14 @@ class CollegeController extends Controller
                 'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
     }
 
+    // View specific college's reports
+    public function viewCollege($id)
+    {
+        $college = College::findOrFail($id);
+        return view('admin.reports.view-college', 
+            ['college' => $college]);
+    }
+    // College Report to PDF
     public function collegesPDF()
     {
         $copyrights = $this->copyright

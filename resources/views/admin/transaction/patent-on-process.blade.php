@@ -35,7 +35,7 @@
               <td scope="row">{{ $patent->copyright->applicant->user->str_first_name }} {{ $patent->copyright->applicant->user->str_middle_name }} {{ $patent->copyright->applicant->user->str_last_name }} - {{ $patent->copyright->applicant->char_applicant_type }}</td>
               <td scope="row">{{ $patent->copyright->applicant->department->char_department_code }} - {{ $patent->copyright->applicant->department->college->char_college_code }} - {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</td>
               <td scope="row" class="text-center">
-                <a href="/admin/reports/patented/{{ $patent->int_id }}" role="button" class="btn btn-info">
+                <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}" role="button" class="btn btn-info">
                   <span class="fa fa-eye"></span> View
                 </a>
               </td>

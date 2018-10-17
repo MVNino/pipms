@@ -129,7 +129,7 @@ class RegisterAuthorController extends Controller
         if($authorAccount->save()) {
             \Notification::route('mail', $authorAccount->str_email)
                 ->notify(new AuthorReadyForRegistration($authorAccount->applicant->int_id, $authorAccount->str_first_name, $accountRequestToken));
-            return redirect()->back()->with('success', 'Account request approved!');
+            return redirect('/admin/transaction/author/account-requests')->with('success', 'Account request approved!');
         }    
     }
 
