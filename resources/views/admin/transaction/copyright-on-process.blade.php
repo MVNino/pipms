@@ -35,7 +35,7 @@
               <td scope="row">{{ $copyright->applicant->user->str_first_name }} {{ $copyright->applicant->user->str_middle_name }} {{ $copyright->applicant->user->str_last_name }} - {{ $copyright->applicant->char_applicant_type }}</td>
               <td scope="row">{{ $copyright->applicant->department->char_department_code }} - {{ $copyright->applicant->department->college->char_college_code }} - {{ $copyright->applicant->department->college->branch->str_branch_name }}</td>
               <td scope="row" class="text-center">
-                <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}" role="button" class="btn btn-info">
+                <a href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}" role="button" class="btn btn-info">
                   <span class="fa fa-eye"></span> View
                 </a>
               </td>

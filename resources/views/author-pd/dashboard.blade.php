@@ -14,7 +14,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Capacity</p>
-              <p class="card-title">150GB
+              <p class="card-title">150MB
                 <p>
             </div>
           </div>
@@ -40,8 +40,8 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">IPR Requests</p>
-              <p class="card-title">236
-                <p>
+              <p class="card-title">{{ Auth::user()->applicant->copyrights->count() }}
+              </p>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Uploads</p>
-              <p class="card-title">23
+              <p class="card-title">1
                 <p>
             </div>
           </div>
@@ -91,8 +91,8 @@
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Followers</p>
-              <p class="card-title">+45K
+              <p class="card-category">Co-authors</p>
+              <p class="card-title">{{Auth::user()->applicant->coAuthors->count()}}
                 <p>
             </div>
           </div>

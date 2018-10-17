@@ -381,6 +381,8 @@ Route::group(
 						->name('reports.colleges');
 					Route::get('colleges/range-date', 
 						'CollegeController@rangedColleges');
+					// View specific college's report
+					Route::get('college/{id}', 'CollegeController@viewCollege');
 					// College Report PDF
 					Route::get('college/colleges_pdf', 
 						'CollegeController@collegesPDF')
