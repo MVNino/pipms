@@ -72,15 +72,15 @@
                 @foreach($copyrightStats as $copyright)
                 <tr>
                   <th class="text-center">
-                    <a href="/admin/maintenance/department/{{ $copyright->department_id }}">
+                    <a href="/admin/reports/department/{{ $copyright->department_id }}">
                       {{ $copyright->char_department_code }}
                     </a>
                   </th>
                   <th class="text-center"> 
-                    <a href="/admin/maintenance/college/{{ $copyright->college_id }}">
+                    <a href="/admin/reports/college/{{ $copyright->college_id }}">
                     {{ $copyright->char_college_code }}
                     </a> - 
-                    <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                    <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
                       {{ $copyright->str_branch_name }}
                     </a>
                   </th>
@@ -131,15 +131,15 @@
               @foreach($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/maintenance/department/{{ $copyright->department_id }}">
+                  <a href="/admin/reports/department/{{ $copyright->department_id }}">
                     {{ $copyright->char_department_code }}
                   </a>
                 </th>
                 <th class="text-center">
-                  <a href="/admin/maintenance/college/{{ $patent->college_id }}">
+                  <a href="/admin/reports/college/{{ $patent->college_id }}">
                     {{ $patent->char_college_code }}
                   </a> - 
-                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                  <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
                     {{ $copyright->str_branch_name }}
                   </a>
                 </th>

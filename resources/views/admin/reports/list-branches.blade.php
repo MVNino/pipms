@@ -71,7 +71,7 @@
                 @foreach($copyrightStats as $copyright)
                 <tr>                  
                   <th class="text-center"> 
-                    <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                    <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
                     {{ $copyright->str_branch_name }}
                     </a>
                   </th>
@@ -122,7 +122,7 @@
               @foreach($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
+                  <a href="/admin/reports/branch/{{ $patent->branch_id }}">
                     {{ $patent->str_branch_name }}
                   </a>
                 </th>

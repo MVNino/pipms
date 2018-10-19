@@ -72,7 +72,6 @@ class DashboardController extends Controller
                 $monthNo = $date->format('m');
 
                 $month_array[$monthNo] = [$monthName];
-
             }
         } 
         return $month_array;

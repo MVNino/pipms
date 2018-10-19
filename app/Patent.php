@@ -167,4 +167,24 @@ class Patent extends Model
 	        ->groupBy($column) 
 	        ->get();
 	}
+
+	public function patentsOfThisUnit($unit, $unitId)
+	{
+		return DB::table('patents')
+			->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+			->join('project_types', 'patents.int_project_type_id', '=', 'project_types.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('users', 'applicants.int_user_id', '=', 'users.id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('patents.int_id, str_patent_project_title, str_first_name, 
+	        	str_middle_name, str_last_name, char_gender, char_applicant_type, project_types.int_id as int_project_type_id, 
+	        	project_types.char_project_type, departments.int_id as int_department_id, char_department_code, 
+	        	colleges.int_id as int_college_id, char_college_code, branches.int_id as int_branch_id, str_branch_name, 
+	        	patents.created_at, char_patent_status'))
+	        ->where($unit, $unitId)
+	        ->get();
+
+	}
 }

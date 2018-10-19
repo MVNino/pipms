@@ -5,7 +5,7 @@
     <div class="cover"></div>
 </section>
 <section class="login-content">
-  <div class="logo">
+  <div class="logo"><br><br><br>
       <h1>Ipr Application</h1>
   </div>
 <div class="container">

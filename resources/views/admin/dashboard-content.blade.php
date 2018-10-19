@@ -1,10 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('pg-specific-css')
-  {{-- <link rel="stylesheet" type="text/css" href="{!! $chart->assets() !!}"> --}}
-  {{-- {!! $chart->assets() !!} --}}
-@endsection
-
 @section('pg-title')
 <h1><i class="fa fa-dashboard"></i> Dashboard 
   <small style="color: maroon;">
@@ -109,22 +104,11 @@
 <!-- Page specific javascripts-->
 <script type="text/javascript" src="{{ asset('vali/js/plugins/widgets.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/chart.js') }}"></script>
-<script type="text/javascript">
-  
-</script>
 <script>
   $(document).ready(function(){
     $('a[href="/admin/dashboard"]').addClass('active');
   });
 </script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> --}}
-{{-- {!! $chart->script() !!} --}}
-
-
-<script>
-
-</script>
-
 <script>
 ( function($) {
   var charts = {
@@ -136,7 +120,7 @@
     },
 
     ajaxGetPostMonthlyData: function() {
-      var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
+      var urlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
       // var erlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
       var request = $.ajax({
         method: 'GET',
@@ -180,7 +164,7 @@
     },
 
     ajaxGetCopyrightsForThisMonth: function() {
-     var urlPath = 'http://' + '127.0.0.1:8000' + '/copyrights-for-this-month';
+     var urlPath = 'http://' + window.location.hostname + '/copyrights-for-this-month';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -212,7 +196,8 @@
     },
 
     ajaxGetMonthlyCopyrightedPatented: () => {
-      var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
+      var urlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
+      // var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -256,7 +241,7 @@
     },
     
     ajaxGetPatentsForThisMonth: () => {
-      var urlPath = 'http://' + '127.0.0.1:8000' + '/patents-for-this-month';
+      var urlPath = 'http://' + window.location.hostname + '/patents-for-this-month';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -290,6 +275,5 @@
 
   charts.init();
 })( jQuery );
-  
 </script>
 @endsection
