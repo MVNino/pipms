@@ -131,7 +131,7 @@ class Copyright extends Model
             ->get();
 	}
 
-	// Copyright Statistics
+	// Copyright Figures per Department/College/Branch
 	public function copyrightStats($column)
 	{
 		return DB::table('copyrights')
@@ -181,5 +181,24 @@ class Copyright extends Model
 	        ->whereBetween('copyrights.created_at', [$start, $end])
 	        ->groupBy($column) 
 	        ->get();	
+	}
+
+	// Copyright Statistics/Records per College
+	public function copyrightsOfThisUnit($unit, $unitId)
+	{
+		return DB::table('copyrights')
+			->join('project_types', 'copyrights.int_project_type_id', '=', 'project_types.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('users', 'applicants.int_user_id', '=', 'users.id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('copyrights.int_id, str_project_title, str_first_name, 
+	        	str_middle_name, str_last_name, char_gender, char_applicant_type, project_types.int_id as int_project_type_id, 
+	        	project_types.char_project_type, departments.int_id as int_department_id, char_department_code, 
+	        	colleges.int_id as int_college_id, char_college_code, branches.int_id as int_branch_id, str_branch_name, 
+	        	copyrights.created_at, char_copyright_status'))
+	        ->where($unit, $unitId)
+	        ->get();
 	}
 }

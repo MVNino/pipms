@@ -364,37 +364,65 @@ Route::group(
 						'ScheduleIssueController@listScheduleIssues')
 						->name('reports.schedule-issues');	
 
+					# Branches Report
 					Route::get('branches', 
 						'BranchController@listBranches')
 						->name('reports.branches');
 					Route::get('branches/range-date', 
 						'BranchController@rangedBranches');
+
 					// Branch Report PDF
 					Route::get('branch/branches_pdf', 
 						'BranchController@branchesPDF')
 						->name('branches-pdf');
 					Route::get('branch/{start}/{end}/branches_pdf', 
 						'BranchController@rangedBranchesPDF');
+					Route::get('branch/{id}', 
+						'BranchController@viewBranch');
 
+					# Colleges Report
 					Route::get('colleges', 
 						'CollegeController@listColleges')
 						->name('reports.colleges');
 					Route::get('colleges/range-date', 
 						'CollegeController@rangedColleges');
-					// View specific college's report
-					Route::get('college/{id}', 'CollegeController@viewCollege');
+					Route::get('college/{id}', 
+						'CollegeController@viewCollege');
+
+					// College Chart Report
+					Route::get('college/{id}/college_ipr_chart_report', 
+						'CollegeChartController@getCollegeMonthlyChart');
+					Route::get('college/{id}/college_branch_ipr_chart_report', 
+						'CollegeChartController@getCopyrightContributionsToItsBranchChart');
+					Route::get('college/{id}/college_departments_ipr_chart_report', 
+						'CollegeChartController@getDepartmentContributionsChart');
+
 					// College Report PDF
+					// Copyrights of College
+					Route::get('college/{id}/copyrights_pdf', 
+						'CollegeController@copyrightsPDF');
+					Route::get('college/{id}/{start}/{end}/copyrights_pdf', 
+						'CollegeController@copyrightsPDF');
+					// Patents of College
+					Route::get('college/{id}/patents_pdf', 
+						'CollegeController@patentsPDF');
+					Route::get('college/{id}/{start}/{end}/patents_pdf', 
+						'CollegeController@patentsPDF');
+					// College Stats PDF
 					Route::get('college/colleges_pdf', 
 						'CollegeController@collegesPDF')
 						->name('colleges-pdf');
 					Route::get('college/{start}/{end}/colleges_pdf', 
 						'CollegeController@rangedCollegesPDF');
 
+					# Departments Report
 					Route::get('departments', 
 						'DepartmentController@listDepartments')
 						->name('reports.departments');
 					Route::get('departments/range-date', 
 						'DepartmentController@rangedDepartments');
+					Route::get('department/{id}', 
+						'DepartmentController@viewDepartment');
 					// Department Report PDF
 					Route::get('department/departments_pdf', 
 						'DepartmentController@departmentsPDF')

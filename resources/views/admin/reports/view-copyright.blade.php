@@ -21,11 +21,77 @@
 <div class="tile">
   <div class="tile-body">
     <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#view">View</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#timeline">Timeline</a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#timeline">Timeline</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#view">View</a></li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade active show" id="view">
+        <div class="tab-pane fade active show" id="timeline">
+          <h3 class="text-muted text-center"><strong>Copyright Timeline</strong></h3>
+          <h4 class="text-muted text-center"><strong>({{ $copyright->str_project_title }})</strong></h4>
+          <ul class="timeline">
+            <li>
+                <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
+                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
+                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Your Document is to be submitted to the National Library.</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Copyright: <b>Scheduled Appointment</b></h4>
+                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_schedule)->format('l, jS \of F Y g:i A')}}</small> </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Scheduled appointment of application for copyright registration.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Copyright Status: <b>On process</b></h4>
+                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Your document is now on process.</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-badge info"><i class="fa fa-copyright"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Copyright Status: <b>Copyrighted</b></h4>
+                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_copyrighted)->format('l, jS \of F Y g:i A')}}</small> </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Your document is already copyrighted. </p>
+                    </div>
+                </div>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="view">
           <div class="row">
             <div class="col-md-7">    
               <div class="bs-component">
@@ -231,72 +297,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="tab-pane fade" id="timeline">
-          <h3 class="text-muted text-center"><strong>Copyright Timeline</strong></h3>
-          <h4 class="text-muted text-center"><strong>({{ $copyright->str_project_title }})</strong></h4>
-          <ul class="timeline">
-            <li>
-                <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
-                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
-                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Your Document is to be submitted to the National Library.</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Copyright: <b>Scheduled Appointment</b></h4>
-                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_schedule)->format('l, jS \of F Y g:i A')}}</small> </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Scheduled appointment of application for copyright registration.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Copyright Status: <b>On process</b></h4>
-                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Your document is now on process.</p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge info"><i class="fa fa-copyright"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Copyright Status: <b>Copyrighted</b></h4>
-                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$copyright->dtm_copyrighted)->format('l, jS \of F Y g:i A')}}</small> </p>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Your document is already copyrighted. </p>
-                    </div>
-                </div>
-            </li>
-          </ul>
         </div>
     </div>
   </div>

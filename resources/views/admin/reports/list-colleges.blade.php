@@ -78,7 +78,7 @@
                     </a>
                   </th>
                   <th class="text-center"> 
-                    <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                    <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
                       {{ $copyright->str_branch_name }}
                     </a>
                   </th>
@@ -134,7 +134,7 @@
                   </a>
                 </th>
                 <th class="text-center">
-                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                  <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
                   {{ $copyright->str_branch_name }}
                   </a>
                 </th>

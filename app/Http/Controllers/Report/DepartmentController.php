@@ -55,6 +55,23 @@ class DepartmentController extends Controller
                 'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
     }
 
+    // View specific department's reports
+    public function viewDepartment($id)
+    { 
+        $department = Department::findOrFail($id);
+        // extract copyright records of this department
+        $copyrights = $this->copyright
+            ->copyrightsOfThisUnit($this->unit, $id);
+        // extract patent records of this college
+        $patents = $this->patent
+            ->patentsOfThisUnit($id);
+
+        return view('admin.reports.view-department', 
+            ['department' => $department, 
+            'copyrights' => $copyrights, 
+            'patents' => $patents]);
+    }
+
     public function departmentsPDF()
     {
         $copyrights = $this->copyright

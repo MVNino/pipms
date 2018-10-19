@@ -16,6 +16,7 @@ class BranchController extends Controller
     public $copyright;
     public $patent;
     public $column;
+    public $unit;
   
     public function __construct()
     {
@@ -23,6 +24,7 @@ class BranchController extends Controller
         $this->copyright = new Copyright;
         $this->patent = new Patent;
         $this->column = 'branches.str_branch_name';
+        $this->unit = 'branches.int_id';
         $this->middleware('auth');
     }
 
@@ -54,6 +56,22 @@ class BranchController extends Controller
         return view($this->viewPath.'ranged-branches', 
             ['copyrightStats' => $copyrights, 'patentStats' => $patentStats, 
                 'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
+    }
+
+    public function viewBranch($id)
+    {
+        $branch = Branch::findOrFail($id);
+        // extract copyright records of this branch
+        $copyrights = $this->copyright
+            ->copyrightsOfThisUnit($this->unit, $id);
+        // extract patent records of this college
+        $patents = $this->patent
+            ->patentsOfThisUnit($id);
+
+        return view('admin.reports.view-branch', 
+            ['branch' => $branch, 
+            'copyrights' => $copyrights, 
+            'patents' => $patents]);
     }
 
     public function branchesPDF()
