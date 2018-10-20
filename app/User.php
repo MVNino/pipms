@@ -95,4 +95,18 @@ class User extends Authenticatable
             ->groupBy('users.id')
             ->get();
     }
+
+    // Count registered authors
+    public function countAuthors($unit, $unitId)
+    {
+        return DB::table('users')
+            ->join('applicants', 'users.id', '=', 'applicants.int_user_id')
+            ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+            ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+            ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+            ->select(DB::raw('count(case when isAdmin = 0 
+                    then 1 else null end) as author_count'))
+            ->where($unit, $unitId)
+            ->get();        
+    }
 }

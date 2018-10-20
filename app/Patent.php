@@ -187,4 +187,41 @@ class Patent extends Model
 	        ->get();
 
 	}
+
+	// Count patented records
+	public function countPatented($unit, $unitId)
+	{
+		return DB::table('patents')
+			->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+			->select(DB::raw('count(case when char_patent_status = "patented" 
+	        		then 1 else null end) as patented_count'))
+			->where($unit, $unitId)
+			->get();		
+	}
+
+	public function miniPatentStats($unit, $unitId, $groupBy)
+	{
+		return DB::table('patents')
+			->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('count(case when char_patent_status = "pending" OR 
+	        		char_patent_status = "to submit" OR char_patent_status = "on process" 
+	        		then 1 else null end) as patent_processing_count, 
+	        		count(case when char_patent_status = "patented" 
+	         		then 1 else null end) as patented_count, 
+	         		count(case when char_patent_status = "conflict" 
+	         		then 1 else null end) as patent_conflict_count, 
+	         		int_department_id, char_department_code, 
+	        		int_college_id, char_college_code'))
+	        ->where($unit, $unitId)
+	        ->groupBy($groupBy)
+	        ->get();
+	}
 }

@@ -201,4 +201,39 @@ class Copyright extends Model
 	        ->where($unit, $unitId)
 	        ->get();
 	}
+
+	// Count copyrighted records
+	public function countCopyrighted($unit, $unitId)
+	{
+		return DB::table('copyrights')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+			->select(DB::raw('count(case when char_copyright_status = "copyrighted" 
+	        		then 1 else null end) as copyrighted_count'))
+			->where($unit, $unitId)
+			->get();		
+	}
+
+	public function miniCopyrightStats($unit, $unitId, $groupBy)
+	{
+		return DB::table('copyrights')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('count(case when char_copyright_status = "pending" OR 
+	        		char_copyright_status = "to submit" OR char_copyright_status = "on process" 
+	        		then 1 else null end) as copyright_processing_count, 
+	        		count(case when char_copyright_status = "copyrighted" 
+	        		then 1 else null end) as copyrighted_count, 
+	        		count(case when char_copyright_status = "conflict" 
+	        		then 1 else null end) as copyright_conflict_count, 
+	        		int_department_id, char_department_code, 
+	        		int_college_id, char_college_code'))
+	        ->where($unit, $unitId)
+	        ->groupBy($groupBy)
+	        ->get();
+	}
 }
