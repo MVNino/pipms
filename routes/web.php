@@ -370,15 +370,26 @@ Route::group(
 						->name('reports.branches');
 					Route::get('branches/range-date', 
 						'BranchController@rangedBranches');
+					Route::get('branch/{id}', 
+						'BranchController@viewBranch');
 
 					// Branch Report PDF
+					// Copyrights of College
+					Route::get('branch/{id}/copyrights_pdf', 
+						'BranchController@copyrightsPDF');
+					Route::get('branch/{id}/{start}/{end}/copyrights_pdf', 
+						'BranchController@copyrightsPDF');
+					// Patents of branch
+					Route::get('branch/{id}/patents_pdf', 
+						'BranchController@patentsPDF');
+					Route::get('branch/{id}/{start}/{end}/patents_pdf', 
+						'BranchController@patentsPDF');
+					// Branch stats PDF
 					Route::get('branch/branches_pdf', 
 						'BranchController@branchesPDF')
 						->name('branches-pdf');
 					Route::get('branch/{start}/{end}/branches_pdf', 
 						'BranchController@rangedBranchesPDF');
-					Route::get('branch/{id}', 
-						'BranchController@viewBranch');
 
 					# Colleges Report
 					Route::get('colleges', 
@@ -423,7 +434,19 @@ Route::group(
 						'DepartmentController@rangedDepartments');
 					Route::get('department/{id}', 
 						'DepartmentController@viewDepartment');
+
 					// Department Report PDF
+					// Copyrights of College
+					Route::get('department/{id}/copyrights_pdf', 
+						'DepartmentController@copyrightsPDF');
+					Route::get('department/{id}/{start}/{end}/copyrights_pdf', 
+						'DepartmentController@copyrightsPDF');
+					// Patents of department
+					Route::get('department/{id}/patents_pdf', 
+						'DepartmentController@patentsPDF');
+					Route::get('department/{id}/{start}/{end}/patents_pdf', 
+						'DepartmentController@patentsPDF');
+					// Departments Stats PDF
 					Route::get('department/departments_pdf', 
 						'DepartmentController@departmentsPDF')
 						->name('departments-pdf');

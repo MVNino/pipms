@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\College;
 use App\Copyright;
 use App\Patent;
+use App\User;
 use Carbon\Carbon;
 use PDF;
 
@@ -14,7 +15,9 @@ class CollegeController extends Controller
 {
 	public $viewPath;
     public $copyright;
+    public $college;
     public $patent;
+    public $user;
     public $column;
     public $unit;
   
@@ -22,7 +25,9 @@ class CollegeController extends Controller
     {
         $this->viewPath = 'admin.reports.';
         $this->copyright = new Copyright;
+        $this->college = new College;
         $this->patent = new Patent;
+        $this->user = new User;
         $this->column = 'colleges.char_college_code';
         $this->unit = 'colleges.int_id';
         $this->middleware('auth');
@@ -61,6 +66,17 @@ class CollegeController extends Controller
     // View specific college's reports
     public function viewCollege($id)
     {
+        // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
+        // This college's data
         $college = College::findOrFail($id);
         // extract copyright records of this college
         $copyrights = $this->copyright
@@ -69,11 +85,20 @@ class CollegeController extends Controller
         $patents = $this->patent
             ->patentsOfThisUnit($this->unit, $id);
 
+        $departmentCopyrights = $this->copyright
+            ->miniCopyrightStats($this->unit, $id, 'departments.int_id');
+        $departmentPatents = $this->patent
+            ->miniPatentStats($this->unit, $id, 'departments.int_id');
+
         return view('admin.reports.view-college', 
             ['college' => $college, 
             'copyrights' => $copyrights, 
-            'patents' => $patents]);
+            'patents' => $patents, 
+            'iprDataCount' => $iprDataCount, 
+            'departmentCopyrights' => $departmentCopyrights, 
+            'departmentPatents' => $departmentPatents]);
     }
+
     // College Report to PDF
     public function collegesPDF()
     {

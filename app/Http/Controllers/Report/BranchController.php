@@ -66,7 +66,7 @@ class BranchController extends Controller
             ->copyrightsOfThisUnit($this->unit, $id);
         // extract patent records of this college
         $patents = $this->patent
-            ->patentsOfThisUnit($id);
+            ->patentsOfThisUnit($this->unit, $id);
 
         return view('admin.reports.view-branch', 
             ['branch' => $branch, 
@@ -104,7 +104,133 @@ class BranchController extends Controller
             $this->convert_branches_stats_to_pdf($copyrights, $patents, 
                 $caption1, $caption2));
         return $pdf->stream();
+    }
 
+    public function copyrightsPDF($id, $start = NULL, $end = NULL )
+    {
+        $branch = Branch::findOrFail($id);
+        $caption = 'Copyright Report of '.$branch->str_branch_name;
+
+        if ($start != NULL || $end != NULL) {
+            // return ranged copyrights pdf
+            // $pdf = \App::make('dompdf.wrapper');
+            // $pdf->loadHTML(
+            //     $this->convert_copyrights_to_pdf($copyrights, $caption));
+            // return $pdf->stream();
+        } else {
+            // return copyrights pdf
+            $copyrights = $this->copyright->copyrightsOfThisUnit($this->unit, $id);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_copyrights_to_pdf($copyrights, $caption));
+            return $pdf->stream();
+        }
+    }
+
+    public function patentsPDF($id, $start = NULL, $end = NULL)
+    {
+        $branch = Branch::findOrFail($id);
+        $caption = 'Patent Report of '.$branch->str_branch_name;
+
+        if ($start != NULL || $end != NULL) {
+            // return ranged patents pdf
+            // $patents = $this->patent->patentsOfThisUnit($this->unit, $id);
+            // $pdf = \App::make('dompdf.wrapper');
+            // $pdf->loadHTML(
+            //     $this->convert_patents_to_pdf($patents, $caption));
+            // return $pdf->stream();
+        } else {
+            // return patents pdf
+            $patents = $this->patent->patentsOfThisUnit($this->unit, $id);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_patents_to_pdf($patents, $caption));
+            return $pdf->stream();
+        }
+    }
+
+    public function convert_copyrights_to_pdf($copyrights, $caption)
+    {
+        $output = '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <h2>PUP Intellectual Property Management Office</h2>
+            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <table style="width:100%">
+                <caption>'.$caption.'</caption>
+                <tr>
+                  <th scope="col">Work Title</th>
+                  <th scope="col">Author - Gender - Type</th>
+                  <th scope="col">Process Status</th>
+                  <th scope="col">Classification</th>
+                  <th scope="col">College - Department</th>
+                  <th scope="col">Date Requested</th>
+                </tr>';
+            foreach ($copyrights as $copyright) {
+                $output .= '
+                <tr>
+                    <td>'.$copyright->str_project_title.'</td>'.
+                    '<td>'.$copyright->str_first_name.' '.
+                        $copyright->str_last_name.' - '.$copyright->char_gender.
+                        ' - '.$copyright->char_applicant_type.'</td>'.
+                    '<td>'.$copyright->char_copyright_status.'</td>'.
+                    '<td>'.$copyright->char_project_type.'</td>'.
+                    '<td>'.$copyright->char_college_code.' - '.
+                        $copyright->char_department_code.'</td>'.
+                    '<td>'.date('m/d/Y g:i A', strtotime($copyright->created_at)).'</td>
+                </tr>';
+            }
+        $output .= '</table>';   
+        return $output;
+    }
+
+    public function convert_patents_to_pdf($patents, $caption)
+    {
+        $output = '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <h2>PUP Intellectual Property Management Office</h2>
+            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <table style="width:100%">
+                <caption>'.$caption.'</caption>
+                <tr>
+                  <th scope="col">Patent Work Title</th>
+                  <th scope="col">Author - Gender - Type</th>
+                  <th scope="col">Process Status</th>
+                  <th scope="col">Classification</th>
+                  <th scope="col">College - Department</th>
+                  <th scope="col">Date Requested</th>
+                </tr>';
+            foreach ($patents as $patent) {
+                $output .= '
+                <tr>
+                    <td>'.$patent->str_patent_project_title.'</td>'.
+                    '<td>'.$patent->str_first_name.' '.
+                        $patent->str_last_name.' - '.$patent->char_gender.
+                        ' - '.$patent->char_applicant_type.'</td>'.
+                    '<td>'.$patent->char_patent_status.'</td>'.
+                    '<td>'.$patent->char_project_type.'</td>'.
+                    '<td>'.$patent->char_college_code.' - '.
+                        $patent->char_department_code.'</td>'.
+                    '<td>'.date('m/d/Y g:i A', strtotime($patent->created_at)).'</td>
+                </tr>';
+            }
+        $output .= '</table>';   
+        return $output;
     }
 
     public function convert_branches_stats_to_pdf($copyrights, $patents, $caption1, $caption2)

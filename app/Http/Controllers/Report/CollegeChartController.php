@@ -121,28 +121,13 @@ class CollegeChartController extends Controller
 			2. Count their copyrights & patents data
     	*/ 
 		$data = array();
-		$departments = $this->getAllDepartments($id);
 		$deptCopyrights = $this->getDepartmentCopyrightContributions($id);
 		$deptPatents = $this->getDepartmentPatentContributions($id);	
 		$data = array(
-			'departments' => $departments,
 			'deptCopyrights' => $deptCopyrights,
 			'deptPatents' => $deptPatents
 		);
 		return $data;
-    }
-
-    public function getAllDepartments($id)
-    {
-    	return $departments = DB::table('departments')
-    		->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
-    		->select('departments.char_department_code')
-    		->where('colleges.int_id', $id)
-    		->orderBy('departments.char_department_code')
-    		->get();
-    		// ->join('applicants', 'departments.int_id', '=', 'applicants.int_department_id')
-    		// ->join('copyrights', 'applicants.int_id', '=', 'copyrights.int_applicant_id')
-
     }
 
     public function getDepartmentCopyrightContributions($id)

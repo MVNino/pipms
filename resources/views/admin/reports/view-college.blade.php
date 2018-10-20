@@ -49,11 +49,21 @@
           </a>  
         </div>
         <div class="card-body">
-          @if($college->str_college_contact_link == '')
-            <p class="card-text"><b>Contact Information @:</b> There is no contact link supplied to this college.</p>
-          @else
-            <p class="card-text"><strong>Contact Information @:</strong> <a href="https://www.pup.edu.ph/{{ $college->str_college_contact_link }}" class="btn btn-link">{{ $college->str_college_contact_link }}</a></p>
-          @endif
+          <label class="card-text text-primary"><h6>Overall</h6></label>
+          <div class="row">
+            <div class="col-md-3">
+              <label class="card-text"><b>Copyrighted: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Patented: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['patentedCount'][0]->patented_count }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="card-text"><b>Registered Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['authorCount'][0]->author_count }}</p>
+            </div>
+          </div>
         </div>
         <div class="card-footer text-muted"><strong>Date added:</strong> 
             @if($college->created_at->diffInDays(Carbon\Carbon::now()) < 2)
@@ -70,7 +80,7 @@
       <h3 class="tile-title">{{ $college->char_college_code }} Monthly <small>Copyright / Patent Statistics</small></h3>
       <div class="tile-body">
         <div class="embed-responsive embed-responsive-16by9">
-          <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+          <canvas class="embed-responsive-item" id="barChartDemo23"></canvas>
         </div>
       </div>
       {{-- <div class="tile-footer">
@@ -207,35 +217,89 @@
 </div>
 <br>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="tile">
-      <h3 class="tile-title">Copyright Contribution of <br>{{ $college->char_college_code }} to {{ $college->branch->str_branch_name }} branch</h3>
+      <h3 class="tile-title">{{ $college->char_college_code }} to {{ $college->branch->str_branch_name }} branch: Copyright Contribution</h3>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="tile">
-      <h3 class="tile-title">Patent Contribution of <br>{{ $college->char_college_code }} to {{ $college->branch->str_branch_name }} branch</h3>
+      <h3 class="tile-title">{{ $college->char_college_code }} to {{ $college->branch->str_branch_name }} branch: Patent Contribution</h3>
+      <div class="embed-responsive embed-responsive-16by9">
+        <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="tile">
+      <h3 class="tile-title">ISSUE MEN! Contribution of <br>{{ $college->char_college_code }} to {{ $college->branch->str_branch_name }} branch</h3>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="pieChartDemo2"></canvas>
       </div>
     </div>
   </div> 
   <div class="col-md-6">
-    PARA SA Appointment conflicts
+    <div class="tile">
+      <h4 class="tile-title">{{ $college->char_college_code }} Departments: Copyright Records</h4>
+      <div class="tile-body">
+        <table class="table table-hover table-bordered" id="sampleTable">
+          <thead>
+            <tr>
+              <th class="text-center">Department</th>
+              <th class="text-center text-success">Copyrighted</th>
+              <th class="text-center text-info">On Its Process</th>
+              <th class="text-center text-danger">Issues</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($departmentCopyrights as $copyright)
+            <tr>
+              <th class="text-center"><a href="/admin/reports/department/{{ $copyright->int_department_id }}">{{ $copyright->char_department_code }}</a></th>
+              <td class="text-center">{{ $copyright->copyrighted_count }}</td>
+              <td class="text-center">{{ $copyright->copyright_processing_count }}</td>
+              <td class="text-center text-danger">{{ $copyright->copyright_conflict_count }}</td>
+            </tr>
+            @empty
+            <div class="alert alert-warning">
+              There is no record yet.
+            </div>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="col-md-6">
     <div class="tile">
-      <h3 class="tile-title">Departments of 
-        <a href="/admin/maintenance/college/{{ $college->int_id }}">
-          {{ $college->char_college_code }}
-        </a> - 
-        <small>Copyrights / Patents</small>
-      </h3>
-      <div class="embed-responsive embed-responsive-16by9">
-        <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+      <h4 class="tile-title">{{ $college->char_college_code }} Departments: Patent Records</h4>
+      <div class="tile-body">
+        <table class="table table-hover table-bordered" id="sampleTable">
+          <thead>
+            <tr>
+              <th class="text-center">Department</th>
+              <th class="text-center text-success">Patented</th>
+              <th class="text-center text-info">On Its Process</th>
+              <th class="text-center text-danger">Issues</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($departmentPatents as $patent)
+            <tr>
+              <th class="text-center"><a href="/admin/reports/department/{{ $patent->int_department_id }}">{{ $patent->char_department_code }}</a></th>
+              <td class="text-center">{{ $patent->patented_count }}</td>
+              <td class="text-center">{{ $patent->patent_processing_count }}</td>
+              <td class="text-center text-danger">{{ $patent->patent_conflict_count }}</td>
+            </tr>
+            @empty
+            <div class="alert alert-warning">
+              There is no record yet.
+            </div>
+            @endforelse
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -295,17 +359,21 @@
     }
   ]
   
+  var ctxpBar = $("#barChartDemo23").get(0).getContext("2d");
+  var barChart23 = new Chart(ctxpBar).Bar(data);
+
   var ctxl = $("#lineChartDemo").get(0).getContext("2d");
   var lineChart = new Chart(ctxl).Line(data);
 
   var ctxr = $("#radarChartDemo").get(0).getContext("2d");
   var radarChart = new Chart(ctxr).Radar(data);
-  
+ 
   var ctxpo = $("#polarChartDemo").get(0).getContext("2d");
   var polarChart = new Chart(ctxpo).PolarArea(pdata);
   
   var ctxd = $("#doughnutChartDemo").get(0).getContext("2d");
   var doughnutChart = new Chart(ctxd).Doughnut(pdata);
+  
 </script>
 
 {{-- Charts data from database --}}
@@ -350,6 +418,10 @@
 
       var ctxp = $("#pieChartDemo").get(0).getContext("2d");
       var pieChart = new Chart(ctxp).Pie(pieData);
+      var ctxp4 = $("#pieChartDemo4").get(0).getContext("2d");
+      var pieChart4 = new Chart(ctxp4).Pie(pieData);
+      var ctxp3 = $("#pieChartDemo3").get(0).getContext("2d");
+      var pieChart3 = new Chart(ctxp3).Pie(pieData);
     },
 
     patentsOfCollegeOverBranch: (response) => {
@@ -368,52 +440,10 @@
           label: response['college_patents'][0].char_college_code
         }
       ]
-      var ctxp2 = $("#pieChartDemo2").get(0).getContext("2d");
-      var pieChart2 = new Chart(ctxp2).Doughnut(doughnutData);
+      var ctxd = $("#doughnutChartDemo").get(0).getContext("2d");
+      var doughnutChart = new Chart(ctxd).Doughnut(doughnutData);
     },
 
-    ajaxGetDepartmentContributions: () => {
-      var urlPath = 'http://' + window.location.hostname + 
-      '/admin/reports/college/'+$('#collegeId').text()+'/college_departments_ipr_chart_report';
-      var request = $.ajax({
-        method: 'GET',
-        url: urlPath,
-      });
-        request.done((response) => {
-          console.log(response);
-          charts.departmentIPRContributionsChart(response);
-        });
-    },
-
-    departmentIPRContributionsChart: (response) => {
-      var barData = {
-        labels: response['departments'][0],
-        datasets: [
-          {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59]
-          },
-          {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48]
-          }
-        ]
-      };
-      var ctxb = $("#barChartDemo").get(0).getContext("2d");
-      var barChart = new Chart(ctxb).Bar(barData);
-    }
   };
 
   charts.init();
