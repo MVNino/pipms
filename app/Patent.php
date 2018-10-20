@@ -224,4 +224,20 @@ class Patent extends Model
 	        ->groupBy($groupBy)
 	        ->get();
 	}
+
+    // Get application issues record
+    public function getApplicationConflicts($unit, $unitId)
+    {
+        return $this->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
+        	->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+        	->join('users', 'applicants.int_user_id', '=', 'users.id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+            ->select(DB::raw('str_first_name, str_last_name, char_college_code, 
+            	char_department_code, str_branch_name, str_patent_project_title, patents.created_at'))
+            ->where('char_patent_status', 'conflict')
+            ->where($unit, $unitId)
+            ->paginate(5);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\CoAuthor;
 use App\College;
 use App\Copyright;
 use App\Patent;
@@ -14,6 +15,7 @@ use PDF;
 class CollegeController extends Controller
 {
 	public $viewPath;
+    public $coAuthor;
     public $copyright;
     public $college;
     public $patent;
@@ -24,6 +26,7 @@ class CollegeController extends Controller
     public function __construct()
     {
         $this->viewPath = 'admin.reports.';
+        $this->coAuthor = new CoAuthor;
         $this->copyright = new Copyright;
         $this->college = new College;
         $this->patent = new Patent;
@@ -66,13 +69,20 @@ class CollegeController extends Controller
     // View specific college's reports
     public function viewCollege($id)
     {
+        // Get conflicts records
+        $copyrightConflicts = $this->copyright
+            ->getApplicationConflicts($this->unit, $id);
+        $patentConflicts = $this->patent
+            ->getApplicationConflicts($this->unit, $id);
         // IPR Data Count
         $iprDataCount = array();
         $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
         $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
         $patentedCount = $this->patent->countPatented($this->unit, $id);
         $iprDataCount = array(
             'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
             'copyrightedCount' => $copyrightedCount,
             'patentedCount' => $patentedCount
         );
@@ -96,7 +106,9 @@ class CollegeController extends Controller
             'patents' => $patents, 
             'iprDataCount' => $iprDataCount, 
             'departmentCopyrights' => $departmentCopyrights, 
-            'departmentPatents' => $departmentPatents]);
+            'departmentPatents' => $departmentPatents, 
+            'copyrightConflicts' => $copyrightConflicts, 
+            'patentConflicts' => $patentConflicts]);
     }
 
     // College Report to PDF

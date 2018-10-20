@@ -43,7 +43,6 @@ class DashboardController extends Controller
         return view('admin.dashboard', ['title' => $title, 
             'usersCount' => $usersCount, 'copyrighted' => $copyrighted,
             'patented' => $patented, 'accountRequests' => $accountRequests]);  
-
     }
 
     public function getMonthlyCopyrightPatents()
