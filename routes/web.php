@@ -405,8 +405,6 @@ Route::group(
 						'CollegeChartController@getCollegeMonthlyChart');
 					Route::get('college/{id}/college_branch_ipr_chart_report', 
 						'CollegeChartController@getCopyrightContributionsToItsBranchChart');
-					Route::get('college/{id}/college_departments_ipr_chart_report', 
-						'CollegeChartController@getDepartmentContributionsChart');
 
 					// College Report PDF
 					// Copyrights of College
