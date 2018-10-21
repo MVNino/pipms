@@ -113,9 +113,7 @@ class CollegeChartController extends Controller
     #3 College Monthly Copyright / Patent Statistics
     public function getCollegeMonthlyChart($id)
     {
-    	return $this->getMonthlyPatentData($id);
-    	return $this->getMonthlyCopyrightData($id);
-
+        return $copyright_data = $this->getMonthlyCopyrightData($id);
     }
     // Monthly Copyrights
     public function getAllMonths()
@@ -145,10 +143,11 @@ class CollegeChartController extends Controller
 	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
 	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
 	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-	        ->select(DB::raw('count(copyrights.int_id) as copyright_count'))
+	        ->select(DB::raw('copyrights.int_id'))
 	        ->whereMonth('copyrights.created_at', $month)
 	        ->where('colleges.int_id', $id)
-	        ->get();
+	        ->get()
+            ->count();
         // $copyright_count = Copyright::whereMonth('created_at', $month)
         //     ->get()
         //     ->count();
@@ -168,12 +167,14 @@ class CollegeChartController extends Controller
             }
         }
 
+        $monthlyPatentData = $this->getMonthlyPatentData($id);
         $max_no = max($monthlyCopyrightCountArray);
         // $maxMonthlyCopyright = round(( $max_no + 10/2 ) / 10) * 10;
         $month_array = $this->getAllMonths();
         $monthlyCopyrightCountArraydata = array(
             'months' => $monthNameArray,
             'copyright_count_data' => $monthlyCopyrightCountArray,
+            'patent_count_data' => $monthlyPatentData,
             'maxMonthlyCopyright' => $max_no 
         );
         return $monthlyCopyrightCountArraydata;
@@ -209,10 +210,11 @@ class CollegeChartController extends Controller
 	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
 	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
 	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-	        ->select(DB::raw('count(patents.int_id) as patent_count'))
+	        ->select(DB::raw('patents.int_id'))
 	        ->whereMonth('patents.created_at', $month)
 	        ->where('colleges.int_id', $id)
-	        ->get();
+	        ->get()
+            ->count();
         return $patent_count;
     }
 
@@ -229,13 +231,14 @@ class CollegeChartController extends Controller
             }
         }
 
-        $max_no = max($monthlyPatentCountArray);
-        $month_array = $this->getAllMonths();
-        $monthlyPatentCountArraydata = array(
-            'patent_months' => $monthNameArray,
-            'patent_count_data' => $monthlyPatentCountArray,
-            'maxMonthlyPatent' => $max_no 
-        );
-        return $monthlyPatentCountArraydata;
+        return $monthlyPatentCountArray;
+        // $max_no = max($monthlyPatentCountArray);
+        // $month_array = $this->getAllMonths();
+        // $monthlyPatentCountArraydata = array(
+        //     'patent_months' => $monthNameArray,
+        //     'patent_count_data' => $monthlyPatentCountArray,
+        //     'maxMonthlyPatent' => $max_no 
+        // );
+        // return $monthlyPatentCountArraydata;
     }
 }

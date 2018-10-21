@@ -373,6 +373,10 @@ Route::group(
 					Route::get('branch/{id}', 
 						'BranchController@viewBranch');
 
+					// Branch Chart Report
+					Route::get('branch/{id}/branch_ipr_chart_report', 
+						'BranchChartController@getBranchMonthlyChart');
+
 					// Branch Report PDF
 					// Copyrights of College
 					Route::get('branch/{id}/copyrights_pdf', 
@@ -432,6 +436,12 @@ Route::group(
 						'DepartmentController@rangedDepartments');
 					Route::get('department/{id}', 
 						'DepartmentController@viewDepartment');
+
+					// Department Chart Report
+					Route::get('department/{id}/department_ipr_chart_report', 
+						'DepartmentChartController@getDepartmentMonthlyChart');
+					Route::get('department/{id}/department_college_ipr_chart_report', 
+						'DepartmentChartController@getCopyrightContributionsToItsCollegeChart');
 
 					// Department Report PDF
 					// Copyrights of College

@@ -39,10 +39,10 @@
         <div class="card-body">
           <h5 class="card-title">{{ $department->str_department_name }}</h5>
           <h6 class="card-subtitle text-muted">
-            <a href="/admin/maintenance/college/{{ $department->int_college_id }}">
+            <a href="/admin/reports/college/{{ $department->int_college_id }}">
               {{ $department->college->char_college_code }}
             </a> - 
-            <a href="/admin/maintenance/branch/{{ $department->college->branch->int_id }}">
+            <a href="/admin/reports/branch/{{ $department->college->branch->int_id }}">
               {{ $department->college->branch->str_branch_name }}
             </a>
           </h6>
@@ -55,12 +55,28 @@
               <img class="align-self-center rounded-circle mr-3" style="width:125px; height:125px;" alt="Department profile image" src="/storage/images/department/profile/{{ $department->str_department_profile_image }}">
           </a>
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> 
-            @if($department->created_at->diffInDays(Carbon\Carbon::now()) < 2)
-              {{ $department->created_at->format('M d - g:i A') }}
-            @else
-              {{ $department->created_at->format('F d, Y') }}
-            @endif
+        <div class="card-body">
+          <label class="card-text text-primary"><h6>Overall</h6></label>
+          <div class="row">
+            <div class="col-md-3">
+              <label class="card-text"><b>Copyrighted: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Patented: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['patentedCount'][0]->patented_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['authorCount'][0]->author_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Co-Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['coAuthorCount'][0]->co_author_count }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
         </div>
       </div>
     </div>
@@ -70,7 +86,7 @@
       <h3 class="tile-title">{{ $department->char_department_code }} Monthly <small>Copyright / Patent Statistics</small></h3>
       <div class="tile-body">
         <div class="embed-responsive embed-responsive-16by9">
-          <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+          <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
         </div>
       </div>
       {{-- <div class="tile-footer">
@@ -107,12 +123,22 @@
                   @forelse($copyrights as $copyright)
                   <tr>
                     <td class="text-center">
+                      @if($copyright->char_copyright_status == 'pending')
+                      <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'to submit')                   
+                      <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'on process')
+                      <a href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'copyrighted')
+                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'conflict')
                       <a href="#">
+                      @endif
                         {{ $copyright->str_project_title }}
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="#">
+                      <a href="/admin/reports/author/{{ $copyright->author_id }}">
                         {{ $copyright->str_first_name }} {{ $copyright->str_middle_name }} 
                         {{ $copyright->str_last_name }}
                       </a> - 
@@ -158,12 +184,22 @@
                 @forelse($patents as $patent)
                 <tr>
                   <td class="text-center">
+                    @if($patent->char_patent_status == 'pending')
+                    <a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'to submit')                   
+                    <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'on process')
+                    <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'patented')
+                    <a href="/admin/reports/patented/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'conflict')
                     <a href="#">
+                    @endif
                       {{ $patent->str_patent_project_title }}
                     </a>
                   </td>
                   <td class="text-center">
-                    <a href="#">
+                    <a href="/admin/reports/author/{{ $patent->author_id }}">
                       {{ $patent->str_first_name }} {{ $patent->str_middle_name }} {{ $patent->str_last_name }}
                     </a> - 
                     {{ $patent->char_gender }} - {{ $patent->char_applicant_type }}
@@ -193,8 +229,28 @@
     </div>
   </div>
 </div>
-<br>
 
+<div class="row">
+  <div class="col-md-6">
+    <div class="tile">
+      <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college: 
+        <br>Copyright Contribution</h3>
+      <div class="embed-responsive embed-responsive-16by9">
+        <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="tile">
+      <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college:
+        <br>Patent Contribution</h3>
+      <div class="embed-responsive embed-responsive-16by9">
+        <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<p id="departmentId" hidden>{{ $department->int_id }}</p>
 @endsection
 
 @section('pg-specific-js')
@@ -202,64 +258,118 @@
 {{-- Charts --}}
 <script type="text/javascript" src="{{ asset('vali/js/plugins/widgets.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/chart.js') }}"></script>
-<script type="text/javascript">
-  var data = {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: "My First dataset",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: [65, 59, 80, 81, 56]
-      },
-      {
-        label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [28, 48, 40, 19, 86]
-      }
-    ]
-  };
-  var pdata = [
-    {
-      value: 300,
-      color: "#46BFBD",
-      highlight: "#5AD3D1",
-      label: "Complete"
-    },
-    {
-      value: 50,
-      color:"gray",
-      highlight: "#FF5A5E",
-      label: "In-Progress"
-    },
-    {
-      value: 85,
-      color:"maroon",
-      highlight: "#FF5A5E",
-      label: "To Process"
-    }
-  ]
-  
-  var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-  var lineChart = new Chart(ctxl).Line(data);
 
-  var ctxr = $("#radarChartDemo").get(0).getContext("2d");
-  var radarChart = new Chart(ctxr).Radar(data);
+{{-- Charts data from database --}}
+<script>
+( function($) {
+  var charts = {
+    init: function(){
+      this.ajaxGetDepartmentIPRContribToCollege();
+      this.ajaxGetMonthlyIPR();
+    },
+
+    ajaxGetDepartmentIPRContribToCollege: () => {
+     var urlPath = 'http://' + window.location.hostname + 
+      '/admin/reports/department/'+$('#departmentId').text()+'/department_college_ipr_chart_report';
+      var request = $.ajax({
+        method: 'GET',
+        url: urlPath,
+      });
+        request.done((response) => {
+          // console.log(response);
+          charts.copyrightsOfDepartmentOverCollege(response);
+          charts.patentsOfDepartmentOverCollege(response);
+        }); 
+    },
+
+    copyrightsOfDepartmentOverCollege: (response) => {
+      var pieData = [
+        {
+          value: response['college_copyrights'][0].copyright_count - 
+            response['department_copyrights'][0].copyright_count,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Other departments of "+response['college_copyrights'][0].char_college_code
+        },
+        {
+          value: response['department_copyrights'][0].copyright_count,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: response['department_copyrights'][0].char_department_code
+        }
+      ]
+      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
+      var pieChart = new Chart(ctxp).Pie(pieData);
+    },
+
+    patentsOfDepartmentOverCollege: (response) => {
+      var doughnutData = [
+        {
+          value: response['college_patents'][0].patent_count - 
+            response['department_patents'][0].patent_count,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Other departments of "+response['college_patents'][0].char_college_code
+        },
+        {
+          value: response['department_patents'][0].patent_count,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: response['department_patents'][0].char_department_code
+        }
+      ]
+      var ctxd = $("#doughnutChartDemo").get(0).getContext("2d");
+      var doughnutChart = new Chart(ctxd).Doughnut(doughnutData);
+    },
+
+    ajaxGetMonthlyIPR: () => {
+     var urlPath = 'http://' + window.location.hostname + 
+      '/admin/reports/department/'+$('#departmentId').text()+'/department_ipr_chart_report';
+      var request = $.ajax({
+        method: 'GET',
+        url: urlPath,
+      });
+        request.done((response) => {
+          // console.log(response);
+          charts.monthlyIPR(response);
+        }); 
+    },
+
+    monthlyIPR: (response) => {
+      var data = {
+        labels: response.months,
+        datasets: [
+          {
+            label: "Monthly Copyright Count",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: response.copyright_count_data
+          },
+          {
+            label: "Monthly Patent Count",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: response.patent_count_data
+          }
+        ]
+      };
+      var ctxpBar = $("#barChartDemo").get(0).getContext("2d");
+      var barChart23 = new Chart(ctxpBar).Bar(data);
+    },
+
+  };
+
+  charts.init();
+})( jQuery );
   
-  var ctxpo = $("#polarChartDemo").get(0).getContext("2d");
-  var polarChart = new Chart(ctxpo).PolarArea(pdata);
-  
-  var ctxd = $("#doughnutChartDemo").get(0).getContext("2d");
-  var doughnutChart = new Chart(ctxd).Doughnut(pdata);
 </script>
 <!-- Data table plugin-->
 <script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>

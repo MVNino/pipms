@@ -95,6 +95,7 @@ class CollegeController extends Controller
         $patents = $this->patent
             ->patentsOfThisUnit($this->unit, $id);
 
+        // This college's departments
         $departmentCopyrights = $this->copyright
             ->miniCopyrightStats($this->unit, $id, 'departments.int_id');
         $departmentPatents = $this->patent

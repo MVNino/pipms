@@ -182,7 +182,7 @@ class Patent extends Model
 	        	str_middle_name, str_last_name, char_gender, char_applicant_type, project_types.int_id as int_project_type_id, 
 	        	project_types.char_project_type, departments.int_id as int_department_id, char_department_code, 
 	        	colleges.int_id as int_college_id, char_college_code, branches.int_id as int_branch_id, str_branch_name, 
-	        	patents.created_at, char_patent_status'))
+	        	patents.created_at, char_patent_status, users.id as author_id'))
 	        ->where($unit, $unitId)
 	        ->get();
 
