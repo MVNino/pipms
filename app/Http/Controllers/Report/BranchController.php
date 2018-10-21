@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Branch;
+use App\CoAuthor;
 use App\Copyright;
 use App\Patent;
+use App\User;
 use Carbon\Carbon;
 use PDF;
 
@@ -15,6 +17,8 @@ class BranchController extends Controller
 	public $viewPath;
     public $copyright;
     public $patent;
+    public $user;
+    public $coAuthor;
     public $column;
     public $unit;
   
@@ -22,7 +26,9 @@ class BranchController extends Controller
     {
         $this->viewPath = 'admin.reports.';
         $this->copyright = new Copyright;
+        $this->coAuthor = new CoAuthor;
         $this->patent = new Patent;
+        $this->user = new User;
         $this->column = 'branches.str_branch_name';
         $this->unit = 'branches.int_id';
         $this->middleware('auth');
@@ -60,6 +66,19 @@ class BranchController extends Controller
 
     public function viewBranch($id)
     {
+        // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
+
         $branch = Branch::findOrFail($id);
         // extract copyright records of this branch
         $copyrights = $this->copyright
@@ -68,10 +87,19 @@ class BranchController extends Controller
         $patents = $this->patent
             ->patentsOfThisUnit($this->unit, $id);
 
+        // This college's departments
+        $collegeCopyrights = $this->copyright
+            ->miniCopyrightStats($this->unit, $id, 'colleges.int_id');
+        $collegePatents = $this->patent
+            ->miniPatentStats($this->unit, $id, 'colleges.int_id');
+
         return view('admin.reports.view-branch', 
             ['branch' => $branch, 
             'copyrights' => $copyrights, 
-            'patents' => $patents]);
+            'patents' => $patents, 
+            'iprDataCount' => $iprDataCount,
+            'collegeCopyrights' => $collegeCopyrights, 
+            'collegePatents' => $collegePatents, ]);
     }
 
     public function branchesPDF()

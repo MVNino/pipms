@@ -48,18 +48,27 @@
           </a>
         </div>
         <div class="card-body">
-          @if($branch->str_branch_contact_link == '')
-            <p class="card-text"><b>Contact Information @:</b> There is no contact link supplied to this branch.</p>
-          @else
-            <p class="card-text"><strong>Contact Information @:</strong> <a href="https://www.pup.edu.ph/{{ $branch->str_branch_contact_link }}" class="btn btn-link">{{ $branch->str_branch_contact_link }}</a></p>
-          @endif
+          <label class="card-text text-primary"><h6>Overall</h6></label>
+          <div class="row">
+            <div class="col-md-3">
+              <label class="card-text"><b>Copyrighted: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Patented: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['patentedCount'][0]->patented_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['authorCount'][0]->author_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Co-Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['coAuthorCount'][0]->co_author_count }}</p>
+            </div>
+          </div>
         </div>
-        <div class="card-footer text-muted"><strong>Date added:</strong> 
-            @if($branch->created_at->diffInDays(Carbon\Carbon::now()) < 2)
-              {{ $branch->created_at->format('M d - g:i A') }}
-            @else
-              {{ $branch->created_at->format('F d, Y') }}
-            @endif
+        <div class="card-footer text-muted">
         </div>
       </div>
     </div>
@@ -69,7 +78,7 @@
       <h3 class="tile-title">{{ $branch->str_branch_name }} Monthly <small>Copyright / Patent Statistics</small></h3>
       <div class="tile-body">
         <div class="embed-responsive embed-responsive-16by9">
-          <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+          <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
         </div>
       </div>
       {{-- <div class="tile-footer">
@@ -107,12 +116,22 @@
                   @forelse($copyrights as $copyright)
                   <tr>
                     <td class="text-center">
+                      @if($copyright->char_copyright_status == 'pending')
+                      <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'to submit')                   
+                      <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'on process')
+                      <a href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'copyrighted')
+                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'conflict')
                       <a href="#">
+                      @endif
                         {{ $copyright->str_project_title }}
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="#">
+                      <a href="/admin/reports/author/{{ $copyright->author_id }}">
                         {{ $copyright->str_first_name }} {{ $copyright->str_middle_name }} 
                         {{ $copyright->str_last_name }}
                       </a> - 
@@ -128,10 +147,10 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="/admin/maintenance/college/{{ $copyright->int_college_id }}">
+                      <a href="/admin/reports/college/{{ $copyright->int_college_id }}">
                         {{ $copyright->char_college_code }}
                       </a> - 
-                      <a href="/admin/maintenance/department/{{ $copyright->int_department_id }}">
+                      <a href="/admin/reports/department/{{ $copyright->int_department_id }}">
                         {{ $copyright->char_department_code }}
                       </a>
                     </td>
@@ -167,12 +186,22 @@
                 @forelse($patents as $patent)
                 <tr>
                   <td class="text-center">
+                    @if($patent->char_patent_status == 'pending')
+                    <a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'to submit')                   
+                    <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'on process')
+                    <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'patented')
+                    <a href="/admin/reports/patented/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'conflict')
                     <a href="#">
+                    @endif
                       {{ $patent->str_patent_project_title }}
                     </a>
                   </td>
                   <td class="text-center">
-                    <a href="#">
+                    <a href="/admin/reports/author/{{ $patent->author_id }}">
                       {{ $patent->str_first_name }} {{ $patent->str_middle_name }} {{ $patent->str_last_name }}
                     </a> - 
                     {{ $patent->char_gender }} - {{ $patent->char_applicant_type }}
@@ -186,10 +215,10 @@
                     </a>
                   </td>
                   <td class="text-center">
-                    <a href="/admin/maintenance/college/{{ $patent->int_college_id }}">
+                    <a href="/admin/reports/college/{{ $patent->int_college_id }}">
                       {{ $patent->char_college_code }}
                     </a> - 
-                    <a href="/admin/maintenance/department/{{ $patent->int_department_id }}">
+                    <a href="/admin/reports/department/{{ $patent->int_department_id }}">
                       {{ $patent->char_department_code }}
                     </a>
                   </td>
@@ -209,8 +238,80 @@
       </div>
     </div>
   </div>
+  {{-- colleges of this branch --}}
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title">{{ $branch->str_branch_name }} Colleges: Copyright Records</h4>
+      <div class="tile-body">
+        <table class="table table-hover table-bordered" id="sampleTable">
+          <thead>
+            <tr>
+              <th class="text-center">Department</th>
+              <th class="text-center text-success">Copyrighted</th>
+              <th class="text-center text-info">On Its Process</th>
+              <th class="text-center text-danger">Issues</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($collegeCopyrights as $copyright)
+            <tr>
+              <th class="text-center">
+                <a href="/admin/reports/college/{{ $copyright->int_college_id }}">
+                  {{ $copyright->char_college_code }}
+                </a>
+              </th>
+              <td class="text-center">{{ $copyright->copyrighted_count }}</td>
+              <td class="text-center">{{ $copyright->copyright_processing_count }}</td>
+              <td class="text-center text-danger">{{ $copyright->copyright_conflict_count }}</td>
+            </tr>
+            @empty
+            <div class="alert alert-warning">
+              There is no record yet.
+            </div>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title">{{ $branch->str_branch_name }} Colleges: Patent Records</h4>
+      <div class="tile-body">
+        <table class="table table-hover table-bordered" id="sampleTable">
+          <thead>
+            <tr>
+              <th class="text-center">College</th>
+              <th class="text-center text-success">Patented</th>
+              <th class="text-center text-info">On Its Process</th>
+              <th class="text-center text-danger">Issues</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($collegePatents as $patent)
+            <tr>
+              <th class="text-center">
+                <a href="/admin/reports/college/{{ $patent->int_college_id }}">
+                  {{ $patent->char_college_code }}
+                </a>
+              </th>
+              <td class="text-center">{{ $patent->patented_count }}</td>
+              <td class="text-center">{{ $patent->patent_processing_count }}</td>
+              <td class="text-center text-danger">{{ $patent->patent_conflict_count }}</td>
+            </tr>
+            @empty
+            <div class="alert alert-warning">
+              There is no record yet.
+            </div>
+            @endforelse
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 <br>
+<p id="branchId" hidden>{{ $branch->int_id }}</p>
 @endsection
 
 @section('pg-specific-js')
@@ -218,64 +319,62 @@
 {{-- Charts --}}
 <script type="text/javascript" src="{{ asset('vali/js/plugins/widgets.js') }}"></script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/chart.js') }}"></script>
-<script type="text/javascript">
-  var data = {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: "My First dataset",
-        fillColor: "rgba(220,220,220,0.2)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: [65, 59, 80, 81, 56]
-      },
-      {
-        label: "My Second dataset",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "rgba(151,187,205,1)",
-        pointColor: "rgba(151,187,205,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [28, 48, 40, 19, 86]
-      }
-    ]
-  };
-  var pdata = [
-    {
-      value: 300,
-      color: "#46BFBD",
-      highlight: "#5AD3D1",
-      label: "Complete"
+{{-- Charts data from database --}}
+<script>
+( function($) {
+  var charts = {
+    init: function(){
+      this.ajaxGetMonthlyIPR();
     },
-    {
-      value: 50,
-      color:"gray",
-      highlight: "#FF5A5E",
-      label: "In-Progress"
-    },
-    {
-      value: 85,
-      color:"maroon",
-      highlight: "#FF5A5E",
-      label: "To Process"
-    }
-  ]
-  
-  var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-  var lineChart = new Chart(ctxl).Line(data);
 
-  var ctxr = $("#radarChartDemo").get(0).getContext("2d");
-  var radarChart = new Chart(ctxr).Radar(data);
+    ajaxGetMonthlyIPR: () => {
+     var urlPath = 'http://' + window.location.hostname + 
+      '/admin/reports/branch/'+$('#branchId').text()+'/branch_ipr_chart_report';
+      var request = $.ajax({
+        method: 'GET',
+        url: urlPath,
+      });
+        request.done((response) => {
+          // console.log(response);
+          charts.monthlyIPR(response);
+        }); 
+    },
+
+    monthlyIPR: (response) => {
+      var data = {
+        labels: response.months,
+        datasets: [
+          {
+            label: "Monthly Copyright Count",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: response.copyright_count_data
+          },
+          {
+            label: "Monthly Patent Count",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: response.patent_count_data
+          }
+        ]
+      };
+      var ctxpBar = $("#barChartDemo").get(0).getContext("2d");
+      var barChart23 = new Chart(ctxpBar).Bar(data);
+    },
+
+  };
+
+  charts.init();
+})( jQuery );
   
-  var ctxpo = $("#polarChartDemo").get(0).getContext("2d");
-  var polarChart = new Chart(ctxpo).PolarArea(pdata);
-  
-  var ctxd = $("#doughnutChartDemo").get(0).getContext("2d");
-  var doughnutChart = new Chart(ctxd).Doughnut(pdata);
 </script>
 <!-- Data table plugin-->
 <script type="text/javascript" src="{{ asset('vali/js/plugins/jquery.dataTables.min.js') }}"></script>

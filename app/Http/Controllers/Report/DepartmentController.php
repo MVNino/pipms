@@ -4,25 +4,31 @@ namespace App\Http\Controllers\Report;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\CoAuthor;
 use App\Copyright;
 use App\Department;
 use App\Patent;
+use App\User;
 use Carbon\Carbon;
 use PDF;
 
 class DepartmentController extends Controller
 {
 	public $viewPath;
+    public $coAuthor;
     public $copyright;
     public $patent;
+    public $user;
     public $column;
     public $unit;
 
     public function __construct()
     {
         $this->viewPath = 'admin.reports.';
+        $this->coAuthor = new CoAuthor;
         $this->copyright = new Copyright;
         $this->patent = new Patent;
+        $this->user = new User;
         $this->column = 'departments.char_department_code';
         $this->unit = 'departments.int_id';
         $this->middleware('auth');
@@ -61,6 +67,18 @@ class DepartmentController extends Controller
     // View specific department's reports
     public function viewDepartment($id)
     { 
+        // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
         $department = Department::findOrFail($id);
         // extract copyright records of this department
         $copyrights = $this->copyright
@@ -72,7 +90,8 @@ class DepartmentController extends Controller
         return view('admin.reports.view-department', 
             ['department' => $department, 
             'copyrights' => $copyrights, 
-            'patents' => $patents]);
+            'patents' => $patents,
+            'iprDataCount' => $iprDataCount]);
     }
 
     public function departmentsPDF()

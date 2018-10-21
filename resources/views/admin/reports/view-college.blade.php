@@ -117,12 +117,22 @@
                   @forelse($copyrights as $copyright)
                   <tr>
                     <td class="text-center">
+                      @if($copyright->char_copyright_status == 'pending')
+                      <a href="/admin/transaction/copyright/pend-request/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'to submit')                   
+                      <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'on process')
+                      <a href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'copyrighted')
+                      <a href="/admin/reports/copyrighted/{{ $copyright->int_id }}">
+                      @elseif($copyright->char_copyright_status == 'conflict')
                       <a href="#">
+                      @endif
                         {{ $copyright->str_project_title }}
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="#">
+                      <a href="/admin/reports/author/{{ $copyright->author_id }}">
                         {{ $copyright->str_first_name }} {{ $copyright->str_middle_name }} 
                         {{ $copyright->str_last_name }}
                       </a> - 
@@ -138,7 +148,7 @@
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="/admin/maintenance/department/{{ $copyright->int_department_id }}">
+                      <a href="/admin/reports/department/{{ $copyright->int_department_id }}">
                         {{ $copyright->char_department_code }}
                       </a>
                     </td>
@@ -174,12 +184,22 @@
                 @forelse($patents as $patent)
                 <tr>
                   <td class="text-center">
+                    @if($patent->char_patent_status == 'pending')
+                    <a href="/admin/transaction/patent/pend-request/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'to submit')                   
+                    <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'on process')
+                    <a href="/admin/transaction/patent/on-process/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'patented')
+                    <a href="/admin/reports/patented/{{ $patent->int_id }}">
+                    @elseif($patent->char_patent_status == 'conflict')
                     <a href="#">
+                    @endif
                       {{ $patent->str_patent_project_title }}
                     </a>
                   </td>
                   <td class="text-center">
-                    <a href="#">
+                    <a href="/admin/reports/author/{{ $patent->author_id }}">
                       {{ $patent->str_first_name }} {{ $patent->str_middle_name }} {{ $patent->str_last_name }}
                     </a> - 
                     {{ $patent->char_gender }} - {{ $patent->char_applicant_type }}
@@ -188,12 +208,12 @@
                     {{ $patent->char_patent_status }}
                   </td>
                   <td class="text-center">
-                    <a href="#">
+                    <a href="/admin/maintenance/project-type/{{ $patent->int_project_type_id }}">
                       {{ $patent->char_project_type }}
                     </a>
                   </td>
                   <td class="text-center">
-                    <a href="/admin/maintenance/department/{{ $patent->int_department_id }}">
+                    <a href="/admin/reports/department/{{ $patent->int_department_id }}">
                       {{ $patent->char_department_code }}
                     </a>
                   </td>
@@ -473,7 +493,6 @@
   var charts = {
     init: function(){
       this.ajaxGetCollegeCopyrightContribToBranch();
-      this.ajaxGetDepartmentContributions();
       this.ajaxGetMonthlyIPR();
     },
 
@@ -485,7 +504,7 @@
         url: urlPath,
       });
         request.done((response) => {
-          console.log(response);
+          // console.log(response);
           charts.copyrightsOfCollegeOverBranch(response);
           charts.patentsOfCollegeOverBranch(response);
         }); 
@@ -532,43 +551,41 @@
     },
 
     ajaxGetMonthlyIPR: () => {
-      // KUHAIN MO RITO men!
      var urlPath = 'http://' + window.location.hostname + 
-      '/admin/reports/college/'+$('#collegeId').text()+'/college_branch_ipr_chart_report';
+      '/admin/reports/college/'+$('#collegeId').text()+'/college_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
       });
         request.done((response) => {
-          console.log(response);
-          charts.copyrightsOfCollegeOverBranch(response);
-          charts.patentsOfCollegeOverBranch(response);
+          // console.log(response);
+          charts.monthlyIPR(response);
         }); 
     },
 
-    monthlyIPR: () => {
+    monthlyIPR: (response) => {
       var data = {
-        labels: ["January", "February", "March", "April", "May"],
+        labels: response.months,
         datasets: [
           {
-            label: "My First dataset",
+            label: "Monthly Copyright Count",
             fillColor: "rgba(220,220,220,0.2)",
             strokeColor: "rgba(220,220,220,1)",
             pointColor: "rgba(220,220,220,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56]
+            data: response.copyright_count_data
           },
           {
-            label: "My Second dataset",
+            label: "Monthly Patent Count",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86]
+            data: response.patent_count_data
           }
         ]
       };
