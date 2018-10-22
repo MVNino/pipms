@@ -147,7 +147,7 @@
 								</div>
 								<div class="col-md-8">
 									<label><strong>Project/Work Title</strong></label>
-									<input type="text" id="container-form-control" name="txtProjectTitle" class="form-control" placeholder="Enter title" />
+									<input type="text" id="container-form-control" name="str_project_title" class="form-control" placeholder="Enter title" />
 								</div>
 							</div>
 						</div>
@@ -217,7 +217,7 @@
 				<span></span>
 			</div>
 			<div class="col-md-4 col-sm-2">
-				@captcha
+				{{-- @captcha --}}
 				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">
 				Submit
 				</button>

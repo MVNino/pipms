@@ -54,10 +54,13 @@ class IPRApplicationController extends Controller
     
 	public function storeCopyrightRequest(Request $request)
 	{
+        $messages = [ 
+            'str_project_title' => 'The title of your project has already been submitted!', 
+        ];
         $this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'slctProjectType' => 'required',
-            'txtProjectTitle' => 'required',
+            'str_project_title' => 'required|string|max:191|unique:copyrights',
             'txtAreaDescription' => 'nullable',
             'fileExecutiveSummary' => 'nullable',
             'txtCAFirstName' => 'nullable',
@@ -72,7 +75,7 @@ class IPRApplicationController extends Controller
             'txtCALastName2' => 'nullable',
             'txtCALastName3' => 'nullable',
             'txtCALastName4' => 'nullable'
-        ]);
+        ], $messages);
         // store data to copyrights table
 		$applicantId = auth()->user()->applicant->int_id;
         $applicantSingle = Applicant::findOrFail($applicantId);
@@ -88,11 +91,14 @@ class IPRApplicationController extends Controller
                 'str_last_name' => $request->txtCALastName2]),
             new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName3, 
                 'str_middle_name' => $request->txtCAMiddleName3, 
-                'str_last_name' => $request->txtCALastName3]),
-            new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName4, 
-                'str_middle_name' => $request->txtCAMiddleName4, 
-                'str_last_name' => $request->txtCALastName4])
+                'str_last_name' => $request->txtCALastName3])
         ]);
+
+        if ([$request->txtCALastName4 != NULL] AND $request->txtCAFirstName4 != NULL) {
+            new CoAuthor(['int_applicant_id' => $applicantSingle->int_id, 'str_first_name' => $request->txtCAFirstName4, 
+            'str_middle_name' => $request->txtCAMiddleName4, 
+            'str_last_name' => $request->txtCALastName4]);
+        }
 
 
         if($request->txtAreaDescription == ''){
@@ -102,7 +108,7 @@ class IPRApplicationController extends Controller
         }
         $copyright = new Copyright;
         $copyright->int_applicant_id = $applicantId;
-        $copyright->str_project_title = $request->txtProjectTitle;
+        $copyright->str_project_title = $request->str_project_title;
         $copyright->int_project_type_id = $request->slctProjectType;
         $copyright->int_project_id = $request->slctProject;
         $copyright->mdmTxt_project_description = $projectDescription;
@@ -112,7 +118,7 @@ class IPRApplicationController extends Controller
             $fileExtension = $request->file('fileExecutiveSummary')
                 ->getClientOriginalExtension();
             // Create a filename to store(database)
-            $summaryFileNameToStore = $request->txtProjectTitle
+            $summaryFileNameToStore = $request->str_project_title
                 .'_'.'executiveSummaryFile'.'_'.time().'.'.$fileExtension;
             // Upload file to system
             $path = $request->file('fileExecutiveSummary')
@@ -137,10 +143,10 @@ class IPRApplicationController extends Controller
         // storing input data to database(Patent table)
         // form validation
         $this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             'getCopyrightId' => 'required',
             'slctProjectType' => 'required',
-            'txtPatentTitle' => 'required',
+            'str_patent_project_title' => 'required|string|unique:patents|max:191',
             'txtAreaPatentDescription' => 'nullable',
             'filePatentSummary' => 'nullable'
         ]);
@@ -157,7 +163,7 @@ class IPRApplicationController extends Controller
         // Store input data to Patents table
         $patent = new Patent;
         $patent->int_copyright_id = $request->getCopyrightId;
-        $patent->str_patent_project_title = $request->txtPatentTitle;
+        $patent->str_patent_project_title = $request->str_patent_project_title;
         $patent->int_project_type_id = $request->slctProjectType;
         $patent->int_project_id = $request->slctProject;
         $patent->mdmTxt_patent_description = $projectDescription;
@@ -167,7 +173,7 @@ class IPRApplicationController extends Controller
             $fileExtension = $request->file('filePatentSummary')
                 ->getClientOriginalExtension();
             // Create a filename to store(database)
-            $summaryFileNameToStore = $request->txtPatentTitle
+            $summaryFileNameToStore = $request->str_patent_project_title
                 .'_'.'patentExecSummary'.'_'.time().'.'.$fileExtension;
             // Upload file to system
             $path = $request->file('filePatentSummary')
@@ -186,5 +192,4 @@ class IPRApplicationController extends Controller
             'Your application form for patent registration has been submitted!');
         }
     }
-
 }
