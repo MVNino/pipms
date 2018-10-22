@@ -242,7 +242,6 @@
 @empty
   @include('admin.includes.page-error')
 @endforelse
-
 @endsection
 
 @section('pg-specific-js')

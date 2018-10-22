@@ -405,6 +405,7 @@ Route::group(
 						'CollegeController@viewCollege');
 
 					// College Chart Report
+					Route::get('college/{id}/college_monthly_ipr', 'CollegeChartController@IPRMonthlyStats');
 					Route::get('college/{id}/college_ipr_chart_report', 
 						'CollegeChartController@getCollegeMonthlyChart');
 					Route::get('college/{id}/college_branch_ipr_chart_report', 

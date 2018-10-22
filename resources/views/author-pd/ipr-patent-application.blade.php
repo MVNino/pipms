@@ -49,7 +49,7 @@
 							</div>
 							<div class="row col-md-12">
 								{{Form::label('title', 'Title of work', ['style' => 'font-weight:bold;'])}}
-								{{Form::text('txtPatentTitle', '', ['class' => 'form-control', 'placeholder' => 'Enter title of your work'])}}
+								{{Form::text('str_patent_project_title', '', ['class' => 'form-control', 'placeholder' => 'Enter title of your work'])}}
 							</div>
 						</div>
 					</div>
@@ -115,7 +115,7 @@
 								<span></span>
 							</div>
 							<div class="col-md-4 col-sm-2">
-								@captcha
+								{{-- @captcha --}}
 								<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">Submit</button>
 							</div>
 							<div class="col-md-4 col-sm-5">

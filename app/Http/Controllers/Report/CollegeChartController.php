@@ -18,8 +18,30 @@ class CollegeChartController extends Controller
         $this->middleware('auth');
     }
 
-    #1 
-    
+    #1 IPR Monthly Statistics
+    public function IPRMonthlyStats()
+    {
+        /*
+            1. Get months
+            2. Maximum IPR Counts
+            3. IPR actual counts
+        */     
+    }
+
+    public function getAllIPRMonths()
+    {
+        
+    }
+
+    public function maxIPRCounts()
+    {
+
+    }
+
+    public function IPRActualCounts()
+    {
+        
+    }
     
     #2 Total IPR contributions of College in its Branch
     public function getCopyrightContributionsToItsBranchChart($id)
