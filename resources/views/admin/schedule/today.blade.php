@@ -13,7 +13,7 @@
 	<div class="col-md-8">	
 	<div class="card">
 		<div class="card-header" style="color: maroon;">
-			<h3>TODAY, {{ Carbon\Carbon::now()->format('F d') }}</h3>
+			<h3>TODAY, {{ Carbon\Carbon::now()->format('jS \of F') }}</h3>
 		</div>
 		<div class="card-body">
 			<ul class="nav nav-tabs">
@@ -29,9 +29,9 @@
 		                <b>{{ $copyright->applicant->user->str_first_name }} 
 		                {{ $copyright->applicant->user->str_last_name }}</b> <br> 
 		                {{ $copyright->applicant->char_applicant_type }} 
-		                of <a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+		                (<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
 		                  {{ $copyright->applicant->department->char_department_code }}</a> 
-		                  (<a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+		                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
 		                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
 		                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
 		                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
@@ -49,6 +49,9 @@
 		              </div>
 		              <div class="col-md-2">
 		              	Time: {{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br>
+		              	@if($copyright->char_copyright_status == 'to submit/conflict')
+		              	<small class="text-muted">Rescheduled</small>
+		              	@endif
 		                {{-- Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br> --}}
 		                @if($copyright->patent)
 		              		@if($copyright->patent->char_patent_status == 'to submit')
@@ -80,8 +83,43 @@
 				@endforelse
 			  </div>
 			  <div class="tab-pane fade" id="patent">
-			    <br>
-			    sdadsa
+				@forelse($patents as $patent)
+				<div class="container">
+		            <div class="row">
+		              <div class="col-md-4">
+		                <b>{{ $patent->copyright->applicant->user->str_first_name }} 
+		                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
+		                {{ $patent->copyright->applicant->char_applicant_type }} 
+		                (<a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+		                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+		                  <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+		                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+		                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+		                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
+		                    </a>
+		              </div>
+		              <div class="col-md-4">
+		              	Title: <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a>
+		              </div>
+		              <div class="col-md-2">
+		              	Time: {{ date('g:i A', strtotime($patent->dtm_schedule))}}<br>
+		              </div>
+		              <div class="col-md-2">
+		              	{{-- {!! Form::open(['action' => ['Admin\ScheduleController@classifyToConflicts', $patent->int_id], 'method' => 'POST', 'id' => 'formConflicts']) !!}
+		              		@csrf --}}
+		              		<a href="/admin/schedule-today/{{ $patent->int_id }}/conflict" role="button" class="btn btn-danger"><i class="fa fa-times"></i></a>
+		              		<a role="button" class="btn btn-info" href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}"><i class="fa fa-check"></i></a>
+		              		{{-- {{ Form::hidden('_method', 'PUT') }}
+		              		<button type="button" id="demoSwal" class="btn btn-danger"><i class="fa fa-times"></i></button>
+		              	{!! Form::close() !!} --}}
+		              </div>
+		            </div><hr>  
+		          </div>
+				@empty
+              	<div class="alert alert-info">
+					There is no scheduled appointment for today.
+				</div>
+				@endforelse
 			  </div>
 			</div>
 		</div>
@@ -93,42 +131,50 @@
 	<div class="col-md-4">
 		<div class="card">
 			<div class="card-header" style="background-color: maroon; color: #f3f3f3;">
-				<h4>Status</h4>
+				<h4>Appointment Status</h4>
 			</div>
 			<div class="card-body">
-				<div class="card">
-					<div class="card-body">
-						Legend:<br> 
-						<span class="badge badge-pill badge-success">&nbsp&nbspProcessed&nbsp&nbsp</span>
-						<span class="badge badge-pill badge-info">&nbsp&nbspTo process&nbsp&nbsp</span>
-						<span class="badge badge-pill badge-danger">&nbsp&nbspConflict&nbsp&nbsp</span>
-					</div>
-				</div>
+				<div class="text-center text-muted">
+					<h4>Today's IPR Tally Board</h4>
+				</div><br>
 				<h4>Copyrights</h4>
-				@foreach($copyrightsToday as $copyright)
-				<div class="row">
-					<div class="col-md-10">
-						<a href="#">{{ $copyright->str_project_title }}</a> - 
-						{{ $copyright->applicant->user->str_first_name }} 
-						{{ $copyright->applicant->user->str_last_name }} 
-					</div>
-					<div class="col-md-2">
-						@if($copyright->char_copyright_status == 'on process' || $copyright->char_copyright_status == 'copyrighted')
-						<span class="badge badge-success badge-pill">
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-						</span>
-						@elseif($copyright->char_copyright_status == 'conflict')
-							<span class="badge badge-danger badge-pill">
-								&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							</span>
-						@else
-							<span class="badge badge-info badge-pill">
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							</span>
-						@endif
-					</div>
-				</div>
-				@endforeach
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center text-success">Successful</th>
+							<th class="text-center text-danger">Unsuccessful</th>
+							<th class="text-center text-info">To Process</th>
+							<th class="text-center text-warning">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="text-center text-success">{{ $copySuccessCount }}</td>
+						<td class="text-center text-danger">{{ $copyConflictCount }}</td>
+						<td class="text-center text-info">{{ $copyToProcessCount }}</td>
+						<td class="text-center text-warning">{{ $copyTotalCount }}</td>
+					</tr>
+					</tbody>
+				</table><br>
+				<h4>Patents</h4>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center text-success">Successful</th>
+							<th class="text-center text-danger">Unsuccessful</th>
+							<th class="text-center text-info">To Process</th>
+							<th class="text-center text-warning">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td class="text-center text-success">{{ $ptntSuccessCount }}</td>
+						<td class="text-center text-danger">{{ $ptntConflictCount }}</td>
+						<td class="text-center text-info">{{ $ptntToProcessCount }}</td>
+						<td class="text-center text-warning">{{ $ptntTotalCount }}</td>
+					</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

@@ -112,6 +112,54 @@ class CollegeController extends Controller
             'patentConflicts' => $patentConflicts]);
     }
 
+    // View specific college's reports
+    public function viewRangedCollege($id, $start, $end)
+    {
+        // Get conflicts records
+        $copyrightConflicts = $this->copyright
+            ->getApplicationConflicts($this->unit, $id);
+        $patentConflicts = $this->patent
+            ->getApplicationConflicts($this->unit, $id);
+        // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
+        // This college's data
+        $college = College::findOrFail($id);
+        // extract copyright records of this college
+        $copyrights = $this->copyright
+            ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+        // extract patent records of this college
+        $patents = $this->patent
+            ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
+
+        // This college's departments
+        $departmentCopyrights = $this->copyright
+            ->miniCopyrightStats($this->unit, $id, 'departments.int_id');
+        $departmentPatents = $this->patent
+            ->miniPatentStats($this->unit, $id, 'departments.int_id');
+
+        return view('admin.reports.view-ranged-college', 
+            ['college' => $college, 
+            'copyrights' => $copyrights, 
+            'patents' => $patents, 
+            'iprDataCount' => $iprDataCount, 
+            'departmentCopyrights' => $departmentCopyrights, 
+            'departmentPatents' => $departmentPatents, 
+            'copyrightConflicts' => $copyrightConflicts, 
+            'patentConflicts' => $patentConflicts,
+            'dateStart' => $start,
+            'dateEnd' => $end]);
+    }
+
     // College Report to PDF
     public function collegesPDF()
     {

@@ -58,7 +58,7 @@ class IPRApplicationController extends Controller
             'str_project_title' => 'The title of your project has already been submitted!', 
         ];
         $this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'slctProjectType' => 'required',
             'str_project_title' => 'required|string|max:191|unique:copyrights',
             'txtAreaDescription' => 'nullable',
@@ -143,7 +143,7 @@ class IPRApplicationController extends Controller
         // storing input data to database(Patent table)
         // form validation
         $this->validate($request, [
-            // 'g-recaptcha-response' => 'required|captcha',
+            'g-recaptcha-response' => 'required|captcha',
             'getCopyrightId' => 'required',
             'slctProjectType' => 'required',
             'str_patent_project_title' => 'required|string|unique:patents|max:191',

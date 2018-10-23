@@ -92,6 +92,14 @@
               <a class="list-group-item list-group-item-action" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
                 {{ $copyright->str_project_title }} ({{ $copyright->char_copyright_status }})
               </a>
+              @elseif($copyright->char_copyright_status == 'conflict')
+              <a class="list-group-item list-group-item-action" href="#">
+                {{ $copyright->str_project_title }} (Appointment Unattended)
+              </a>
+              @elseif($copyright->char_copyright_status == 'to submit/conflict')
+              <a class="list-group-item list-group-item-action" href="#">
+                {{ $copyright->str_project_title }} (Incomplete Requirements)
+              </a>
               @elseif($copyright->char_copyright_status == 'on process')
               <a class="list-group-item list-group-item-action" href="/admin/transaction/copyright/on-process/{{ $copyright->int_id }}">
                 {{ $copyright->str_project_title }} ({{ $copyright->char_copyright_status }})

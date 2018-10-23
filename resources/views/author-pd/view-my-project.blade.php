@@ -96,6 +96,83 @@
                                             </div>
                                         </li>
 
+                                    @elseif($viewProject->char_copyright_status == 'to submit/conflict')    
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Copyright Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for copyright registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
+                                        <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Copyright Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting to have your scheduled appointment with the administrator.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Copyright Status: <b>To submit</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
+                                        <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Copyright Status: <b>To Submit / Reappointment</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your schedule for this reappointment: <b>{{ $viewProject->dtm_schedule->format('M d, g:i A') }}</b></p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="bs-component">
+                                                  <h5 class="list-group-item-heading text-primary">List of requirements that you have</h5>
+                                                    <div class="list-group">
+                                                      @foreach($viewProject->requirements as $reqList)
+                                                      <a class="list-group-item list-group-item-action" href="#">
+                                                        {{ $reqList->requirement->str_requirement }}
+                                                      </a>
+                                                      @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="bs-component">
+                                                  <h5 class="list-group-item-heading text-primary">Official list of requirements for copyright</h5>
+                                                    <div class="list-group">
+                                                      @foreach($requirements as $requirement)
+                                                      <a class="list-group-item list-group-item-action" href="#">
+                                                        {{ $requirement->str_requirement }}
+                                                      </a>
+                                                      @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                      @elseif($viewProject->char_copyright_status == 'on process')    
                                         <li class="timeline-inverted">
@@ -136,6 +213,18 @@
                                             </div>
                                         </li>
                                         <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Appointment</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your scheduled appointment: <b>{{ $viewProject->dtm_schedule->format('m/d/Y, g:i A') }}</b></p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
                                             <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
@@ -147,7 +236,6 @@
                                                 </div>
                                             </div>
                                         </li>
-
                                     @elseif($viewProject->char_copyright_status == 'copyrighted')  
                                         <li class="timeline-inverted">
                                             <div class="timeline-badge default">
@@ -187,6 +275,18 @@
                                             </div>
                                         </li>
                                         <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Appointment</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your scheduled appointment: <b>{{ $viewProject->dtm_schedule->format('m/d/Y, g:i A') }}</b></p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
                                             <div class="timeline-badge danger"><i class="fa fa-building-o"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
@@ -198,7 +298,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="timeline-inverted">
+                                        <li>
                                             <div class="timeline-badge info"><i class="fa fa-copyright"></i></div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">

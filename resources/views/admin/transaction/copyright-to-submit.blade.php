@@ -227,12 +227,12 @@
     </table>
   </div>
   <div class="tile-footer">
-    <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
+    {{-- <div class="text-right"><span class="text-muted mr-2">Showing 1-15 out of 60</span>
       <div class="btn-group">
         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-left"></i></button>
         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-chevron-right"></i></button>
       </div>
-    </div>
+    </div> --}}
   </div>
 </div>
 @endsection

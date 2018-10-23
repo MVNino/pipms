@@ -204,6 +204,8 @@ Route::group(
 						->name('transaction.copyright-to-submit');
 					Route::get('copyright/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitCopyrightRequest');
+					Route::post('copyright/to-submit/incomplete', 
+						'ToSubmitController@incompleteRequirements');
 					Route::put('copyright/to-submit-to-on-process/{id}', 
 						'ToSubmitController@changeStatusToOnProcess');
 					// On process
@@ -364,6 +366,10 @@ Route::group(
 						'ScheduleIssueController@listScheduleIssues')
 						->name('reports.schedule-issues');	
 
+					# Application Issue
+					Route::get('application-issues', 
+						'ApplicationIssueController@listApplicationIssues');
+
 					# Branches Report
 					Route::get('branches', 
 						'BranchController@listBranches')
@@ -403,6 +409,8 @@ Route::group(
 						'CollegeController@rangedColleges');
 					Route::get('college/{id}', 
 						'CollegeController@viewCollege');
+					Route::get('college/{id}/range-date/{start}/{end}', 
+						'CollegeController@viewRangedCollege');
 
 					// College Chart Report
 					Route::get('college/{id}/college_monthly_ipr', 'CollegeChartController@IPRMonthlyStats');

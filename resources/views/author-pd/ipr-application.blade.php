@@ -217,7 +217,7 @@
 				<span></span>
 			</div>
 			<div class="col-md-4 col-sm-2">
-				{{-- @captcha --}}
+				@captcha
 				<button type="submit" class="btn btn-md btn-primary btn-block" style="font-size: 1.25em">
 				Submit
 				</button>

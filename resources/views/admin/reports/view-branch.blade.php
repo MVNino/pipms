@@ -35,10 +35,7 @@
             {{-- <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p> --}}
           </div>
           </div>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ $branch->str_branch_name }}</h5>
-        </div>
+        </div><br>
         <div style="position: relative;">
         <a target="_blank" href="/storage/images/branch/banner/{{ $branch->str_branch_banner_image }}">
         <img style="height: 200px; width: 100%; display: block;" src="/storage/images/branch/banner/{{ $branch->str_branch_banner_image }}" alt="Branch banner image">
@@ -68,7 +65,12 @@
             </div>
           </div>
         </div>
-        <div class="card-footer text-muted">
+        <div class="card-footer text-muted"><strong>Date added:</strong> 
+          @if($branch->created_at->diffInDays(Carbon\Carbon::now()) < 2)
+            {{ $branch->created_at->format('M d - g:i A') }}
+          @else
+            {{ $branch->created_at->format('M d Y - g:i A') }}
+          @endif
         </div>
       </div>
     </div>
@@ -328,7 +330,7 @@
     },
 
     ajaxGetMonthlyIPR: () => {
-     var urlPath = 'http://' + window.location.hostname + 
+     var urlPath = 'http://' + '127.0.0.1:8000' + 
       '/admin/reports/branch/'+$('#branchId').text()+'/branch_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
