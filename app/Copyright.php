@@ -43,6 +43,12 @@ class Copyright extends Model
 	{
 		return $this->belongsTo('App\ProjectType', 'int_project_type_id', 'int_id');
 	}
+
+	public function requirements()
+	{
+		return $this->hasMany('App\CopyrightRequirementList', 'int_copyright_id', 'int_id');
+	}
+
 	
 	public function receipt()
 	{
@@ -96,7 +102,7 @@ class Copyright extends Model
 	public function toSubmit($status)
 	{
 		return $this->with('applicant.department.college.branch')
-            ->where('char_copyright_status', $status)
+            ->where('char_copyright_status', 'LIKE', '%'.$status.'%')
             ->where('dtm_schedule', '!=', null)
             ->orderBy('dtm_schedule')
             ->get();
@@ -107,6 +113,16 @@ class Copyright extends Model
 	{
 		return $this->with('applicant.department.college.branch')
             ->where('char_copyright_status', $status)
+            ->where('dtm_schedule', '!=', NULL)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// View a 'to submit' copyright record
+	public function viewToSubmitConflict($id)
+	{
+		return $this->with('applicant.department.college.branch')
+            ->orWhere('char_copyright_status', 'to submit/conflict')
             ->where('dtm_schedule', '!=', NULL)
             ->where('int_id', $id)
             ->get();
@@ -199,6 +215,26 @@ class Copyright extends Model
 	        	colleges.int_id as int_college_id, char_college_code, branches.int_id as int_branch_id, str_branch_name, 
 	        	copyrights.created_at, char_copyright_status, users.id as author_id'))
 	        ->where($unit, $unitId)
+	        ->get();
+	}
+
+	// Ranged Copyright Statistics/Records per College
+	public function rangedCopyrightsOfThisUnit($unit, $unitId, $start, $end)
+	{
+		return DB::table('copyrights')
+			->join('project_types', 'copyrights.int_project_type_id', '=', 'project_types.int_id')
+	        ->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
+	        ->join('users', 'applicants.int_user_id', '=', 'users.id')
+	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
+	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
+	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
+	        ->select(DB::raw('copyrights.int_id, str_project_title, str_first_name, 
+	        	str_middle_name, str_last_name, char_gender, char_applicant_type, project_types.int_id as int_project_type_id, 
+	        	project_types.char_project_type, departments.int_id as int_department_id, char_department_code, 
+	        	colleges.int_id as int_college_id, char_college_code, branches.int_id as int_branch_id, str_branch_name, 
+	        	copyrights.created_at, char_copyright_status, users.id as author_id'))
+	        ->where($unit, $unitId)
+	        ->whereBetween('copyrights.created_at', [$start, $end])
 	        ->get();
 	}
 

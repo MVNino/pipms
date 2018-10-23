@@ -12,4 +12,9 @@ class Requirement extends Model
 	public $primaryKey = 'int_id';
     // Timestamps
 	public $timestamps = true;
+
+	public function requirementList()
+	{
+		return $this->hasMany('App\CopyrightRequirementList', 'int_requirement_id', 'int_id');
+	}
 }

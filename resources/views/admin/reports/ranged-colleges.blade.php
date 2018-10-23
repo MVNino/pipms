@@ -70,7 +70,7 @@
                 @forelse($copyrightStats as $copyright)
                 <tr>
                   <th class="text-center">
-                    <a href="/admin/reports/college/{{ $copyright->college_id }}">
+                    <a href="/admin/reports/college/{{ $copyright->college_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
                       {{ $copyright->char_college_code }}
                     </a>
                   </th>
@@ -129,7 +129,7 @@
               @forelse($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/reports/college/{{ $copyright->college_id }}">
+                  <a href="/admin/reports/college/{{ $copyright->college_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
                     {{ $copyright->char_college_code }}
                   </a>
                 </th>

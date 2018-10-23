@@ -18,85 +18,11 @@
 @endsection
 
 @section('content')
-<div class="row">
-  <div class="col-md-5">
-    <div class="bs-component">
-      <div class="card">
-        <div class="card-header pb-0">
-        <div class="row">
-          <div class="col-md-10">
-            <h4>
-              <a href="/admin/maintenance/college/{{ $college->int_id }}">
-                {{ $college->char_college_code }}
-              </a>
-            </h4>
-          </div>
-          <div class="col-md-2">
-            {{-- <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p> --}}
-          </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ $college->str_college_name }}</h5>
-          <h6 class="card-subtitle text-muted"><a href="/admin/maintenance/branch/{{ $college->branch->int_id }}">{{ $college->branch->str_branch_name }}</a></h6>
-        </div>
-        <div style="position: relative;">
-        <a target="_blank" href="/storage/images/college/banner/{{ $college->str_college_banner_image }}">
-        <img style="height: 200px; width: 100%; display: block;" src="/storage/images/college/banner/{{ $college->str_college_banner_image }}" alt="College banner image">
-        </a>
-          <a target="_blank" href="/storage/images/college/profile/{{ $college->str_college_profile_image }}" style="position: absolute; bottom: -5%; left: 33%;">
-              <img class="align-self-center rounded-circle mr-3" style="width:125px; height:125px;" alt="College profile image" src="/storage/images/college/profile/{{ $college->str_college_profile_image }}">
-          </a>  
-        </div>
-        <div class="card-body">
-          <label class="card-text text-primary"><h6>Overall</h6></label>
-          <div class="row">
-            <div class="col-md-3">
-              <label class="card-text"><b>Copyrighted: </b></label>  
-                <p style="color: maroon;">{{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</p>
-            </div>
-            <div class="col-md-3">
-              <label class="card-text"><b>Patented: </b></label>  
-                <p style="color: maroon;">{{ $iprDataCount['patentedCount'][0]->patented_count }}</p>
-            </div>
-            <div class="col-md-3">
-              <label class="card-text"><b>Authors: </b></label>  
-                <p style="color: maroon;">{{ $iprDataCount['authorCount'][0]->author_count }}</p>
-            </div>
-            <div class="col-md-3">
-              <label class="card-text"><b>Co-Authors: </b></label>  
-                <p style="color: maroon;">{{ $iprDataCount['coAuthorCount'][0]->co_author_count }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer text-muted">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-7">
-    <div class="tile">
-      <h3 class="tile-title">{{ $college->char_college_code }} Monthly <small>IPR Statistics</small></h3>
-      <div class="row">
-        <div class="col-md-3">Copyrights: 191</div>
-        <div class="col-md-3">Patents: 81</div>
-        <div class="col-md-3">Authors: 256</div>
-        <div class="col-md-3">Application Issues: 35</div>
-      </div>
-      <div class="tile-body">
-        <div class="embed-responsive embed-responsive-16by9">
-          <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-        </div>
-      </div>
-      {{-- <div class="tile-footer">
-      </div> --}}
-    </div>
-  </div>
-</div>
-<br>
+
 <div class="row">
   <div class="col-md-12">
     <div class="tile">
+      <h4 class="tile-header text-muted">IPR Records between {{ date('d/m/Y', strtotime($dateStart)) }} and {{ date('d/m/Y', strtotime($dateEnd)) }}</h4>
       <div class="tile-body">
         <ul class="nav nav-tabs">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyright">Copyright</a></li>
@@ -240,6 +166,77 @@
     </div>
   </div>
 </div>
+<br>
+<div class="row">
+  <div class="col-md-5">
+    <div class="bs-component">
+      <div class="card">
+        <div class="card-header pb-0">
+        <div class="row">
+          <div class="col-md-10">
+            <h4>
+              <a href="/admin/maintenance/college/{{ $college->int_id }}">
+                {{ $college->char_college_code }}
+              </a>
+            </h4>
+          </div>
+          <div class="col-md-2">
+            {{-- <p><button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#modalLong"><i class="fa fa-edit"></i>Edit</button></p> --}}
+          </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ $college->str_college_name }}</h5>
+          <h6 class="card-subtitle text-muted"><a href="/admin/maintenance/branch/{{ $college->branch->int_id }}">{{ $college->branch->str_branch_name }}</a></h6>
+        </div>
+        <div style="position: relative;">
+        <a target="_blank" href="/storage/images/college/banner/{{ $college->str_college_banner_image }}">
+        <img style="height: 200px; width: 100%; display: block;" src="/storage/images/college/banner/{{ $college->str_college_banner_image }}" alt="College banner image">
+        </a>
+          <a target="_blank" href="/storage/images/college/profile/{{ $college->str_college_profile_image }}" style="position: absolute; bottom: -5%; left: 33%;">
+              <img class="align-self-center rounded-circle mr-3" style="width:125px; height:125px;" alt="College profile image" src="/storage/images/college/profile/{{ $college->str_college_profile_image }}">
+          </a>  
+        </div>
+        <div class="card-body">
+          <label class="card-text text-primary"><h6>Overall</h6></label>
+          <div class="row">
+            <div class="col-md-3">
+              <label class="card-text"><b>Copyrighted: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Patented: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['patentedCount'][0]->patented_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['authorCount'][0]->author_count }}</p>
+            </div>
+            <div class="col-md-3">
+              <label class="card-text"><b>Co-Authors: </b></label>  
+                <p style="color: maroon;">{{ $iprDataCount['coAuthorCount'][0]->co_author_count }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="tile">
+      <h3 class="tile-title">{{ $college->char_college_code }} Monthly <small>Copyright / Patent Statistics</small></h3>
+      <div class="tile-body">
+        <div class="embed-responsive embed-responsive-16by9">
+          <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+        </div>
+      </div>
+      {{-- <div class="tile-footer">
+      </div> --}}
+    </div>
+  </div>
+</div>
+<br>
 <div class="row">
   <div class="col-md-6">
     <div class="tile">

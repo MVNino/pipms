@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Carbon\Carbon;
 
-class AppointmentSet extends Notification
+class ReappointmentSetDb extends Notification
 {
     use Queueable;
     public $schedule;
@@ -22,7 +22,7 @@ class AppointmentSet extends Notification
     {
         $this->schedule = $schedule;
         $this->schedule = Carbon::createFromFormat('Y-m-d H:i:s',$this->schedule)
-            ->format('m/d/Y, g:i A');
+            ->format('M d, g:i A');
     }
 
     /**
@@ -33,7 +33,7 @@ class AppointmentSet extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -44,13 +44,7 @@ class AppointmentSet extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line("Your request for your work's copyright registration has been approved!")
-                    ->line('Please see us in our office and kindly bring the requirements.')
-                    ->line('Your visiting schedule: '.$this->schedule)
-                    ->line('Want to re-check our list of requirements?')
-                    ->action('Copyright registration guide', url('http://127.0.0.1:8000/copyright/guide'))
-                    ->line('Thank you for using our application!');
+        //
     }   
 
     /**
@@ -62,7 +56,7 @@ class AppointmentSet extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'Appointment for your actual submission of requirements for copyright registration: '.$this->schedule
+            'data' => '<b>Reappointment</b> for your actual submission of <i>all requirements</i> for copyright registration: <b>'.$this->schedule.'</b>'
         ];
     }
 }

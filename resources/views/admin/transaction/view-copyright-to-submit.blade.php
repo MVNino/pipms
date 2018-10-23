@@ -214,24 +214,45 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
+        {!! Form::open(['action' => 'Transaction\ToSubmitController@incompleteRequirements', 
         'method' => 'POST', 'autocomplete' => 'off']) !!}
           @csrf
+          <input type="text" name="copyrightId" value="{{ $copyright->int_id }}" hidden readonly>
           <p class="text-muted">The applicant must have the following requirements 
             for their work's copyright registration: </p>
           <div class="bs-component">
             <div class="list-group">
               @foreach($requirements as $requirement)
-              <p class="list-group-item list-group-item-action">
-                <i class="fa fa-fw fa-lg fa-check-circle text-info"></i> {{ $requirement->str_requirement }}
-              </p>
+              <div class="form-group form-check list-group-item list-group-item-action">
+                <!--Checkbox Markup-->
+                <div class="animated-checkbox">
+                  <label>
+                    <input name="checkRequirement_{{ $requirement->int_id }}" type="checkbox" checked><span class="label-text">{{ $requirement->str_requirement }}</span>
+                  </label>
+                </div>
+              </div>
               @endforeach
+              <br>
+              <label class="text-info">Re-schedule the client if he didn't brought all the requirments.</label>              
+              <div class="form-group">
+                <label class="form-label" for="demoDate">Date</label>
+                <input class="form-control" name="dateSchedule" id="demoDate" type="text" placeholder="Select Date" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="timeSched">Time</label>
+                <input type="time" id="timeSched" name="timeSchedule" class="form-control" required>
+              </div>
             </div>
           </div> 
       </div>
       <div class="modal-footer">
+          <button type="submit" class="btn btn-secondary"><i class="fa fa-fw fa-lg fa-times-circle"></i>Incomplete</button>
+          {!! Form::close() !!}
+
+          {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
+        'method' => 'POST']) !!}
+          @csrf
           {{ Form::hidden('_method', 'PUT') }}
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Complied</button>
         {!! Form::close() !!}
       </div>

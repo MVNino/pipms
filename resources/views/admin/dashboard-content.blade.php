@@ -120,8 +120,8 @@
     },
 
     ajaxGetPostMonthlyData: function() {
-      var urlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
-      // var erlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
+      var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
+      // var erlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -164,7 +164,7 @@
     },
 
     ajaxGetCopyrightsForThisMonth: function() {
-     var urlPath = 'http://' + window.location.hostname + '/copyrights-for-this-month';
+     var urlPath = 'http://' + '127.0.0.1:8000' + '/copyrights-for-this-month';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -196,7 +196,7 @@
     },
 
     ajaxGetMonthlyCopyrightedPatented: () => {
-      var urlPath = 'http://' + window.location.hostname + '/monthly-copyrights-patents';
+      var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
       // var urlPath = 'http://' + '127.0.0.1:8000' + '/monthly-copyrights-patents';
       var request = $.ajax({
         method: 'GET',
@@ -241,7 +241,7 @@
     },
     
     ajaxGetPatentsForThisMonth: () => {
-      var urlPath = 'http://' + window.location.hostname + '/patents-for-this-month';
+      var urlPath = 'http://' + '127.0.0.1:8000' + '/patents-for-this-month';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,

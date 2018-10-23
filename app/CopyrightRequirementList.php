@@ -12,4 +12,14 @@ class CopyrightRequirementList extends Model
 	public $primaryKey = 'int_id';
     // Timestamps
 	public $timestamps = false;
+
+	public function copyright()
+	{
+		return $this->belongsTo('App\Copyright', 'int_copyright_id', 'int_id');
+	}
+
+	public function requirement()
+	{
+		return $this->belongsTo('App\Requirement', 'int_requirement_id', 'int_id');
+	}
 }

@@ -104,8 +104,8 @@
             </a>
           </li>
           <li>
-            <a class="treeview-item" href="#">
-              Application Issueeeee
+            <a class="treeview-item" href="/admin/reports/application-issues">
+              Application Issue
             </a>
           </li>
         </ul>

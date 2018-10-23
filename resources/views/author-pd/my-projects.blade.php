@@ -6,7 +6,11 @@
 	   @forelse($myProjects as $myProject)
 	    <div class="col-lg-3 col-md-6">
 	        <!-- Card -->
+	        @if($myProject->char_copyright_status == 'conflict')
+	        <div class="card text-muted">
+	        @else
 	        <div class="card">
+	        @endif
 	            <img class="card-img-top img-responsive" src="/storage/images/project_type/{{ $myProject->projectType->str_project_type_image }}" alt="project type image" height="200" width="300">
 	            <div class="card-body">
 	                <h4 class="card-title">	{{$myProject->str_project_title}}</h4>

@@ -141,6 +141,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'str_project_title' => "title of your work",
+        'str_patent_project_title' => 'title of your work'
+    ],
 
 ];

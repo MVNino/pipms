@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Copyright;
 use App\Patent;
+use App\Requirement;
 use Carbon;
 
 class WorkController extends Controller
@@ -22,7 +23,10 @@ class WorkController extends Controller
 
     public function viewMyProject($id, $title)
     {
+        $requirements = Requirement::where('char_ipr', 'C')->get();
         $viewProject = Copyright::findOrFail($id);
-    	return view('author-pd.view-my-project', ['viewProject' => $viewProject]);
+    	return view('author-pd.view-my-project', 
+            ['viewProject' => $viewProject, 
+            'requirements' => $requirements]);
     }
 }

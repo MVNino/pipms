@@ -269,7 +269,7 @@
     },
 
     ajaxGetDepartmentIPRContribToCollege: () => {
-     var urlPath = 'http://' + window.location.hostname + 
+     var urlPath = 'http://' + '127.0.0.1:8000' + 
       '/admin/reports/department/'+$('#departmentId').text()+'/department_college_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
@@ -323,7 +323,7 @@
     },
 
     ajaxGetMonthlyIPR: () => {
-     var urlPath = 'http://' + window.location.hostname + 
+     var urlPath = 'http://' + '127.0.0.1:8000' + 
       '/admin/reports/department/'+$('#departmentId').text()+'/department_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
