@@ -68,7 +68,7 @@
                 @forelse($copyrightStats as $copyright)
                 <tr>                  
                   <th class="text-center"> 
-                    <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
+                    <a href="/admin/reports/branch/{{ $copyright->branch_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
                     {{ $copyright->str_branch_name }}
                     </a>
                   </th>
@@ -120,7 +120,7 @@
               @forelse($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
+                  <a href="/admin/reports/branch/{{ $patent->branch_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
                     {{ $patent->str_branch_name }}
                   </a>
                 </th>

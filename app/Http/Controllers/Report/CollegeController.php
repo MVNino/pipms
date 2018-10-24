@@ -199,14 +199,17 @@ class CollegeController extends Controller
         $caption = 'Copyright Report of '.$college->str_college_name;
 
         if ($start != NULL || $end != NULL) {
-            // return ranged copyrights pdf
-            // $pdf = \App::make('dompdf.wrapper');
-            // $pdf->loadHTML(
-            //     $this->convert_copyrights_to_pdf($copyrights, $caption));
-            // return $pdf->stream();
+             // ranged copyright records pdf
+            $copyrights = $this->copyright
+                ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_copyrights_to_pdf($copyrights, $caption));
+            return $pdf->stream();
         } else {
             // return copyrights pdf
-            $copyrights = $this->copyright->copyrightsOfThisUnit($this->unit, $id);
+            $copyrights = $this->copyright
+                ->copyrightsOfThisUnit($this->unit, $id);
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML(
                 $this->convert_copyrights_to_pdf($copyrights, $caption));
@@ -221,7 +224,8 @@ class CollegeController extends Controller
 
         if ($start != NULL || $end != NULL) {
             // return ranged patents pdf
-            $patents = $this->patent->patentsOfThisUnit($this->unit, $id);
+            $patents = $this->patent
+                ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML(
                 $this->convert_patents_to_pdf($patents, $caption));

@@ -378,6 +378,8 @@ Route::group(
 						'BranchController@rangedBranches');
 					Route::get('branch/{id}', 
 						'BranchController@viewBranch');
+					Route::get('branch/{id}/range-date/{start}/{end}', 
+						'BranchController@viewRangedBranch');
 
 					// Branch Chart Report
 					Route::get('branch/{id}/branch_ipr_chart_report', 
@@ -445,6 +447,8 @@ Route::group(
 						'DepartmentController@rangedDepartments');
 					Route::get('department/{id}', 
 						'DepartmentController@viewDepartment');
+					Route::get('department/{id}/range-date/{start}/{end}', 
+						'DepartmentController@viewRangedDepartment');
 
 					// Department Chart Report
 					Route::get('department/{id}/department_ipr_chart_report', 

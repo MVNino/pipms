@@ -129,13 +129,13 @@
               @forelse($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/reports/college/{{ $copyright->college_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
-                    {{ $copyright->char_college_code }}
+                  <a href="/admin/reports/college/{{ $patent->college_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
+                    {{ $patent->char_college_code }}
                   </a>
                 </th>
                 <th class="text-center">
-                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
-                  {{ $copyright->str_branch_name }}
+                  <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
+                  {{ $patent->str_branch_name }}
                   </a>
                 </th>
                 <th class="text-center">

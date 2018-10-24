@@ -129,13 +129,13 @@
               @foreach($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/reports/college/{{ $copyright->college_id }}">
-                    {{ $copyright->char_college_code }}
+                  <a href="/admin/reports/college/{{ $patent->college_id }}">
+                    {{ $patent->char_college_code }}
                   </a>
                 </th>
                 <th class="text-center">
-                  <a href="/admin/reports/branch/{{ $copyright->branch_id }}">
-                  {{ $copyright->str_branch_name }}
+                  <a href="/admin/reports/branch/{{ $patent->branch_id }}">
+                  {{ $patent->str_branch_name }}
                   </a>
                 </th>
                 <td class="text-center">
