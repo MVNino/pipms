@@ -70,7 +70,7 @@
                 @foreach($copyrightStats as $copyright)
                 <tr>
                   <th class="text-center">
-                    <a href="/admin/maintenance/department/{{ $copyright->department_id }}">
+                    <a href="/admin/reports/department/{{ $copyright->department_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
                       {{ $copyright->char_department_code }}
                     </a>
                   </th>
@@ -131,8 +131,8 @@
               @foreach($patentStats as $patent)
               <tr>
                 <th class="text-center">
-                  <a href="/admin/maintenance/department/{{ $copyright->department_id }}">
-                    {{ $copyright->char_department_code }}
+                  <a href="/admin/reports/department/{{ $patent->department_id }}/range-date/{{ date('Y-m-d', strtotime($dateStart)) }}/{{ date('Y-m-d', strtotime($dateEnd)) }}">
+                    {{ $patent->char_department_code }}
                   </a>
                 </th>
                 <th class="text-center">

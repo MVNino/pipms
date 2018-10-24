@@ -102,6 +102,45 @@ class BranchController extends Controller
             'collegePatents' => $collegePatents, ]);
     }
 
+    public function viewRangedBranch($id, $start, $end)
+    {
+        // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
+
+        $branch = Branch::findOrFail($id);
+        // extract copyright records of this branch
+        $copyrights = $this->copyright
+            ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+        // extract patent records of this college
+        $patents = $this->patent
+            ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
+
+        // This college's departments
+        $collegeCopyrights = $this->copyright
+            ->miniCopyrightStats($this->unit, $id, 'colleges.int_id');
+        $collegePatents = $this->patent
+            ->miniPatentStats($this->unit, $id, 'colleges.int_id');
+
+        return view('admin.reports.view-ranged-branch', 
+            ['branch' => $branch, 
+            'copyrights' => $copyrights, 
+            'patents' => $patents, 
+            'iprDataCount' => $iprDataCount,
+            'collegeCopyrights' => $collegeCopyrights, 
+            'collegePatents' => $collegePatents, 
+            'dateStart' => $start, 'dateEnd' => $end ]);
+    }
+
     public function branchesPDF()
     {
         $copyrights = $this->copyright
@@ -140,11 +179,13 @@ class BranchController extends Controller
         $caption = 'Copyright Report of '.$branch->str_branch_name;
 
         if ($start != NULL || $end != NULL) {
-            // return ranged copyrights pdf
-            // $pdf = \App::make('dompdf.wrapper');
-            // $pdf->loadHTML(
-            //     $this->convert_copyrights_to_pdf($copyrights, $caption));
-            // return $pdf->stream();
+            // Ranged copyrights pdf
+            $copyrights = $this->copyright
+                ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_copyrights_to_pdf($copyrights, $caption));
+            return $pdf->stream();
         } else {
             // return copyrights pdf
             $copyrights = $this->copyright->copyrightsOfThisUnit($this->unit, $id);
@@ -162,11 +203,12 @@ class BranchController extends Controller
 
         if ($start != NULL || $end != NULL) {
             // return ranged patents pdf
-            // $patents = $this->patent->patentsOfThisUnit($this->unit, $id);
-            // $pdf = \App::make('dompdf.wrapper');
-            // $pdf->loadHTML(
-            //     $this->convert_patents_to_pdf($patents, $caption));
-            // return $pdf->stream();
+            $patents = $this->patent
+                ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_patents_to_pdf($patents, $caption));
+            return $pdf->stream();
         } else {
             // return patents pdf
             $patents = $this->patent->patentsOfThisUnit($this->unit, $id);

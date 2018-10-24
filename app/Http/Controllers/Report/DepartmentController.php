@@ -94,6 +94,37 @@ class DepartmentController extends Controller
             'iprDataCount' => $iprDataCount]);
     }
 
+    public function viewRangedDepartment($id, $start, $end)
+    {
+         // IPR Data Count
+        $iprDataCount = array();
+        $authorCount = $this->user->countAuthors($this->unit, $id);
+        $coAuthorCount = $this->coAuthor->countCoAuthors($this->unit, $id);
+        $copyrightedCount = $this->copyright->countCopyrighted($this->unit, $id);
+        $patentedCount = $this->patent->countPatented($this->unit, $id);
+        $iprDataCount = array(
+            'authorCount' => $authorCount,
+            'coAuthorCount' => $coAuthorCount,
+            'copyrightedCount' => $copyrightedCount,
+            'patentedCount' => $patentedCount
+        );
+        // This department's information
+        $department = Department::findOrFail($id);
+        // extract copyright records of this department
+        $copyrights = $this->copyright
+            ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+        // extract patent records of this department
+        $patents = $this->patent
+            ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
+
+        return view('admin.reports.view-ranged-department', 
+            ['department' => $department, 
+            'copyrights' => $copyrights, 
+            'patents' => $patents,
+            'iprDataCount' => $iprDataCount, 
+            'dateStart' => $start, 'dateEnd' => $end]);
+    }
+
     public function departmentsPDF()
     {
         $copyrights = $this->copyright
