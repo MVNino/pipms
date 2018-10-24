@@ -164,11 +164,13 @@ class DepartmentController extends Controller
         $caption = 'Copyright Report of '.$department->str_department_name;
 
         if ($start != NULL || $end != NULL) {
-            // return ranged copyrights pdf
-            // $pdf = \App::make('dompdf.wrapper');
-            // $pdf->loadHTML(
-            //     $this->convert_copyrights_to_pdf($copyrights, $caption));
-            // return $pdf->stream();
+             // ranged copyright records pdf
+            $copyrights = $this->copyright
+                ->rangedCopyrightsOfThisUnit($this->unit, $id, $start, $end);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_copyrights_to_pdf($copyrights, $caption));
+            return $pdf->stream();
         } else {
             // return copyrights pdf
             $copyrights = $this->copyright->copyrightsOfThisUnit($this->unit, $id);
@@ -186,11 +188,12 @@ class DepartmentController extends Controller
 
         if ($start != NULL || $end != NULL) {
             // return ranged patents pdf
-            // $patents = $this->patent->patentsOfThisUnit($this->unit, $id);
-            // $pdf = \App::make('dompdf.wrapper');
-            // $pdf->loadHTML(
-            //     $this->convert_patents_to_pdf($patents, $caption));
-            // return $pdf->stream();
+            $patents = $this->patent
+                ->rangedPatentsOfThisUnit($this->unit, $id, $start, $end);
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_patents_to_pdf($patents, $caption));
+            return $pdf->stream();
         } else {
             // return patents pdf
             $patents = $this->patent->patentsOfThisUnit($this->unit, $id);

@@ -30,7 +30,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade active show" id="copyright">
               <br>
-              <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/copyrights_pdf" class="btn btn-primary float-right">
+              <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/{{ $dateStart }}/{{ $dateEnd }}/copyrights_pdf" class="btn btn-primary float-right">
                 <i class="fa fa-file"> Generate PDF</i>
               </a>
               <table class="table table-hover table-bordered" id="sampleTable">
@@ -91,7 +91,7 @@
             </div>
             <div class="tab-pane fade" id="patent">
             <br>
-            <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/patents_pdf" class="btn btn-primary float-right">
+            <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/{{ $dateStart }}/{{ $dateEnd }}/patents_pdf" class="btn btn-primary float-right">
               <i class="fa fa-file"> Generate PDF</i>
             </a>
             <table class="table table-hover table-bordered" id="">

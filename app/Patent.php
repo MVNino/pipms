@@ -126,7 +126,8 @@ class Patent extends Model
 	        ->select(DB::raw('count(applicants.int_id) as author_count,
 	        		count(case when char_patent_status = "pending" 
 	        		then 1 else null end) as patent_count_pending, 
-	        		count(case when char_patent_status = "conflict" 
+	        		count(case when char_patent_status = "conflict" or 
+	        		char_patent_status = "to submit/conflict" 
 	        		then 1 else null end) as patent_count_to_conflict,  
 	        		count(case when char_patent_status = "to submit" 
 	        		then 1 else null end) as patent_count_to_submit, 
@@ -152,7 +153,8 @@ class Patent extends Model
 	        ->select(DB::raw('count(applicants.int_id) as author_count, 
 	        		count(case when char_patent_status = "pending" 
 	        		then 1 else null end) as patent_count_pending, 
-	        		count(case when char_patent_status = "conflict" 
+	        		count(case when char_patent_status = "conflict" or 
+	        		char_patent_status = "to submit/conflict" 
 	        		then 1 else null end) as patent_count_to_conflict, 
 	        		count(case when char_patent_status = "to submit" 
 	        		then 1 else null end) as patent_count_to_submit, 
