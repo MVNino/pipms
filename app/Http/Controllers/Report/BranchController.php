@@ -143,6 +143,7 @@ class BranchController extends Controller
 
     public function branchesPDF()
     {
+        return 'hehehe';
         $copyrights = $this->copyright
             ->copyrightStats($this->column);
         $patents = $this->patent
