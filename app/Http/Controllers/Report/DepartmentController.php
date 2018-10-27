@@ -325,7 +325,7 @@ class DepartmentController extends Controller
                         '<td>'.$copyright->copyright_count_pending.'</td>'.
                         '<td>'.$copyright->copyright_count_to_submit.'</td>'.
                         '<td>'.$copyright->copyright_count_on_process.'</td>'.
-                        '<td>'.$copyright->copyright_count_to_submit.'</td>'.
+                        '<td>'.$copyright->copyright_count_to_conflict.'</td>'.
                         '<td>'.$copyright->copyright_count_copyrighted.'</td>
                     </tr>';
             }  
@@ -361,7 +361,7 @@ class DepartmentController extends Controller
                         '<td>'.$patent->patent_count_pending.'</td>'.
                         '<td>'.$patent->patent_count_to_submit.'</td>'.
                         '<td>'.$patent->patent_count_on_process.'</td>'.
-                        '<td>'.$patent->patent_count_to_submit.'</td>'.
+                        '<td>'.$patent->patent_count_to_conflict.'</td>'.
                         '<td>'.$patent->patent_count_patented.'</td>
                     </tr>';
             }  

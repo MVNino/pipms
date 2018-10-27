@@ -275,7 +275,7 @@ class Copyright extends Model
 	        ->get();
 	}
 
-    // Get application issues record
+    // Get application issues record from every unit(branch/college)
     public function getApplicationConflicts($unit, $unitId)
     {
         return $this->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
@@ -288,5 +288,23 @@ class Copyright extends Model
             ->where('char_copyright_status', 'conflict')
             ->where($unit, $unitId)
             ->paginate(5);
+    }
+
+    // Extract copyright application records /w conflict
+    public function listApplicationIssues($start = NULL, $end = NULL){
+    	if ($start == NULL AND $end == NULL) {
+    		return $this->where('char_copyright_status', 'conflict')
+    			->orWhere('char_copyright_status', 'to submit/conflict')
+	    		->orderBy('created_at', 'desc')
+    			->get();
+    	} else {
+    		return $this->whereBetween('created_at', [$start, $end])
+    		    ->where(function ($query) { 
+    		        $query->where('char_copyright_status', 'conflict') 
+    		              ->orWhere('char_copyright_status', 'to submit/conflict'); 
+    		    })
+	    		->orderBy('created_at', 'desc')
+    		    ->get();
+    	}
     }
 }

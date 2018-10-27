@@ -113,9 +113,11 @@
               <tr>
                 <th class="text-center">College</th>
                 <th class="text-center">Branch</th>
+                <th class="text-center">Authors</th>
                 <th colspan="5" class="text-center">Patent</th>
               </tr>
               <tr>
+                <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col">Pending</th>
@@ -138,6 +140,9 @@
                   {{ $patent->str_branch_name }}
                   </a>
                 </th>
+                <td class="text-center text-primary">
+                    {{ $patent->author_count }}
+                </td>
                 <td class="text-center">
                   {{ $patent->patent_count_pending }}
                 </td>

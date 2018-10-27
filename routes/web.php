@@ -362,13 +362,18 @@ Route::group(
 					Route::get('author/{start}/{end}/authors_pdf', 
 						'AuthorController@rangedAuthorsPDF');
 
-					Route::get('schedule-issues', 
-						'ScheduleIssueController@listScheduleIssues')
-						->name('reports.schedule-issues');	
-
 					# Application Issue
 					Route::get('application-issues', 
-						'ApplicationIssueController@listApplicationIssues');
+						'ApplicationIssueController@listApplicationIssues')
+						->name('reports.application-issues');
+					Route::get('application-issues/range-date', 
+						'ApplicationIssueController@rangedApplicationIssues');
+					// Issues PDF
+					Route::get('application-issues_pdf', 
+						'ApplicationIssueController@issuesPdf')
+						->name('reports.application-issues');
+					Route::get('application-issues_pdf/{start}/{end}', 
+						'ApplicationIssueController@issuesPdf');
 
 					# Branches Report
 					Route::get('branches', 
@@ -397,7 +402,7 @@ Route::group(
 					Route::get('branch/{id}/{start}/{end}/patents_pdf', 
 						'BranchController@patentsPDF');
 					// Branch stats PDF
-					Route::get('branch/branches_pdf', 
+					Route::get('branches_pdf', 
 						'BranchController@branchesPDF')
 						->name('branches-pdf');
 					Route::get('branch/{start}/{end}/branches_pdf', 
@@ -433,7 +438,7 @@ Route::group(
 					Route::get('college/{id}/{start}/{end}/patents_pdf', 
 						'CollegeController@patentsPDF');
 					// College Stats PDF
-					Route::get('college/colleges_pdf', 
+					Route::get('colleges_pdf', 
 						'CollegeController@collegesPDF')
 						->name('colleges-pdf');
 					Route::get('college/{start}/{end}/colleges_pdf', 
@@ -468,7 +473,7 @@ Route::group(
 					Route::get('department/{id}/{start}/{end}/patents_pdf', 
 						'DepartmentController@patentsPDF');
 					// Departments Stats PDF
-					Route::get('department/departments_pdf', 
+					Route::get('departments_pdf', 
 						'DepartmentController@departmentsPDF')
 						->name('departments-pdf');
 					Route::get('department/{start}/{end}/departments_pdf', 

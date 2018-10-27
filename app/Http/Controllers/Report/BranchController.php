@@ -143,7 +143,6 @@ class BranchController extends Controller
 
     public function branchesPDF()
     {
-        return 'hehehe';
         $copyrights = $this->copyright
             ->copyrightStats($this->column);
         $patents = $this->patent
@@ -233,7 +232,7 @@ class BranchController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>REPORT</h3><small>('.Carbon::now()->format('F d, Y').')</small>
             <table style="width:100%">
                 <caption>'.$caption.'</caption>
                 <tr>
@@ -275,7 +274,7 @@ class BranchController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>REPORT</h3><small>('.Carbon::now()->format('F d, Y').')</small>
             <table style="width:100%">
                 <caption>'.$caption.'</caption>
                 <tr>
@@ -317,7 +316,7 @@ class BranchController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>REPORT</h3><small>('.Carbon::now()->format('F d, Y').')</small>
             <table style="width:100%">
                 <caption>'.$caption1.'</caption>  
                 <tr>
@@ -343,7 +342,7 @@ class BranchController extends Controller
                         '<td>'.$copyright->copyright_count_pending.'</td>'.
                         '<td>'.$copyright->copyright_count_to_submit.'</td>'.
                         '<td>'.$copyright->copyright_count_on_process.'</td>'.
-                        '<td>'.$copyright->copyright_count_to_submit.'</td>'.
+                        '<td>'.$copyright->copyright_count_to_conflict.'</td>'.
                         '<td>'.$copyright->copyright_count_copyrighted.'</td>
                     </tr>';
             }  
@@ -375,7 +374,7 @@ class BranchController extends Controller
                         '<td>'.$patent->patent_count_pending.'</td>'.
                         '<td>'.$patent->patent_count_to_submit.'</td>'.
                         '<td>'.$patent->patent_count_on_process.'</td>'.
-                        '<td>'.$patent->patent_count_to_submit.'</td>'.
+                        '<td>'.$patent->patent_count_to_conflict.'</td>'.
                         '<td>'.$patent->patent_count_patented.'</td>
                     </tr>';
             }  

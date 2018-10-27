@@ -31,7 +31,7 @@
       </div>
       <div class="col-md-2">
         <a role="button" target="_blank" href="{{ route('branches-pdf') }}" class="btn btn-primary float-right">
-          <i class="fa fa-file"> Generate all to PDF</i>
+          <i class="fa fa-file"> Generate PDF</i>
         </a>
       </div>
   </div>
@@ -126,7 +126,7 @@
                     {{ $patent->str_branch_name }}
                   </a>
                 </th>
-                <td class="text-center">
+                <td class="text-center text-primary">
                   {{ $patent->author_count }}
                 </td>
                 <td class="text-center">
