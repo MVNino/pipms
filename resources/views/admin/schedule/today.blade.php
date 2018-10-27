@@ -13,7 +13,7 @@
 	<div class="col-md-8">	
 	<div class="card">
 		<div class="card-header" style="color: maroon;">
-			<h3>TODAY, {{ Carbon\Carbon::now()->format('jS \of F') }}</h3>
+			<h3>TODAY: {{ Carbon\Carbon::now()->format('jS \of F, Y') }}</h3>
 		</div>
 		<div class="card-body">
 			<ul class="nav nav-tabs">

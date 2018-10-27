@@ -30,7 +30,7 @@
         <div class="col-md-2">
           <a role="button" target="_blank" href="/admin/reports/department/{{ date('Y-m-d', strtotime($dateStart)) }}/
                   {{date('Y-m-d', strtotime($dateEnd))}}/departments_pdf" class="btn btn-primary float-right">
-            <i class="fa fa-file"> Generate all to PDF</i>
+            <i class="fa fa-file"> Generate PDF</i>
           </a>
         </div>
     </div>
@@ -139,11 +139,13 @@
                   <a href="/admin/maintenance/college/{{ $patent->college_id }}">
                     {{ $patent->char_college_code }}
                   </a> - 
-                  <a href="/admin/maintenance/branch/{{ $copyright->branch_id }}">
-                    {{ $copyright->str_branch_name }}
+                  <a href="/admin/maintenance/branch/{{ $patent->branch_id }}">
+                    {{ $patent->str_branch_name }}
                   </a>
                 </th>
-                <td class="text-center">{{ $patent->author_count }}</td>
+                <td class="text-center text-primary">
+                  {{ $patent->author_count }}
+                </td>
                 <td class="text-center">
                   {{ $patent->patent_count_pending }}
                 </td>
