@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-3">
               <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
-                Complied To Requirements
+                Checking of Requirements
               </button>
             </div>
           </div>
@@ -208,7 +208,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Complied to Requirements</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Checking of Requirements</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

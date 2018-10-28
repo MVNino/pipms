@@ -3,7 +3,7 @@
 @section('pg-title')
 <h1><i class="fa fa-building"></i> {{ $department->char_department_code }} Reports</h1>
   <p>Copyright and Patent Statistics as of today, 
-    <span class="text-primary">{{ Carbon\Carbon::now()->format('F d') }}</span> 
+    <span class="text-primary">{{ Carbon\Carbon::now()->format('F d, Y') }}</span> 
   </p>
 @endsection
 
@@ -83,7 +83,14 @@
   </div>
   <div class="col-md-7">
     <div class="tile">
-      <h3 class="tile-title">{{ $department->char_department_code }} Monthly <small>Copyright / Patent Statistics</small></h3>
+      <div class="row">
+        <div class="col-md-8">
+          <h3 class="tile-title">{{ $department->char_department_code }} Monthly <small>Copyright / Patent Statistics</small></h3>
+        </div>
+        <div class="col-md-4">
+          <h3 class="tile-title">Year: {{ date('Y', strtotime(now())) }}</h3>
+        </div> 
+      </div>
       <div class="tile-body">
         <div class="embed-responsive embed-responsive-16by9">
           <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
@@ -98,6 +105,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="tile">
+      <h4 class="tile-head">IPR<small> (Intellectual Property Rights)</small> Records of {{ $department->char_department_code }} <small>as of {{ date('F d, Y', strtotime(now())) }}</small></h4>
       <div class="tile-body">
         <ul class="nav nav-tabs">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyright">Copyright</a></li>
@@ -233,8 +241,232 @@
 <div class="row">
   <div class="col-md-6">
     <div class="tile">
-      <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college: 
-        <br>Copyright Contribution</h3>
+      <h4 class="tile-title">Applicants who did not come on their scheduled date</h4>
+      <div class="row container">
+        <p class="text-info"><b>Record Tally</b></p>  
+        <div class="col-md-3"><b>Copyright: {{ $copyrightConflicts->count() }}</b></div>
+        <div class="col-md-3"><b>Patent: {{ $patentConflicts->count() }}</b></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/ipr-conflicts_pdf/conflict" class="btn btn-primary">
+            <i class="fa fa-file"></i> Generate PDF
+          </a>
+        </div>
+      </div>
+      <div class="tile-body">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyrightConf">Copyright</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patentConf">Patent</a></li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="copyrightConf">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="4" class="text-center text-primary">
+                      Copyright
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-center">Author Name</th>
+                    <th class="text-center">Department</th>
+                    <th class="text-center">Copyright Work Title</th>
+                    <th class="text-center">Date Requested</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($copyrightConflicts as $copyright)
+                  <tr>
+                    <td class="text-center">
+                      <a href="/admin/reports/author/{{ $copyright->int_user_id }}">
+                      {{ $copyright->str_first_name }} 
+                      {{ $copyright->str_last_name }}
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a href="/admin/reports/department/{{ $copyright->int_department_id }}">
+                      {{ $copyright->char_department_code }}
+                      </a>
+                    </td>
+                    <td class="text-center">{{ $copyright->str_project_title }}</td>
+                    <td class="text-center">{{ $copyright->created_at->format('m/d/Y') }}</td>
+                  </tr>
+                  @empty
+                  <div class="alert alert-warning">
+                    There is no record yet.
+                  </div>
+                  @endforelse
+                  {{$copyrightConflicts->links()}}
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="patentConf">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="4" class="text-center text-primary">
+                      Patent
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-center">Author Name</th>
+                    <th class="text-center">Department</th>
+                    <th class="text-center">Patent Work Title</th>
+                    <th class="text-center">Date Requested</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patentConflicts as $patent)
+                  <tr>
+                    <td class="text-center">
+                      <a href="/admin/reports/author/{{ $patent->int_user_id }}">
+                      {{ $patent->str_first_name }} 
+                      {{ $patent->str_last_name }}
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a href="/admin/reports/department/{{ $patent->int_department_id }}">
+                      {{ $patent->char_department_code }}
+                      </a>
+                    </td>
+                    <td class="text-center">{{ $patent->str_patent_project_title }}</td>
+                    <td class="text-center">{{ $patent->created_at->format('m/d/Y') }}</td>
+                  </tr>
+                  @empty
+                  <div class="alert alert-warning">
+                    There is no record yet.
+                  </div>
+                  @endforelse
+                  {{$patentConflicts->links()}}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="tile">
+      <h4 class="tile-title">Applicants with Incomplete Requirements</h4>
+      <div class="row container">
+        <p class="text-info"><b>Record Tally</b></p>  
+        <div class="col-md-3"><b>Copyright: {{ $copyrightsInc->count() }}</b></div>
+        <div class="col-md-3"><b>Patent: {{ $patentsInc->count() }}</b></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <a role="button" target="_blank" href="/admin/reports/department/{{ $department->int_id }}/ipr-conflicts_pdf/to-submit-conflict" class="btn btn-primary">
+            <i class="fa fa-file"></i> Generate PDF
+          </a>
+        </div>
+      </div>
+      <div class="tile-body">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyrightInc">Copyright</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patentInc">Patent</a></li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="copyrightInc">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="4" class="text-center text-primary">
+                      Copyright
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-center">Author Name</th>
+                    <th class="text-center">Department</th>
+                    <th class="text-center">Copyright Work Title</th>
+                    <th class="text-center">Date Requested</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($copyrightsInc as $copyright)
+                  <tr>
+                    <td class="text-center">
+                      <a href="/admin/reports/author/{{ $copyright->int_user_id }}">
+                      {{ $copyright->str_first_name }} 
+                      {{ $copyright->str_last_name }}
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a href="/admin/reports/department/{{ $copyright->int_department_id }}">
+                      {{ $copyright->char_department_code }}
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      {{ $copyright->str_project_title }}</td>
+                    <td class="text-center">{{ $copyright->created_at->format('m/d/Y') }}</td>
+                  </tr>
+                  @empty
+                  <div class="alert alert-warning">
+                    There is no record yet.
+                  </div>
+                  @endforelse
+                  {{$copyrightsInc->links()}}
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="patentInc">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="4" class="text-center text-primary">
+                      Patent
+                    </th>
+                  </tr>
+                  <tr>
+                    <th class="text-center">Author Name</th>
+                    <th class="text-center">Department</th>
+                    <th class="text-center">Patent Work Title</th>
+                    <th class="text-center">Date Requested</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse($patentsInc as $patent)
+                  <tr>
+                    <td class="text-center">
+                      <a href="/admin/reports/author/{{ $patent->int_user_id }}">
+                      {{ $patent->str_first_name }} 
+                      {{ $patent->str_last_name }}
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a href="/admin/reports/department/{{ $patent->int_department_id }}">
+                      {{ $patent->char_department_code }}
+                      </a>
+                    </td>
+                    <td class="text-center">{{ $patent->str_patent_project_title }}</td>
+                    <td class="text-center">{{ $patent->created_at->format('m/d/Y') }}</td>
+                  </tr>
+                  @empty
+                  <div class="alert alert-warning">
+                    There is no record yet.
+                  </div>
+                  @endforelse
+                  {{$patentConflicts->links()}}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="tile">
+      <div class="row">
+        <div class="col-md-8">
+          <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college: 
+            <br>Copyright Contribution
+          </h3>          
+        </div>
+        <div class="col-md-4">
+          <h3 class="tile-title">Year: {{ date('Y', strtotime(now())) }}</h3>
+        </div> 
+      </div>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
       </div>
@@ -242,8 +474,16 @@
   </div>
   <div class="col-md-6">
     <div class="tile">
-      <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college:
-        <br>Patent Contribution</h3>
+      <div class="row">
+        <div class="col-md-8">
+          <h3 class="tile-title">{{ $department->char_department_code }} to {{ $department->college->char_college_code }} college:
+            <br>Patent Contribution
+          </h3>          
+        </div>
+        <div class="col-md-4">
+          <h3 class="tile-title">Year: {{ date('Y', strtotime(now())) }}</h3>
+        </div> 
+      </div>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas>
       </div>
