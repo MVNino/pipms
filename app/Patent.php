@@ -249,7 +249,7 @@ class Patent extends Model
 	}
 
     // Get application issues record from every unit(branch/college)
-    public function getApplicationConflicts($unit, $unitId)
+    public function getApplicationConflicts($unit, $unitId, $status)
     {
         return $this->join('copyrights', 'patents.int_copyright_id', '=', 'copyrights.int_id')
         	->join('applicants', 'copyrights.int_applicant_id', '=', 'applicants.int_id')
@@ -257,9 +257,9 @@ class Patent extends Model
 	        ->join('departments', 'applicants.int_department_id', '=', 'departments.int_id')
 	        ->join('colleges', 'departments.int_college_id', '=', 'colleges.int_id')
 	        ->join('branches', 'colleges.int_branch_id', '=', 'branches.int_id')
-            ->select(DB::raw('str_first_name, str_last_name, char_college_code, 
-            	char_department_code, str_branch_name, str_patent_project_title, patents.created_at'))
-            ->where('char_patent_status', 'conflict')
+            ->select(DB::raw('copyrights.int_id, users.id as int_user_id, str_first_name, str_last_name, int_college_id, char_college_code, 
+            	int_department_id, char_department_code, str_branch_name, str_patent_project_title, patents.created_at'))
+            ->where('char_patent_status', $status)
             ->where($unit, $unitId)
             ->paginate(5);
     }

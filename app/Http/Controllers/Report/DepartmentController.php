@@ -67,6 +67,16 @@ class DepartmentController extends Controller
     // View specific department's reports
     public function viewDepartment($id)
     { 
+        // Get conflicts records
+        $copyrightConflicts = $this->copyright
+            ->getApplicationConflicts($this->unit, $id, 'conflict');
+        $patentConflicts = $this->patent
+            ->getApplicationConflicts($this->unit, $id, 'conflict');
+        // Get conflict records with incomplete requirements
+        $copyrightsInc = $this->copyright
+            ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
+        $patentsInc = $this->patent
+            ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
         // IPR Data Count
         $iprDataCount = array();
         $authorCount = $this->user->countAuthors($this->unit, $id);
@@ -91,7 +101,11 @@ class DepartmentController extends Controller
             ['department' => $department, 
             'copyrights' => $copyrights, 
             'patents' => $patents,
-            'iprDataCount' => $iprDataCount]);
+            'iprDataCount' => $iprDataCount, 
+            'copyrightConflicts' => $copyrightConflicts, 
+            'patentConflicts' => $patentConflicts, 
+            'copyrightsInc' => $copyrightsInc, 
+            'patentsInc' => $patentsInc]);
     }
 
     public function viewRangedDepartment($id, $start, $end)

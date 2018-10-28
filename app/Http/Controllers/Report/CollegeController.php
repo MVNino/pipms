@@ -71,9 +71,15 @@ class CollegeController extends Controller
     {
         // Get conflicts records
         $copyrightConflicts = $this->copyright
-            ->getApplicationConflicts($this->unit, $id);
+            ->getApplicationConflicts($this->unit, $id, 'conflict');
         $patentConflicts = $this->patent
-            ->getApplicationConflicts($this->unit, $id);
+            ->getApplicationConflicts($this->unit, $id, 'conflict');
+        // Get conflict records with incomplete requirements
+        $copyrightsInc = $this->copyright
+            ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
+        $patentsInc = $this->patent
+            ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
+
         // IPR Data Count
         $iprDataCount = array();
         $authorCount = $this->user->countAuthors($this->unit, $id);
@@ -109,7 +115,9 @@ class CollegeController extends Controller
             'departmentCopyrights' => $departmentCopyrights, 
             'departmentPatents' => $departmentPatents, 
             'copyrightConflicts' => $copyrightConflicts, 
-            'patentConflicts' => $patentConflicts]);
+            'patentConflicts' => $patentConflicts, 
+            'copyrightsInc' => $copyrightsInc, 
+            'patentsInc' => $patentsInc]);
     }
 
     // View specific college's reports
@@ -196,7 +204,8 @@ class CollegeController extends Controller
     public function copyrightsPDF($id, $start = NULL, $end = NULL )
     {
         $college = College::findOrFail($id);
-        $caption = 'Copyright Report of '.$college->str_college_name;
+        $caption = $college->char_college_code.' REPORT: <small>Copyright Applications under '.$college->str_college_name;
+        'Copyright Report of '.$college->str_college_name;
 
         if ($start != NULL || $end != NULL) {
              // ranged copyright records pdf
@@ -220,7 +229,7 @@ class CollegeController extends Controller
     public function patentsPDF($id, $start = NULL, $end = NULL)
     {
         $college = College::findOrFail($id);
-        $caption = 'Patent Report of '.$college->str_college_name;
+        $caption = $college->char_college_code.' REPORT: <small>Patent Applications under '.$college->str_college_name;
 
         if ($start != NULL || $end != NULL) {
             // return ranged patents pdf
@@ -240,6 +249,201 @@ class CollegeController extends Controller
         }
     }
 
+    public function iprConflictsPdf($id, $conflictType, $start = NULL, $end = NULL)
+    {
+        $college = College::findOrFail($id);
+        if ($conflictType == 'conflict') {
+            // generate to pdf 'conflict' ipr records
+            if ($start != NULL || $end != NULL) {
+                // return ranged ipr records 'conflict'
+            } else {
+                // return all ipr records 'conflict'
+                $headCaption = $college->char_college_code.' REPORT: <small> Applicants who did not come on their scheduled date';
+                $caption = "Applicant's Copyright Request Records";
+                $copyrights = $this->copyright
+                    ->getApplicationConflicts($this->unit, $id, 'conflict');
+                $caption2 = "Applicant's Patent Request Records";
+                $patents = $this->patent
+                    ->getApplicationConflicts($this->unit, $id, 'conflict');
+                $pdf = \App::make('dompdf.wrapper');
+                $pdf->loadHTML(
+                    $this->convert_ipr_conflicts_to_pdf($copyrights, $patents, $headCaption, $caption, $caption2));
+                return $pdf->stream();
+            }
+        }
+        elseif ($conflictType == 'to-submit-conflict') {
+            // generate to pdf 'to submit/conflict' ipr records
+            if ($start != NULL || $end != NULL) {
+                // return ranged ipr records
+
+            } else {
+                // return all ipr records
+                // Get conflict records with incomplete requirements
+                $headCaption = $college->char_college_code.' REPORT: <small> Applicants with incomplete requirements';
+                $caption = "Applicant's Copyright Request Records";
+                $copyrights = $this->copyright
+                    ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
+                $patents = $this->patent
+                    ->getApplicationConflicts($this->unit, $id, 'to submit/conflict');
+                $caption2 = "Applicant's Patent Request Records";
+                $pdf = \App::make('dompdf.wrapper');
+                $pdf->loadHTML(
+                    $this->convert_ipr_conflicts_to_pdf($copyrights, $patents, $headCaption, $caption, $caption2));
+                return $pdf->stream();
+            }
+        }
+    }
+
+    public function collegeDeptPdf($id, $start = NULL, $end = NULL)
+    {
+        $college = College::findOrFail($id);
+        if ($start != NULL AND $end != NULL) {
+            // ranged
+        } else {
+            // This college's departments ipr records
+            $headCaption = $college->char_college_code.' REPORT: <small> IPR Tallies of the departments/courses under '.$college->char_college_code.' college';
+            $caption = $college->char_college_code.': Tallies of Copyright Records';
+            $caption2 = $college->char_college_code.': Tallies of Patent Records';
+            $deptCopyrights = $this->copyright
+                ->miniCopyrightStats($this->unit, $id, 'departments.int_id');
+            $deptPatents = $this->patent
+                ->miniPatentStats($this->unit, $id, 'departments.int_id');
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML(
+                $this->convert_college_dept_ipr_to_pdf($deptCopyrights, $deptPatents, $headCaption, $caption, $caption2));
+            return $pdf->stream();
+        }
+    }
+
+    public function convert_college_dept_ipr_to_pdf($copyrights, $patents, $headCaption, $caption, $caption2) 
+    {
+        $output = '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <h2>PUP Intellectual Property Management Office</h2>
+            <h3>'.$headCaption.' (as of '.Carbon::now()->format('F d, Y').').</small></h3>
+            <table style="width:100%">
+                <caption>'.$caption.' as of '.date('M d, Y g:iA', strtotime(now())).'</caption>
+                <tr>
+                  <th scope="col">Department</th>
+                  <th scope="col">Copyrighted</th>
+                  <th scope="col">On Its Process</th>
+                  <th scope="col">Failed Requests</th>
+                </tr>';
+            foreach ($copyrights as $copyright) {
+                $output .= '
+                <tr>
+                    <td>'.$copyright->char_department_code.'</td>'.
+                    '<td>'.$copyright->copyrighted_count.'</td>'.
+                    '<td>'.$copyright->copyright_processing_count.'</td>'.
+                    '<td>'.$copyright->copyright_conflict_count.'</td>
+                </tr>';
+            }
+        $output .= '</table><br>';
+
+        $output .= '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <table style="width:100%">
+                <caption>'.$caption2.' as of '.date('M d, Y g:iA', strtotime(now())).'</caption>
+                <tr>
+                  <th scope="col">Department</th>
+                  <th scope="col">Patented</th>
+                  <th scope="col">On Its Process</th>
+                  <th scope="col">Failed Requests</th>
+                </tr>';
+            foreach ($patents as $patent) {
+                $output .= '
+                <tr>
+                    <td>'.$patent->char_department_code.'</td>'.
+                    '<td>'.$patent->patented_count.'</td>'.
+                    '<td>'.$patent->patent_processing_count.'</td>'.
+                    '<td>'.$patent->patent_conflict_count.'</td>
+                </tr>';
+            }
+        $output .= '</table>';   
+        return $output;
+    }
+
+    public function convert_ipr_conflicts_to_pdf($copyrights, $patents, $headCaption, $caption, $caption2)
+    {
+        $output = '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <h2>PUP Intellectual Property Management Office</h2>
+            <h3>'.$headCaption.' (as of '.Carbon::now()->format('F d, Y').').</small></h3>
+            <table style="width:100%">
+                <caption>'.$caption.' as of '.date('M d, Y g:iA', strtotime(now())).'</caption>
+                <tr>
+                  <th scope="col">Author Name</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Copyright Work Title</th>
+                  <th scope="col">Date Requested</th>
+                </tr>';
+            foreach ($copyrights as $copyright) {
+                $output .= '
+                <tr>
+                    <td>'.$copyright->str_first_name.' '.$copyright->str_last_name.'</td>'.
+                    '<td>'.$copyright->char_department_code.'</td>'.
+                    '<td>'.$copyright->str_project_title.'</td>'.
+                    '<td>'.date('m/d/Y', strtotime($copyright->created_at)).'</td>
+                </tr>';
+            }
+        $output .= '</table><br>';
+
+        $output .= '
+            <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            </style>
+            <table style="width:100%">
+                <caption>'.$caption2.' as of '.date('M d, Y g:iA', strtotime(now())).'</caption>
+                <tr>
+                  <th scope="col">Author Name</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Patent Work Title</th>
+                  <th scope="col">Date Requested</th>
+                </tr>';
+            foreach ($patents as $patent) {
+                $output .= '
+                <tr>
+                    <td>'.$patent->str_first_name.' '.$patent->str_last_name.'</td>'.
+                    '<td>'.$patent->char_department_code.'</td>'.
+                    '<td>'.$patent->str_patent_project_title.'</td>'.
+                    '<td>'.date('m/d/Y', strtotime($patent->created_at)).'</td>
+                </tr>';
+            }
+        $output .= '</table>';   
+        return $output;
+
+    }
+
     public function convert_copyrights_to_pdf($copyrights, $caption)
     {
         $output = '
@@ -253,9 +457,8 @@ class CollegeController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>'.$caption.' (as of '.Carbon::now()->format('F d, Y').').</small></h3>
             <table style="width:100%">
-                <caption>'.$caption.'</caption>
                 <tr>
                   <th scope="col">Work Title</th>
                   <th scope="col">Author - Gender - Type</th>
@@ -294,9 +497,8 @@ class CollegeController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>'.$caption.' (as of '.Carbon::now()->format('F d, Y').').</small></h3>            
             <table style="width:100%">
-                <caption>'.$caption.'</caption>
                 <tr>
                   <th scope="col">Patent Work Title</th>
                   <th scope="col">Author - Gender - Type</th>
@@ -335,7 +537,7 @@ class CollegeController extends Controller
             }
             </style>
             <h2>PUP Intellectual Property Management Office</h2>
-            <h3>REPORT</h23><small>('.Carbon::now()->format('F d, Y').')</small>
+            <h3>REPORT</h3><small>('.Carbon::now()->format('F d, Y').')</small>
             <table style="width:100%">
                 <caption>'.$caption1.'</caption>  
                 <tr>

@@ -407,6 +407,14 @@ Route::group(
 						->name('branches-pdf');
 					Route::get('branch/{start}/{end}/branches_pdf', 
 						'BranchController@rangedBranchesPDF');
+					// Branch-College Mini Stats PDF
+					Route::get('branch/{id}/branch-colleges_pdf', 
+						'BranchController@branchColPdf');
+					// Branch IPR Issues PDF
+					Route::get('branch/{id}/ipr-conflicts_pdf/{conflict}', 
+						'BranchController@iprConflictsPdf');
+					Route::get('branch/{id}/ipr-conflicts_pdf/{conflict}', 
+						'BranchController@iprConflictsPdf');
 
 					# Colleges Report
 					Route::get('colleges', 
@@ -443,6 +451,15 @@ Route::group(
 						->name('colleges-pdf');
 					Route::get('college/{start}/{end}/colleges_pdf', 
 						'CollegeController@rangedCollegesPDF');
+					// College-Departments Mini Stats PDF
+					Route::get('college/{id}/college-departments_pdf', 
+						'CollegeController@collegeDeptPdf');
+					// College IPR Issues PDF
+					Route::get('college/{id}/ipr-conflicts_pdf/{conflict}', 
+						'CollegeController@iprConflictsPdf');
+					Route::get('college/{id}/ipr-conflicts_pdf/{conflict}', 
+						'CollegeController@iprConflictsPdf');
+
 
 					# Departments Report
 					Route::get('departments', 

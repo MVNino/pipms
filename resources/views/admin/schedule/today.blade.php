@@ -10,123 +10,188 @@
 @endsection
 @section('content')
 <div class="row">
+	<div class="col-md-8">
+		
+	</div>
+	<div class="col-md-4">
+		
+	</div>
+</div>
+
+
+<div class="row">
 	<div class="col-md-8">	
-	<div class="card">
-		<div class="card-header" style="color: maroon;">
-			<h3>TODAY: {{ Carbon\Carbon::now()->format('jS \of F, Y') }}</h3>
-		</div>
-		<div class="card-body">
-			<ul class="nav nav-tabs">
-	          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyright">Copyright</a></li>
-	          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patent">Patent</a></li>
-	        </ul>
-			<div class="tab-content" id="myTabContent">
-			  <div class="tab-pane fade active show" id="copyright">
-				@forelse($copyrights as $copyright)
-				<div class="container">
-		            <div class="row">
-		              <div class="col-md-4">
-		                <b>{{ $copyright->applicant->user->str_first_name }} 
-		                {{ $copyright->applicant->user->str_last_name }}</b> <br> 
-		                {{ $copyright->applicant->char_applicant_type }} 
-		                (<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
-		                  {{ $copyright->applicant->department->char_department_code }}</a> 
-		                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
-		                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
-		                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
-		                      {{ $copyright->applicant->department->college->branch->str_branch_name }})
-		                    </a>
-		              </div>
-		              <div class="col-md-4">
-		              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
-		              	@if($copyright->patent)
-		              		@if($copyright->patent->char_patent_status == 'to submit')
-		              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
-					              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
-		              			@endif
-		              		@endif
-		              	@endif 
-		              </div>
-		              <div class="col-md-2">
-		              	Time: {{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br>
-		              	@if($copyright->char_copyright_status == 'to submit/conflict')
-		              	<small class="text-muted">Rescheduled</small>
-		              	@endif
-		                {{-- Time: {{ $copyright->dtm_schedule->format('g:i A') }}<br> --}}
-		                @if($copyright->patent)
-		              		@if($copyright->patent->char_patent_status == 'to submit')
-		              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
-		              				@if($copyright->patent->dtm_schedule == $copyright->dtm_schedule)
-					        			{{-- Show nothing --}}
-					        		@else
-					        		Time: {{ $copyright->patent->dtm_schedule->format('g:i A') }}
-					        		@endif
-		              			@endif
-		              		@endif
-		              	@endif
-		              </div>
-		              <div class="col-md-2">
-		              	{{-- {!! Form::open(['action' => ['Admin\ScheduleController@classifyToConflicts', $copyright->int_id], 'method' => 'POST', 'id' => 'formConflicts']) !!}
-		              		@csrf --}}
-		              		<a href="/admin/schedule-today/{{ $copyright->int_id }}/conflict" role="button" class="btn btn-danger"><i class="fa fa-times"></i></a>
-		              		<a role="button" class="btn btn-info" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}"><i class="fa fa-check"></i></a>
-		              		{{-- {{ Form::hidden('_method', 'PUT') }}
-		              		<button type="button" id="demoSwal" class="btn btn-danger"><i class="fa fa-times"></i></button>
-		              	{!! Form::close() !!} --}}
-		              </div>
-		            </div><hr>  
-		          </div>
-				@empty
-              	<div class="alert alert-info">
-					There is no scheduled appointment for today.
+		<div class="card">
+			<div class="card-header" style="color: maroon;">
+				<h3>TODAY: {{ Carbon\Carbon::now()->format('jS \of F Y') }}</h3>
+			</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs">
+		          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyright">Copyright</a></li>
+		          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patent">Patent</a></li>
+		        </ul>
+				<div class="tab-content" id="myTabContent">
+				  <div class="tab-pane fade active show" id="copyright">
+
+				  <div class="table-responsive">
+	              <table class="table table-hover table-bordered" id="sampleTable">
+	                <thead>
+	                  <tr>
+	                    <th class="text-center">Author - Gender - Type</th>
+	                    <th class="text-center">Department - College - Branch</th>
+	                    <th class="text-center">Work Title</th>
+	                    <th class="text-center">Schedule</th>
+	                    <th class="text-center">Cancel Application</th>
+	                    <th class="text-center">Check Requirements</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                	@forelse($copyrights as $copyright)
+	                	<tr>
+	                		<td class="text-center">
+	                			<b>{{ $copyright->applicant->user->str_first_name }} 
+					                {{ $copyright->applicant->user->str_last_name }}
+					            </b> - {{ $copyright->applicant->char_applicant_type }}
+			            	</td>
+	                		<td class="text-center">
+	                			<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+			                  {{ $copyright->applicant->department->char_department_code }}</a> 
+			                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+			                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+			                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+			                      {{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+	                		</td>
+	                		<td class="text-center">
+				              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
+				              	@if($copyright->patent)
+				              		@if($copyright->patent->char_patent_status == 'to submit')
+				              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+							              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
+				              			@endif
+				              		@endif
+				              	@endif
+	                		</td>
+	                		<td class="text-center">
+				              	<b>{{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br></b>
+				              	@if($copyright->char_copyright_status == 'to submit/conflict')
+				              	<small class="text-muted">(Rescheduled)</small>
+				              	@endif
+				                @if($copyright->patent)
+				              		@if($copyright->patent->char_patent_status == 'to submit')
+				              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+				              				@if($copyright->patent->dtm_schedule == $copyright->dtm_schedule)
+							        			{{-- Show nothing --}}
+							        		@else
+							        		<b>{{ $copyright->patent->dtm_schedule->format('g:i A') }}</b>
+							        		@endif
+				              			@endif
+				              		@endif
+				              	@endif
+	                		</td>
+	                		<td class="text-center">
+			              		<a href="/admin/schedule-today/{{ $copyright->int_id }}/conflict" role="button" class="btn btn-danger">
+			              			<i class="fa fa-times"></i>
+			              		</a>
+	                		</td>
+	                		<td class="text-center">
+	                			<a role="button" class="btn btn-info" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+	                				<i class="fa fa-check"></i>
+	                			</a>
+	                		</td>
+	                	</tr>
+	                	@empty
+	                	<div class="alert alert-warning">There is no scheduled appointment for today.</div>
+	                	@endforelse
+	                </tbody>
+	              </table>
+				  </div>
+				  </div>
+				  <div class="tab-pane fade" id="patent">
+					<div class="table-responsive">
+		              <table class="table table-hover table-bordered" id="sampleTable">
+			                <thead>
+			                  <tr>
+			                    <th class="text-center">Author - Gender - Type</th>
+			                    <th class="text-center">Department - College - Branch</th>
+			                    <th class="text-center">Work Title</th>
+			                    <th class="text-center">Schedule</th>
+			                    <th class="text-center">Cancel Application</th>
+			                    <th class="text-center">Check Requirements</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+			                	@forelse($patents as $patent)
+			                	<tr>
+			                		<td class="text-center">
+			                			<b>{{ $patent->copyright->applicant->user->str_first_name }} 
+						                {{ $patent->copyright->applicant->user->str_last_name }}</b> -  
+						                {{ $patent->copyright->applicant->char_applicant_type }}
+			                		</td>
+			                		<td class="text-center">
+			                			<a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+						                  {{ $patent->copyright->applicant->department->char_department_code }}
+						              	</a> 
+						                <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+						                    {{ $patent->copyright->applicant->department->college->char_college_code }}
+						                </a> - 
+						                <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+						                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}
+						                </a>
+			                		</td>
+			                		<td class="text-center">
+			                			Patent: 
+			                			<a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">
+			                				{{ $patent->str_patent_project_title }}
+			                			</a>
+			                			@if($patent->copyright)
+						              		@if($patent->copyright->char_copyright_status == 'to submit')
+						              			@if($patent->copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+									              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $patent->copyright->int_id }}">{{ $patent->copyright->str_project_title }}</a>
+						              			@endif
+						              		@endif
+						              	@endif
+			                		</td>
+			                		<td class="text-center">
+			                			<b>{{ date('g:i A', strtotime($patent->dtm_schedule))}}</b>
+		                				@if($patent->char_patent_status == 'to submit/conflict')
+						              	<small class="text-muted">(Rescheduled)</small>
+						              	@endif
+						                @if($patent->copyright)
+						              		@if($patent->copyright->char_copyright_status == 'to submit')
+						              			@if($patent->copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+						              				@if($patent->copyright->dtm_schedule == $patent->dtm_schedule)
+									        			{{-- Show nothing --}}
+									        		@else
+									        		<b>{{ $patent->copyright->dtm_schedule->format('g:i A') }}</b>
+									        		@endif
+						              			@endif
+						              		@endif
+						              	@endif
+			                		</td>
+			                		<td class="text-center">
+			                			<a href="/admin/schedule-today/{{ $patent->int_id }}/conflict" role="button" class="btn btn-danger">
+			                				<i class="fa fa-times"></i>
+			                			</a>
+			                		</td>
+			                		<td class="text-center">
+			                			<a role="button" class="btn btn-info" href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}"><i class="fa fa-check"></i></a>
+			                		</td>
+			                	</tr>
+			                	@empty
+			                	<div class="alert alert-info">
+									There is no scheduled appointment for today.
+								</div>
+			                	@endforelse
+			                </tbody>
+		            	</table>
+		        	</div>
+				  </div>
 				</div>
-				@endforelse
-			  </div>
-			  <div class="tab-pane fade" id="patent">
-				@forelse($patents as $patent)
-				<div class="container">
-		            <div class="row">
-		              <div class="col-md-4">
-		                <b>{{ $patent->copyright->applicant->user->str_first_name }} 
-		                {{ $patent->copyright->applicant->user->str_last_name }}</b> <br> 
-		                {{ $patent->copyright->applicant->char_applicant_type }} 
-		                (<a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
-		                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
-		                  <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
-		                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
-		                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
-		                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }})
-		                    </a>
-		              </div>
-		              <div class="col-md-4">
-		              	Title: <a href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}">{{ $patent->str_patent_project_title }}</a>
-		              </div>
-		              <div class="col-md-2">
-		              	Time: {{ date('g:i A', strtotime($patent->dtm_schedule))}}<br>
-		              </div>
-		              <div class="col-md-2">
-		              	{{-- {!! Form::open(['action' => ['Admin\ScheduleController@classifyToConflicts', $patent->int_id], 'method' => 'POST', 'id' => 'formConflicts']) !!}
-		              		@csrf --}}
-		              		<a href="/admin/schedule-today/{{ $patent->int_id }}/conflict" role="button" class="btn btn-danger"><i class="fa fa-times"></i></a>
-		              		<a role="button" class="btn btn-info" href="/admin/transaction/patent/to-submit/{{ $patent->int_id }}"><i class="fa fa-check"></i></a>
-		              		{{-- {{ Form::hidden('_method', 'PUT') }}
-		              		<button type="button" id="demoSwal" class="btn btn-danger"><i class="fa fa-times"></i></button>
-		              	{!! Form::close() !!} --}}
-		              </div>
-		            </div><hr>  
-		          </div>
-				@empty
-              	<div class="alert alert-info">
-					There is no scheduled appointment for today.
-				</div>
-				@endforelse
-			  </div>
+			</div>
+			<div class="card-footer">
+				<small style="color:maroon;">Have a nice day!</small>
 			</div>
 		</div>
-		<div class="card-footer">
-			<small style="color:maroon;">Have a nice day!</small>
-		</div>
-	</div>
 	</div>
 	<div class="col-md-4">
 		<div class="card">
@@ -155,7 +220,8 @@
 						<td class="text-center text-warning">{{ $copyTotalCount }}</td>
 					</tr>
 					</tbody>
-				</table><br>
+				</table>
+				<br>
 				<h4>Patents</h4>
 				<table class="table table-hover">
 					<thead>
