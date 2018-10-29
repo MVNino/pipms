@@ -489,7 +489,7 @@
               <th class="text-center">Department</th>
               <th class="text-center text-success">Copyrighted</th>
               <th class="text-center text-info">On Its Process</th>
-              <th class="text-center text-danger">Failed Requests</th>
+              <th class="text-center text-danger">Failed Applications</th>
             </tr>
           </thead>
           <tbody>
@@ -520,7 +520,7 @@
               <th class="text-center">Department</th>
               <th class="text-center text-success">Patented</th>
               <th class="text-center text-info">On Its Process</th>
-              <th class="text-center text-danger">Failed Requests</th>
+              <th class="text-center text-danger">Failed Applications</th>
             </tr>
           </thead>
           <tbody>

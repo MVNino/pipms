@@ -47,6 +47,15 @@ class ScheduleController extends Controller
             })
 			->orderBy('dtm_schedule')
 			->get();
+
+		$copyrightsDone = Copyright::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%')
+			->where('char_copyright_status', '!=', 'to submit') 
+            ->where(function ($query) { 
+                $query->where('dtm_start',  '!=', NULL) 
+                      ->orWhere('int_duration', '!=', NULL); 
+            })
+			->orderBy('dtm_schedule')
+			->get();
 		$copyToProcessCount = Copyright::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%') 
 	            ->where(function ($query) { 
 	                $query->where('char_copyright_status', 'to submit') 
@@ -98,7 +107,7 @@ class ScheduleController extends Controller
 			'copySuccessCount' => $copySuccessCount, 'copyConflictCount' => $copyConflictCount,
 			'copyTotalCount' => $copyTotalCount, 'ptntToProcessCount' => $ptntToProcessCount, 
 			'ptntSuccessCount' => $ptntSuccessCount, 'ptntConflictCount' => $ptntConflictCount, 
-			'ptntTotalCount' => $ptntTotalCount]);
+			'ptntTotalCount' => $ptntTotalCount, 'copyrightsDone' => $copyrightsDone]);
 	}
 
 	public function classifyToConflicts(Request $request, $id)
@@ -106,7 +115,8 @@ class ScheduleController extends Controller
 		$copyright = Copyright::findOrFail($id);
 		$copyright->char_copyright_status = 'conflict';
 		if($copyright->save()) {
-			return redirect()->back();
+			return redirect()->back()
+			->with('success', 'This request has been recorded as a failed application.');
 		}
 	}
 
@@ -115,7 +125,8 @@ class ScheduleController extends Controller
 		$copyright = Copyright::findOrFail($id);
 		$copyright->char_copyright_status = 'conflict';
 		if($copyright->save()) {
-			return redirect()->back()->with('success', 'This request was being added to appointment conflict.');
+			return redirect()->back()
+			->with('success', 'This request has been recorded as a failed application.');
 		}
 	}
 }

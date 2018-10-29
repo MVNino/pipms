@@ -2,23 +2,13 @@
 
 @section('pg-title')
 <h1><i class="fa fa-calendar"></i> Appointments Today</h1>
-  <p>Today's schedule for submission of requirements for copyright registration</p>
+  <p>Today's schedule for submission of requirements for copyright and patent registration</p>
 @endsection
 @section('breadcrumb-label')
 <li class="breadcrumb-item">Schedule</li>
 <li class="breadcrumb-item"><a class="active" href="{{ route('admin.today') }}">Today</a></li>
 @endsection
 @section('content')
-<div class="row">
-	<div class="col-md-8">
-		
-	</div>
-	<div class="col-md-4">
-		
-	</div>
-</div>
-
-
 <div class="row">
 	<div class="col-md-8">	
 		<div class="card">
@@ -37,7 +27,7 @@
 	              <table class="table table-hover table-bordered" id="sampleTable">
 	                <thead>
 	                  <tr>
-	                    <th class="text-center">Author - Gender - Type</th>
+	                    <th class="text-center">Author - Type</th>
 	                    <th class="text-center">Department - College - Branch</th>
 	                    <th class="text-center">Work Title</th>
 	                    <th class="text-center">Schedule</th>
@@ -111,7 +101,7 @@
 		              <table class="table table-hover table-bordered" id="sampleTable">
 			                <thead>
 			                  <tr>
-			                    <th class="text-center">Author - Gender - Type</th>
+			                    <th class="text-center">Author - Type</th>
 			                    <th class="text-center">Department - College - Branch</th>
 			                    <th class="text-center">Work Title</th>
 			                    <th class="text-center">Schedule</th>
@@ -189,7 +179,6 @@
 				</div>
 			</div>
 			<div class="card-footer">
-				<small style="color:maroon;">Have a nice day!</small>
 			</div>
 		</div>
 	</div>
@@ -244,13 +233,92 @@
 			</div>
 		</div>
 	</div>
+</div><br>
+{{-- Succeed Appointments --}}
+<div class="row">
+	<div class="col-md-12">	
+		<div class="card">
+			<div class="card-header" style="color: maroon;">
+				<h4>Appointment History</h4>
+			</div>
+			<div class="card-body">
+				<ul class="nav nav-tabs">
+		          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#copyrightDone">Copyright</a></li>
+		          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patentDone">Patent</a></li>
+		        </ul>
+				<div class="tab-content" id="myTabContent">
+				  <div class="tab-pane fade active show" id="copyrightDone">
+				  	<div class="table-responsive">
+		              <table class="table table-hover table-bordered" id="sampleTable">
+			                <thead>
+			                  <tr>
+			                    <th class="text-center">Author - Type</th>
+			                    <th class="text-center">Department - College - Branch</th>
+			                    <th class="text-center">Work Title</th>
+			                    <th class="text-center">Status</th>
+			                    <th class="text-center">Schedule</th>
+			                    <th class="text-center">Process: Start - End</th>
+			                    <th class="text-center">Duration</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+	                	@forelse($copyrightsDone as $copyright)
+	                	<tr>
+	                		<td class="text-center">
+	                			<b>{{ $copyright->applicant->user->str_first_name }} 
+					                {{ $copyright->applicant->user->str_last_name }}
+					            </b> - {{ $copyright->applicant->char_applicant_type }}
+			            	</td>
+	                		<td class="text-center">
+	                			<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+			                  {{ $copyright->applicant->department->char_department_code }}</a> 
+			                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+			                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+			                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+			                      {{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+	                		</td>
+	                		<td class="text-center">
+				              	Copyright: {{ $copyright->str_project_title }}
+	                		</td>
+	                		<td class="text-center">{{ $copyright->char_copyright_status }}</td>
+	                		<td class="text-center">
+				              	<b>{{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br></b>
+				              	{{-- @if($copyright->char_copyright_status == 'to submit/conflict')
+				              	<small class="text-muted">(Rescheduled)</small>
+				              	@endif --}}
+	                		</td>
+	                		<td class="text-center">
+	                			{{ date('g:i A', strtotime($copyright->dtm_start)) }} -> 
+	                			@if($copyright->dtm_end)
+	                			{{ date('g:i A', strtotime($copyright->dtm_end)) }}
+	                			@else
+	                			( -- )
+	                			@endif
+	                		</td>
+	                		<td class="text-center">
+	                			{{ $copyright->int_duration }} minutes
+	                		</td>
+	                	</tr>
+	                	@empty
+	                	<div class="alert alert-warning">There is no scheduled appointment for today.</div>
+	                	@endforelse
+					        </tbody>
+					    </table>
+				  </div>
+				</div>
+			  <div class="tab-pane fade" id="patentDone">
+			  	PATENT
+			  </div>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
 {{-- Sweet Alert --}}
-<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+{{-- <script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
 $('#demoSwal').click(function(){
   swal({
@@ -271,7 +339,7 @@ $('#demoSwal').click(function(){
     }
   });
 });
-</script>
+</script> --}}
 <script>
   $(document).ready(function(){
     $('#li-schedule').addClass('is-expanded');
