@@ -204,6 +204,8 @@ Route::group(
 						->name('transaction.copyright-to-submit');
 					Route::get('copyright/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitCopyrightRequest');
+					Route::put('copyright/to-submit/{id}/timer', 
+						'ToSubmitController@toSubmitCopyrightTimer');
 					Route::post('copyright/to-submit/incomplete', 
 						'ToSubmitController@incompleteRequirements');
 					Route::put('copyright/to-submit-to-on-process/{id}', 

@@ -20,12 +20,34 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-md-9">
-              <h4>Copyright Details</h4>
+              <h5>Schedule: 
+              @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+                {{-- If today --}}
+                Today at {{ $copyright->dtm_schedule->format('g:i A') }}
+              @elseif($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+                {{-- If tomorrow --}}
+                Tomorrow at {{ $copyright->dtm_schedule->format('g:i A') }}
+              @else
+                {{ $copyright->dtm_schedule->format('l, M d') }} at 
+                {{ $copyright->dtm_schedule->format('g:i A') }}
+              @endif
+              </h5>
             </div>
             <div class="col-md-3">
-              <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
-                Checking of Requirements
-              </button>
+              @if(!$copyright->dtm_start || ($copyright->char_copyright_status == 'to submit/conflict' && $copyright->dtm_start))
+                {{-- Display timer button --}}
+                {!! Form::open(['id' => 'formTimer','action' => ['Transaction\ToSubmitController@toSubmitCopyrightTimer', $copyright->int_id], 'method' => 'POST']) !!}
+                  @csrf
+                  {{ Form::hidden('_method', 'PUT') }}
+                  <button type="button" id="demoSwal" class="btn btn-primary mb-1 float-right">
+                    <i class="fa fa-clock-o"></i> Checking of Requirements
+                  </button>
+                {!! Form::close() !!}
+              @else
+                <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
+                  Checking of Requirements
+                </button>
+              @endif
             </div>
           </div>
         </div>
@@ -144,19 +166,6 @@
                 {{ $copyright->created_at->format('M d, Y')}}
               @endif
             </div>
-            <div class="col-md-6">
-              <strong>Schedule: </strong>
-              @if($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
-                {{-- If today --}}
-                Today at {{ $copyright->dtm_schedule->format('g:i A') }}
-              @elseif($copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
-                {{-- If tomorrow --}}
-                Tomorrow at {{ $copyright->dtm_schedule->format('g:i A') }}
-              @else
-                {{ $copyright->dtm_schedule->format('l, M d') }} at 
-                {{ $copyright->dtm_schedule->format('g:i A') }}
-              @endif
-            </div>
           </div>
         </div>
       </div>
@@ -214,10 +223,6 @@
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => 'Transaction\ToSubmitController@incompleteRequirements', 
-        'method' => 'POST', 'autocomplete' => 'off']) !!}
-          @csrf
-          <input type="text" name="copyrightId" value="{{ $copyright->int_id }}" hidden readonly>
           <p class="text-muted">The applicant must have the following requirements 
             for their work's copyright registration: </p>
           <div class="bs-component">
@@ -227,39 +232,63 @@
                 <!--Checkbox Markup-->
                 <div class="animated-checkbox">
                   <label>
-                    <input name="checkRequirement_{{ $requirement->int_id }}" type="checkbox" checked><span class="label-text">{{ $requirement->str_requirement }}</span>
+                    <input name="checkRequirement_{{ $requirement->int_id }}" id="idRequirement_{{ $requirement->int_id }}" type="checkbox" checked><span class="label-text">{{ $requirement->str_requirement }}</span>
                   </label>
                 </div>
               </div>
               @endforeach
-              <br>
-              <label class="text-info">Re-schedule the client if he didn't brought all the requirments.</label>              
-              <div class="form-group">
-                <label class="form-label" for="demoDate">Date</label>
-                <input class="form-control" name="dateSchedule" id="demoDate" type="text" placeholder="Select Date" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="timeSched">Time</label>
-                <input type="time" id="timeSched" name="timeSchedule" class="form-control" required>
-              </div>
             </div>
           </div> 
       </div>
       <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary"><i class="fa fa-fw fa-lg fa-times-circle"></i>Incomplete</button>
-          {!! Form::close() !!}
-
-          {!! Form::open(['action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
-        'method' => 'POST']) !!}
-          @csrf
-          {{ Form::hidden('_method', 'PUT') }}
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Complied</button>
+        {!! Form::open(['id' => 'formOnProcess', 'action' => ['Transaction\ToSubmitController@changeStatusToOnProcess', $copyright->int_id], 
+      'method' => 'POST']) !!}
+        @csrf
+        {{ Form::hidden('_method', 'PUT') }}
+          <button type="button" id="btnOk" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Proceed</button>
         {!! Form::close() !!}
       </div>
     </div>
   </div>
 </div> 
 <!-- /Compliance modal -->
+
+{{-- Reschedule Modal --}}
+<div class="modal fade" id="reSchedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongReSched" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLongReSched">Appointment Reschedule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ 
+      {!! Form::open(['action' => 'Transaction\ToSubmitController@incompleteRequirements', 
+        'method' => 'POST', 'autocomplete' => 'off']) !!}
+        @csrf
+        <label class="text-info">It seems the client didn't bring all the requirements. 
+          <br>Set date and time for his appointment reschedule.
+        </label>              
+        <input type="text" name="copyrightId" value="{{ $copyright->int_id }}" hidden readonly>               
+        <div class="form-group">
+          <label class="form-label" for="demoDate">Date</label>
+          <input class="form-control" name="dateSchedule" id="demoDate" type="text" placeholder="Select Date" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="timeScheduleId">Time</label>
+          <input type="time" name="timeSchedule" id="timeScheduleId" class="form-control" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Set</button>
+      </div>
+      {!! Form::close() !!} 
+    </div>
+  </div>
+</div>
+{{-- /Reschedule Modal --}}
 @empty
   @include('admin.includes.page-error')
 @endforelse
@@ -267,6 +296,75 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+<script>
+  $('#btnOk').click((e) => {
+    // if ($('#idRequirement_1').attr('checked', false)) {
+    //   console.log('unchecked siya ihh!');
+    // }
+    var requirement1 = $("#idRequirement_1").val();
+    var requirement2 = $("#idRequirement_2").val();
+    var requirement4 = $("#idRequirement_4").val();
+    var requirement5 = $("#idRequirement_5").val();
+    var requirement6 = $("#idRequirement_6").val();
+    var requirement7 = $("#idRequirement_7").val();
+    var requirement8 = $("#idRequirement_8").val();
+
+    if ($("#idRequirement_1").is(":checked") && $("#idRequirement_2").is(":checked") && $("#idRequirement_4").is(":checked") && $("#idRequirement_5").is(":checked") && $("#idRequirement_6").is(":checked") && $("#idRequirement_7").is(":checked") && $("#idRequirement_8").is(":checked")) {
+        // proceed record to on process
+          $("#formOnProcess").submit();
+    }
+    else {
+      e.preventDefault();
+      $('#complianceModal')
+          .modal('hide')
+          .on('hidden.bs.modal', function (e) {
+              $('#reSchedModal').modal('show');
+              $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+          });
+    }
+
+    // $("#btnReschedule").click((e) => {
+    //   e.preventDefault();
+    //   var copyrightId = $(#copyrightId).val();
+    //   var dateSchedule = $(#dateSchedule).val();
+    //   var timeSchedule = $(#timeSchedule).val();
+    //   $.post('/admin/transaction/copyright/to-submit/incomplete', {
+    //     'copyrightId': copyrightId, 
+    //     'dateSchedule': dateSchedule, 
+    //     'timeSchedule': timeSchedule,
+    //     '_token': $("input[name=token]").val()
+    //     }, 
+    //     function(data){
+    //       console.log(data);
+    //     } 
+
+    //   );
+    // });
+
+  });
+</script>
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Activate timer?",
+    text: "To proceed to the checking of requirements.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formTimer').submit();
+      swal("Timer Activated", "You can now proceed to the checking of requirements.", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>
 $('#demoDate').datepicker({

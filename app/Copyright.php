@@ -20,7 +20,9 @@ class Copyright extends Model
 		'dtm_schedule',
 		'dtm_to_submit',
 		'dtm_on_process',
-		'dtm_copyrighted'
+		'dtm_copyrighted',
+		'dtm_start',
+		'dtm_end'
 	];
 
 	public function user(){

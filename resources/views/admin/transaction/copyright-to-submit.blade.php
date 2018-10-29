@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-md-9">
           <h4 class="tile-title text-muted">
-            Today, {{ Carbon\Carbon::now()->format('F d') }}
+            Today: {{ Carbon\Carbon::now()->format('F d, Y') }}
           </h4>
         </div>
         <div class="col-md-3">
@@ -63,7 +63,7 @@
   <div class="col-md-6">
     <div class="tile">
       <h4 class="tile-title text-muted">
-        Tomorrow, {{ Carbon\Carbon::now()->addDay()->format('F d') }}
+        Tomorrow: {{ Carbon\Carbon::now()->addDay()->format('F d, Y') }}
       </h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
@@ -103,7 +103,7 @@
   <div class="col-md-6">
     <div class="tile">
       <h4 class="tile-title text-muted">
-        {{ Carbon\Carbon::now()->addDays(2)->format('l, F d') }}
+        {{ Carbon\Carbon::now()->addDays(2)->format('l: F d, Y') }}
       </h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
@@ -142,7 +142,7 @@
 
   <div class="col-md-6">
     <div class="tile">
-      <h4 class="tile-title text-muted">{{ Carbon\Carbon::now()->addDays(3)->format('l, F d') }}</h4>
+      <h4 class="tile-title text-muted">{{ Carbon\Carbon::now()->addDays(3)->format('l: F d, Y') }}</h4>
       <div class="tile-body">
         @forelse($copyrights as $copyright)
           @if($copyright->dtm_schedule->day == Carbon\Carbon::now()->addDays(3)->day)
