@@ -55,7 +55,7 @@
 				              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">{{ $copyright->str_project_title }}</a><br>
 				              	@if($copyright->patent)
 				              		@if($copyright->patent->char_patent_status == 'to submit')
-				              			@if($copyright->patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+				              			@if(date('Y-m-d', strtotime($copyright->patent->dtm_schedule)) == date('Y-m-d', strtotime(now())))
 							              	Patent: <a href="/admin/transaction/patent/to-submit/{{ $copyright->patent->int_id }}">{{ $copyright->patent->str_patent_project_title }}</a>
 				              			@endif
 				              		@endif
@@ -79,12 +79,12 @@
 				              	@endif
 	                		</td>
 	                		<td class="text-center">
-			              		<a href="/admin/schedule-today/{{ $copyright->int_id }}/conflict" role="button" class="btn btn-danger">
+			              		<a href="/admin/schedule-today/{{ $copyright->int_id }}/copyright/conflict" role="button" class="btn btn-circle btn-danger">
 			              			<i class="fa fa-times"></i>
 			              		</a>
 	                		</td>
 	                		<td class="text-center">
-	                			<a role="button" class="btn btn-info" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
+	                			<a role="button" class="btn btn-circle btn-info" href="/admin/transaction/copyright/to-submit/{{ $copyright->int_id }}">
 	                				<i class="fa fa-check"></i>
 	                			</a>
 	                		</td>
@@ -135,7 +135,7 @@
 			                			</a>
 			                			@if($patent->copyright)
 						              		@if($patent->copyright->char_copyright_status == 'to submit')
-						              			@if($patent->copyright->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+						              			@if(date('Y-m-d', strtotime($patent->copyright->dtm_schedule)) == date('Y-m-d', strtotime(now())))
 									              	Copyright: <a href="/admin/transaction/copyright/to-submit/{{ $patent->copyright->int_id }}">{{ $patent->copyright->str_project_title }}</a>
 						              			@endif
 						              		@endif
@@ -159,7 +159,7 @@
 						              	@endif
 			                		</td>
 			                		<td class="text-center">
-			                			<a href="/admin/schedule-today/{{ $patent->int_id }}/conflict" role="button" class="btn btn-danger">
+			                			<a href="/admin/schedule-today/{{ $patent->int_id }}/patent/conflict" role="button" class="btn btn-danger">
 			                				<i class="fa fa-times"></i>
 			                			</a>
 			                		</td>
@@ -189,7 +189,7 @@
 			</div>
 			<div class="card-body">
 				<div class="text-center text-muted">
-					<h4>Today's IPR Tally Board</h4>
+					<h4>IPR Tally Board ({{ date('m/d/Y', strtotime(now())) }})</h4>
 				</div><br>
 				<h4>Copyrights</h4>
 				<table class="table table-hover">
@@ -247,68 +247,151 @@
 		          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#patentDone">Patent</a></li>
 		        </ul>
 				<div class="tab-content" id="myTabContent">
-				  <div class="tab-pane fade active show" id="copyrightDone">
-				  	<div class="table-responsive">
-		              <table class="table table-hover table-bordered" id="sampleTable">
-			                <thead>
-			                  <tr>
-			                    <th class="text-center">Author - Type</th>
-			                    <th class="text-center">Department - College - Branch</th>
-			                    <th class="text-center">Work Title</th>
-			                    <th class="text-center">Status</th>
-			                    <th class="text-center">Schedule</th>
-			                    <th class="text-center">Process: Start - End</th>
-			                    <th class="text-center">Duration</th>
-			                  </tr>
-			                </thead>
-			                <tbody>
-	                	@forelse($copyrightsDone as $copyright)
-	                	<tr>
-	                		<td class="text-center">
-	                			<b>{{ $copyright->applicant->user->str_first_name }} 
-					                {{ $copyright->applicant->user->str_last_name }}
-					            </b> - {{ $copyright->applicant->char_applicant_type }}
-			            	</td>
-	                		<td class="text-center">
-	                			<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
-			                  {{ $copyright->applicant->department->char_department_code }}</a> 
-			                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
-			                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
-			                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
-			                      {{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
-	                		</td>
-	                		<td class="text-center">
-				              	Copyright: {{ $copyright->str_project_title }}
-	                		</td>
-	                		<td class="text-center">{{ $copyright->char_copyright_status }}</td>
-	                		<td class="text-center">
-				              	<b>{{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br></b>
-				              	{{-- @if($copyright->char_copyright_status == 'to submit/conflict')
-				              	<small class="text-muted">(Rescheduled)</small>
-				              	@endif --}}
-	                		</td>
-	                		<td class="text-center">
-	                			{{ date('g:i A', strtotime($copyright->dtm_start)) }} -> 
-	                			@if($copyright->dtm_end)
-	                			{{ date('g:i A', strtotime($copyright->dtm_end)) }}
-	                			@else
-	                			( -- )
-	                			@endif
-	                		</td>
-	                		<td class="text-center">
-	                			{{ $copyright->int_duration }} minutes
-	                		</td>
-	                	</tr>
-	                	@empty
-	                	<div class="alert alert-warning">There is no scheduled appointment for today.</div>
-	                	@endforelse
-					        </tbody>
-					    </table>
-				  </div>
+					<div class="tab-pane fade active show" id="copyrightDone">
+					  	<div class="table-responsive">
+			              <table class="table table-hover table-bordered" id="sampleTable">
+				                <thead>
+				                  <tr>
+				                    <th class="text-center">Author - Type</th>
+				                    <th class="text-center">Department - College - Branch</th>
+				                    <th class="text-center">Work Title</th>
+				                    <th class="text-center">Status</th>
+				                    <th class="text-center">Schedule</th>
+				                    <th class="text-center">Process Start</th>
+				                    <th class="text-center">Process End</th>
+				                    <th class="text-center">Duration</th>
+				                  </tr>
+				                </thead>
+				                <tbody>
+		                	@forelse($copyrightsDone as $copyright)
+		                	<tr>
+		                		<td class="text-center">
+		                			<b>{{ $copyright->applicant->user->str_first_name }} 
+						                {{ $copyright->applicant->user->str_last_name }}
+						            </b> - {{ $copyright->applicant->char_applicant_type }}
+				            	</td>
+		                		<td class="text-center">
+		                			<a href="/admin/maintenance/department/{{ $copyright->applicant->int_department_id }}">
+				                  {{ $copyright->applicant->department->char_department_code }}</a> 
+				                  <a href="/admin/maintenance/college/{{ $copyright->applicant->department->int_college_id }}">
+				                    {{ $copyright->applicant->department->college->char_college_code }}</a> - 
+				                    <a href="/admin/maintenance/branch/{{ $copyright->applicant->department->college->int_branch_id }}">
+				                      {{ $copyright->applicant->department->college->branch->str_branch_name }}</a>
+		                		</td>
+		                		<td class="text-center">
+					              	Copyright: {{ $copyright->str_project_title }}
+		                		</td>
+		                		<td class="text-center">{{ $copyright->char_copyright_status }}</td>
+		                		<td class="text-center">
+					              	<b>{{ date('g:i A', strtotime($copyright->dtm_schedule))}}<br></b>
+					              	{{-- @if($copyright->char_copyright_status == 'to submit/conflict')
+					              	<small class="text-muted">(Rescheduled)</small>
+					              	@endif --}}
+		                		</td>
+		                		<td class="text-center">
+		            				@if($copyright->dtm_start)
+		                			{{ date('g:i A', strtotime($copyright->dtm_start)) }}
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                		<td class="text-center">
+		            				@if($copyright->dtm_end)
+		                			{{ date('g:i A', strtotime($copyright->dtm_end)) }}
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                		<td class="text-center">
+		            				@if($copyright->int_duration)
+		            					@if($copyright->int_duration < 2)
+			            					{{ $copyright->int_duration }} minute
+		            					@else
+			            					{{ $copyright->int_duration }} minutes
+		            					@endif
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                	</tr>
+		                	@empty
+		                	<div class="alert alert-warning">There is no record yet.</div>
+		                	@endforelse
+						        </tbody>
+						    </table>
+					  	</div>
+					</div>
+				<div class="tab-pane fade" id="patentDone">
+					<div class="table-responsive">
+			              <table class="table table-hover table-bordered" id="sampleTable">
+				                <thead>
+				                  <tr>
+				                    <th class="text-center">Author - Type</th>
+				                    <th class="text-center">Department - College - Branch</th>
+				                    <th class="text-center">Work Title</th>
+				                    <th class="text-center">Status</th>
+				                    <th class="text-center">Schedule</th>
+				                    <th class="text-center">Process Start</th>
+				                    <th class="text-center">Process End</th>
+				                    <th class="text-center">Duration</th>
+				                  </tr>
+				                </thead>
+				                <tbody>
+		                	@forelse($patentsDone as $patent)
+		                	<tr>
+		                		<td class="text-center">
+		                			<b>{{ $patent->copyright->applicant->user->str_first_name }} 
+						                {{ $patent->copyright->applicant->user->str_last_name }}
+						            </b> - {{ $patent->copyright->applicant->char_applicant_type }}
+				            	</td>
+		                		<td class="text-center">
+		                			<a href="/admin/maintenance/department/{{ $patent->copyright->applicant->int_department_id }}">
+				                  {{ $patent->copyright->applicant->department->char_department_code }}</a> 
+				                  <a href="/admin/maintenance/college/{{ $patent->copyright->applicant->department->int_college_id }}">
+				                    {{ $patent->copyright->applicant->department->college->char_college_code }}</a> - 
+				                    <a href="/admin/maintenance/branch/{{ $patent->copyright->applicant->department->college->int_branch_id }}">
+				                      {{ $patent->copyright->applicant->department->college->branch->str_branch_name }}</a>
+		                		</td>
+		                		<td class="text-center">
+					              	Patent: {{ $patent->str_patent_project_title }}
+		                		</td>
+		                		<td class="text-center">{{ $patent->char_patent_status }}</td>
+		                		<td class="text-center">
+					              	<b>{{ date('g:i A', strtotime($patent->dtm_schedule))}}<br></b>
+		                		</td>
+		                		<td class="text-center">
+		            				@if($patent->dtm_start)
+		                			{{ date('g:i A', strtotime($patent->dtm_start)) }}
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                		<td class="text-center">
+		            				@if($patent->dtm_end)
+		                			{{ date('g:i A', strtotime($patent->dtm_end)) }}
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                		<td class="text-center">
+		            				@if($patent->int_duration)
+		            					@if($patent->int_duration < 2)
+			            					{{ $patent->int_duration }} minute
+		            					@else
+			            					{{ $patent->int_duration }} minutes
+		            					@endif
+		                			@else
+		                			( -- )
+		                			@endif
+		                		</td>
+		                	</tr>
+		                	@empty
+		                	<div class="alert alert-warning">There is no record yet.</div>
+		                	@endforelse
+						        </tbody>
+						    </table>
+					  	</div>
 				</div>
-			  <div class="tab-pane fade" id="patentDone">
-			  	PATENT
-			  </div>
 			</div>
 		</div>
 	</div>

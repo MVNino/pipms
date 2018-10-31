@@ -163,7 +163,7 @@
               @elseif($copyright->created_at->diffInDays(Carbon\Carbon::now()) == 2)
                 2 days ago at {{ $copyright->created_at->format('h:i:A') }}
               @else
-                {{ $copyright->created_at->format('M d, Y')}}
+                {{ $copyright->created_at->format('F d, Y')}}
               @endif
             </div>
           </div>
@@ -217,7 +217,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Checking of Requirements</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Checking of Requirements <br><small class="text-info">Time Started: {{ date('g:i A', strtotime($copyright->dtm_start)) }}</small></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -258,7 +258,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongReSched">Appointment Reschedule</h5>
+        <h5 class="modal-title" id="exampleModalLongReSched">Appointment Reschedule <br><small class="text-info">Time Started: {{ date('g:i A', strtotime($copyright->dtm_start)) }}</small>
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -268,7 +269,7 @@
       {!! Form::open(['action' => 'Transaction\ToSubmitController@incompleteRequirements', 
         'method' => 'POST', 'autocomplete' => 'off']) !!}
         @csrf
-        <label class="text-info">It seems the client didn't bring all the requirements. 
+        <label>It seems the client didn't bring all the requirements. 
           <br>Set date and time for his appointment reschedule.
         </label>              
         <input type="text" name="copyrightId" value="{{ $copyright->int_id }}" hidden readonly>               
@@ -343,6 +344,7 @@
 
   });
 </script>
+{{-- Sweet Alert --}}
 <script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
 $('#demoSwal').click(function(){

@@ -20,7 +20,9 @@ class Patent extends Model
 		'dtm_schedule',
 		'dtm_to_submit',
 		'dtm_on_process',
-		'dtm_patented'
+		'dtm_patented',
+		'dtm_start',
+		'dtm_end'
 	];
 
 	// Relationship of 'patents' to 'copyrights'
@@ -36,6 +38,11 @@ class Patent extends Model
 	public function project()
 	{
 		return $this->belongsTo('App\Project', 'int_project_id', 'int_id');
+	}
+
+	public function requirements()
+	{
+		return $this->hasMany('App\PatentRequirementList', 'int_patent_id', 'int_id');
 	}
 
 	// Listing of all patent records
@@ -78,7 +85,7 @@ class Patent extends Model
 	public function toSubmit($status)
 	{
 		return $this->with('copyright.applicant.department.college.branch')
-            ->where('char_patent_status', $status)
+            ->where('char_patent_status', 'LIKE', '%'.$status.'%')
             ->where('dtm_schedule', '!=', null)
             ->orderBy('dtm_schedule')
             ->get();
@@ -89,6 +96,16 @@ class Patent extends Model
 	{
 		return $this->with('copyright.applicant.department.college.branch')
             ->where('char_patent_status', $status)
+            ->where('dtm_schedule', '!=', NULL)
+            ->where('int_id', $id)
+            ->get();
+	}
+
+	// View a 'to submit' copyright record
+	public function viewToSubmitConflict($id)
+	{
+		return $this->with('copyright.applicant.department.college.branch')
+            ->orWhere('char_patent_status', 'to submit/conflict')
             ->where('dtm_schedule', '!=', NULL)
             ->where('int_id', $id)
             ->get();

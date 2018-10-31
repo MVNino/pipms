@@ -65,14 +65,14 @@
     <div class="tile">
       <h3 class="tile-title">Copyright/Patent Monthly Overview</h3>
       <div class="embed-responsive embed-responsive-16by9">
-        <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+        <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
       </div>
     </div>
   </div>
   <div class="col-md-12 col-lg-6">
     <div class="tile">
       <h3 class="tile-title">
-        Copyrights for {{ Carbon\Carbon::now()->format('F') }}
+        Copyrights for {{ Carbon\Carbon::now()->format('F Y') }}
       </h3>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
@@ -85,13 +85,13 @@
     <div class="tile">
       <h3 class="tile-title">Monthly Copyrighted & Patented</h3>
       <div class="embed-responsive embed-responsive-16by9">
-        <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+        <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
       </div>
     </div>
   </div>
   <div class="col-md-12 col-lg-6">
     <div class="tile">
-      <h3>Patents for {{ Carbon\Carbon::now()->format('F') }}</h3>
+      <h3>Patents for {{ Carbon\Carbon::now()->format('F Y') }}</h3>
       <div class="embed-responsive embed-responsive-16by9">
         <canvas class="embed-responsive-item" id="doughnutChartDemo"></canvas>
       </div>

@@ -87,10 +87,10 @@
         </div> 
       </div>
       <div class="row">
-        <div class="col-md-3">Copyrights: 191</div>
-        <div class="col-md-3">Patents: 81</div>
-        <div class="col-md-3">Authors: 256</div>
-        <div class="col-md-3">Application Issues: 35</div>
+        <div class="col-md-3">Copyrights: {{ $iprDataCount['copyrightedCount'][0]->copyrighted_count }}</div>
+        <div class="col-md-3">Patents: {{ $iprDataCount['patentedCount'][0]->patented_count }}</div>
+        <div class="col-md-3">Authors: {{ $iprDataCount['authorCount'][0]->author_count }}</div>
+        <div class="col-md-3">Application Issues: 23</div>
       </div>
       <div class="tile-body">
         <div class="embed-responsive embed-responsive-16by9">
@@ -611,7 +611,7 @@
 <script type="text/javascript" src="{{ asset('vali/js/plugins/chart.js') }}"></script>
 <script type="text/javascript">
   var linedata = {
-    labels: ["January", "February", "March", "April", "May"],
+    labels: ["June", "July", "August", "September", "October"],
     datasets: [
       {
         label: "My Second dataset",
@@ -621,7 +621,7 @@
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(151,187,205,1)",
-        data: [28, 48, 40, 19, 86]
+        data: [18, 38, 30, 19, 56]
       }
     ]
   };

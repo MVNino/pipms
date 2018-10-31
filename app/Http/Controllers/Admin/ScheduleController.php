@@ -40,9 +40,12 @@ class ScheduleController extends Controller
 	{
 		// return copyrights TODAY
 		$dateNow = Carbon::now()->format('Y-m-d');
-		$copyrights = Copyright::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%') 
+		$copyrights = Copyright::where(function ($query) {
+				$query->where('dtm_schedule', 'LIKE', '%'.Carbon::now()->format('Y-m-d').'%')
+				->orWhere('dtm_reschedule', 'LIKE', '%'.Carbon::now()->format('Y-m-d').'%');
+			}) 
             ->where(function ($query) { 
-                $query->where('char_copyright_status', 'to submit') 
+                $query->where('char_copyright_status', 'to submit')
                       ->orWhere('char_copyright_status', 'to submit/conflict'); 
             })
 			->orderBy('dtm_schedule')
@@ -50,12 +53,21 @@ class ScheduleController extends Controller
 
 		$copyrightsDone = Copyright::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%')
 			->where('char_copyright_status', '!=', 'to submit') 
-            ->where(function ($query) { 
-                $query->where('dtm_start',  '!=', NULL) 
-                      ->orWhere('int_duration', '!=', NULL); 
-            })
+            // ->where(function ($query) { 
+            //     $query->where('dtm_start',  '!=', NULL) 
+            //           ->orWhere('int_duration', '!=', NULL); 
+            // })
 			->orderBy('dtm_schedule')
 			->get();
+		$patentsDone = Patent::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%')
+			->where('char_patent_status', '!=', 'to submit') 
+            // ->where(function ($query) { 
+            //     $query->where('dtm_start',  '!=', NULL)
+            //           ->orWhere('int_duration', '!=', NULL); 
+            // })
+			->orderBy('dtm_schedule')
+			->get();
+
 		$copyToProcessCount = Copyright::where('dtm_schedule', 'LIKE', '%'.$dateNow.'%') 
 	            ->where(function ($query) { 
 	                $query->where('char_copyright_status', 'to submit') 
@@ -107,7 +119,8 @@ class ScheduleController extends Controller
 			'copySuccessCount' => $copySuccessCount, 'copyConflictCount' => $copyConflictCount,
 			'copyTotalCount' => $copyTotalCount, 'ptntToProcessCount' => $ptntToProcessCount, 
 			'ptntSuccessCount' => $ptntSuccessCount, 'ptntConflictCount' => $ptntConflictCount, 
-			'ptntTotalCount' => $ptntTotalCount, 'copyrightsDone' => $copyrightsDone]);
+			'ptntTotalCount' => $ptntTotalCount, 'copyrightsDone' => $copyrightsDone, 
+			'patentsDone' => $patentsDone]);
 	}
 
 	public function classifyToConflicts(Request $request, $id)
@@ -120,13 +133,23 @@ class ScheduleController extends Controller
 		}
 	}
 
-	public function getClassifyToConflicts($id)
+	public function getClassifyToConflicts($id, $ipr)
 	{
-		$copyright = Copyright::findOrFail($id);
-		$copyright->char_copyright_status = 'conflict';
-		if($copyright->save()) {
-			return redirect()->back()
-			->with('success', 'This request has been recorded as a failed application.');
+		if ($ipr == 'copyright') {
+			$copyright = Copyright::findOrFail($id);
+			$copyright->char_copyright_status = 'conflict';
+			if($copyright->save()) {
+				return redirect()->back()
+				->with('success', 'This request has been recorded as a failed application.');
+			}
+		} 
+		elseif($ipr == 'patent') {
+			$patent = Patent::findOrFail($id);
+			$patent->char_patent_status = 'conflict';
+			if($patent->save()) {
+				return redirect()->back()
+				->with('success', 'This request has been recorded as a failed application.');
+			}
 		}
 	}
 }

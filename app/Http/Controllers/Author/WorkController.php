@@ -24,9 +24,11 @@ class WorkController extends Controller
     public function viewMyProject($id, $title)
     {
         $requirements = Requirement::where('char_ipr', 'C')->get();
+        $patentRequirements = Requirement::where('char_ipr', 'P')->get();
         $viewProject = Copyright::findOrFail($id);
     	return view('author-pd.view-my-project', 
             ['viewProject' => $viewProject, 
-            'requirements' => $requirements]);
+            'requirements' => $requirements, 
+            'patentRequirements' => $patentRequirements]);
     }
 }

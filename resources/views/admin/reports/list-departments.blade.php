@@ -64,7 +64,7 @@
                   <th scope="col">Pending</th>
                   <th scope="col">To Submit</th>
                   <th scope="col">On Process</th>
-                  <th scope="col" class="text-danger">Conflicts</th>
+                  <th scope="col" class="text-danger">Application Issues</th>
                   <th scope="col" class="text-success">Copyrighted</th>
                 </tr>
               </thead>
@@ -125,7 +125,7 @@
                 <th scope="col">Pending</th>
                 <th scope="col">To Submit</th>
                 <th scope="col">On Process</th>
-                <th scope="col" class="text-danger">Conflicts</th>
+                <th scope="col" class="text-danger">Application Issues</th>
                 <th scope="col" class="text-success">Patented</th>
               </tr>
             </thead>

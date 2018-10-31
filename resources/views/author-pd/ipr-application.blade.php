@@ -109,9 +109,9 @@
 </div>
 
 {{-- FIX receipt issue when in first application --}}
-{{-- @if(Auth::user()->applicant->receipt->count() > 1)
+{{-- @if(Auth::user()->applicant->receipt->count() > 1) --}}
 	@include('author-pd.includes.receipt-form')
-@endif --}}
+{{-- @endif --}}
 
 <div class="card">
 	<div class="card-header">
