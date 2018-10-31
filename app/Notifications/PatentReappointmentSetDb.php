@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Carbon\Carbon;
 
-class ReappointmentSetDb extends Notification
+class PatentReappointmentSetDb extends Notification
 {
     use Queueable;
     public $schedule;
@@ -20,9 +19,7 @@ class ReappointmentSetDb extends Notification
      */
     public function __construct($schedule)
     {
-        $this->schedule = $schedule;
-        $this->schedule = Carbon::createFromFormat('Y-m-d H:i:s',$this->schedule)
-            ->format('M d, g:i A');
+        $this->schedule = date('M d, g:i A', strtotime($schedule));
     }
 
     /**
@@ -45,7 +42,7 @@ class ReappointmentSetDb extends Notification
     public function toMail($notifiable)
     {
         //
-    }   
+    }
 
     /**
      * Get the array representation of the notification.
@@ -56,7 +53,7 @@ class ReappointmentSetDb extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => '<b>Reappointment schedule</b> for your actual submission of <i>all requirements</i> for copyright registration: <b>'.$this->schedule.'</b>'
+            'data' => '<b>Reappointment schedule</b> for your actual submission of <i>all requirements</i> for patent registration: <b>'.$this->schedule.'</b>'
         ];
     }
 }

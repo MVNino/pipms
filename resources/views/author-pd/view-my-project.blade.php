@@ -232,7 +232,8 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your document is now on process.</p>
+                                                    <p><b>You've complied with the requirements</b>. 
+                                                        Your request now was on its process for copyright registration.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -294,7 +295,8 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your document is now on process.</p>
+                                                    <p><b>You've complied with the requirements</b>. 
+                                                        Your request now was on its process for copyright registration.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -383,6 +385,83 @@
                                             </div>
                                         </li>
 
+                                    @elseif($viewProject->patent->char_patent_status == 'to submit/conflict')    
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge default">
+                                                <img class="img-responsive" alt="user" src="/storage/images/profile/{{ Auth::user()->str_user_image_code }}" alt="img">
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title"><b>Application</b> for Patent Registration</h4>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>You've submitted your application form for patent registration.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
+                                        <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-hand-stop-o"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>Pending</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your Application is currently on pending status, and is waiting for approval</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-inverted">
+                                            <div class="timeline-badge success"><i class="fa fa-calendar-check-o"></i> </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>To submit</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_to_submit)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your requirement documents are scheduled to be submitted in the office for actual application.</p>
+                                                </div>
+                                            </div>
+                                        </li>  
+                                        <li>
+                                            <div class="timeline-badge primary"><i class="fa fa-calendar"></i></div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Patent Status: <b>To Submit / Reappointment</b></h4>
+                                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->created_at)->format('l, jS \of F Y g:i A')}}</small> </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>Your schedule for this reappointment: <b>{{ $viewProject->patent->dtm_schedule->format('M d, g:i A') }}</b></p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="bs-component">
+                                                  <h5 class="list-group-item-heading text-primary">List of requirements that you have</h5>
+                                                    <div class="list-group">
+                                                      @foreach($viewProject->patent->requirements as $reqList)
+                                                      <a class="list-group-item list-group-item-action" href="#">
+                                                        {{ $reqList->requirement->str_requirement }}
+                                                      </a>
+                                                      @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="bs-component">
+                                                  <h5 class="list-group-item-heading text-primary">Official list of requirements for patent</h5>
+                                                    <div class="list-group">
+                                                      @foreach($patentRequirements as $requirement)
+                                                      <a class="list-group-item list-group-item-action" href="#">
+                                                        {{ $requirement->str_requirement }}
+                                                      </a>
+                                                      @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                      @elseif($viewProject->patent->char_patent_status == 'on process') 
                                         <li class="timeline-inverted">
@@ -430,7 +509,8 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your document is now on process.</p>
+                                                    <p><b>You've complied with the requirements</b>. 
+                                                        Your request now was on its process for patent registration.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -481,7 +561,8 @@
                                                     <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$viewProject->patent->dtm_on_process)->format('l, jS \of F Y g:i A')}}</small> </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>Your document is now on process.</p>
+                                                    <p><b>You've complied with the requirements</b>. 
+                                                        Your request now was on its process for patent registration.</p>
                                                 </div>
                                             </div>
                                         </li>

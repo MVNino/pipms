@@ -20,12 +20,34 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-md-9">
-              <h4>Patent Details</h4>
+              <h5>Schedule: 
+              @if($patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
+                {{-- If today --}}
+                Today at {{ $patent->dtm_schedule->format('g:i A') }}
+              @elseif($patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
+                {{-- If tomorrow --}}
+                Tomorrow at {{ $patent->dtm_schedule->format('g:i A') }}
+              @else
+                {{ $patent->dtm_schedule->format('l, M d') }} at 
+                {{ $patent->dtm_schedule->format('g:i A') }}
+              @endif
+              </h5>
             </div>
             <div class="col-md-3">
-              <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
-                Checking of Requirements
-              </button>
+              @if(!$patent->dtm_start || ($patent->char_patent_status == 'to submit/conflict' && $patent->dtm_start))
+                {{-- Display timer button --}}
+                {!! Form::open(['id' => 'formTimer','action' => ['Transaction\ToSubmitController@toSubmitPatentTimer', $patent->int_id], 'method' => 'POST']) !!}
+                  @csrf
+                  {{ Form::hidden('_method', 'PUT') }}
+                  <button type="button" id="demoSwal" class="btn btn-primary mb-1 float-right">
+                    <i class="fa fa-clock-o"></i> Checking of Requirements
+                  </button>
+                {!! Form::close() !!}
+              @else
+                <button type="button" class="btn btn-primary mb-1 float-right" data-toggle="modal" data-target="#complianceModal">
+                  Checking of Requirements
+                </button>
+              @endif
             </div>
           </div>
         </div>
@@ -68,7 +90,7 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <strong>Date added: </strong> 
               @if($patent->created_at->diffInDays(Carbon\Carbon::now()) == 0)
                 @if($patent->created_at->diffInHours(Carbon\Carbon::now()) > 0)
@@ -89,20 +111,7 @@
               @elseif($patent->created_at->diffInDays(Carbon\Carbon::now()) == 2)
                 2 days ago at {{ $patent->created_at->format('h:i:A') }}
               @else
-                {{ $patent->created_at->format('M d Y')}}
-              @endif
-            </div>
-            <div class="col-md-6">           
-              <strong>Schedule: </strong>
-              @if($patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 0)
-                {{-- If today --}}
-                Today at {{ $patent->dtm_schedule->format('g:i A') }}
-              @elseif($patent->dtm_schedule->diffInDays(Carbon\Carbon::now()) == 1)
-                {{-- If tomorrow --}}
-                Tomorrow at {{ $patent->dtm_schedule->format('g:i A') }}
-              @else
-                {{ $patent->dtm_schedule->format('l, M d') }} at 
-                {{ $patent->dtm_schedule->format('g:i A') }}
+                {{ $patent->created_at->format('F d, Y')}}
               @endif
             </div>
           </div>
@@ -182,37 +191,79 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLongTitle">Checking of Requirements</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Checking of Requirements <br><small class="text-info">Time Started: {{ date('g:i A', strtotime($patent->dtm_start)) }}</small></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        {!! Form::open(['action' => ['Transaction\ToSubmitController@changePatentStatusToOnProcess', $patent->int_id], 
-        'method' => 'POST', 'autocomplete' => 'off']) !!}
-          @csrf
           <p class="text-muted">The applicant must have the following requirements 
             for their work's patent registration: </p>
           <div class="bs-component">
             <div class="list-group">
               @foreach($requirements as $requirement)
-              <p class="list-group-item list-group-item-action">
-                <i class="fa fa-fw fa-lg fa-check-circle text-info"></i> {{ $requirement->str_requirement }}
-              </p>
+              <div class="form-group form-check list-group-item list-group-item-action">
+                <!--Checkbox Markup-->
+                <div class="animated-checkbox">
+                  <label>
+                    <input name="checkRequirement_{{ $requirement->int_id }}" id="idRequirement_3" type="checkbox" checked><span class="label-text">{{ $requirement->str_requirement }}</span>
+                  </label>
+                </div>
+              </div>
               @endforeach
             </div>
           </div> 
       </div>
       <div class="modal-footer">
-          {{ Form::hidden('_method', 'PUT') }}
-          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Close</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Complied</button>
+        {!! Form::open(['id' => 'formOnProcess', 'action' => ['Transaction\ToSubmitController@changePatentStatusToOnProcess', $patent->int_id], 
+        'method' => 'POST', 'autocomplete' => 'off']) !!}
+          @csrf
+        {{ Form::hidden('_method', 'PUT') }}
+          <button type="button" id="btnOk" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Proceed</button>
         {!! Form::close() !!}
       </div>
     </div>
   </div>
 </div> 
 <!-- /Compliance modal -->
+
+{{-- Reschedule Modal --}}
+<div class="modal fade" id="reSchedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongReSched" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLongReSched">Appointment Reschedule <br><small class="text-info">Time Started: {{ date('g:i A', strtotime($patent->dtm_start)) }}</small>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ 
+      {!! Form::open(['action' => 'Transaction\ToSubmitController@patentIncompleteRequirements', 
+        'method' => 'POST', 'autocomplete' => 'off']) !!}
+        @csrf
+        <label>It seems the client didn't bring all the requirements. 
+          <br>Set date and time for his appointment reschedule.
+        </label>              
+        <input type="text" name="patentId" value="{{ $patent->int_id }}" hidden readonly>               
+        <div class="form-group">
+          <label class="form-label" for="demoDate">Date</label>
+          <input class="form-control" name="dateSchedule" id="demoDate" type="text" placeholder="Select Date" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="timeScheduleId">Time</label>
+          <input type="time" name="timeSchedule" id="timeScheduleId" class="form-control" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>Set</button>
+      </div>
+      {!! Form::close() !!} 
+    </div>
+  </div>
+</div>
+{{-- /Reschedule Modal --}}
 @empty
   @include('admin.includes.page-error')
 @endforelse
@@ -220,6 +271,48 @@
 
 @section('pg-specific-js')
 <!-- Page specific javascripts-->
+<script>
+  $('#btnOk').click((e) => {
+
+    if ($("#idRequirement_3").is(":checked")) {
+        // proceed record to on process
+          $("#formOnProcess").submit();
+    }
+    else {
+      e.preventDefault();
+      $('#complianceModal')
+          .modal('hide')
+          .on('hidden.bs.modal', function (e) {
+              $('#reSchedModal').modal('show');
+              $(this).off('hidden.bs.modal'); // Remove the 'on' event binding
+          });
+    }
+  });
+</script>
+
+{{-- Sweet Alert --}}
+<script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
+<script>
+$('#demoSwal').click(function(){
+  swal({
+    title: "Activate timer?",
+    text: "To proceed to the checking of requirements.",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonText: "Yes!",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm) {
+    if (isConfirm) {
+      $('#formTimer').submit();
+      swal("Timer Activated", "You can now proceed to the checking of requirements.", "success");
+    } else {
+      swal("Cancelled", "The action has been cancelled!", "error");
+    }
+  });
+});
+</script>
 <script type="text/javascript" src="{{ asset('vali/js/plugins/bootstrap-datepicker.min.js') }}"></script>
 <script>
 $('#demoDate').datepicker({

@@ -8,11 +8,13 @@ use App\Notifications\ReappointmentSet;
 use App\Notifications\ReappointmentSetDb;
 use App\Notifications\RequestOnProcess;
 use App\Notifications\RequestOnProcessDb;
+use App\Notifications\PatentReappointmentSetDb;
 use App\Notifications\PatentRequestOnProcess;
 use App\Notifications\PatentOnProcessDb;
 use App\Copyright;
 use App\CopyrightRequirementList;
 use App\Patent;
+use App\PatentRequirementList;
 use App\Requirement;
 use App\User;
 use Carbon\Carbon;
@@ -90,34 +92,34 @@ class ToSubmitController extends Controller
         // }
         // // walang 3, sa patent un
         // if ($request->checkRequirement_4) {
-        //     $reqList4 = new CopyrightRequirementList;
-        //     $reqList4->int_requirement_id = 4;
-        //     $reqList4->int_copyright_id = $request->copyrightId;
-        //     $reqList4->save();
+            $reqList4 = new CopyrightRequirementList;
+            $reqList4->int_requirement_id = 4;
+            $reqList4->int_copyright_id = $request->copyrightId;
+            $reqList4->save();
         // }
         // if ($request->checkRequirement_5) {
-        //     $reqList5 = new CopyrightRequirementList;
-        //     $reqList5->int_requirement_id = 5;
-        //     $reqList5->int_copyright_id = $request->copyrightId;
-        //     $reqList5->save();
+            $reqList5 = new CopyrightRequirementList;
+            $reqList5->int_requirement_id = 5;
+            $reqList5->int_copyright_id = $request->copyrightId;
+            $reqList5->save();
         // }
         // if ($request->checkRequirement_6) {
-        //     $reqList6 = new CopyrightRequirementList;
-        //     $reqList6->int_requirement_id = 6;
-        //     $reqList6->int_copyright_id = $request->copyrightId;
-        //     $reqList6->save();
+            $reqList6 = new CopyrightRequirementList;
+            $reqList6->int_requirement_id = 6;
+            $reqList6->int_copyright_id = $request->copyrightId;
+            $reqList6->save();
         // }
         // if ($request->checkRequirement_7) {
-        //     $reqList7 = new CopyrightRequirementList;
-        //     $reqList7->int_requirement_id = 7;
-        //     $reqList7->int_copyright_id = $request->copyrightId;
-        //     $reqList7->save();
+            $reqList7 = new CopyrightRequirementList;
+            $reqList7->int_requirement_id = 7;
+            $reqList7->int_copyright_id = $request->copyrightId;
+            $reqList7->save();
         // }
         // if ($request->checkRequirement_8) {
-        //     $reqList8 = new CopyrightRequirementList;
-        //     $reqList8->int_requirement_id = 8;
-        //     $reqList8->int_copyright_id = $request->copyrightId;
-        //     $reqList8->save();
+            $reqList8 = new CopyrightRequirementList;
+            $reqList8->int_requirement_id = 8;
+            $reqList8->int_copyright_id = $request->copyrightId;
+            $reqList8->save();
         // }
 
         // Set the schedule now
@@ -150,11 +152,13 @@ class ToSubmitController extends Controller
         $duration = $copyright->dtm_start->diffInMinutes(Carbon::now());
         $copyright->int_duration = $duration;
         $copyright->save();
+        
+        // send notif to author's account
+        $userId = $copyright->applicant->user->id;
+        User::findOrFail($userId)->notify(new RequestOnProcessDb);
         // send email
         \Notification::route('mail', $copyright->applicant->user->email)
             ->notify(new RequestOnProcess);
-        $userId = $copyright->applicant->user->id;
-        User::findOrFail($userId)->notify(new RequestOnProcessDb);
         $promptMsg = "Request in now on process to its copyright registration";
         return redirect(route('admin.today'))
             ->with('success', $promptMsg);
@@ -170,14 +174,65 @@ class ToSubmitController extends Controller
 
     public function viewToSubmitPatentRequest($id)
     {  
-        $patentCollection = $this->patent
-            ->viewToSubmit($this->status, $id);
-
+        $dateNow = Carbon::now()->format('Y-m-d');
+        $patent = Patent::findOrFail($id);
+        if($patent->char_patent_status == 'to submit/conflict' AND $patent->dtm_schedule->format('Y-m-d') == $dateNow) {
+            $patentCollection = $this->patent
+                ->viewToSubmitConflict($id);
+        } else {
+            $patentCollection = $this->patent
+                ->viewToSubmit($this->status, $id);
+        }
         $requirements = Requirement::where('char_ipr', 'P')->get();
 
         return view($this->viewPath.'view-patent-to-submit', 
             ['patentCollection' => $patentCollection, 
             'requirements' => $requirements]);
+    }
+
+    public function toSubmitPatentTimer(Request $request, $id)
+    {
+        $patent = Patent::findOrFail($id);
+        $patent->char_patent_status = 'to submit';
+        $patent->dtm_start = now();
+        if($patent->save()) {
+            return redirect()->back();
+        }
+    }
+
+
+    public function patentIncompleteRequirements(Request $request)
+    {
+        $this->validate($request, [
+            'dateSchedule' => 'required',
+            'timeSchedule' => 'required'
+        ]);
+        // save list of requirements
+        // if ($request->checkRequirement_3) {
+            $reqList3 = new PatentRequirementList;
+            $reqList3->int_requirement_id = 3;
+            $reqList3->int_patent_id = $request->patentId;
+            $reqList3->save();
+        // }
+
+        // Set the schedule now
+        $schedule = Carbon::createFromFormat('Y-m-d H:i', 
+            $request->dateSchedule.' '.$request->timeSchedule)
+            ->toDateTimeString();
+        $patent = Patent::findOrFail($request->patentId);
+        $patent->dtm_schedule = $schedule;
+        $duration = $patent->dtm_start->diffInMinutes(Carbon::now());
+        $patent->int_duration = $duration;
+        $patent->char_patent_status = 'to submit/conflict';
+        $patent->save();
+        $userId = $patent->copyright->applicant->user->id;
+        User::findOrFail($userId)->notify(new PatentReappointmentSetDb($schedule));
+        // pang email pero none muna
+        // \Notification::route('mail', $copyright->applicant->user->email)
+        //     ->notify(new ReappointmentSet($schedule));
+        $promptMsg = 'Re-appointment set!.';
+        return redirect('admin/schedule-today')
+            ->with('success', $promptMsg);
     }
 
     public function changePatentStatusToOnProcess($id)
@@ -186,14 +241,18 @@ class ToSubmitController extends Controller
         $patent = Patent::findOrFail($id);
         $patent->char_patent_status = 'on process';
         $patent->dtm_on_process = now();
+        $patent->dtm_end = now();
+        $duration = $patent->dtm_start->diffInMinutes(Carbon::now());
+        $patent->int_duration = $duration;
         if($patent->save()) {
+            // Send notification to author's account
+            $userId = $patent->copyright->applicant->user->id;
+            User::findOrFail($userId)->notify(new PatentOnProcessDb);  
             // send email
             \Notification::route('mail', $patent->copyright->applicant->user->email)
                 ->notify(new PatentRequestOnProcess);
-            $userId = $patent->copyright->applicant->user->id;
-            User::findOrFail($userId)->notify(new PatentOnProcessDb);  
-            $promptMsg = "Request in now on process to its copyright registration";
-            return redirect(route('transaction.patent-to-submit'))
+            $promptMsg = "Request in now on process to its patent registration";
+            return redirect(route('admin.today'))
                 ->with('success', $promptMsg);
         }
     }

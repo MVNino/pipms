@@ -73,7 +73,7 @@ Route::group(
 				->name('admin.today');
 			Route::put('schedule-today/{id}/conflict', 
 				'ScheduleController@classifyToConflicts');
-			Route::get('schedule-today/{id}/conflict', 
+			Route::get('schedule-today/{id}/{ipr}/conflict', 
 				'ScheduleController@getClassifyToConflicts');
 			Route::get('mails', 'MailController@viewMails');
 			Route::get('mails/{id}', 'MailController@viewMessage');
@@ -239,6 +239,10 @@ Route::group(
 						->name('transaction.patent-to-submit');
 					Route::get('patent/to-submit/{id}', 
 						'ToSubmitController@viewToSubmitPatentRequest');
+					Route::put('patent/to-submit/{id}/timer', 
+						'ToSubmitController@toSubmitPatentTimer');
+					Route::post('patent/to-submit/incomplete', 
+						'ToSubmitController@patentIncompleteRequirements');
 					Route::put('patent/change-to-submit-to-on-process/{id}', 
 						'ToSubmitController@changePatentStatusToOnProcess');
 					// On process
