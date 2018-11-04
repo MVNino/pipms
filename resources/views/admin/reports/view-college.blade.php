@@ -640,8 +640,7 @@
     },
 
     ajaxGetCollegeCopyrightContribToBranch: () => {
-     var urlPath = 'http://' + '127.0.0.1:8000' + 
-      '/admin/reports/college/'+$('#collegeId').text()+'/college_branch_ipr_chart_report';
+     var urlPath = '/admin/reports/college/'+$('#collegeId').text()+'/college_branch_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
@@ -694,8 +693,7 @@
     },
 
     ajaxGetMonthlyIPR: () => {
-     var urlPath = 'http://' + '127.0.0.1:8000' + 
-      '/admin/reports/college/'+$('#collegeId').text()+'/college_ipr_chart_report';
+     var urlPath = '/admin/reports/college/'+$('#collegeId').text()+'/college_ipr_chart_report';
       var request = $.ajax({
         method: 'GET',
         url: urlPath,
