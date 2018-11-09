@@ -542,6 +542,10 @@ Route::group(
 			Route::get('user-profile', 
 				'ProfileController@viewProfile')
 				->name('author.profile');
+			Route::get('branch-colleges/{branchId}', 
+				'ProfileController@extractColleges');
+			Route::get('college-departments/{collegeId}', 
+				'ProfileController@extractDepartments');
 			Route::put('{id}/edit-account', 
 				'ProfileController@updateAuthor');
 			Route::put('{id}/update-profile-pic', 

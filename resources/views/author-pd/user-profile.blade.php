@@ -74,29 +74,35 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Co-Authors</h4>
+          <h4 class="card-title">
+            <a href="#" id="coAuthor">
+              Co-Authors
+            </a>
+          </h4>
         </div>
-        @foreach(Auth::user()->applicant->coAuthors as $coAuthor)
-        <div class="card-body">
-          <ul class="list-unstyled team-members">
-            <li>
-              <div class="row">
-                <div class="col-md-2 col-2">
-                  <div class="avatar">
-                    <i class="fa fa-user fa-2x"></i>
+        <div id="coAuthorBody">
+            @foreach(Auth::user()->applicant->coAuthors as $coAuthor)
+            <div class="card-body">
+              <ul class="list-unstyled team-members">
+                <li>
+                  <div class="row">
+                    <div class="col-md-2 col-2">
+                      <div class="avatar">
+                        <i class="fa fa-user fa-2x"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-7 col-7">
+                      {{$coAuthor->str_first_name}} {{$coAuthor->str_middle_name}} 
+                      {{$coAuthor->str_last_name}} <br />
+                    </div>
+                    <div class="col-md-3 col-3 text-right">
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-7 col-7">
-                  {{$coAuthor->str_first_name}} {{$coAuthor->str_middle_name}} {{$coAuthor->str_last_name}}
-                  <br />
-                </div>
-                <div class="col-md-3 col-3 text-right">
-                </div>
-              </div>
-            </li>
-          </ul>
+                </li>
+              </ul>
+            </div>
+            @endforeach
         </div>
-        @endforeach
       </div>
     </div>
     <div class="col-md-8">
@@ -207,43 +213,34 @@
                 </div>          
               </div>
             </div>
-            {{-- <div class="row">
+            <div class="row">
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>Branch</label>
-                  <select data-placeholder="Select branch" class="custom-select" name="slctBranchId">
+                  <select data-placeholder="Select branch" id="branch" class="custom-select" name="slctBranchId">
                     <option selected>Select branch</option>
-                      <option>PUP Main</option>
+                    @foreach($branches as $branch)
+                      <option value="{{ $branch->int_id }}">
+                        {{ $branch->str_branch_name }}
+                      </option>
+                    @endforeach
                   </select>
                 </div>
               </div>
               <div class="col-md-4 px-1">
                 <div class="form-group">
                   <label>College</label>
-                  <select data-placeholder="Select college" class="custom-select" name="slctCollegeId">
-                    <option selected>Select college</option>
-                      <option>CCIS</option>
-                  </select>
+                  <div id="divCollege">
+                  </div>
                 </div>
               </div>
               <div class="col-md-4 pl-1">
                 <div class="form-group">
                   <label>Department</label>
-                  <select data-placeholder="Select department" class="custom-select" name="slctDepartmentId">
-                    @if($author->int_department_id == NULL)
-                      <option selected>Select department</option>
-                    @else
-                  <option value="{{ $author->int_department_id }}" selected>{{ $author->department->char_department_code }}</option>
-                    @endif
-                    @foreach($departments as $department)
-                      @if($department->int_id !== $author->int_department_id)
-                        <option value="{{ $department->int_id }}">{{ $department->char_department_code }}</option>
-                      @endif
-                    @endforeach
-                  </select>
+                  <div id="divDepartment"></div>
                 </div>
               </div>
-            </div> --}}
+            </div>
             <div class="row">
               <div class="update ml-auto mr-auto">
                 {{ Form::hidden('_method', 'PUT') }}
@@ -259,6 +256,77 @@
 @endsection
 
 @section('pg-specific-js')
+<script>
+$(() => {
+  
+  $('#coAuthorBody').hide();
+  let js = {
+    go: function() {
+      let collegeHtml = this.plainCollegeHtml();
+      $("#divCollege").html(`<div id="divCollege">${collegeHtml}</div>`);
+      let departmentHtml = this.plainDepartmentHtml();
+      $("#divDepartment").html(`<div id="divDepartment">${departmentHtml}</div>`);
+    },
+
+    plainCollegeHtml: function() {
+      return `<select data-placeholder="Select college" id="college" 
+                  class="custom-select" name="slctCollegeId">
+                <option selected>Select college</option>
+              </select>`;
+    },
+
+    plainDepartmentHtml: function() {
+      return `<select data-placeholder="Select department" id="department" 
+                  class="custom-select" name="slctDepartmentId">
+                <option selected>Select Department</option>
+              </select>`;
+    }
+  };
+  js.go();
+
+  $('#coAuthor').click(() => {
+    $('#coAuthorBody').toggle();
+  });
+
+  // if branch select menu is on change
+  $("#branch").change(() => {
+    let branchId = $("#branch").val();
+    $.get(`/author/branch-colleges/${branchId}`, (response) => {
+        collegeHtml = `<select data-placeholder="Select college" id="college" 
+                        class="custom-select" name="slctCollegeId">
+                      <option selected>Select college</option>`;
+              $.each(response, (i, college) => {
+                console.log(college.char_college_code);
+                collegeHtml += `<option value="${college.int_id}">
+                                  ${college.char_college_code}
+                                </option>`;
+              });
+        collegeHtml += `</select>`;
+        $('#divCollege').html(collegeHtml);
+    });
+  });
+
+  // if college select menu is on change
+  $("#college").change(() => {
+    let collegeId = $('#college').val();
+    console.log(collegeId);
+    $.get(`/author/college-departments/${collegeId}`, (response) => {
+      departmentHtml = `<select data-placeholder="Select department" id="department" 
+                        class="custom-select" name="slctDepartmentId">
+                      <option selected>Select department</option>`;
+              $.each(response, (i, department) => {
+                console.log(department.char_department_code);
+                departmentHtml += `<option value="${department.int_id}">
+                                  ${department.char_department_code}
+                                </option>`;
+              });
+        departmentHtml += `</select>`;
+        $('#divDepartment').html(departmentHtml);
+    });
+  });
+});
+</script>
+
 {{-- Sweet Alert --}}
 <script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>

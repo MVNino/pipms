@@ -23,8 +23,25 @@ class ProfileController extends Controller
     {
         $author = Applicant::findOrFail(auth()->user()->applicant->int_id);
         $departments = Department::all();
+        $branches = Branch::all();
         return view('author-pd.user-profile', ['author' => $author, 
-        'departments' => $departments]);
+        'departments' => $departments, 'branches' => $branches]);
+    }
+
+    public function extractColleges($branchId)
+    {
+        $colleges = College::where('int_branch_id', $branchId)
+                ->orderBy('char_college_code')
+                ->get();
+        return $colleges; 
+    }
+
+    public function extractDepartments($collegeId)
+    {
+        $departments = Department::where('int_college_id', $collegeId)
+                ->orderBy('char_department_code')
+                ->get();
+        return $departments; 
     }
 
     public function updateProfilePic(Request $request, $id)
