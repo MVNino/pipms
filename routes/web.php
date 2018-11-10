@@ -87,6 +87,8 @@ Route::group(
 				'ProfileController@updateProfilePic');
 			Route::put('{id}/update-profile', 
 				'ProfileController@updateUserProfile');
+			Route::put('{id}/change-password', 
+				'ProfileController@changePassword');
 		});
 
 

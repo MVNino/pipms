@@ -238,21 +238,23 @@
         <div class="tab-pane fade" id="user-change-password">
           <div class="tile user-settings">
             <h4 class="line-head">Change Password</h4>
-            {!! Form::open() !!}
+            {!! Form::open(['id' => 'formChangePass', 'action' => ['Admin\ProfileController@changePassword', Auth::user()->id], 'method' => 'POST', 
+                    'onsubmit' => "return confirm('Update your account password?')"]) !!}
               @csrf
               <div class="row mb-4">
                 <label>Current Password</label>
-                <input class="form-control" name="txtCurrentPassword" type="password" placeholder="Enter current password">
+                <input class="form-control" name="currentPassword" type="password" placeholder="Enter current password">
               </div>
               <div class="row mb-4">
                 <label>New Password</label>
-                <input class="form-control" name="txtNewPassword" type="password" placeholder="Enter new password">
+                <input class="form-control" name="newPassword" id="newPassword" type="password" placeholder="Enter new password">
               </div>
               <div class="row mb-4">
                 <label>Re-type New Password</label>
-                <input class="form-control" name="txtRetypeNewPassword" type="password" placeholder="Re-enter your new password">
+                <input class="form-control" name="reTypeNewPassword" id="reTypeNewPassword" type="password" placeholder="Re-enter your new password">
               </div>
-              <button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>
+              {{ Form::hidden('_method', 'PUT') }}
+              <button class="btn btn-primary" id="btnChangePwd"><i class="fa fa-fw fa-lg fa-check-circle"></i> Save</button>
             {!! Form::close() !!}
           </div>
         </div>
@@ -293,6 +295,22 @@
 @endsection
 
 @section('pg-specific-js')
+{{-- Page Custom Javascript --}}
+<script>
+  $('#btnChangePwd').click((e) => {
+    e.preventDefault();
+    let newPassword = $('#newPassword').val();
+    let reTypeNewPassword = $('#reTypeNewPassword').val();
+    if(newPassword == reTypeNewPassword) {
+      $('#formChangePass').submit();
+    } else {
+      alert('Your new password did not match!');
+      // Empty the value of textboxes
+      $('#newPassword').val("");
+      $('#reTypeNewPassword').val("");
+    }
+  });
+</script>
 {{-- Sweet Alert --}}
 <script src="{{ asset('vali/js/plugins/sweetalert.min.js') }}"></script>
 <script>
